@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tongyi Heat Pump — App &amp; Controller Menu Guide</title>
+<style>
+:root{
+  --bg:#0d1117;--bg2:#131a24;--card:#171f2b;--card2:#1c2735;--line:#26313f;--txt:#e6edf3;--mut:#8b97a7;
+  --acc:#33b1ff;--acc2:#2ea043;--warn:#f0883e;--danger:#f85149;--ok:#2ea043;--chip:#1f2937;--purple:#b07cff;
+  --radius:14px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Segoe UI",Roboto,system-ui,Arial,sans-serif;background:var(--bg);color:var(--txt);line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:var(--acc)}
+h1,h2,h3,h4{line-height:1.2;font-weight:700}
+.wrap{max-width:1180px;margin:0 auto;padding:0 18px}
+header.top{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:14px;padding:10px 18px}
+.brand{font-weight:800;font-size:17px;letter-spacing:.3px;white-space:nowrap}
+.brand small{display:block;font-weight:500;color:var(--mut);font-size:10.5px;letter-spacing:1px}
+nav.tabsnav{margin-left:auto;display:flex;gap:3px;flex-wrap:wrap}
+nav.tabsnav a{font-size:12px;color:var(--mut);text-decoration:none;padding:5px 9px;border-radius:8px;border:1px solid transparent}
+nav.tabsnav a:hover{color:var(--txt);background:var(--card);border-color:var(--line)}
+.hero{background:radial-gradient(900px 400px at 80% -10%,rgba(51,177,255,.16),transparent),linear-gradient(180deg,#0f1620,#0d1117);border-bottom:1px solid var(--line);padding:34px 0 26px}
+.hero h1{font-size:30px;margin:0 0 6px}
+.hero p.lead{color:var(--mut);max-width:820px;margin:0 0 18px;font-size:15px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.chip{background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:13px;display:flex;gap:8px;align-items:center}
+.chip b{color:var(--acc)}
+section{padding:32px 0;border-bottom:1px solid var(--line);scroll-margin-top:64px}
+section h2{font-size:22px;margin:0 0 4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+section h2 .num{font-size:13px;color:#0d1117;background:var(--acc);border-radius:8px;padding:3px 9px;font-weight:800}
+.sub{color:var(--mut);margin:0 0 20px;font-size:14px;max-width:900px}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:860px){.g2,.g3{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.card h3{margin:0 0 4px;font-size:16px}.card h4{margin:0 0 6px;font-size:14px;color:var(--acc)}
+.card p{margin:6px 0;font-size:13.5px;color:#cfd8e3}
+.card .meta{color:var(--mut);font-size:13px}
+.note{background:var(--card2);border-left:3px solid var(--acc);padding:12px 14px;border-radius:8px;font-size:13.5px;color:#cfd8e3;margin-top:14px}
+.note.warn{border-left-color:var(--warn)}.note.dng{border-left-color:var(--danger)}.note.ok{border-left-color:var(--ok)}
+.note b{color:#fff}
+.safety{background:linear-gradient(90deg,rgba(248,81,73,.14),rgba(240,136,62,.08));border:1px solid rgba(248,81,73,.4);border-radius:var(--radius);padding:16px 18px;margin:8px 0 0;display:flex;gap:14px;align-items:flex-start}
+.safety .ic{font-size:26px;line-height:1}.safety b{color:#ffb3ad}
+.safety ul{margin:8px 0 0;padding-left:18px;color:#f6d4cf;font-size:13.5px}.safety li{margin:3px 0}
+/* buttons row */
+.btnrow{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+.appbtn{display:flex;gap:11px;align-items:center;background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:11px 14px;font-size:13.5px;min-width:180px;flex:1}
+.appbtn .ic{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex:none;background:#0e1a24;border:1px solid var(--line)}
+.appbtn b{color:#fff;display:block}
+.appbtn span{color:var(--mut);font-size:12px}
+/* menu tree */
+.tree{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:920px){.tree{grid-template-columns:1fr}}
+.branch{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.branch>.bh{display:flex;gap:10px;align-items:center;padding:12px 15px;background:var(--card2);border-bottom:1px solid var(--line);font-weight:800}
+.branch>.bh .ic{font-size:18px}
+.branch ul{list-style:none;margin:0;padding:8px 8px 12px}
+.branch li{padding:6px 8px 6px 10px;font-size:13px;border-left:2px solid var(--line);margin:2px 0 2px 6px}
+.branch li b{color:#fff}
+.branch li .d{color:var(--mut);display:block;font-size:12px}
+.branch li.sub{margin-left:22px;border-left-color:#2c3b4d;font-size:12.5px}
+.badge{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.4px;padding:2px 7px;border-radius:999px;text-transform:uppercase;vertical-align:middle}
+.badge.user{background:rgba(46,160,67,.16);color:#7ee08a;border:1px solid rgba(46,160,67,.4)}
+.badge.inst{background:rgba(51,177,255,.16);color:#8ecbff;border:1px solid rgba(51,177,255,.4)}
+.badge.fact{background:rgba(240,136,62,.16);color:#f0b894;border:1px solid rgba(240,136,62,.4)}
+/* screenshot */
+.shot{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#000}
+.shot img{display:block;width:100%;cursor:zoom-in}
+.shot .cap{font-size:12px;color:var(--mut);padding:8px 11px;background:var(--card2);border-top:1px solid var(--line)}
+.shotgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+/* tables */
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+.tbl th{background:var(--card2);text-align:left;padding:10px 11px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);border-bottom:2px solid var(--line);position:sticky;top:0}
+.tbl td{padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl tbody tr:hover{background:var(--card2)}
+.tbl code,code.k{font-family:"Cascadia Code",Consolas,monospace;color:#8ecbff;background:#0e1a24;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:12.5px;white-space:nowrap}
+.val{font-weight:700;color:#fff;white-space:nowrap}
+.tblwrap{border:1px solid var(--line);border-radius:var(--radius);overflow:auto;max-height:none}
+/* param reference */
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 14px}
+.toolbar input{background:var(--card);border:1px solid var(--line);color:var(--txt);padding:10px 14px;border-radius:10px;font-size:14px;min-width:230px;flex:1}
+.gfilter{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.gfilter button{background:var(--card);border:1px solid var(--line);color:var(--mut);padding:6px 11px;border-radius:999px;cursor:pointer;font-size:12px;font-weight:600;transition:.12s}
+.gfilter button:hover{color:var(--txt)}
+.gfilter button.active{background:var(--acc);color:#06121f;border-color:var(--acc)}
+table.pref{width:100%;border-collapse:collapse;font-size:13px;background:var(--card)}
+table.pref th{background:var(--card2);text-align:left;padding:11px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);border-bottom:2px solid var(--line)}
+table.pref td{padding:10px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+table.pref tbody tr:hover{background:var(--card2)}
+.grouphdr td{background:#10202e !important;font-weight:800;color:var(--acc);text-transform:uppercase;letter-spacing:.6px;font-size:12px}
+.grouphdr .gb{font-size:12px;color:#cfd8e3;text-transform:none;letter-spacing:0;font-weight:500}
+.pref code{font-family:"Cascadia Code",Consolas,monospace;color:#8ecbff;font-size:12.5px;white-space:nowrap}
+.pref .pv{font-weight:700;color:#fff;white-space:nowrap}
+.mono{font-family:"Cascadia Code",Consolas,monospace}
+/* glossary */
+.glwrap{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+/* lightbox */
+.lb{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+.lb.show{display:flex}
+.lb img{max-width:96%;max-height:96%;border-radius:8px}
+.lb .x{position:absolute;top:16px;right:22px;color:#fff;font-size:34px;cursor:pointer;font-weight:300}
+footer{padding:28px 0 60px;color:var(--mut);font-size:12.5px}
+footer h3{color:var(--txt);font-size:14px}
+.kbd{font-family:monospace;background:#0e1a24;border:1px solid var(--line);border-radius:5px;padding:1px 7px;color:#fff}
+.legend-inline{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--mut);margin:10px 0 0}
+.legend-inline span{display:flex;gap:6px;align-items:center}
+</style>
+</head>
+<body>
+
+<header class="top"><div class="wrap">
+  <div class="brand">Tongyi Heat Pump<small>APP &amp; CONTROLLER MENU GUIDE</small></div>
+  <nav class="tabsnav">
+    <a href="#intro">Intro</a><a href="#buttons">Buttons</a><a href="#map">Menu map</a>
+    <a href="#home">Home</a><a href="#query">Query</a><a href="#set">Settings</a>
+    <a href="#advanced">Advanced</a><a href="#params">Parameters</a><a href="#status">Status</a>
+    <a href="#glossary">Glossary</a><a href="index.html">← Wiring guide</a>
+  </nav>
+</div></header>
+
+<div class="hero"><div class="wrap">
+  <h1>Tongyi App &amp; Controller — Menu Guide</h1>
+  <p class="lead">A plain-English walkthrough of every menu in the <b>Handheld Huilian / Huilian Smart</b> app
+  (<span class="mono">com.punp.palmtophuilian</span>) and the matching wired controller for the
+  <b>Tongyi TAHMV12S&nbsp;R</b> 12&nbsp;kW heat pump + <b>EFJ01-A01</b> hydrobox. Menu names and structure are
+  identical on the phone app and the wall controller — the app is just a remote copy of the same screens.
+  Every parameter value shown here was read from your own unit's screenshots.</p>
+  <div class="chips">
+    <span class="chip"><b>16</b> parameter groups</span>
+    <span class="chip"><b>300+</b> parameters decoded</span>
+    <span class="chip">Advanced password&nbsp;<b>123456</b></span>
+    <span class="chip"><span class="badge user">User</span>&nbsp;<span class="badge inst">Installer</span>&nbsp;<span class="badge fact">Factory</span></span>
+  </div>
+</div></div>
+
+<main class="wrap">
+
+<!-- ===================== INTRO ===================== -->
+<section id="intro">
+  <h2><span class="num">1</span> What this app is</h2>
+  <p class="sub">The <b>Huilian Smart</b> phone app pairs to the heat pump over Wi-Fi and mirrors the wired controller
+  screen-for-screen. Anything below can be done on either device. There are three depths of menu, colour-coded
+  throughout this guide by who they are meant for.</p>
+  <div class="grid g3">
+    <div class="card"><h4>🟢 User level</h4><p><span class="badge user">User</span> Day-to-day: turn zones on/off, set
+    temperatures, hot water, timers, holiday mode. Safe to change anytime. No password.</p></div>
+    <div class="card"><h4>🔵 Installer level</h4><p><span class="badge inst">Installer</span> Behind
+    <b>Advanced&nbsp;Para.</b> (password <b>123456</b>): how the system is built — zones, pump, backup heaters,
+    DHW priority, sensors, smart grid. Change only when commissioning.</p></div>
+    <div class="card"><h4>🟠 Factory level</h4><p><span class="badge fact">Factory</span> Compressor, fan, expansion-valve,
+    defrost and protection calibration. <b>Do not change</b> — wrong values can damage the compressor or void warranty.</p></div>
+  </div>
+  <div class="safety"><div class="ic">⚠️</div><div>
+    <b>Before you touch Advanced settings</b>
+    <ul>
+      <li>The <span class="badge fact">Factory</span> groups (Compressor, Fan, EEV/EEVm/EEVs, Defrost, Protection, Working Frequency, Testing) are calibration constants. The values listed are <b>this unit's defaults for reference only</b>.</li>
+      <li>When you leave Advanced settings, scroll to the bottom and press <b>Logout</b> so the password is required again next time.</li>
+      <li>The app can only reach the unit while both phone and controller are on the same Wi-Fi / cloud account.</li>
+    </ul>
+  </div></div>
+</section>
+
+<!-- ===================== BUTTONS ===================== -->
+<section id="buttons">
+  <h2><span class="num">2</span> The six navigation buttons</h2>
+  <p class="sub">The controller (and the app's bottom bar) has six fixed buttons. Learn these and you can reach everything.</p>
+  <div class="btnrow">
+    <div class="appbtn"><div class="ic">🔍</div><div><b>Query</b><span>Faults · live status · version · energy</span></div></div>
+    <div class="appbtn"><div class="ic">❄️/☀️</div><div><b>Mode</b><span>Pick Auto / Cool / Heat</span></div></div>
+    <div class="appbtn"><div class="ic">⚙️</div><div><b>Settings</b><span>Everything else (the "Set menu")</span></div></div>
+    <div class="appbtn"><div class="ic">⏻</div><div><b>On / Off</b><span>Switch the selected zone or DHW</span></div></div>
+    <div class="appbtn"><div class="ic">↩︎</div><div><b>Return</b><span>Back one screen</span></div></div>
+    <div class="appbtn"><div class="ic">🏠</div><div><b>Home</b><span>Jump to the main screen</span></div></div>
+  </div>
+</section>
+
+<!-- ===================== MENU MAP ===================== -->
+<section id="map">
+  <h2><span class="num">3</span> Complete menu map</h2>
+  <p class="sub">The full navigation tree of the app / controller. Three top-level areas hang off the buttons above:
+  <b>Query</b> (🔍), <b>Mode</b>, and the <b>Set menu</b> (⚙️). The Set menu is where almost everything lives, ending
+  in <b>Advanced Para.</b> which unlocks the 16 parameter groups documented further down.</p>
+  <div class="tree">
+    <div class="branch">
+      <div class="bh"><span class="ic">🔍</span> Query menu <span class="badge user">User</span></div>
+      <ul>
+        <li><b>Current Error</b><span class="d">Active faults right now</span></li>
+        <li><b>Status</b><span class="d">Live sensor &amp; output readout</span></li>
+        <li><b>Version</b><span class="d">Board / controller firmware</span></li>
+        <li><b>ECM</b><span class="d">Energy metering (24h / 30d / 12m / 10y)</span></li>
+        <li><b>EEBUS</b><span class="d">Huawei green-power link (optional)</span></li>
+      </ul>
+    </div>
+    <div class="branch">
+      <div class="bh"><span class="ic">🌡️</span> Mode selection <span class="badge user">User</span></div>
+      <ul>
+        <li><b>Auto</b><span class="d">Unit picks heat or cool by ambient</span></li>
+        <li><b>Cool</b><span class="d">Cooling only</span></li>
+        <li><b>Heat</b><span class="d">Heating only</span></li>
+      </ul>
+      <div class="bh" style="border-top:1px solid var(--line)"><span class="ic">➕</span> Also on Home</div>
+      <ul>
+        <li>Zone <b>On/Off</b> + <b>temperature slider</b></li>
+        <li>Hot-water <b>On/Off</b> + target temp</li>
+      </ul>
+    </div>
+    <div class="branch">
+      <div class="bh"><span class="ic">⚙️</span> Set menu <span class="badge user">User</span></div>
+      <ul>
+        <li><b>Display Setting</b><span class="d">Language · brightness · lock · timeout · key sound</span></li>
+        <li><b>Time &amp; Date</b></li>
+        <li><b>Timer</b>
+          <ul style="padding:2px 0 0">
+            <li class="sub">Timer On/Off → Daily / Weekly / Cancel</li>
+            <li class="sub">Sterilization Timer</li>
+            <li class="sub">Silent Timer (Level 1 / 2)</li>
+            <li class="sub">DHW Pump</li>
+          </ul>
+        </li>
+        <li><b>Wi-Fi</b><span class="d">Pair / Reset Wi-Fi (Smart mode)</span></li>
+        <li><b>User Parameters</b><span class="d">Setpoints (also in Advanced group 01)</span></li>
+        <li><b>Manual Defrost</b></li>
+        <li><b>History Errors</b></li>
+        <li><b>Force Tank Heater / Force DHW / Force I-heat / Force AHS / Floor Dry-up</b></li>
+        <li><b>Holiday Mode</b><span class="d">Away / Home</span></li>
+        <li><b>Advanced Para.</b> <span class="badge inst">123456</span>
+          <ul style="padding:2px 0 0">
+            <li class="sub"><b>Parameter Settings</b> → 16 groups ↓</li>
+            <li class="sub">Manual Test · Modify Password · Reset</li>
+            <li class="sub">Ability / Pump / Cool / Heat / Hotwater Test</li>
+            <li class="sub">Recycle Refrig · Floor Preheat · Floor Dryup Timer</li>
+            <li class="sub">Logout</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== HOME ===================== -->
+<section id="home">
+  <h2><span class="num">4</span> Home screen &amp; daily use</h2>
+  <p class="sub">The main screen shows one tile per active zone plus a hot-water tile. Tap the number to slide the
+  target temperature; tap the power icon to switch that zone. Which layout you see depends on how the system was
+  configured (parameter <code class="k">35.PANEL_CTRL</code> / <code class="k">WIRE_SW_TYPE</code>).</p>
+  <div class="grid g2">
+    <div class="card"><h4>The four possible home layouts</h4>
+      <p><b>1 · Single zone (water) + hot water</b> — one water-temperature zone and DHW. The simplest.</p>
+      <p><b>2 · Single zone (room) + hot water</b> — the controller reads room temperature and runs to a room target. The controller must be mounted indoors.</p>
+      <p><b>3 · Dual zone (A water + B room) + hot water</b> — e.g. radiators on A, underfloor room-temp on B.</p>
+      <p><b>4 · Dual zone (A water + B water) + hot water</b> — two water-temperature loops.</p>
+      <p class="meta">Heating can run both zones; cooling only zone A. With an external room thermostat wired in, the unit only does water-temperature control.</p>
+    </div>
+    <div class="card"><h4>Status icons you may see on Home</h4>
+      <p>🔒 <b>Screen lock</b> — tap to unlock before operating (set under Display).</p>
+      <p>⏱️ <b>Timer active</b> — a daily/weekly schedule is in effect.</p>
+      <p>🔇 <b>Silent</b> — quiet mode is running (fan/compressor capped).</p>
+      <p>🏝️ <b>Holiday</b> — away or home holiday program active.</p>
+      <p>♨️ <b>Sterilization</b> — anti-Legionella cycle running.</p>
+      <div class="note">To make hot water at all, <code class="k">17.HOT_WATER</code> must be <b>ON</b>, then tap the hot-water tile on Home.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== QUERY ===================== -->
+<section id="query">
+  <h2><span class="num">5</span> Query menu 🔍 <span class="badge user">User</span></h2>
+  <p class="sub">Read-only diagnostics — nothing here changes how the unit runs.</p>
+  <div class="grid g2">
+    <div class="card"><h4>Current Error &amp; History Errors</h4>
+      <p><b>Current Error</b> lists faults happening now; tap one for detail. Faults that meet the reset condition can be cleared here.</p>
+      <p><b>History Errors</b> (under the Set menu) keeps a log of past faults with time stamps — useful for service calls. Clearing it wipes the whole log, so be careful.</p>
+    </div>
+    <div class="card"><h4>Version</h4>
+      <p>Shows the mainboard and controller firmware strings. Service will ask for these when diagnosing. Example families on this platform: mainboard <span class="mono">X1.HL087A…</span>, controller <span class="mono">X1.HD016A…</span></p>
+    </div>
+    <div class="card"><h4>ECM — Energy metering</h4>
+      <p>History of electricity used and heat delivered over the past <b>24 h / 30 d / 12 m / 10 y</b>, with efficiency. Abbreviations:</p>
+      <div class="tblwrap" style="margin-top:8px"><table class="tbl">
+        <tr><td><code>CQ / HQ / WQ</code></td><td>Cooling / Heating / Hot-water <b>capacity delivered</b></td></tr>
+        <tr><td><code>CP / HP / WP</code></td><td>Electricity <b>consumed</b> in Cool / Heat / Hot-water mode</td></tr>
+        <tr><td><code>EER / COP / W-COP</code></td><td>Efficiency ratio for Cool / Heat / Hot-water</td></tr>
+      </table></div>
+      <p class="meta" style="margin-top:8px">Units scale with the window: 0.1 kWh per hour/day, 1 kWh per month, 10 kWh per year.</p>
+    </div>
+    <div class="card"><h4>EEBUS (optional)</h4>
+      <p>Links the heat pump to a <b>Huawei SmartAssistant / FusionSolar</b> system so it prefers free/cheap PV electricity (the "OHPCF" function). Needs the EEBUS module and specific firmware. Note: it <b>conflicts with Smart Grid</b> — enable only one.</p>
+    </div>
+  </div>
+  <div class="note ok" style="margin-top:16px"><b>Status</b> gets its own decoded section below (§8) because it lists every live sensor and output the unit reads.</div>
+</section>
+
+<!-- ===================== SET MENU ===================== -->
+<section id="set">
+  <h2><span class="num">6</span> Set menu ⚙️ <span class="badge user">User</span></h2>
+  <p class="sub">Everything that isn't a parameter number. These are the items reached directly from the gear icon.</p>
+  <div class="grid g3">
+    <div class="card"><h4>Display Setting</h4><p>Language, screen brightness, <b>screen-lock</b> on/off, screen timeout (set <b>0</b> = always on), and key-press sound.</p></div>
+    <div class="card"><h4>Time &amp; Date</h4><p>Set clock and calendar. Timers and schedules rely on this being correct.</p></div>
+    <div class="card"><h4>Timer → On/Off</h4><p><b>Daily</b> (up to 5 groups: start, end, mode, temp) or <b>Weekly</b> schedule; <b>Cancel Timer</b> clears all on/off timings at once. An invalid group (same start/end, crossing midnight, or out-of-range temp) is ignored.</p></div>
+    <div class="card"><h4>Timer → Sterilization</h4><p>Schedule the weekly anti-Legionella heat-up (e.g. Fri 21:00). The temperature/duration come from user params 14–16. Manual on/off overrides the timer.</p></div>
+    <div class="card"><h4>Timer → Silent</h4><p>Quiet mode on a schedule, <b>Level 1</b> or <b>Level 2</b> (L2 caps fan/compressor speed lower than L1). Two time groups.</p></div>
+    <div class="card"><h4>Timer → DHW Pump</h4><p>Schedules the domestic-hot-water <b>recirculation pump</b> so a hot tap is instant during set windows.</p></div>
+    <div class="card"><h4>Wi-Fi</h4><p>Shows Wi-Fi status, MAC and pairing method. To (re)pair: tap <b>Reset Wi-Fi</b> → wait for "distributing in <b>Smart mode</b>" → finish pairing in the app. (Re-pairing drops the old account's access.)</p></div>
+    <div class="card"><h4>User Parameters</h4><p>A shortcut to the everyday setpoints (mode, cool/heat/room/hot-water targets). Same values as Advanced group <b>01</b> below.</p></div>
+    <div class="card"><h4>Manual Defrost</h4><p>Forces a defrost <b>if</b> the module is running and coil/water conditions allow; otherwise it stays as-is.</p></div>
+    <div class="card"><h4>Force Tank Heater (T-heat)</h4><p>Forces the DHW tank's electric element on to top up hot water — even while the unit is cooling/heating the house.</p></div>
+    <div class="card"><h4>Force I-heat</h4><p>Forces the space-heating <b>backup electric heater</b> (IBH) on. Use for emergency heat or testing.</p></div>
+    <div class="card"><h4>Force Hot Water</h4><p>Forces the whole system into DHW-making mode (compressor + all heaters focus on the tank).</p></div>
+    <div class="card"><h4>Force AHS</h4><p>Forces the <b>external/auxiliary heat source</b> (e.g. a boiler) on in heating or hot-water mode.</p></div>
+    <div class="card"><h4>Floor Dry-up</h4><p>Screed-curing program for new underfloor heating. Only available with dual/three-zone control and the unit in standby.</p></div>
+    <div class="card"><h4>Holiday Mode</h4><p><b>Away</b>: minimal frost protection while you're gone (set start/end + which of heat/DHW/sterilization stay active). <b>Home</b>: a holiday timetable that overrides normal timers for a date range.</p></div>
+  </div>
+</section>
+
+<!-- ===================== ADVANCED ===================== -->
+<section id="advanced">
+  <h2><span class="num">7</span> Advanced Para. 🔵 <span class="badge inst">password 123456</span></h2>
+  <p class="sub">Set menu → <b>Advanced Settings</b> → enter <b>123456</b>. This unlocks the installer/factory area. Besides
+  <b>Parameter Settings</b> (the 16 groups below), it holds the service tools:</p>
+  <div class="grid g3">
+    <div class="card"><h4>Parameter Settings</h4><p>The 16 parameter groups — see §8 for the full decoded reference.</p></div>
+    <div class="card"><h4>Manual Test</h4><p>Drive individual components (valves, pump, heaters) to verify wiring.</p></div>
+    <div class="card"><h4>Ability / Pump / Cool / Heat / Hotwater Test</h4><p>Canned commissioning test runs for each function.</p></div>
+    <div class="card"><h4>Recycle Refrig.</h4><p>Pump-down / refrigerant-recovery assist for servicing.</p></div>
+    <div class="card"><h4>Floor Preheat &amp; Floor Dryup Timer</h4><p>Gentle warm-up and the timed screed-drying program for underfloor.</p></div>
+    <div class="card"><h4>Modify Password · Reset · Logout</h4><p>Change the installer password, reset parameters, and <b>Logout</b> to re-lock the menu.</p></div>
+  </div>
+  <div class="note warn"><b>How the group picker works:</b> at the top of Parameter Settings tap <b>Parameters Type → Select…</b>
+  and choose a group (01–16) from the wheel. Each group then shows a grid of numbered cards; tap a card to open its
+  value picker (e.g. a mode list, or a number pad). <b>Confirm</b> to save.</div>
+</section>
+
+<!-- ===================== PARAMETERS ===================== -->
+<section id="params">
+  <h2><span class="num">8</span> Parameter reference — all 16 groups</h2>
+  <p class="sub">Every parameter read from your unit's screenshots, decoded. <b>"This install"</b> is the value your unit
+  currently holds. Search by code or meaning, or filter to one group. Colour badges show who each group is for.</p>
+
+  <div class="shotgrid" style="margin-bottom:18px">
+    <div class="shot"><img src="assets/app/group_selector.jpg" alt="Group selector"><div class="cap">Group picker — the 16 Parameters Types</div></div>
+    <div class="shot"><img src="assets/app/user_params.jpg" alt="User parameters grid"><div class="cap">Group 01 · User Parameters grid</div></div>
+    <div class="shot"><img src="assets/app/system_params.jpg" alt="System parameters"><div class="cap">Group 02 · System Parameters</div></div>
+    <div class="shot"><img src="assets/app/value_picker.jpg" alt="Value picker"><div class="cap">Tapping a card → value picker (PUMPf_CTRL)</div></div>
+  </div>
+
+  <div class="toolbar">
+    <input id="psearch" type="text" placeholder="Search code or meaning — e.g. hot water, sterilization, PUMP, TWout…">
+  </div>
+  <div class="gfilter" id="gfilter"></div>
+  <div class="tblwrap">
+    <table class="pref"><thead>
+      <tr><th style="width:230px">Code</th><th style="width:110px">This install</th><th>What it means</th></tr>
+    </thead><tbody id="pbody"></tbody></table>
+  </div>
+  <div class="legend-inline">
+    <span><span class="badge user">User</span> safe to change</span>
+    <span><span class="badge inst">Installer</span> commissioning only</span>
+    <span><span class="badge fact">Factory</span> do not change</span>
+  </div>
+</section>
+
+<!-- ===================== STATUS ===================== -->
+<section id="status">
+  <h2><span class="num">9</span> Status query — live readout decoded</h2>
+  <p class="sub">Query → <b>Status</b> lists every temperature the unit measures and every output it drives, split into
+  <b>System Status</b>, <b>Module Status</b> and <b>Compressor</b>. An arrow on the right of a row means that output is
+  currently on. Values below are the example readings from your screenshots.</p>
+  <div class="grid g2">
+    <div>
+      <div class="shot" style="max-width:320px;margin:0 auto 16px"><img src="assets/app/status_query.jpg" alt="Status query"><div class="cap">Status query — System &amp; Module status</div></div>
+    </div>
+    <div>
+      <div class="tblwrap"><table class="tbl">
+        <thead><tr><th>Label</th><th>Meaning</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td colspan="3" class="grouphdr" style="background:#10202e;color:var(--acc);font-weight:800;padding:8px 11px">SYSTEM STATUS</td></tr>
+          <tr><td><code>TR</code></td><td>Room temperature</td><td class="val">26.9 °C</td></tr>
+          <tr><td><code>TA'</code></td><td>Outdoor ambient temp</td><td class="val">39.1 °C</td></tr>
+          <tr><td><code>THWt</code></td><td>Hot-water tank temp</td><td class="val">30.6 °C</td></tr>
+          <tr><td><code>TWout2_ac</code></td><td>A/C (heating/cooling) water temp</td><td class="val">28.9 °C</td></tr>
+          <tr><td><code>TWin_ac</code></td><td>A/C return water temp</td><td class="val">27.0 °C</td></tr>
+          <tr><td><code>S3V1 / S3V2 / S3V3</code></td><td>3-way solenoid valve outputs (DHW / zone / mix)</td><td class="val">ON / OFF / ON</td></tr>
+          <tr><td colspan="3" class="grouphdr" style="background:#10202e;color:var(--acc);font-weight:800;padding:8px 11px">MODULE STATUS (00#)</td></tr>
+          <tr><td><code>TWin1 / TWout1</code></td><td>Plate-exchanger water in / out</td><td class="val">27.0 / 28.8 °C</td></tr>
+          <tr><td><code>TWout2</code></td><td>Module water outlet</td><td class="val">28.8 °C</td></tr>
+          <tr><td><code>TA</code></td><td>Module ambient temp</td><td class="val">39.1 °C</td></tr>
+          <tr><td><code>PUMPf.SET / .CUR</code></td><td>Pump target speed / actual flow</td><td class="val">0 rpm / 0 L/H</td></tr>
+          <tr><td><code>PUMPf.PWM.OUT / .IN</code></td><td>Pump PWM out / feedback %</td><td class="val">98 / 100 %</td></tr>
+          <tr><td><code>PUMPf.ERR</code></td><td>Pump error code (0 = OK)</td><td class="val">5</td></tr>
+          <tr><td colspan="3" class="grouphdr" style="background:#10202e;color:var(--acc);font-weight:800;padding:8px 11px">1# COMPRESSOR</td></tr>
+          <tr><td><code>EEVm.CUR</code></td><td>Main expansion-valve opening (steps)</td><td class="val">336</td></tr>
+          <tr><td><code>TF</code></td><td>Outdoor coil (fin) temp</td><td class="val">31.6 °C</td></tr>
+          <tr><td><code>TD / TS</code></td><td>Compressor discharge / suction temp</td><td class="val">31.8 / 32.5 °C</td></tr>
+          <tr><td><code>TES</code></td><td>Economizer / evaporator sensor temp</td><td class="val">30.2 °C</td></tr>
+          <tr><td><code>PRSs</code></td><td>Suction pressure</td><td class="val">9.8 bar</td></tr>
+          <tr><td><code>SHSV / SHPV.EEVm</code></td><td>Superheat, suction / discharge side</td><td class="val">2.0 / 2.3 °C</td></tr>
+          <tr><td><code>TAFD</code></td><td>Discharge-defrost sensor (−99.9 = not fitted)</td><td class="val">−99.9 °C</td></tr>
+          <tr><td><code>COMPf.SET / .CUR</code></td><td>Compressor target / actual speed</td><td class="val">0.0 rps</td></tr>
+          <tr><td><code>INVT.Vout/Iout/Vin/Iin</code></td><td>Inverter output/input volts &amp; amps</td><td class="val">0.0</td></tr>
+          <tr><td><code>INVT.T / .INFO</code></td><td>Inverter module temp / status code</td><td class="val">39.4 °C / 0</td></tr>
+          <tr><td><code>FAN1.SET / .CUR</code></td><td>Fan target / actual speed</td><td class="val">0 rpm</td></tr>
+          <tr><td><code>R290.ERR</code></td><td>R290 gas-sensor error (0 = OK)</td><td class="val">0</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== GLOSSARY ===================== -->
+<section id="glossary">
+  <h2><span class="num">10</span> Code glossary</h2>
+  <p class="sub">The prefixes and abbreviations that show up across every menu. Search to jump.</p>
+  <div class="toolbar"><input id="glsearch" type="text" placeholder="Search the glossary — e.g. EEV, pump, RV, TWout…"></div>
+  <div class="glwrap"><table class="pref"><thead><tr><th style="width:150px">Code</th><th style="width:230px">Name</th><th>Meaning</th></tr></thead><tbody id="glbody"></tbody></table></div>
+</section>
+
+</main>
+
+<footer><div class="wrap">
+  <h3>Sources</h3>
+  <p class="src">Menu structure &amp; function descriptions: <span class="mono">Service Manual (R290) V2</span>, Part 3
+  (User Interface Structure §2.2, Query §3.5–3.9, Settings §3.11). Parameter values &amp; live status: 41 in-app
+  screenshots of <span class="mono">com.punp.palmtophuilian</span> (Huilian Smart) taken on the installed unit.
+  Sensor/valve/heater decodes shared with the <a href="index.html">Wiring &amp; Controller Guide</a>.</p>
+  <p class="src">Parameter meanings for the <span class="badge fact">Factory</span> calibration groups are engineering
+  interpretations of the code names; the listed numbers are this unit's factory defaults, provided for reference — not
+  tuning advice. When in doubt, leave them alone and contact Initra Energija&nbsp;d.o.o. service.</p>
+</div></footer>
+
+<div class="lb" id="lightbox"><span class="x">&times;</span><img id="lbimg" alt=""></div>
+
+<script>
+/* ============ PARAMETER DATA ============ */
+/* format per row: "CODE | value | meaning"  (split on ' | ') */
+const GROUPS=[
+{n:'01',name:'User Parameters',aud:'user',rows:`
+01.CTRL_MODE | Heat | Current operating mode: Heat / Cool / Auto. The everyday setting.
+02.COOL_TEMP_SET | 12 °C | Target cooling water (flow) temperature, zone A.
+03.HEAT_TEMP_SET | 33 °C | Target heating water (flow) temperature, zone A. Keep low (30–40) for underfloor.
+04.HOT_WATER_TEMP_SET | 67 °C | Target hot-water tank (DHW) temperature.
+05.COOL_ROOM_TEMP_SET | 26 °C | Target room temperature in cooling (when the unit controls room, not water).
+06.HEAT_ROOM_TEMP_SET | 20 °C | Target room temperature in heating.
+09.HEAT_TEMP_SET_B | 60 °C | Zone B heating water target (2nd zone, e.g. radiators).
+10.HEAT_ROOM_TEMP_SET_B | 29 °C | Zone B target room temperature (heating).
+11.POWER_MODE | AUTO | Capacity mode: Standard / Strong / Energy-saving / Auto.
+13.STERILIZATION | OFF | Enable the timed anti-Legionella (high-temp DHW) cycle.
+14.STERILIZATION_TEMP | 65 °C | Disinfection target temperature (range 60–70).
+15.STERILIZATION_CYCLE_MAX | 210 min | Max time allowed to reach disinfection temp (range 90–300).
+16.STERILIZATION_HIGH_TEMP_TIME | 15 min | Hold time at disinfection temp (range 5–60).
+26.A_ZONE_COOL_CURVE | OFF | Weather-compensation curve for zone A cooling (OFF, or curve 1–9).
+27.A_ZONE_HEAT_CURVE | OFF | Weather-compensation curve for zone A heating.
+28.B_ZONE_COOL_CURVE | OFF | Weather-compensation curve for zone B cooling.
+29.B_ZONE_HEAT_CURVE | OFF | Weather-compensation curve for zone B heating.
+30.C#9_TA_C1 | 35 °C | Custom "Curve 9" cooling — ambient point 1.
+31.C#9_TA_C2 | 25 °C | Custom curve 9 cooling — ambient point 2.
+32.C#9_TWout2_C1 | 10 °C | Curve 9 cooling — target water at ambient point 1.
+33.C#9_TWout2_C2 | 16 °C | Curve 9 cooling — target water at ambient point 2.
+34.C#9_TA_H1 | 7 °C | Custom curve 9 heating — ambient point 1.
+35.C#9_TA_H2 | −5 °C | Curve 9 heating — ambient point 2.
+36.C#9_TWout2_H1 | 28 °C | Curve 9 heating — target water at point 1.
+37.C#9_TWout2_H2 | 35 °C | Curve 9 heating — target water at point 2.
+38.00#UNIT | ON | Enable module 00 (this unit) in a cascade.
+`},
+{n:'02',name:'System Parameters',aud:'inst',rows:`
+01.AC_TYPE | COOL&HEAT | Unit function: Single Heating, or Heating + Cooling.
+02.REFRIGERANT | R290 | Refrigerant type (R290 propane on this model). Factory.
+03.RV_SET | Cool Mode ON | Reversing-valve logic — which mode energises the 4-way valve. Factory.
+05.WIRE_SW_TYPE | TOGGLE | How zones are switched (toggle / single / dual / three-zone). Sets the home layout.
+07.PWR_DOWN_MEM | ON | Remember on/off state through a power cut.
+08.PWR_ON_RUN | OFF | Start running automatically when powered up.
+09.PUMP_RUN_MODE | KEEP.RUN | Circulation-pump mode: keep running vs. interval cycling.
+10.TEMP_CTRL_OBJ | TACT.WATER | Which temperature the unit regulates (actual/buffer water here).
+11.CL_TEMP_CORR | 0.0 °C | Cooling temperature-sensor calibration offset.
+12.HT_TEMP_CORR | 0.0 °C | Heating temperature-sensor calibration offset.
+13.RV_ON_DLY | 20 sec | Reversing-valve switch-on delay. Factory.
+14.RV_OFF_DLY | −60 sec | Reversing-valve switch-off delay. Factory.
+15.LIV_ON_TP_T | 107 °C | Discharge-temp threshold to start liquid injection. Factory.
+16.LIV_OFF_TP_dT | 10 °C | Liquid-injection stop differential. Factory.
+17.HOT_WATER | ON | Domestic-hot-water function master enable. Must be ON to make DHW.
+18.HW_dT | 5.0 °C | DHW restart hysteresis — tank falls this far below target before reheating.
+19.QZH_ON_TA_T | 5 °C | Crankcase heater ON below this ambient. Factory.
+20.QZH_OFF_TA_T | 7 °C | Crankcase heater OFF above this ambient. Factory.
+21.COOL_MODE | ON | Allow cooling operation.
+22.HEAT_MODE | ON | Allow heating operation.
+23.PWRD_TIME_MIN | 4 HH | Min standby crankcase-preheat window before start (hours). Factory.
+24.PWRD_TIME_MAX | 48 HH | Max standby crankcase-preheat window (hours). Factory.
+25.PREHT_TIME_MIN | 10 min | Minimum preheat time before compressor start. Factory.
+26.PREHT_TIME_MAX | 60 min | Maximum preheat time. Factory.
+27.HW_PRIORITY | ON | Give hot water priority over space heating.
+28.TBH | OFF | Enable the DHW tank's electric backup heater.
+29.PUMPret | OFF | Enable the DHW recirculation (return) pump.
+30.SOLAR | OFF | Enable solar-thermal input.
+31.REMOTE_SW_TYPE | UNION.KEEP | Behaviour of the remote on/off switch input.
+32.INVT | ON | Inverter (variable-speed) compressor enabled. Factory.
+34.RT_CTRL | OFF | Room-temperature control (follow room temp instead of water temp).
+35.PANEL_CTRL | 1 ZONE.TA | Scope of the wired controller (here: 1-zone room-temp). Picks the home scenario.
+36.HOTW_PUMP_MODE | OFF | Hot-water recirculation-pump mode.
+38.DPH_TYPE | Dfro d.heat | Base-pan / drain heater type (melts defrost ice in the tray).
+39.DPH_ON_TA | 5 °C | Base-pan heater ON below this ambient.
+40.SPLASH_TYPE | 0 | Base-pan drain / anti-splash configuration. Factory.
+41.SMART_GRID_CFG | CFG.1# | Smart-grid configuration profile (use CFG.6 for German §14a SG-ready).
+42.SMART_GRID | OFF | Enable the Smart Grid (SG/EVU) function. Conflicts with EEBUS.
+44.PUMPf_INTER_OFF_TIME | 10 min | Pump off-time when in interval mode.
+45.MODE_WIRE_CTRL | OFF | Let an external wired switch set the mode.
+46.R290_TEMP_DIFF | 0 °C | R290 leak-sensor temperature-difference setting. Factory.
+`},
+{n:'03',name:'Compressor Settings',aud:'fact',rows:`
+01.INVT_CM_ID | 143 | Inverter / compressor driver model ID.
+02.INVT_CM_MAN | OFF | Manual compressor-speed override.
+03.CM_RPS_MAN | 60 rps | Compressor speed used when manual override is on.
+04.CM_RSTRT_DLY | 360 sec | Minimum restart delay (anti-short-cycle), 6 min.
+05.CM_RPS_DEC | 5 rps | Speed-decrease step size.
+06.CM_RPS_MIN | 30 rps | Minimum compressor speed.
+07.CM_RPS_MAX | 80 rps | Maximum compressor speed.
+08.CL_CM_RPS_RATED | 60 rps | Rated speed in cooling.
+09.HT_CM_RPS_RATED | 60 rps | Rated speed in heating.
+10.CM_ON_HOLD_t | 200 sec | Hold time after start before ramping.
+11.HP_LADD_dPRS | −2.0 bar | High-pressure "ladder" step for speed control.
+12.LP_LADD_dPRS | 0.4 bar | Low-pressure ladder step.
+13.HP_FSUB_dPRS | −1.0 bar | High-pressure frequency-subtract threshold.
+14.LP_FSUB_dPRS | 0.2 bar | Low-pressure frequency-subtract threshold.
+15.L_RPS_HOLD_MAX | 120 min | Max time held at low speed.
+16.FORCE_OIL_RET_t | 300 sec | Forced oil-return interval.
+17.INVT_CM_ADDR | 1 | Inverter communication address.
+18.CM_RPS_DFR | 70 rps | Compressor speed during defrost.
+19.CM_RPS_ON | 40 rps | Startup speed.
+20.CM_ON_INC_RPS | 3 rps | Ramp-up increment at start.
+21.CM_RUN_INC_RPS | 5 rps | Ramp increment while running.
+22.CM_DFR_INC_RPS | 3 rps | Ramp increment during defrost.
+23.CM_STD_CORR | −3 rps | Standard speed correction.
+24.CM_ON_INC_t | 10 sec | Interval between start increments.
+25.FACTOR_Kc | 600 | Control-loop gain constant (PID).
+26.FACTOR_Ti | 50 | PID integral-time factor.
+27.FACTOR_Td | 10 | PID derivative-time factor.
+28.PID_ACT_CYCLE | 30 sec | PID action cycle.
+29.CM_RPS_ON_2 | 40 rps | Secondary startup speed.
+30.FACTOR_Kp | 1.0 | PID proportional factor.
+31.CL_COND_T_MAX | 63 °C | Max condensing temperature, cooling.
+32.HT_COND_T_MAX | 75 °C | Max condensing temperature, heating.
+33.CM_ECO_CORR | −8 rps | Economy-mode speed correction.
+34.HT_EVAP_T_MIN | −32 °C | Minimum evaporating temperature, heating.
+35.CM_RATE_HOLD_t | 60 sec | Rated-speed hold time.
+38.FORCE_DEC_TP_T | 105 °C | Discharge temp that forces a speed cut.
+39.CM_RPS_OIL_RET | 50 rps | Speed used for oil return.
+40.UQ_CM_RPS_MAX | 50 rps | Max speed in ultra-quiet (silent L2).
+41.CM_BOOST_CORR | 0 rps | Boost correction.
+42.Q_CM_RPS_MAX | 70 rps | Max speed in quiet (silent L1).
+43.CM_RPS_AVO_RNG | 0 rps | Resonance-avoidance band width.
+44.CM_RPS_AVO_1 | 20 rps | Speed to skip #1 (avoid vibration/resonance).
+45.CM_RPS_AVO_2 | 20 rps | Speed to skip #2.
+46.CM_RPS_AVO_3 | 20 rps | Speed to skip #3.
+47.CM_RPS_AVO_4 | 20 rps | Speed to skip #4.
+48.L_TA_CM_RPS_ON_2 | 40 rps | Startup speed at low ambient.
+`},
+{n:'04',name:'Fan Settings',aud:'fact',rows:`
+01.INVT_FAN_TYPE | PWM Fan | Fan type (PWM inverter fan).
+03.CL_FAN_RPM_MAX | 750 rpm | Max fan speed, cooling.
+04.CL_FAN_RPM_MIN | 300 rpm | Min fan speed, cooling.
+05.FAN_ECO_CORR | 1.00 | Economy-mode fan correction factor.
+06.FAN_CTRL_TYPE | FIN LINEAR | Fan control law (linear vs coil temperature).
+07.FAN_RPM_MAN | 0 rpm | Manual fan speed (0 = auto).
+08.H_RPM_INVT_T | 80 °C | Temp above which fan runs high.
+09.CL_H_RPM_TA | 32 °C | Cooling: ambient for high fan speed.
+10.CL_L_RPM_TA | 20 °C | Cooling: ambient for low fan speed.
+11.HT_H_RPM_TA | 10 °C | Heating: ambient for high fan speed.
+12.HT_L_RPM_TA | 20 °C | Heating: ambient for low fan speed.
+13.CL_H_RPM_TC_T | 40 °C | Cooling: coil temp for high fan.
+14.CL_L_RPM_TC_T | 25 °C | Cooling: coil temp for low fan.
+15.HT_H_RPM_TE_T | 1 °C | Heating: evaporator temp for high fan.
+16.HT_L_RPM_TE_T | 18 °C | Heating: evaporator temp for low fan.
+17.HT_M_RPM_T | 8 °C | Heating: mid-speed threshold.
+18.FAN_CTRL_CYCLE | 30 sec | Fan control update cycle.
+19.FAN_ACT_PCT | 10 % | Fan adjustment step.
+20.HT_FAN_RPM_MAX | 600 rpm | Max fan speed, heating.
+21.HT_FAN_RPM_MIN | 300 rpm | Min fan speed, heating.
+22.FAN_REVO_PULSE | 12 | Tacho pulses per revolution.
+23.FAN_BOOST_CORR | 1.06 | Boost fan correction.
+25.CL_M_RPM_T | 30 °C | Cooling: mid-speed threshold.
+26.UQ_FAN_RPM_MAX | 500 rpm | Max fan speed, ultra-quiet (silent L2).
+27.INVT_FAN_NUM | 1 | Number of fans.
+28.Q_FAN_RPM_MAX | 500 rpm | Max fan speed, quiet (silent L1).
+29.pwm_init | 30 % | Initial PWM duty.
+30.pwm_coef | 30 % | PWM coefficient.
+31.pwm_period | 10 sec | PWM period.
+32.pwm_area | 2 | PWM control region.
+33.FanStdAdj | 1.00 | Standard fan adjustment factor.
+37.freqCpstCoef | 40 % | Frequency-compensation coefficient.
+38.minCpstCoef | 70 % | Minimum compensation coefficient.
+39.TP_RPM_CORR_1 | 1.06 | Discharge-temp fan correction #1.
+40.TP_RPM_CORR_2 | 1.00 | Discharge-temp fan correction #2.
+41.TP_RPM_CORR_3 | 0.90 | Discharge-temp fan correction #3.
+42.TP_CORR_SET | ONLY_COOL | Where temp correction applies (cooling only).
+43.CL_FAN_OFF_dT | 0 °C | Cooling fan-off differential.
+44.HT_FAN_OFF_dT | 0 °C | Heating fan-off differential.
+45.FAN_OFF_dT | 5 °C | General fan-off differential.
+46.CL_FAN_RPM_MID | 0 rpm | Cooling mid fan speed (0 = unused).
+47.HT_FAN_RPM_MID | 0 rpm | Heating mid fan speed (0 = unused).
+`},
+{n:'05',name:'EEV Settings',aud:'fact',rows:`
+02.M.EEV StepMode | 4P8B | Main expansion-valve step-drive mode.
+03.M.EEV StepRate | 31PPS | Main EEV step rate (pulses/sec).
+04.M.EEV max step | 480 step | Main EEV fully-open step count.
+05.M.EEV forceOD% | 6.8 % | Main EEV forced opening degree.
+06.M.EEV max OD% | 100 % | Main EEV max opening.
+07.M.OH Exh Cpst | 0.0 °C | Main superheat / discharge compensation.
+08.M.Manual Mode | OFF | Main EEV manual override.
+09.M.Manual Steps | 250 step | Main EEV manual position.
+10.M.OH Freq Cpst | 0.0 °C | Main EEV frequency compensation.
+11.S.EEV enable | OFF | Enable the sub (auxiliary/EVI) EEV.
+12.S.EEV StepMode | 4P8B | Sub EEV step mode.
+13.S.EEV StepRate | 31PPS | Sub EEV step rate.
+14.S.EEV max step | 480 step | Sub EEV fully-open step count.
+15.S.EEV forceOD% | 6.0 % | Sub EEV forced opening degree.
+16.S.EEV max OD% | 100 % | Sub EEV max opening.
+17.S.EEV min OD% | 12.0 % | Sub EEV min opening.
+18.S.Manual Mode | OFF | Sub EEV manual override.
+19.S.Manual Steps | 250 step | Sub EEV manual position.
+20.lehw.in | 42 °C | Low-ambient heating: water-inlet reference.
+21.lehw.env | −30 °C | Low-ambient heating: environment reference.
+22.lehw.EEV | 350 step | Low-ambient heating: EEV opening.
+23.EEV.refer | 0 step | EEV reference offset.
+24.refer.coef | 5 | EEV reference coefficient.
+25.CL_SH_TA | 20 °C | Cooling superheat vs ambient reference.
+26.LO_TA_CL_SH_1 | 4.0 °C | Low-ambient cooling superheat target #1.
+27.LO_TA_CL_SH_2 | 4.0 °C | Low-ambient cooling superheat target #2.
+28.LO_TA_CL_SH_3 | 5.0 °C | Low-ambient cooling superheat target #3.
+29.EEVm_FREQ_INC | 4 rps | EEVm frequency-increment step.
+30.EEVm_RISE_COEF | 0.0 | EEVm rise coefficient.
+31.EEVm_DROP_COEF | 0.0 | EEVm drop coefficient.
+32.INIT_STEP_CHG_CL | 38 °C | Cooling initial-step change point.
+34.H_GAS_EEV_ORDER | M.EEV_PRIOR | Which EEV leads on hot-gas (main priority).
+48.Defrost_eev_delay | 0 sec | EEV delay entering defrost.
+`},
+{n:'06',name:'EEVm Settings (main superheat)',aud:'fact',rows:`
+01.idle OD% | 70 % | Main-EEV opening while idle.
+02.init. holdtime | 180 sec | Initial hold time before superheat control.
+03.Cold Ampli. | 1.0 | Cooling control amplifier (gain).
+04.Heat Ampli.1 | 1.0 | Heating gain, band 1.
+05.Heat Ampli.2 | 1.0 | Heating gain, band 2.
+06.Heat Ampli.3 | 1.2 | Heating gain, band 3.
+07.Heat change.1 | 25 °C | Heating gain-band change point 1.
+08.Heat change.2 | 45 °C | Heating gain-band change point 2.
+09.Cold I.Min OD% | 45 % | Cooling initial min opening.
+10.Cold I.Max OD% | 85 % | Cooling initial max opening.
+11.Heat I.Min OD% | 40 % | Heating initial min opening.
+12.Heat I.Max OD% | 90 % | Heating initial max opening.
+13.off EVI Ampli | 1.0 | Gain with EVI off.
+14.cool sv1 | 3.0 °C | Cooling superheat target 1.
+15.cool sv2 | 3.0 °C | Cooling superheat target 2.
+16.cool sv3 | 3.0 °C | Cooling superheat target 3.
+17.Cold Chg1 | 25 °C | Cooling superheat change point 1.
+18.Cold Chg2 | 15 °C | Cooling superheat change point 2.
+19.Heat sv1 | 2.0 °C | Heating superheat target 1.
+20.Heat sv2 | 2.0 °C | Heating superheat target 2.
+21.Heat sv3 | 2.0 °C | Heating superheat target 3.
+22.Heat sv4 | 2.0 °C | Heating superheat target 4.
+23.Heat sv5 | 2.0 °C | Heating superheat target 5.
+24.Heat sv6 | 1.0 °C | Heating superheat target 6.
+25.Heat sv7 | 1.0 °C | Heating superheat target 7.
+26.Heat sv8 | 1.0 °C | Heating superheat target 8.
+27.Heat sv9 | 1.0 °C | Heating superheat target 9.
+28.Force.cl.Evap | 27 °C | Forced cooling evaporator target.
+29.Defrost OD% | 95 % | EEV opening during defrost.
+30.limitRange | 3 % | Opening limit band.
+31.Proportional | 1250 | PID proportional term.
+32.Integral Tm | 200 | PID integral time.
+33.DerivativeTm | 10 | PID derivative time.
+34.MotionPeriod | 10 sec | Control action period.
+36.P coef. | 0.2 | Proportional coefficient.
+37.Heat min OD1 | 20 % | Heating min opening, band 1.
+38.Heat min OD2 | 18 % | Heating min opening, band 2.
+39.Heat min OD3 | 16 % | Heating min opening, band 3.
+40.Heat min OD4 | 14 % | Heating min opening, band 4.
+41.Heat min OD5 | 16 % | Heating min opening, band 5.
+42.Cool min OD1 | 20 % | Cooling min opening, band 1.
+43.Cool min OD2 | 18 % | Cooling min opening, band 2.
+44.Cool min OD3 | 16 % | Cooling min opening, band 3.
+45.Cool min OD4 | 14 % | Cooling min opening, band 4.
+46.Cool min OD5 | 12 % | Cooling min opening, band 5.
+47.heatLimitWing | −30 °C | Heating superheat limit at low ambient.
+48.DefrInitOdCpst | 0 step | Defrost initial-opening compensation.
+`},
+{n:'07',name:'EEVs Settings (EVI / economizer)',aud:'fact',rows:`
+01.EVI Heat Open | OFF | Open EVI (economizer) in heating.
+02.EVI Cold Open | OFF | Open EVI in cooling.
+03.EVI Open Dly | 30 sec | EVI opening delay.
+04.EVI Open Env.Ht | 12 °C | Ambient below which EVI opens (heat).
+05.EVI Open Exh | 30 °C | Discharge temp for EVI open.
+06.EVI Open Env.Cl | 25 °C | Ambient above which EVI opens (cool).
+08.Cold I.Open OD% | 20 % | Cooling initial EVI opening.
+09.Heat I.Open OD1% | 12 % | Heating initial EVI opening, band 1.
+10.Heat I.Open OD2% | 15 % | Heating initial EVI opening, band 2.
+11.Heat I.Open OD3% | 20 % | Heating initial EVI opening, band 3.
+12.Heat I.Open OD4% | 25 % | Heating initial EVI opening, band 4.
+13.Cold ExhOV open | 15 °C | Cooling discharge-overheat open point.
+14.Heat ExhOV open | 15 °C | Heating discharge-overheat open point.
+16.Proportional | 1000 | PID proportional term.
+17.Integral Tm | 300 | PID integral time.
+18.DerivativeTm | 10 | PID derivative time.
+19.MotionPeriod | 8 sec | Control action period.
+21.P coef. | 1.0 | Proportional coefficient.
+23.Line SetD 1 | 75 °C | Discharge line set point 1.
+24.Line SetD 2 | 90 °C | Discharge line set point 2.
+25.Setdegree 1 | 6.0 °C | Target superheat 1.
+26.Setdegree 2 | 1.0 °C | Target superheat 2.
+27.Exh SV max | 105 °C | Max discharge set value.
+28.Exh SV Cold | 35 °C | Cooling discharge set value.
+29.ExhSvTempCoef | 0.1 | Discharge-set temperature coefficient.
+30.Exh SV Heat1 | 26.0 °C | Heating discharge set value 1.
+31.Exh SV Heat2 | 28.0 °C | Heating discharge set value 2.
+32.Exh SV Heat3 | 31.0 °C | Heating discharge set value 3.
+33.Exh SV Heat4 | 34.0 °C | Heating discharge set value 4.
+34.Exh SV Heat5 | 36.0 °C | Heating discharge set value 5.
+35.EVI Open Rps | 45 rps | Compressor speed for EVI open.
+36.EVI close Rps | 40 rps | Compressor speed for EVI close.
+37.ExhOV open diff | 60 °C | Discharge-overheat open differential.
+38.EVI Exh diff | 60 °C | EVI discharge differential.
+39.EVI_For_liquid | OFF | EVI used for liquid injection.
+40.Heat EVI A | 1000 | Heating EVI table point A.
+41.Heat EVI B | 1000 | Heating EVI table point B.
+42.Heat EVI E | 1000 | Heating EVI table point E.
+43.Heat EVI G | 1000 | Heating EVI table point G.
+44.Heat EVI C | 1000 | Heating EVI table point C.
+45.Heat EVI D | 1000 | Heating EVI table point D.
+46.Cool EVI | 1000 | Cooling EVI opening.
+47.ExhSvFreqCoef | 0 % | Discharge-set frequency coefficient.
+48.Heat I.Open OD5% | 25 % | Heating initial EVI opening, band 5.
+`},
+{n:'08',name:'Defrost Settings',aud:'inst',rows:`
+01.Dfr.interval | 5 min | Minimum interval between defrosts.
+02.Dfr.time | 600 sec | Maximum defrost duration.
+03.Dfr.time cnt | RUN.TIME | How the defrost interval is counted (compressor run-time).
+04.Dfr. Env.T | 12 °C | Ambient below which defrost is allowed.
+05.Dfr. coil T | −1 °C | Coil temp to enter defrost.
+06.Dfr.coil T | 15 °C | Coil temp to exit defrost.
+07.Dfr.out T | 10 °C | Outlet-water temp to exit defrost.
+08.EWD.smartDfr | ON | Smart (demand-based) defrost enabled.
+09.Frost d1 | 4 °C | Frost-detect differential 1.
+10.Frost d2 | 6 °C | Frost-detect differential 2.
+11.T. sure time | 5 min | Confirmation time before defrost.
+12.Dfr.Env.T.1 | 8 °C | Ambient band 1 for interval table.
+13.Dfr.Env.T.2 | 3 °C | Ambient band 2.
+14.Dfr.Env.T.3 | −2 °C | Ambient band 3.
+15.Dfr.Env.T.4 | −10 °C | Ambient band 4.
+16.Dfr.inte. 1 | 90 min | Defrost interval in ambient band 1.
+17.Dfr.inte. 2 | 60 min | Defrost interval in band 2.
+18.Dfr.inte. 3 | 45 min | Defrost interval in band 3.
+19.Dfr.inte. 4 | 60 min | Defrost interval in band 4.
+20.Dfr.inte. 5 | 120 min | Defrost interval in band 5.
+21.Dfr.T.diff 1 | 6 °C | Coil-vs-ambient trigger diff, band 1.
+22.Dfr.T.diff 2 | 6 °C | Trigger diff, band 2.
+23.Dfr.T.diff 3 | 6 °C | Trigger diff, band 3.
+24.Dfr.T.diff 4 | 6 °C | Trigger diff, band 4.
+25.Dfr.T.diff 5 | 6 °C | Trigger diff, band 5.
+26.LP.dfr.dect. | OFF | Low-pressure-based defrost detection.
+27.Dfr.time cnt | 5 min | Secondary defrost-interval counter.
+28.LP.dfr.cycle | 15 min | Low-pressure defrost cycle.
+29.LP.dfr.coilT | −8 °C | Coil temp for LP defrost.
+30.TimingDefrost | 3 HH | Timed forced defrost every N hours.
+31.Emerg EWD | 30 °C | Emergency defrost trigger.
+32.DfrStopCm. V | OFF | Stop compressor on defrost exit (valve).
+33.DfrStopCm.T1 | 30 sec | Compressor stop time 1 on exit.
+34.DfrStopV.T1 | 10 sec | Valve time 1 on exit.
+35.DfrStopCm.T2 | 30 sec | Compressor stop time 2.
+36.DfrStopV.T2 | 10 sec | Valve time 2.
+37.DfrStopFreq | 40 rps | Compressor speed at defrost stop.
+38.DrippingTime | 0 sec | Post-defrost drip/drain time.
+39.DFR.INTV.MIN | 0 min | Absolute minimum defrost interval.
+40.DFR.INTV.EMERG | 5 min | Emergency defrost interval.
+41.DfrStopSet | start | Defrost stop reference (start/…).
+43.DFR_exit_eev_delay | 0 sec | EEV delay on defrost exit.
+`},
+{n:'09',name:'Antifreeze & FCU / variable pump',aud:'inst',rows:`
+01.Atfr.inte. 1 | 40 min | Anti-freeze check interval 1.
+02.Atfr.inte. 2 | 20 min | Anti-freeze check interval 2.
+03.Atfr.pump T | 15 °C | Water temp that starts the anti-freeze pump.
+04.Atfr.Heat T | 10 °C | Water temp that starts anti-freeze heating.
+05.Atfr.comp.T | 8 °C | Water temp that starts anti-freeze compressor.
+06.Atfr.Heat Out.T | 12 °C | Outlet target for anti-freeze heating.
+07.Atfr.Comp Out.T | 15 °C | Outlet target for anti-freeze compressor.
+08.Atfr.amb.T | 0 °C | Ambient below which anti-freeze arms.
+09.Atfr.enter.T | 4 °C | Water temp to enter anti-freeze.
+10.Atfr.ambDiff | 1 °C | Ambient hysteresis.
+11.Atfr.enable | ON | Master anti-freeze protection enable.
+12.PUMPsl_ANTIFREEZE | OFF | Solar-pump anti-freeze.
+13.TIMED_ATFZ_INTV | 40 min | Timed anti-freeze interval.
+14.TIMED_ATFZ_MAX | 10 min | Timed anti-freeze max run.
+32.Heat chg Env1 | 28 °C | Heating flow-change ambient point 1 (FCU/rad curve).
+33.Heat chg Env2 | 12 °C | Point 2.
+34.Heat chg Env3 | 3 °C | Point 3.
+35.Heat chg Env4 | −9 °C | Point 4.
+36.Heat chg Env5 | −21 °C | Point 5.
+37.Reach Temp SV RPM | 2000 rpm | Pump speed once target reached.
+38.Reach Temp SV Flow | 700 L/H | Target flow once at temperature.
+39.Pump SV Switch Delay | 30 sec | Pump speed-switch delay.
+40.Pumpf temp diff | 5 °C | Variable-pump control temperature diff.
+41.Pumpf speed_up cycle | 40 sec | Pump ramp-up cycle.
+42.Pumpf speed_up scale | 5 % | Pump ramp-up step.
+43.Pumpf speed_down cycle | 60 sec | Pump ramp-down cycle.
+44.Pumpf speed_down scale | 10 % | Pump ramp-down step.
+45.MIN traffic limit | 2100 L/H | Minimum allowed flow rate.
+46.Pumpf start speed | 0 rpm | Pump start speed.
+`},
+{n:'10',name:'Protection Settings',aud:'fact',rows:`
+01.Error dly | 6 sec | General fault confirmation delay.
+02.Flow err dly | 15 sec | Flow-fault delay.
+03.Auto.reset | 3 min | Auto-reset wait.
+04.Auto.re.awed | 60 min | Auto-reset window.
+05.LP.alarm dly | 60 sec | Low-pressure alarm delay.
+06.LP.dly defro | 90 sec | Low-pressure delay after defrost.
+07.Cool LP dly. | 10 sec | Cooling low-pressure delay.
+08.Heat LP dly. | 30 sec | Heating low-pressure delay.
+09.Exit T. diff | 5 °C | Exit temperature differential.
+10.Air cool low | 4 °C | Min ambient for cooling.
+11.Air heat hihg | 78 °C | Max water temp in heating (spelling per screen).
+13.OutInDiffErr | 2 °C | Outlet-inlet difference fault threshold.
+14.gasInOutErr | 60 sec | Gas in/out fault delay.
+15.Comp. cu.low | OFF | Low compressor-current protection.
+16.CM_RPS_DEC_PERCENT | 90 % | Speed-cut percentage on protection.
+17.CM_RPS_DEC_PERIOD | 120 sec | Speed-cut period.
+18.OutInDiffHigh | 15 °C | High outlet-inlet difference limit.
+19.CoolEvapLow | −11 °C | Cooling low-evaporator limit.
+20.Exh Too High | 110 °C | Discharge over-temperature limit.
+21.Out Exh.H Diff | 15 °C | Discharge high-diff limit.
+22.CoolGasInLow | 0 °C | Cooling gas-inlet low limit.
+23.PwmSpeedTooLow | 100 rpm | Pump PWM-too-low threshold.
+24.PwmSpeedDly | 60 sec | PWM fault delay.
+25.CmOffcheckLp | ON | Check low pressure when compressor off.
+26.HEAT_TWout1_LIMIT_1 | 80 °C | Heating outlet limit, step 1.
+27.HEAT_TWout1_LIMIT_2 | 80 °C | Heating outlet limit, step 2.
+28.HEAT_TWout1_LIMIT_3 | 80 °C | Heating outlet limit, step 3.
+29.HEAT_TWout1_LIMIT_4 | 80 °C | Heating outlet limit, step 4.
+30.HEAT_TWout1_LIMIT_5 | 80 °C | Heating outlet limit, step 5.
+31.FLH_OVERHEAT_PROTECT | 35 °C | Floor-heating over-temperature protection.
+32.PRSs_OFF_TA | −35 °C | Suction-pressure sensor off at low ambient.
+33.Cool LP set | 0.1 bar | Cooling low-pressure cut-out.
+34.Heat LP set | 0.0 bar | Heating low-pressure cut-out.
+35.Cool HP set | 32.0 bar | Cooling high-pressure cut-out.
+36.Heat HP set | 32.0 bar | Heating high-pressure cut-out.
+37.LP reset diff | 0.1 bar | Low-pressure reset differential.
+38.HP reset diff | 2.6 bar | High-pressure reset differential.
+39.Cool LT Env. | 0 °C | Cooling low-temp environment limit.
+40.Cool LT DLY | 300 sec | Cooling low-temp delay.
+41.MAC SET CHECK | ON | Machine-setting self-check.
+42.COOL_TWout1_LIMIT_COOL | 5 °C | Cooling outlet low limit.
+43.UI35_COMMU_DETECT | ON | Controller communication watchdog.
+44.INVT ERR AUTO RST | PART | Inverter-fault auto-reset policy.
+46.HP adjust diff | −1.0 bar | High-pressure adjust differential.
+47.LP adjust diff | 0.2 bar | Low-pressure adjust differential.
+`},
+{n:'11',name:'Input & Sensors',aud:'inst',rows:`
+01.DI_LDIlp | NO | Low-pressure switch input type (Normally Open).
+02.DI_LDIhp | NC | High-pressure switch input type (Normally Closed).
+04.DI_LDIw | NC | Water-flow switch input type.
+06.TRF_COMP_RPS_CORR | OFF | Refrigerant-temp compressor-speed correction.
+07.TRFgas_RPS_CORR_1 | 0 rps | Gas-temp speed correction 1.
+08.TRFgas_RPS_CORR_2 | 0 rps | Gas-temp speed correction 2.
+09.TRFgas_RPS_CORR_3 | 0 rps | Gas-temp speed correction 3.
+10.TRFgas_RPS_CORR_4 | 0 rps | Gas-temp speed correction 4.
+11.TRFgas_RPS_CORR_5 | 0 rps | Gas-temp speed correction 5.
+12.TRFliq_RPS_CORR_1 | 0 rps | Liquid-temp speed correction 1.
+13.TRFliq_RPS_CORR_2 | 0 rps | Liquid-temp speed correction 2.
+14.TRFliq_RPS_CORR_3 | 0 rps | Liquid-temp speed correction 3.
+15.TRFliq_RPS_CORR_4 | 0 rps | Liquid-temp speed correction 4.
+16.TRFliq_RPS_CORR_5 | 0 rps | Liquid-temp speed correction 5.
+17.TRFliq_RPS_CORR_6 | 0 rps | Liquid-temp speed correction 6.
+18.TRFliq_RPS_CORR_7 | 0 rps | Liquid-temp speed correction 7.
+20.TFLin_SENSOR | OFF | Floor-loop inlet sensor fitted?
+21.TWout3_SENSOR | OFF | Floor-loop water sensor (TWout3) fitted?
+22.LDIevu_DI_TYPE | NO | EVU smart-grid input type.
+23.LDIsg_DI_TYPE | NO | SG smart-grid input type.
+24.T_SENSOR_CFG | REGULAR | Temperature-sensor configuration.
+25.CAP_LOW_CPST | 0.00 | Low-capacity compensation.
+26.TSL_SENSOR | OFF | Solar-collector sensor (TSL) fitted?
+29.J5 range min. | 0.0 bar | Pressure sensor J5 range min.
+30.J5 range max. | 20.0 bar | Pressure sensor J5 range max.
+31.J6 range min. | 0.0 bar | Pressure sensor J6 range min.
+32.J6 range max. | 20.0 bar | Pressure sensor J6 range max.
+33.TACt1_SENSOR | OFF | Buffer lower sensor (TACt1) fitted?
+34.TACt2_SENSOR | OFF | Buffer upper sensor (TACt2) fitted?
+35.PRS_SENSOR_CFG | ONLY LP | Pressure-sensor set (low-pressure only here).
+36.FAN POWER | 0 | Fan power rating (W) for energy metering.
+37.PUMP POWER | 0 | Pump power (W) for metering.
+38.IBH1 POWER | 0 | Backup heater 1 power (W).
+39.IBH2 POWER | 0 | Backup heater 2 power (W).
+40.IDLE POWER | 0 | Standby power (W).
+41.OTHER RUN POWER | 0 | Other running power correction (W).
+42.TWout2_SENSOR | OFF | DHW/AC water sensor (TWout2) fitted?
+43.CAP_EVI_COEF | 1.10 | Capacity EVI coefficient.
+44.CAP_INTE_COEF | 1.00 | Capacity integration coefficient.
+45.CAP_HIGH_CPST | 0.00 | High-capacity compensation.
+46.R290_SEN_ID | 1 | R290 gas-sensor comms ID.
+47.R290_SEN_BA | 32 | R290 gas-sensor baud/address.
+`},
+{n:'12',name:'Testing',aud:'fact',rows:`
+01.Debug set. | OFF | Enable debug/test mode.
+02.Heat CompA | 75 rps | Test heating compressor speed, point A.
+03.Heat Fan A | 860 rpm | Test heating fan speed, A.
+04.Heat EEV A | 1000 | Test heating EEV opening, A.
+05.Heat CompB | 70 rps | Test compressor speed, B.
+06.Heat Fan B | 800 rpm | Test fan speed, B.
+07.Heat EEV B | 1000 | Test EEV, B.
+08.Heat CompE | 70 rps | Test compressor speed, E.
+09.Heat Fan E | 800 rpm | Test fan speed, E.
+10.Heat EEV E | 1000 | Test EEV, E.
+11.Heat CompG | 70 rps | Test compressor speed, G.
+12.Heat Fan G | 800 rpm | Test fan speed, G.
+13.Heat EEV G | 1000 | Test EEV, G.
+14.Heat CompC | 70 rps | Test compressor speed, C.
+15.Heat Fan C | 800 rpm | Test fan speed, C.
+16.Heat EEV C | 1000 | Test EEV, C.
+17.Heat CompD | 70 rps | Test compressor speed, D.
+18.Heat Fan D | 800 rpm | Test fan speed, D.
+19.Heat EEV D | 1000 | Test EEV, D.
+20.Cool Comp | 70 rps | Test cooling compressor speed.
+21.Cool Fan | 800 rpm | Test cooling fan speed.
+22.Cool EEV | 1000 | Test cooling EEV opening.
+23.Heat EWD A | 6 °C | Test defrost-water diff, A.
+24.Heat Itvl A | 100 min | Test defrost interval, A.
+25.Heat Step A | 400 step | Test EEV step, A.
+26.Heat Freq A | 70 rps | Test frequency, A.
+27.Heat Wing A | 5 °C | Test superheat, A.
+28.Heat Time A | 300 sec | Test run time, A.
+29.Heat EWD B | 6 °C | Test defrost diff, B.
+30.Heat Itvl B | 100 min | Test interval, B.
+31.Heat Step B | 400 step | Test EEV step, B.
+32.Heat Freq B | 70 rps | Test frequency, B.
+33.Heat Wing B | 5 °C | Test superheat, B.
+34.Heat Time B | 300 sec | Test time, B.
+35.Heat EWD E | 6 °C | Test defrost diff, E.
+36.Heat Itvl E | 100 min | Test interval, E.
+37.Heat Step E | 400 step | Test EEV step, E.
+38.Heat Freq E | 70 rps | Test frequency, E.
+39.Heat Wing E | 5 °C | Test superheat, E.
+40.Heat Time E | 300 sec | Test time, E.
+41.Heat EWD G | 6 °C | Test defrost diff, G.
+42.Heat Itvl G | 100 min | Test interval, G.
+43.Heat Step G | 400 step | Test EEV step, G.
+44.Heat Freq G | 70 rps | Test frequency, G.
+45.Heat Wing G | 5 °C | Test superheat, G.
+46.Heat Time G | 300 sec | Test time, G.
+47.INVT_PFC | Auto | Inverter power-factor-correction mode.
+48.PUMPf_MANUAL | 0 | Manual pump-test output.
+`},
+{n:'13',name:'Energy Control (limits & backup heat)',aud:'inst',rows:`
+01.NRG_CTRL_CYCLE | 60 sec | Energy-control update cycle.
+02.COOL_LOAD_dT | 4.0 °C | Cooling load-up differential.
+03.COOL_UNLOAD_dT | 2.0 °C | Cooling load-down differential.
+04.HEAT_LOAD_dT | 4.0 °C | Heating load-up differential.
+05.HEAT_UNLOAD_dT | 2.0 °C | Heating load-down differential.
+06.ROOM_TEMP_dT | 2 °C | Room-temperature control hysteresis.
+07.CL_SET_T_MIN | 6 °C | Minimum allowed cooling setpoint.
+08.CL_SET_T_MAX | 26 °C | Maximum allowed cooling setpoint.
+09.HT_SET_T_MIN | 28 °C | Minimum allowed heating setpoint.
+10.HT_SET_T_MAX | 75 °C | Maximum allowed heating setpoint.
+11.CL_TA_MIN | −7 °C | Cooling min ambient.
+12.CL_TA_MAX | 50 °C | Cooling max ambient.
+13.HT_TA_MIN | −26 °C | Heating min ambient.
+14.HT_TA_MAX | 50 °C | Heating max ambient.
+15.HW_TA_MIN | −26 °C | Hot-water min ambient.
+16.HW_TA_MAX | 50 °C | Hot-water max ambient.
+17.AUTO_CL_TA_MIN | 25 °C | Auto mode: switch to cooling above this ambient.
+18.AUTO_HT_TA_MAX | 17 °C | Auto mode: switch to heating below this ambient.
+19.HOLIDAY_AWAY_ThS | 25 °C | Holiday-away heating set temp.
+20.HOLIDAY_AWAY_ThwS | 25 °C | Holiday-away hot-water set temp.
+21.ECO_RUN_TIME | 0 min | Eco-mode run time.
+22.IBH | OFF | Enable space-heating backup electric heater (IBH).
+23.AHS | OFF | Enable external/auxiliary heat source.
+24.IBH_ON_HI_dT | 5 °C | IBH on: large temperature shortfall.
+25.IBH_ON_LO_dT | 2 °C | IBH on: small shortfall.
+26.IBH_GEAR | 1 | IBH stage/gear count.
+27.IBH_ON_DLY | 30 min | Delay before IBH switches on.
+28.IBH_ON_TA | −5 °C | Ambient below which IBH may assist.
+29.IBH_ON_dT | 5 °C | IBH on differential.
+30.TBH_ON_DLY | 90 min | Delay before DHW tank heater (TBH) switches on.
+31.TH open Env. | −30 °C | Tank-heater open ambient.
+32.EXH open dly. | 30 min | External-heat-source open delay.
+33.EXH open diff | 5 °C | External-source open differential.
+34.EXH close diff | 0 °C | External-source close differential.
+35.EXH open Env. | 5 °C | External-source open ambient.
+36.HOT_WATER_ON_MAX | 90 min | Max continuous hot-water run.
+37.HOT_WATER_PRIOR_LIMIT | 30 min | Max time DHW may hold off heating.
+38.obj.Egy.Cpst | cpst sv | Energy-compensation object.
+39.ALL_COMP_ON_Dt | 6 °C | Differential to bring all compressors on (cascade).
+40.TF_heat_step | 380 step | Reach-temp heating EEV step.
+41.TF_heat_freq | 40 rps | Reach-temp heating frequency.
+42.TF_heat_time | 40 sec | Reach-temp heating time.
+43.TF_cool_step | 230 step | Reach-temp cooling EEV step.
+44.TF_cool_freq | 60 rps | Reach-temp cooling frequency.
+45.TF_cool_time | 60 sec | Reach-temp cooling time.
+46.TF_IBH_time | 40 sec | Reach-temp backup-heat time.
+47.TF_heat_fan | 600 rpm | Reach-temp heating fan speed.
+48.TF_cool_fan | 400 rpm | Reach-temp cooling fan speed.
+`},
+{n:'14',name:'Engineering Settings',aud:'inst',rows:`
+01.PUMPf_CTRL | PWR.ON.ONLY | Pump control mode. Options: RPM.CTRL / FLOW.CTRL / PWR.ON.ONLY / POWER.CTRL / OUT_IN T_diff CTRL.
+03.PUMP SV RPM | 2600 rpm | Pump target speed (RPM control).
+04.PUMPf_MODEL | 1 | Pump model selection.
+05.PUMP SV Flow | 1400 L/H | Pump target flow (flow control).
+06.PUMPret_RUN_t | 5 min | DHW recirc-pump run time.
+07.PUMPret_STERILIZATION | OFF | Run recirc pump during sterilization.
+08.PUMPret_TIMER | OFF | Recirc pump on a timer.
+09.FLOOR_PREHEAT_TEMP | 25 °C | Floor preheat target temperature.
+10.FLOOR_PREHEAT_INTERVAL | 30 min | Floor preheat step interval.
+11.FLOOR_PREHEAT_MAX | 72 HH | Floor preheat max duration (hours).
+12.FLH_WATER_dT | 5 °C | Floor-heating water differential.
+13.FLH_ROOM_dT | 1 °C | Floor-heating room differential.
+14.FLH_DRYUP_HEAD | 8 DD | Screed dry-up ramp-up days.
+15.FLH_DRYUP_MID | 5 DD | Screed dry-up hold days.
+16.FLH_DRYUP_TAIL | 5 DD | Screed dry-up ramp-down days.
+17.FLH_DRYUP_TEMP | 45 °C | Screed dry-up peak temperature.
+18.A_ZONE_CL_TD | FCU | Zone-A cooling terminal type (fan-coil).
+19.A_ZONE_HT_TD | RAD | Zone-A heating terminal type (radiator).
+22.FLOW_SENSER_MODEL | 0 | Flow-sensor model (spelling per screen).
+23.WATER_DIVIDE_FUN | OFF | Water-distribution function.
+24.WATER_DIVIDE_CFG | ALL_ODU | Water-distribution config (all outdoor units).
+29.PUMPsl_ON_THWt_TEMP | 70 °C | Solar pump on: tank temp.
+30.PUMPsl_ON_THWt_dT | 5 °C | Solar pump on: tank differential.
+31.PUMPsl_ON_WATER_TEMP | 62 °C | Solar pump on: water temp.
+32.PUMPsl_ON_WATER_dT | 5 °C | Solar pump on: water differential.
+33.REF_RECYCLE | OFF | Refrigerant-recycle assist.
+34.R&R_EEVm | 400 step | Recovery EEVm opening.
+35.R&R_LDIlp_t | 0 sec | Recovery low-pressure time.
+36.S3V3_ACT_PERIOD | 360 sec | 3-way valve S3V3 action period.
+40.UNIT_MAX | 1 | Number of units in the cascade.
+41.HOTW_UNIT_NUM | 1 | Units assigned to hot water.
+42.OUT_ADD_DF_CPST | 5.0 | Outdoor added-defrost compensation.
+43.PUMPo_FUNC | PUMPo_A | External-pump (PUMPo) function/output.
+46.BMS_DATA_FMT | 8,N,1 | BMS Modbus data format.
+47.BMS_BAUDRATE | 9600 | BMS Modbus baud rate.
+48.BMS_ADDR | 1 | BMS Modbus address.
+`},
+{n:'15',name:'Working Frequency (compressor speed map)',aud:'fact',rows:`
+01.ClUpEnv50In05 | 45 rps | Cooling ramp-up target: ambient 50 °C, water 5 °C.
+02.ClUpEnv43In05 | 64 rps | Cooling: ambient 43, water 5.
+03.ClUpEnv35In05 | 80 rps | Cooling: ambient 35, water 5.
+04.ClUpEnv-05In05 | 60 rps | Cooling: ambient −5, water 5.
+05.ClUpEnv50In15 | 45 rps | Cooling: ambient 50, water 15.
+06.ClUpEnv43In15 | 64 rps | Cooling: ambient 43, water 15.
+07.ClUpEnv35In15 | 70 rps | Cooling: ambient 35, water 15.
+08.ClUpEnv-05In15 | 55 rps | Cooling: ambient −5, water 15.
+09.ClUpEnv50In23 | 45 rps | Cooling: ambient 50, water 23.
+10.ClUpEnv43In23 | 64 rps | Cooling: ambient 43, water 23.
+11.ClUpEnv35In23 | 70 rps | Cooling: ambient 35, water 23.
+12.ClUpEnv-05In23 | 55 rps | Cooling: ambient −5, water 23.
+13.ClUpEnv50In35 | 40 rps | Cooling: ambient 50, water 35.
+14.ClUpEnv43In35 | 52 rps | Cooling: ambient 43, water 35.
+15.ClUpEnv35In35 | 56 rps | Cooling: ambient 35, water 35.
+16.ClUpEnv-05In35 | 46 rps | Cooling: ambient −5, water 35.
+17.ClDnEnv50 | 25 rps | Cooling ramp-down speed at ambient 50.
+18.ClDnEnv43 | 25 rps | Cooling ramp-down at 43.
+19.ClDnEnv35 | 25 rps | Cooling ramp-down at 35.
+20.ClDnEnv-05 | 25 rps | Cooling ramp-down at −5.
+21.HtUpEnv43In15 | 64 rps | Heating ramp-up: ambient 43, water 15.
+22.HtUpEnv07In15 | 72 rps | Heating: ambient 7, water 15.
+23.HtUpEnv00In15 | 78 rps | Heating: ambient 0, water 15.
+24.HtUpEnv-07In15 | 80 rps | Heating: ambient −7, water 15.
+25.HtUpEnv-12In15 | 85 rps | Heating: ambient −12, water 15.
+26.HtUpEnv-25In15 | 85 rps | Heating: ambient −25, water 15.
+27.HtUpEnv43In30(50) | 64 rps | Heating: ambient 43, water 30 (band up to 50).
+28.HtUpEnv07In30(50) | 72 rps | Heating: ambient 7, water 30.
+29.HtUpEnv00In30(50) | 78 rps | Heating: ambient 0, water 30.
+30.HtUpEnv-07In30(50) | 80 rps | Heating: ambient −7, water 30.
+31.HtUpEnv-12In30(50) | 85 rps | Heating: ambient −12, water 30.
+32.HtUpEnv-25In30(50) | 86 rps | Heating: ambient −25, water 30.
+33.HtUpEnv43In40(62) | 60 rps | Heating: ambient 43, water 40 (band up to 62).
+34.HtUpEnv07In40(62) | 68 rps | Heating: ambient 7, water 40.
+35.HtUpEnv00In40(62) | 74 rps | Heating: ambient 0, water 40.
+36.HtUpEnv-07In40(62) | 78 rps | Heating: ambient −7, water 40.
+37.HtUpEnv-12In40(62) | 82 rps | Heating: ambient −12, water 40.
+38.HtUpEnv-25In40(62) | 85 rps | Heating: ambient −25, water 40.
+39.HtUpEnv43In55(75) | 54 rps | Heating: ambient 43, water 55 (band up to 75).
+40.HtUpEnv07In55(75) | 58 rps | Heating: ambient 7, water 55.
+41.HtUpEnv00In55(75) | 64 rps | Heating: ambient 0, water 55.
+42.HtUpEnv-07In55(75) | 68 rps | Heating: ambient −7, water 55.
+43.HtUpEnv-12In55(75) | 68 rps | Heating: ambient −12, water 55.
+44.HtUpEnv-25In55(75) | 70 rps | Heating: ambient −25, water 55.
+45.HtDnEnv43 | 25 rps | Heating ramp-down speed at ambient 43.
+46.HtDnEnv00 | 25 rps | Heating ramp-down at 0.
+47.HtDnEnv-12 | 40 rps | Heating ramp-down at −12.
+48.HtDnEnv-25 | 40 rps | Heating ramp-down at −25.
+`},
+{n:'16',name:'EXT Parameters I (advanced)',aud:'inst',rows:`
+01.CM_MODEL_ID | 1 | Compressor model ID.
+07.INSUFFICIENT FLOW RATE | 0 L/H | Flow rate treated as "too low".
+08.Switch_S3V1_Comp_Action | None | Compressor action when S3V1 switches.
+09.AutoAdjustSet | OFF | Auto self-tuning of setpoints.
+10.Heat_tmp_up | 0.1 °C | Heating auto-adjust up step.
+11.Heat_aj_period | 40 sec | Heating auto-adjust period.
+12.Cool_tmp_down | 0.1 °C | Cooling auto-adjust down step.
+13.Cool_aj_period | 40 sec | Cooling auto-adjust period.
+14.INIT_FREQ_ADJ | OFF | Initial-frequency adjustment.
+15.FREQ_ARITH | PID | Frequency control algorithm (PID).
+16.PFC_Close_Freq | 60 rps | Speed to close power-factor correction.
+21.FLOW sensor type | 0.5-3.5V | Flow-sensor signal type.
+22.FLOW sensor range min | 0 L/H | Flow-sensor min.
+23.FLOW sensor range max | 0 L/H | Flow-sensor max.
+27.SMART GRID LOCK TIME MAX | 0 min | Max smart-grid lock time.
+28.SMART GRID TEMP 1 | 5 °C | Smart-grid temperature offset 1.
+29.STOP_SP_DW_USE | OFF | Use stop-speed-down function.
+30.STOP_DW_PERIOD | 6 sec | Stop speed-down period.
+32.Room heat ev coef | 0.00 | Room-heating expansion coefficient.
+33.Room cool ev coef | 0.00 | Room-cooling expansion coefficient.
+34.Room temp diff coef | 0.00 | Room-temperature difference coefficient.
+35.Room heat ctrl time | 60 sec | Room-heating control period.
+36.Room cool ctrl time | 60 sec | Room-cooling control period.
+37.Room water heat diff | 25 °C | Room-mode water/room heating spread.
+38.Room water cool diff | 0 °C | Room-mode water/room cooling spread.
+41.Room temp ctrl scheme | Scheme_3 | Room-temperature control scheme (1–3). Scheme 3 needed for EEBUS.
+`},
+];
+
+const AUD={user:'User',inst:'Installer',fact:'Factory'};
+const AUDNOTE={
+ fact:'Factory calibration — values are this unit’s defaults, shown for reference. Do not change.',
+ inst:'Installer / commissioning — change only when setting the system up.',
+ user:'Everyday user settings — safe to adjust.'
+};
+
+/* build flat list */
+const FLAT=[];
+GROUPS.forEach(g=>{
+  g.rows.trim().split('\n').forEach(line=>{
+    if(!line.trim())return;
+    const p=line.split(' | ');
+    if(p.length<3)return;
+    FLAT.push({g:g.n,gname:g.name,aud:g.aud,code:p[0].trim(),val:p.slice(1,-1).join(' | ').trim(),desc:p[p.length-1].trim()});
+  });
+});
+
+let curFilter='all';
+function renderP(q){
+  q=(q||'').toLowerCase();
+  const body=document.getElementById('pbody');body.innerHTML='';
+  let lastG=null,shown=0;
+  FLAT.forEach(r=>{
+    if(curFilter!=='all'&&r.g!==curFilter)return;
+    const hay=(r.code+' '+r.val+' '+r.desc+' '+r.gname).toLowerCase();
+    if(q&&!hay.includes(q))return;
+    if(r.g!==lastG){
+      const g=GROUPS.find(x=>x.n===r.g);
+      const hr=document.createElement('tr');hr.className='grouphdr';
+      hr.innerHTML='<td colspan="3">'+r.g+' · '+g.name+' <span class="badge '+r.aud+'">'+AUD[r.aud]+'</span> <span class="gb">— '+AUDNOTE[r.aud]+'</span></td>';
+      body.appendChild(hr);lastG=r.g;
+    }
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td><code>'+r.code+'</code></td><td class="pv">'+r.val+'</td><td>'+r.desc+'</td>';
+    body.appendChild(tr);shown++;
+  });
+  if(!shown)body.innerHTML='<tr><td colspan="3" class="muted" style="padding:18px;color:var(--mut)">No parameter matches that search.</td></tr>';
+}
+/* group filter chips */
+const gf=document.getElementById('gfilter');
+function chip(id,label){const b=document.createElement('button');b.textContent=label;if(id==='all')b.classList.add('active');
+  b.onclick=()=>{curFilter=id;[...gf.children].forEach(c=>c.classList.remove('active'));b.classList.add('active');renderP(document.getElementById('psearch').value);};gf.appendChild(b);}
+chip('all','All groups');
+GROUPS.forEach(g=>chip(g.n,g.n+' '+g.name.replace(/ \(.*\)/,'')));
+document.getElementById('psearch').addEventListener('input',e=>renderP(e.target.value));
+renderP('');
+
+/* ============ GLOSSARY ============ */
+const GLOSSARY=[
+ ['cat','Temperatures the unit measures (sensors)'],
+ ['TA / TA′','Outdoor ambient air temp','Drives weather compensation & defrost timing.'],
+ ['TR','Room temperature','Read by the controller when in room-temp control.'],
+ ['TF','Outdoor coil (fin) temp','Used to decide when to defrost.'],
+ ['TS / TD','Suction / discharge temp','Compressor refrigerant protection.'],
+ ['TES','Economizer / evap sensor','Refrigerant-circuit temperature.'],
+ ['TWin1 / TWout1','Plate-exchanger water in / out','Return / flow at the heat exchanger.'],
+ ['TWout2','DHW / A-C water temp','Tank or heating/cooling water sensor.'],
+ ['TWout3','Floor-loop water temp','Low-temperature (underfloor) zone flow.'],
+ ['THWt','Hot-water tank temp','Controls domestic hot water.'],
+ ['TRFgas / TRFliq','Refrigerant gas / liquid temp','Refrigerant diagnostics.'],
+ ['TSL','Solar collector temp','Solar water-heating control (if fitted).'],
+ ['TACt1 / TACt2','Buffer tank lower / upper temp','The 200 L buffer sensors.'],
+ ['TAFD','Discharge-defrost sensor','−99.9 °C means not fitted.'],
+ ['cat','Valves'],
+ ['RV','4-way (reversing) valve','Flips the unit between HEATING and COOLING.'],
+ ['EEV / EEVm / EEVs','Main / sub electronic expansion valve','Meters refrigerant flow (steps).'],
+ ['EVI','Enhanced vapour injection','Economizer circuit for cold-weather capacity.'],
+ ['S3V1 / S3V2 / S3V3','Solenoid 3-way valves','DHW diversion / zone / mixing.'],
+ ['cat','Electric heaters'],
+ ['IBH','Internal backup heater','Space-heating electric backup (board Out B).'],
+ ['TBH','Tank backup heater','DHW tank electric element (board Out C).'],
+ ['AHS','Auxiliary heat source','External boiler / heat source.'],
+ ['QZH','Compressor crankcase heater','Keeps oil warm / anti-liquid.'],
+ ['DPH','Base-pan (chassis) heater','Melts ice in the outdoor drain tray.'],
+ ['cat','Pumps & fan'],
+ ['PUMPf','Main variable-speed pump','Primary circulation pump (PWM/flow controlled).'],
+ ['PUMPo','External circulation pump','Extra system pump (board Out A).'],
+ ['PUMPsl','Solar pump','Solar circuit (board Out D).'],
+ ['PUMPret','DHW recirculation pump','Instant-hot-water return loop.'],
+ ['FAN1 / FANf','Variable-speed (inverter) fan','Outdoor fan.'],
+ ['cat','Compressor / inverter'],
+ ['CM / COMP','Compressor','“rps” = revolutions/sec = speed.'],
+ ['INVT','Inverter drive','Variable-speed compressor drive (volts/amps/temp).'],
+ ['PRSs / PRSd','Suction / discharge pressure','Refrigerant pressures (bar).'],
+ ['LP / HP','Low / high pressure','Protection cut-outs & control ladders.'],
+ ['SH / SHSV / SHPV','Superheat','Refrigerant superheat used for EEV control.'],
+ ['cat','Switches, inputs & grid'],
+ ['DI / LDI','Digital input','Dry-contact input (NO = normally-open, NC = normally-closed).'],
+ ['LDIw','Water flow switch','Stops the unit if there is no flow.'],
+ ['SG / EVU','Smart-grid signals','Utility / ripple-control inputs (terminals 12/13).'],
+ ['EEBUS','Huawei green-power link','Prefers PV/cheap electricity (conflicts with SG).'],
+ ['cat','Modes & config'],
+ ['CTRL_MODE','Heat / Cool / Auto','The everyday operating mode.'],
+ ['AC_TYPE','Unit function','Single Heating, or Heating + Cooling.'],
+ ['WIRE_SW_TYPE / PANEL_CTRL','Zone & controller scope','Single / dual / three zone; picks the home layout.'],
+ ['POWER_MODE','Capacity mode','Standard / Strong / Energy-saving / Auto.'],
+ ['ECM','Energy metering','Electricity, capacity and efficiency history.'],
+];
+function glbuild(f){const tb=document.getElementById('glbody');tb.innerHTML='';f=(f||'').toLowerCase();let shown=0,lastCat=null,catRow=null;
+  GLOSSARY.forEach(g=>{if(g[0]==='cat'){lastCat=g[1];catRow=null;return;}
+    const hay=(g[0]+' '+g[1]+' '+g[2]).toLowerCase();if(f&&!hay.includes(f))return;
+    if(!catRow){const hr=document.createElement('tr');hr.className='grouphdr';hr.innerHTML='<td colspan="3">'+lastCat+'</td>';tb.appendChild(hr);catRow=hr;}
+    const tr=document.createElement('tr');tr.innerHTML='<td><code>'+g[0]+'</code></td><td><b style="color:#fff">'+g[1]+'</b></td><td style="color:var(--mut)">'+g[2]+'</td>';tb.appendChild(tr);shown++;});
+  if(!shown)tb.innerHTML='<tr><td colspan="3" style="padding:16px;color:var(--mut)">No code matches “'+f+'”.</td></tr>';}
+glbuild('');
+document.getElementById('glsearch').addEventListener('input',e=>glbuild(e.target.value));
+
+/* ============ lightbox ============ */
+const lb=document.getElementById('lightbox'),lbimg=document.getElementById('lbimg');
+document.addEventListener('click',e=>{
+  if(e.target.tagName==='IMG'&&e.target.closest('.shot')){lbimg.src=e.target.src;lb.classList.add('show');}
+  if(e.target===lb||e.target.classList.contains('x'))lb.classList.remove('show');
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('show');});
+</script>
+</body>
+</html>

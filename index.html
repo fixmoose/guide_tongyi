@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tongyi 12 kW Heat Pump — Wiring &amp; Controller Guide</title>
+<style>
+:root{
+  --bg:#0d1117;--bg2:#131a24;--card:#171f2b;--card2:#1c2735;--line:#26313f;--txt:#e6edf3;--mut:#8b97a7;
+  --acc:#33b1ff;--acc2:#2ea043;--warn:#f0883e;--danger:#f85149;--ok:#2ea043;--chip:#1f2937;
+  --w-brown:#7b4b2a;--w-black:#222;--w-grey:#9aa3ad;--w-blue:#2f6fed;--w-gy:#c9d11f;--w-signal:#b07cff;--w-white:#e8e8e8;
+  --radius:14px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Segoe UI",Roboto,system-ui,Arial,sans-serif;background:var(--bg);color:var(--txt);line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:var(--acc)}
+h1,h2,h3,h4{line-height:1.2;font-weight:700}
+.wrap{max-width:1180px;margin:0 auto;padding:0 18px}
+header.top{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:14px;padding:10px 18px}
+.brand{font-weight:800;font-size:17px;letter-spacing:.3px;white-space:nowrap}
+.brand small{display:block;font-weight:500;color:var(--mut);font-size:10.5px;letter-spacing:1px}
+nav.tabsnav{margin-left:auto;display:flex;gap:3px;flex-wrap:wrap}
+nav.tabsnav a{font-size:12px;color:var(--mut);text-decoration:none;padding:5px 9px;border-radius:8px;border:1px solid transparent}
+nav.tabsnav a:hover{color:var(--txt);background:var(--card);border-color:var(--line)}
+.hero{background:radial-gradient(900px 400px at 80% -10%,rgba(51,177,255,.16),transparent),linear-gradient(180deg,#0f1620,#0d1117);border-bottom:1px solid var(--line);padding:34px 0 26px}
+.hero h1{font-size:30px;margin:0 0 6px}
+.hero p.lead{color:var(--mut);max-width:790px;margin:0 0 18px;font-size:15px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.chip{background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:13px;display:flex;gap:8px;align-items:center}
+.chip b{color:var(--acc)}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+section{padding:34px 0;border-bottom:1px solid var(--line);scroll-margin-top:64px}
+section h2{font-size:22px;margin:0 0 4px;display:flex;align-items:center;gap:10px}
+section h2 .num{font-size:13px;color:#0d1117;background:var(--acc);border-radius:8px;padding:3px 9px;font-weight:800}
+.sub{color:var(--mut);margin:0 0 20px;font-size:14px;max-width:880px}
+.safety{background:linear-gradient(90deg,rgba(248,81,73,.14),rgba(240,136,62,.08));border:1px solid rgba(248,81,73,.4);border-radius:var(--radius);padding:16px 18px;margin:22px 0 0;display:flex;gap:14px;align-items:flex-start}
+.safety .ic{font-size:26px;line-height:1}.safety b{color:#ffb3ad}
+.safety ul{margin:8px 0 0;padding-left:18px;color:#f6d4cf;font-size:13.5px}.safety li{margin:3px 0}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:860px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.card h3{margin:0 0 4px;font-size:16px}.card h4{margin:0 0 6px;font-size:14px;color:var(--acc)}
+.card .meta{color:var(--mut);font-size:13px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin-top:12px;font-size:14px}
+.kv dt{color:var(--mut)}.kv dd{margin:0;font-weight:600}
+.big{font-size:19px;font-weight:800;color:var(--acc)}
+.psupply{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.cond{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11px;width:62px}
+.cond .bar{width:20px;height:44px;border-radius:5px;border:1px solid rgba(255,255,255,.15)}
+.cond span{color:var(--mut);text-align:center;line-height:1.2}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
+.tabs button{background:var(--card);border:1px solid var(--line);color:var(--mut);padding:9px 15px;border-radius:10px;cursor:pointer;font-size:14px;font-weight:600;transition:.15s}
+.tabs button:hover{color:var(--txt)}
+.tabs button.active{background:var(--acc);color:#06121f;border-color:var(--acc)}
+.explorer{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);gap:20px;align-items:start}
+@media(max-width:980px){.explorer{grid-template-columns:1fr}}
+.photoWrap{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:#000}
+.photoWrap img{display:block;width:100%}
+.photoCap{font-size:12px;color:var(--mut);padding:8px 12px;background:var(--card2);border-top:1px solid var(--line)}
+.hot{position:absolute;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;border:2.5px solid #fff;background:rgba(51,177,255,.5);color:#fff;font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 0 0 2px rgba(0,0,0,.5),0 2px 8px rgba(0,0,0,.6);transition:.12s}
+.hot:hover,.hot.on{background:var(--warn);transform:translate(-50%,-50%) scale(1.25);z-index:5}
+.hot.sel{background:var(--ok);border-color:#fff;transform:translate(-50%,-50%) scale(1.2);z-index:4}
+.hot.pulse{animation:pulse 1s ease 2}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 2px rgba(0,0,0,.5)}50%{box-shadow:0 0 0 8px rgba(240,136,62,.5)}}
+.ttbl{width:100%;border-collapse:collapse;font-size:13.5px}
+.ttbl th{text-align:left;color:var(--mut);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.5px;padding:8px 8px;border-bottom:1px solid var(--line)}
+.ttbl td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top;cursor:pointer}
+.ttbl tr{transition:.12s}.ttbl tbody tr:hover,.ttbl tr.on{background:var(--card2)}.ttbl tr.on{outline:1px solid var(--acc)}
+.ttbl tr.sel{background:#15242e;outline:2px solid var(--acc)}
+.ttbl tr.sel td:first-child{box-shadow:inset 3px 0 0 var(--acc)}
+.tag{display:inline-block;font-weight:800;border-radius:6px;padding:2px 8px;font-size:12px;color:#06121f;min-width:26px;text-align:center}
+.wireSwatch{display:inline-flex;align-items:center;gap:6px;font-size:12px}
+.wireSwatch i{width:16px;height:10px;border-radius:3px;display:inline-block;border:1px solid rgba(255,255,255,.2)}
+.muted{color:var(--mut)}
+.danger-pill,.ok-pill,.sig-pill{font-size:10.5px;padding:1px 7px;border-radius:999px;font-weight:700}
+.danger-pill{background:rgba(248,81,73,.18);color:#ff9a93;border:1px solid rgba(248,81,73,.4)}
+.ok-pill{background:rgba(46,160,67,.16);color:#7ee08a;border:1px solid rgba(46,160,67,.4)}
+.sig-pill{background:rgba(176,124,255,.16);color:#cdb2ff;border:1px solid rgba(176,124,255,.4)}
+/* correspondence detail */
+.detail{margin-top:14px;border:1px solid var(--acc);border-radius:var(--radius);background:linear-gradient(180deg,#10202e,#141c27);padding:16px;display:none}
+.detail.show{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.detail .dhead{font-size:13px;color:var(--mut);margin-bottom:10px}
+.corr{display:grid;grid-template-columns:120px 1fr 1.3fr;gap:0;align-items:center}
+@media(max-width:560px){.corr{grid-template-columns:1fr}}
+.dnode{border-radius:10px;padding:10px 12px;font-size:13px;text-align:center}
+.dnode.term{background:#21303f;border:1px solid var(--acc)}
+.dnode.term b{font-size:18px;color:#fff;display:block}
+.dnode.dest{background:#15241a;border:1px solid var(--ok);text-align:left}
+.dnode.dest b{color:#7ee08a}
+.dconn{position:relative;height:54px}
+.dconn svg{width:100%;height:100%}
+.swrow{margin-top:14px;background:#0e1a24;border-left:3px solid var(--warn);border-radius:8px;padding:11px 13px;font-size:13px}
+.swrow b{color:#fff}
+.loopcard{display:flex;gap:16px;align-items:center;padding:12px 4px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.loopcard:last-child{border-bottom:none}
+.loopcard .loopsvg{flex:0 0 360px;max-width:100%}
+.loopcard .loopsvg svg{width:100%;height:auto;display:block}
+.loopinfo{flex:1;min-width:230px;font-size:13px;line-height:1.5}
+.loopinfo .lt{font-weight:700;color:#fff;font-size:14px}
+.loopinfo .ret{color:#cdb2ff;font-size:12px}
+.loopinfo .sw{color:#f0b894;font-size:12px;margin-top:4px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.toolbar input{background:var(--card);border:1px solid var(--line);color:var(--txt);padding:10px 14px;border-radius:10px;font-size:14px;min-width:240px;flex:1}
+.toolbar .btn{background:var(--card);border:1px solid var(--line);color:var(--txt);padding:10px 14px;border-radius:10px;cursor:pointer;font-size:13px}
+.toolbar .btn:hover{border-color:var(--acc)}
+.mtblwrap{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+table.master{width:100%;border-collapse:collapse;font-size:13px;background:var(--card)}
+table.master th{background:var(--card2);text-align:left;padding:12px 11px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);border-bottom:2px solid var(--line)}
+table.master td{padding:11px;border-bottom:1px solid var(--line);vertical-align:top}
+table.master tbody tr:hover{background:var(--card2)}
+.secthead td{background:#10202e !important;font-weight:800;color:var(--acc);text-transform:uppercase;letter-spacing:1px;font-size:11.5px}
+.ref-colors{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:12px}
+.colorCard{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:12px;font-size:13px}
+.colorCard .swatch{height:26px;border-radius:6px;margin-bottom:8px;border:1px solid rgba(255,255,255,.2)}
+.note{background:var(--card2);border-left:3px solid var(--acc);padding:12px 14px;border-radius:8px;font-size:13.5px;color:#cfd8e3;margin-top:14px}
+.note.warn{border-left-color:var(--warn)}.note.dng{border-left-color:var(--danger)}.note.ok{border-left-color:var(--ok)}
+.note b{color:#fff}
+.svgcard{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:6px 6px 0}
+.svgcard svg{width:100%;height:auto;display:block}
+.svgcap{font-size:12.5px;color:var(--mut);padding:10px 12px}
+.steps{counter-reset:s;padding:0;margin:12px 0 0;list-style:none}
+.steps li{position:relative;padding:9px 0 9px 40px;border-bottom:1px solid var(--line);font-size:13.5px}
+.steps li:before{counter-increment:s;content:counter(s);position:absolute;left:0;top:7px;width:26px;height:26px;border-radius:50%;background:var(--acc);color:#06121f;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:12px}
+.steps li b{color:#fff}
+.steps.green li:before{background:var(--ok)}
+.pillrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.pill{background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:7px 11px;font-size:12.5px}.pill b{color:var(--acc)}
+.ptable{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:6px}
+.ptable th,.ptable td{padding:10px;border-bottom:1px solid var(--line);text-align:left}
+.ptable th{color:var(--mut);font-size:11.5px;text-transform:uppercase;letter-spacing:.5px}
+.ptable td b{color:#fff}
+.barbox{font-weight:800;color:#06121f;border-radius:6px;padding:2px 9px;display:inline-block}
+footer{padding:30px 0 60px;color:var(--mut);font-size:12.5px}
+footer h3{color:var(--txt);font-size:14px}.src{font-size:12px;color:var(--mut)}
+.legend-inline{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--mut);margin:6px 0 0}
+.legend-inline span{display:flex;gap:6px;align-items:center}
+.zoom{cursor:zoom-in}
+#lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:200;padding:24px}
+#lightbox.show{display:flex}#lightbox img{max-width:96%;max-height:96%;border-radius:8px}
+#lightbox .x{position:absolute;top:18px;right:24px;font-size:30px;color:#fff;cursor:pointer}
+@media print{header.top,nav.tabsnav,.toolbar,#lightbox{display:none!important}body{background:#fff;color:#000}section{border-color:#ccc;page-break-inside:avoid}.card,table.master,.photoWrap,.svgcard,.mtblwrap{border-color:#999}.hero{background:#fff}a{color:#000}.detail{display:block!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="brand">TONGYI <small>HEAT PUMP · WIRING + CONTROLLER GUIDE</small></div>
+    <nav class="tabsnav">
+      <a href="#overview">Overview</a><a href="#power">Power</a><a href="#explorer">Terminals</a>
+      <a href="#connections">Connections</a><a href="#loops">Water&amp;Pressure</a><a href="#valve">Valve</a>
+      <a href="#zones">Zones</a><a href="#scenario">Scenarios</a><a href="#schedule">Schedule</a>
+      <a href="#controller">Controller</a><a href="#reference">Wire ref</a>
+      <a href="app-menu-guide.html" style="color:var(--acc);border-color:var(--line);background:var(--card)">📱 App menu →</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero"><div class="wrap">
+  <h1>12 kW Heat Pump — Wiring &amp; Controller Guide</h1>
+  <p class="lead">Every terminal on a real photo — <b>click any terminal to see exactly where it connects and what to set in the controller afterwards</b>. Point-to-point schematics for each device, water &amp; pressure loops, how the valves/zones work, ready-made house scenarios with controller setup steps, and full WiFi setup. For the <b>TAHMV12S&nbsp;R</b> + <b>EFJ01-A01 Hydro Box</b> + 200&nbsp;L buffer + 500&nbsp;L DHW.</p>
+  <div class="chips">
+    <div class="chip"><span class="dot" style="background:var(--acc)"></span> <b>TAHMV12S&nbsp;R</b></div>
+    <div class="chip"><span class="dot" style="background:var(--warn)"></span> 3-phase <b>380–415&nbsp;V</b></div>
+    <div class="chip"><span class="dot" style="background:var(--ok)"></span> Hydro Box <b>EFJ01-A01</b></div>
+    <div class="chip">Buffer <b>200&nbsp;L + 3&nbsp;kW</b></div>
+    <div class="chip">DHW <b>500&nbsp;L + 3&nbsp;kW</b></div>
+  </div>
+</div></div>
+
+<div class="wrap">
+
+<div class="safety">
+  <div class="ic">⚠️</div>
+  <div><b>Read first — safety.</b> A clear-language helper built from the Tongyi service manual, Hydro Box manual, controller/app manual and photos of a real installed unit. It does <b>not</b> replace the diagram glued inside your unit's box, which always wins.
+    <ul>
+      <li>Licensed electrician only · power isolated · per local + EU rules (R290 = flammable).</li>
+      <li><b>30&nbsp;mA RCD</b> + all-pole disconnector (≥3&nbsp;mm) on every circuit. Earth everything.</li>
+      <li><b>Never put mains on weak-signal terminals (6)–(13).</b></li>
+      <li>The 200&nbsp;L &amp; 500&nbsp;L tank heaters are 3&nbsp;kW with <b>no relay</b> — each needs its own contactor + own protected supply (§4).</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 1 OVERVIEW -->
+<section id="overview">
+  <h2><span class="num">1</span> How the system fits together</h2>
+  <p class="sub">Two boxes get power and talk to each other. The outdoor heat pump is the brain; the indoor Hydro Box is the muscle (pump + the <b>built-in DHW 3-way valve</b> + expansion). The two 3&nbsp;kW tank heaters are switched by contactors the brain controls.</p>
+  <div class="card" style="padding:10px">
+  <svg viewBox="0 0 1000 440" style="width:100%;height:auto;font-family:inherit">
+    <defs><marker id="arr" markerWidth="9" markerHeight="9" refX="6" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#8b97a7"/></marker>
+    <marker id="arrP" markerWidth="9" markerHeight="9" refX="6" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#f0883e"/></marker></defs>
+    <rect x="20" y="30" width="150" height="60" rx="9" fill="#1c2735" stroke="#26313f"/><text x="95" y="55" fill="#e6edf3" font-size="14" font-weight="700" text-anchor="middle">GRID SUPPLY</text><text x="95" y="74" fill="#8b97a7" font-size="11" text-anchor="middle">3-ph + 1-ph</text>
+    <rect x="20" y="150" width="150" height="150" rx="9" fill="#1c2735" stroke="#26313f"/><text x="95" y="173" fill="#e6edf3" font-size="13" font-weight="700" text-anchor="middle">FUSE BOARD</text>
+    <text x="95" y="196" fill="#33b1ff" font-size="11" text-anchor="middle">3P 10A →HP</text><text x="95" y="214" fill="#2ea043" font-size="11" text-anchor="middle">1P 16A →Box</text>
+    <text x="95" y="232" fill="#f0883e" font-size="11" text-anchor="middle">1P 16A →Buffer htr</text><text x="95" y="250" fill="#f0883e" font-size="11" text-anchor="middle">1P 16A →DHW htr</text>
+    <text x="95" y="276" fill="#8b97a7" font-size="10.5" text-anchor="middle">all + 30mA RCD</text>
+    <rect x="340" y="40" width="230" height="150" rx="11" fill="#15202c" stroke="#33b1ff" stroke-width="1.5"/><text x="455" y="68" fill="#33b1ff" font-size="15" font-weight="800" text-anchor="middle">OUTDOOR HEAT PUMP</text>
+    <text x="455" y="88" fill="#e6edf3" font-size="12" text-anchor="middle">TAHMV12S R · 12 kW · the brain</text><text x="455" y="112" fill="#8b97a7" font-size="11" text-anchor="middle">Mains R·S·T·N·PE</text>
+    <text x="455" y="130" fill="#8b97a7" font-size="11" text-anchor="middle">Signal + relay-output terminals</text><text x="455" y="148" fill="#8b97a7" font-size="11" text-anchor="middle">Drives valve, pump, 2 contactors</text>
+    <text x="455" y="170" fill="#8b97a7" font-size="11" text-anchor="middle">Wired controller cable (10 m, pre-wired)</text>
+    <rect x="340" y="250" width="230" height="140" rx="11" fill="#15241a" stroke="#2ea043" stroke-width="1.5"/><text x="455" y="278" fill="#2ea043" font-size="15" font-weight="800" text-anchor="middle">INDOOR HYDRO BOX</text>
+    <text x="455" y="298" fill="#e6edf3" font-size="12" text-anchor="middle">EFJ01-A01 · 1-phase</text><text x="455" y="320" fill="#8b97a7" font-size="11" text-anchor="middle">circ. pump · expansion vessel</text>
+    <text x="455" y="338" fill="#8b97a7" font-size="11" text-anchor="middle">built-in DHW 3-way valve</text><text x="455" y="356" fill="#8b97a7" font-size="11" text-anchor="middle">Terminals L N · 1 · 2 · 3</text>
+    <rect x="730" y="26" width="240" height="64" rx="9" fill="#1c2735" stroke="#f0883e"/><text x="850" y="50" fill="#e6edf3" font-size="12.5" font-weight="700" text-anchor="middle">200 L BUFFER + 3 kW</text><text x="850" y="69" fill="#f0883e" font-size="10.5" text-anchor="middle">heater via contactor → space heat</text>
+    <rect x="730" y="110" width="240" height="64" rx="9" fill="#1c2735" stroke="#f0883e"/><text x="850" y="134" fill="#e6edf3" font-size="12.5" font-weight="700" text-anchor="middle">500 L DHW + 3 kW</text><text x="850" y="153" fill="#f0883e" font-size="10.5" text-anchor="middle">heater via contactor → hot water</text>
+    <rect x="730" y="300" width="240" height="64" rx="9" fill="#1c2735" stroke="#26313f"/><text x="850" y="324" fill="#e6edf3" font-size="12" font-weight="700" text-anchor="middle">FLOOR / RAD / FCU</text><text x="850" y="343" fill="#8b97a7" font-size="10.5" text-anchor="middle">heating zones (installer supplied)</text>
+    <line x1="95" y1="90" x2="95" y2="150" stroke="#8b97a7" marker-end="url(#arr)"/>
+    <path d="M170 195 H 250 V 110 H 338" fill="none" stroke="#f0883e" stroke-width="2" marker-end="url(#arrP)"/><text x="250" y="100" fill="#f0883e" font-size="10" text-anchor="middle">3-ph 4mm²</text>
+    <path d="M170 250 H 290 V 320 H 338" fill="none" stroke="#2ea043" stroke-width="2" marker-end="url(#arrP)"/><text x="285" y="352" fill="#2ea043" font-size="10" text-anchor="middle">1-ph 2.5mm²</text>
+    <line x1="455" y1="190" x2="455" y2="250" stroke="#33b1ff" stroke-dasharray="5 4" stroke-width="2" marker-end="url(#arr)"/><text x="560" y="222" fill="#33b1ff" font-size="10" text-anchor="middle">control signals</text>
+    <path d="M570 78 H 650 V 58 H 728" fill="none" stroke="#f0883e" stroke-width="1.6" marker-end="url(#arrP)"/><text x="650" y="44" fill="#f0883e" font-size="9.5" text-anchor="middle">out B → contactor</text>
+    <path d="M570 120 H 650 V 142 H 728" fill="none" stroke="#f0883e" stroke-width="1.6" marker-end="url(#arrP)"/><text x="650" y="170" fill="#f0883e" font-size="9.5" text-anchor="middle">out C → contactor</text>
+    <line x1="570" y1="330" x2="728" y2="330" stroke="#8b97a7" stroke-dasharray="3 3" marker-end="url(#arr)"/><text x="650" y="320" fill="#566173" font-size="10" text-anchor="middle">— water pipes</text>
+  </svg>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card"><h3>① The heat pump (outdoor)</h3><p class="meta">3-phase power + the control board. All sensors, the wired controller, smart-grid signals and the relay outputs that drive heaters / pump / valve land here.</p><img class="zoom" src="assets/hp_box_overview.jpg" style="width:100%;border-radius:10px;margin-top:10px;border:1px solid var(--line)"></div>
+    <div class="card"><h3>② The Hydro Box (indoor)</h3><p class="meta">Circulation pump, expansion vessel and the <b>built-in DHW 3-way valve</b>. Takes its own 1-phase supply + a few control wires from the heat pump.</p><img class="zoom" src="assets/hydrobox_inside.jpg" style="width:100%;border-radius:10px;margin-top:10px;border:1px solid var(--line)"></div>
+  </div>
+</section>
+
+<!-- 2 POWER -->
+<section id="power">
+  <h2><span class="num">2</span> Power supplies (4 circuits)</h2>
+  <p class="sub">Heat pump + Hydro Box each get a dedicated circuit, and <b>each 3&nbsp;kW tank heater needs its own dedicated 1-phase circuit</b> — the board only switches the contactor coil, not the heater current. Every circuit gets a 30&nbsp;mA RCD.</p>
+  <div class="grid g4">
+    <div class="card"><h3>Heat pump · 3-phase</h3><span class="meta">TAHMV12S R</span>
+      <dl class="kv"><dt>Supply</dt><dd>380–415 V · 3~</dd><dt>Current</dt><dd>8.5 A</dd><dt>Breaker</dt><dd class="big">3P · 10 A · C</dd><dt>Cable</dt><dd class="big">5×4 mm²</dd><dt>Terminals</dt><dd>R·S·T·N·PE</dd></dl>
+      <div class="psupply"><div class="cond"><div class="bar" style="background:var(--w-brown)"></div><span>R brown</span></div><div class="cond"><div class="bar" style="background:var(--w-black)"></div><span>S black</span></div><div class="cond"><div class="bar" style="background:var(--w-grey)"></div><span>T grey</span></div><div class="cond"><div class="bar" style="background:var(--w-blue)"></div><span>N blue</span></div><div class="cond"><div class="bar" style="background:var(--w-gy)"></div><span>PE g/y</span></div></div>
+    </div>
+    <div class="card"><h3>Hydro Box · 1-phase</h3><span class="meta">EFJ01-A01</span>
+      <dl class="kv"><dt>Supply</dt><dd>220–240 V · 1~</dd><dt>Breaker</dt><dd class="big">1P · 16 A · C</dd><dt>Cable</dt><dd class="big">3×2.5 mm²</dd><dt>Terminals</dt><dd>L·N·PE</dd></dl>
+      <div class="psupply"><div class="cond"><div class="bar" style="background:var(--w-brown)"></div><span>L brown</span></div><div class="cond"><div class="bar" style="background:var(--w-blue)"></div><span>N blue</span></div><div class="cond"><div class="bar" style="background:var(--w-gy)"></div><span>PE g/y</span></div></div>
+    </div>
+    <div class="card"><h3>200 L buffer heater</h3><span class="meta">3 kW · no relay</span>
+      <dl class="kv"><dt>Load</dt><dd>3 kW → 13 A</dd><dt>Breaker</dt><dd class="big">1P · 16 A · C</dd><dt>Cable</dt><dd class="big">3×2.5 mm²</dd><dt>Switched by</dt><dd>contactor ← <b>Out B</b></dd></dl>
+      <p class="note warn" style="margin-top:10px">System backup/aux heat. Wiring → §4.</p></div>
+    <div class="card"><h3>500 L DHW heater</h3><span class="meta">3 kW · no relay</span>
+      <dl class="kv"><dt>Load</dt><dd>3 kW → 13 A</dd><dt>Breaker</dt><dd class="big">1P · 16 A · C</dd><dt>Cable</dt><dd class="big">3×2.5 mm²</dd><dt>Switched by</dt><dd>contactor ← <b>Out C</b></dd></dl>
+      <p class="note warn" style="margin-top:10px">Fast DHW + Legionella. Wiring → §4.</p></div>
+  </div>
+</section>
+
+<!-- 3 EXPLORER -->
+<section id="explorer">
+  <h2><span class="num">3</span> Terminal explorer — click a terminal to see where it goes</h2>
+  <p class="sub">Pick a block, then <b>click a numbered marker or a table row</b>. The panel below draws the correspondence line to whatever that terminal connects to, plus the controller setting to change afterwards. Hover to preview; click to lock the detail. Click any photo to zoom.</p>
+  <div class="legend-inline">
+    <span><span class="danger-pill">230&nbsp;V</span> mains/power — contactor if &gt;400&nbsp;W</span>
+    <span><span class="sig-pill">SIGNAL</span> weak/low-voltage</span>
+    <span><span class="ok-pill">SUPPLY</span> incoming power</span>
+  </div>
+  <div class="tabs" id="tabs"></div>
+  <div class="explorer">
+    <div>
+      <div class="photoWrap" id="photoWrap"><img id="photo" src="assets/mains_3ph.jpg" alt="terminal block"><div id="hots"></div></div>
+      <div class="photoCap" id="photoCap"></div>
+    </div>
+    <div>
+      <table class="ttbl"><thead><tr><th style="width:34px">#</th><th>Terminal / function</th><th>Wire</th></tr></thead><tbody id="ttbody"></tbody></table>
+    </div>
+  </div>
+  <div class="detail" id="detail">
+    <div class="dhead" id="dhead"></div>
+    <div id="loopwrap"></div>
+  </div>
+  <p class="meta" style="margin-top:6px">💡 Tip: <b>Ctrl/Cmd-click</b> several terminals (or rows) to select multiple and see a <b>combined diagram</b> — each signal is drawn with its <b>return</b> so you see the full loop.</p>
+
+  <!-- low-voltage signaling explainer -->
+  <h3 style="margin:30px 0 6px;font-size:17px">❓ "How does a signal work on one wire?" — it doesn't</h3>
+  <p class="sub" style="margin-bottom:12px">You're right: a signal always needs a return. On this board the return is either the <b>next terminal in the pair</b>, a <b>shared common rail</b>, or the <b>shared neutral</b>. So a function that looks like "one terminal" is really a loop. There are four kinds:</p>
+  <div class="grid g4">
+    <div class="card"><h4 style="color:#cdb2ff">① Differential bus (A &amp; B)</h4><p class="meta"><b>RS485:</b> (6)+(7) = A1/B1, (8)+(9) = A2/B2. The two wires carry the <b>+/− difference</b> — this is your "A&amp;B / +&amp;−". Always a <b>shielded twisted pair</b>.</p></div>
+    <div class="card"><h4 style="color:#cdb2ff">② Dry contact (signal + common)</h4><p class="meta"><b>Thermostat, Linked switch, SG, EVU, Solar:</b> a <b>volt-free switch</b> closes the loop. Thermostat: <b>L1 = common</b>; close <b>L1–H</b> = heat call, <b>L1–C</b> = cool. Linked switch (10)–(11): close = enable. The board supplies the tiny sense voltage — you only open/close the loop.</p></div>
+    <div class="card"><h4 style="color:#cdb2ff">③ NTC temperature sensor (2-wire)</h4><p class="meta"><b>Tank / buffer / floor sensors</b> (TWout2, TACt1/2, TWout3): a thermistor whose resistance changes with temperature. <b>2 wires, polarity-free.</b> They plug into dedicated <b>sensor connectors</b>, not the screw terminals.</p></div>
+    <div class="card"><h4 style="color:#f0b894">④ Relay output (live + shared N)</h4><p class="meta"><b>A–E and 1–7:</b> the terminal switches a <b>live</b> out; the return is the shared <b>neutral E (zero line)</b>. So an output = its terminal <b>+</b> the common N. That's why there's one N for the whole output group.</p></div>
+  </div>
+  <div class="svgcard" style="margin-top:14px">
+    <svg viewBox="0 0 1000 200" font-family="inherit">
+      <defs><marker id="lv" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#b07cff"/></marker></defs>
+      <!-- dry contact loop -->
+      <rect x="20" y="30" width="150" height="140" rx="9" fill="#15202c" stroke="#33b1ff"/><text x="95" y="54" fill="#33b1ff" font-size="12" font-weight="800" text-anchor="middle">BOARD</text>
+      <rect x="40" y="74" width="56" height="24" rx="5" fill="#241830" stroke="#b07cff"/><text x="68" y="91" fill="#fff" font-size="11" text-anchor="middle">L1</text>
+      <rect x="40" y="118" width="56" height="24" rx="5" fill="#241830" stroke="#b07cff"/><text x="68" y="135" fill="#fff" font-size="11" text-anchor="middle">H</text>
+      <text x="240" y="60" fill="#cdb2ff" font-size="12" font-weight="700">Dry contact (thermostat)</text>
+      <polyline points="96,86 330,86" fill="none" stroke="#b07cff" stroke-width="2.4"/>
+      <polyline points="96,130 280,130" fill="none" stroke="#b07cff" stroke-width="2.4"/>
+      <!-- switch -->
+      <circle cx="330" cy="86" r="4" fill="#b07cff"/><circle cx="380" cy="108" r="4" fill="#b07cff"/><line x1="330" y1="86" x2="380" y2="108" stroke="#b07cff" stroke-width="2.4"/><polyline points="380,108 380,130 280,130" fill="none" stroke="#b07cff" stroke-width="2.4"/>
+      <text x="300" y="150" fill="#8b97a7" font-size="10">close the loop = "heat call"</text>
+      <!-- NTC sensor -->
+      <rect x="560" y="30" width="150" height="140" rx="9" fill="#15202c" stroke="#33b1ff"/><text x="635" y="54" fill="#33b1ff" font-size="12" font-weight="800" text-anchor="middle">BOARD</text>
+      <rect x="640" y="96" width="50" height="24" rx="5" fill="#1d2b22" stroke="#9aa3ad"/><text x="665" y="113" fill="#fff" font-size="10" text-anchor="middle">sensor</text>
+      <text x="770" y="70" fill="#9fb4a6" font-size="12" font-weight="700">NTC sensor (2-wire)</text>
+      <polyline points="710,102 860,102" fill="none" stroke="#9aa3ad" stroke-width="2.4"/>
+      <polyline points="710,114 860,114" fill="none" stroke="#9aa3ad" stroke-width="2.4"/>
+      <rect x="860" y="92" width="40" height="32" rx="5" fill="#1d2b22" stroke="#2ea043"/><text x="880" y="112" fill="#7ee08a" font-size="13" text-anchor="middle" font-weight="800">°C</text>
+      <text x="770" y="150" fill="#8b97a7" font-size="10">resistance ↔ temperature</text>
+    </svg>
+    <div class="svgcap">Left: a dry-contact input is a loop between a signal terminal and its common (here L1). Right: a temperature sensor is a 2-wire thermistor on its own connector. Either way — never a single wire.</div>
+  </div>
+</section>
+
+<!-- 4 CONNECTIONS -->
+<section id="connections">
+  <h2><span class="num">4</span> Point-to-point connections</h2>
+  <p class="sub">Schematic-style, right-angle wiring for each device. The two 3&nbsp;kW heaters read left → right: <b>board → contactor → tank</b>, with their own protected supply feeding the contactor and the thermal feedback returning to the board.</p>
+
+  <h3 style="margin:18px 0 6px;font-size:17px">A · 500 L DHW tank heater (3 kW) — via contactor</h3>
+  <div class="svgcard">
+    <svg viewBox="0 0 1000 390" font-family="inherit">
+      <defs><marker id="h1" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#9aa3ad"/></marker></defs>
+      <!-- boxes -->
+      <rect x="30" y="70" width="180" height="250" rx="10" fill="#15202c" stroke="#33b1ff"/><text x="120" y="94" fill="#33b1ff" font-size="13" font-weight="800" text-anchor="middle">HEAT-PUMP BOARD</text>
+      <rect x="150" y="100" width="80" height="26" rx="5" fill="#21303f" stroke="#f0883e"/><text x="190" y="118" fill="#fff" font-size="11.5" text-anchor="middle">Out C 230V</text>
+      <rect x="150" y="140" width="80" height="26" rx="5" fill="#21303f" stroke="#2f6fed"/><text x="190" y="158" fill="#fff" font-size="11.5" text-anchor="middle">Out E (N)</text>
+      <rect x="150" y="272" width="80" height="26" rx="5" fill="#241830" stroke="#b07cff"/><text x="190" y="290" fill="#fff" font-size="11" text-anchor="middle">In 1 &amp; 2</text>
+      <rect x="430" y="80" width="170" height="150" rx="10" fill="#241b10" stroke="#f0883e"/><text x="515" y="104" fill="#f0883e" font-size="13" font-weight="800" text-anchor="middle">CONTACTOR (KM)</text><text x="515" y="121" fill="#8b97a7" font-size="10" text-anchor="middle">installer supplied · 230V coil</text>
+      <rect x="405" y="134" width="50" height="24" rx="5" fill="#2b2415" stroke="#f0883e"/><text x="430" y="151" fill="#fff" font-size="11" text-anchor="middle">A1</text>
+      <rect x="405" y="170" width="50" height="24" rx="5" fill="#2b2415" stroke="#2f6fed"/><text x="430" y="187" fill="#fff" font-size="11" text-anchor="middle">A2</text>
+      <rect x="488" y="206" width="54" height="24" rx="5" fill="#2b2415" stroke="#9aa3ad"/><text x="515" y="223" fill="#fff" font-size="10.5" text-anchor="middle">L in</text>
+      <rect x="600" y="120" width="44" height="24" rx="5" fill="#2b2415" stroke="#9aa3ad"/><text x="622" y="137" fill="#fff" font-size="10.5" text-anchor="middle">T out</text>
+      <rect x="430" y="280" width="170" height="64" rx="10" fill="#1c2735" stroke="#2ea043"/><text x="515" y="304" fill="#2ea043" font-size="12" font-weight="700" text-anchor="middle">DEDICATED SUPPLY</text><text x="515" y="322" fill="#8b97a7" font-size="10" text-anchor="middle">own 16 A MCB + 30 mA RCD</text>
+      <rect x="475" y="280" width="20" height="12" fill="#2b2415" stroke="#7b4b2a"/><rect x="545" y="280" width="20" height="12" fill="#2b2415" stroke="#2f6fed"/>
+      <rect x="790" y="90" width="180" height="170" rx="10" fill="#15241a" stroke="#2ea043"/><text x="880" y="114" fill="#2ea043" font-size="13" font-weight="800" text-anchor="middle">500 L DHW TANK</text><text x="880" y="131" fill="#8b97a7" font-size="10.5" text-anchor="middle">3 kW immersion heater</text>
+      <rect x="765" y="148" width="58" height="22" rx="5" fill="#1d2b22" stroke="#9aa3ad"/><text x="794" y="163" fill="#fff" font-size="10" text-anchor="middle">Htr L</text>
+      <rect x="765" y="184" width="58" height="22" rx="5" fill="#1d2b22" stroke="#2f6fed"/><text x="794" y="199" fill="#fff" font-size="10" text-anchor="middle">Htr N</text>
+      <rect x="765" y="220" width="58" height="22" rx="5" fill="#1d2b22" stroke="#b07cff"/><text x="794" y="235" fill="#fff" font-size="9.5" text-anchor="middle">cut-out</text>
+      <!-- right-angle wires -->
+      <polyline points="230,113 405,113 405,134" fill="none" stroke="#7b4b2a" stroke-width="2.4" marker-end="url(#h1)"/><text x="290" y="106" fill="#c79a78" font-size="10.5">1.0 mm² brown → coil A1</text>
+      <polyline points="230,153 380,153 380,182 405,182" fill="none" stroke="#2f6fed" stroke-width="2.4" marker-end="url(#h1)"/><text x="250" y="170" fill="#7ba2f5" font-size="10.5">1.0 mm² blue → coil A2</text>
+      <polyline points="485,286 485,250 515,250 515,230" fill="none" stroke="#7b4b2a" stroke-width="2.6" marker-end="url(#h1)"/><text x="525" y="262" fill="#c79a78" font-size="10.5">2.5 mm² L</text>
+      <polyline points="644,132 700,132 700,159 765,159" fill="none" stroke="#7b4b2a" stroke-width="2.6" marker-end="url(#h1)"/><text x="648" y="124" fill="#c79a78" font-size="10.5">2.5 mm² brown · switched L</text>
+      <polyline points="555,286 555,266 730,266 730,195 765,195" fill="none" stroke="#2f6fed" stroke-width="2.4" marker-end="url(#h1)"/><text x="600" y="260" fill="#7ba2f5" font-size="10.5">2.5 mm² blue · N (+ g/y PE)</text>
+      <polyline points="765,231 700,231 700,366 225,366 225,298" fill="none" stroke="#b07cff" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#h1)"/><text x="330" y="360" fill="#cdb2ff" font-size="10.5">0.75 mm² · thermal feedback → board In 1 &amp; 2</text>
+    </svg>
+    <div class="svgcap"><b>How it works:</b> the board puts 230 V on <b>Out C</b> → energises the contactor coil (A1/A2) → the main contact feeds the 3 kW element from its <b>own protected supply</b>. The element's thermal cut-out reports back to inputs <b>1 &amp; 2</b>. Neutral &amp; earth go straight to the heater. <b>Controller:</b> Advanced → [Hot Water Function]=On, [Water Tank Heating]=On, [Water Tank Heating Power]=3000 W.</div>
+  </div>
+
+  <h3 style="margin:22px 0 6px;font-size:17px">B · 200 L buffer tank heater (3 kW) — via contactor</h3>
+  <div class="svgcard">
+    <svg viewBox="0 0 1000 390" font-family="inherit">
+      <defs><marker id="h2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#9aa3ad"/></marker></defs>
+      <rect x="30" y="70" width="180" height="250" rx="10" fill="#15202c" stroke="#33b1ff"/><text x="120" y="94" fill="#33b1ff" font-size="13" font-weight="800" text-anchor="middle">HEAT-PUMP BOARD</text>
+      <rect x="150" y="100" width="80" height="26" rx="5" fill="#21303f" stroke="#f0883e"/><text x="190" y="118" fill="#fff" font-size="11.5" text-anchor="middle">Out B 230V</text>
+      <rect x="150" y="140" width="80" height="26" rx="5" fill="#21303f" stroke="#2f6fed"/><text x="190" y="158" fill="#fff" font-size="11.5" text-anchor="middle">Out E (N)</text>
+      <rect x="150" y="272" width="80" height="26" rx="5" fill="#241830" stroke="#b07cff"/><text x="190" y="290" fill="#fff" font-size="11" text-anchor="middle">In 3 &amp; 4</text>
+      <rect x="430" y="80" width="170" height="150" rx="10" fill="#241b10" stroke="#f0883e"/><text x="515" y="104" fill="#f0883e" font-size="13" font-weight="800" text-anchor="middle">CONTACTOR (KM)</text><text x="515" y="121" fill="#8b97a7" font-size="10" text-anchor="middle">installer supplied · 230V coil</text>
+      <rect x="405" y="134" width="50" height="24" rx="5" fill="#2b2415" stroke="#f0883e"/><text x="430" y="151" fill="#fff" font-size="11" text-anchor="middle">A1</text>
+      <rect x="405" y="170" width="50" height="24" rx="5" fill="#2b2415" stroke="#2f6fed"/><text x="430" y="187" fill="#fff" font-size="11" text-anchor="middle">A2</text>
+      <rect x="488" y="206" width="54" height="24" rx="5" fill="#2b2415" stroke="#9aa3ad"/><text x="515" y="223" fill="#fff" font-size="10.5" text-anchor="middle">L in</text>
+      <rect x="600" y="120" width="44" height="24" rx="5" fill="#2b2415" stroke="#9aa3ad"/><text x="622" y="137" fill="#fff" font-size="10.5" text-anchor="middle">T out</text>
+      <rect x="430" y="280" width="170" height="64" rx="10" fill="#1c2735" stroke="#2ea043"/><text x="515" y="304" fill="#2ea043" font-size="12" font-weight="700" text-anchor="middle">DEDICATED SUPPLY</text><text x="515" y="322" fill="#8b97a7" font-size="10" text-anchor="middle">own 16 A MCB + 30 mA RCD</text>
+      <rect x="475" y="280" width="20" height="12" fill="#2b2415" stroke="#7b4b2a"/><rect x="545" y="280" width="20" height="12" fill="#2b2415" stroke="#2f6fed"/>
+      <rect x="790" y="90" width="180" height="170" rx="10" fill="#15241a" stroke="#2ea043"/><text x="880" y="114" fill="#2ea043" font-size="13" font-weight="800" text-anchor="middle">200 L BUFFER TANK</text><text x="880" y="131" fill="#8b97a7" font-size="10.5" text-anchor="middle">3 kW immersion heater</text>
+      <rect x="765" y="148" width="58" height="22" rx="5" fill="#1d2b22" stroke="#9aa3ad"/><text x="794" y="163" fill="#fff" font-size="10" text-anchor="middle">Htr L</text>
+      <rect x="765" y="184" width="58" height="22" rx="5" fill="#1d2b22" stroke="#2f6fed"/><text x="794" y="199" fill="#fff" font-size="10" text-anchor="middle">Htr N</text>
+      <rect x="765" y="220" width="58" height="22" rx="5" fill="#1d2b22" stroke="#b07cff"/><text x="794" y="235" fill="#fff" font-size="9.5" text-anchor="middle">cut-out</text>
+      <polyline points="230,113 405,113 405,134" fill="none" stroke="#7b4b2a" stroke-width="2.4" marker-end="url(#h2)"/><text x="290" y="106" fill="#c79a78" font-size="10.5">1.0 mm² brown → coil A1</text>
+      <polyline points="230,153 380,153 380,182 405,182" fill="none" stroke="#2f6fed" stroke-width="2.4" marker-end="url(#h2)"/><text x="250" y="170" fill="#7ba2f5" font-size="10.5">1.0 mm² blue → coil A2</text>
+      <polyline points="485,286 485,250 515,250 515,230" fill="none" stroke="#7b4b2a" stroke-width="2.6" marker-end="url(#h2)"/><text x="525" y="262" fill="#c79a78" font-size="10.5">2.5 mm² L</text>
+      <polyline points="644,132 700,132 700,159 765,159" fill="none" stroke="#7b4b2a" stroke-width="2.6" marker-end="url(#h2)"/><text x="648" y="124" fill="#c79a78" font-size="10.5">2.5 mm² brown · switched L</text>
+      <polyline points="555,286 555,266 730,266 730,195 765,195" fill="none" stroke="#2f6fed" stroke-width="2.4" marker-end="url(#h2)"/><text x="600" y="260" fill="#7ba2f5" font-size="10.5">2.5 mm² blue · N (+ g/y PE)</text>
+      <polyline points="765,231 700,231 700,366 225,366 225,298" fill="none" stroke="#b07cff" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#h2)"/><text x="330" y="360" fill="#cdb2ff" font-size="10.5">0.75 mm² · thermal feedback → board In 3 &amp; 4</text>
+    </svg>
+    <div class="svgcap"><b>Same pattern, different terminals:</b> driven by <b>Out B</b> (aux/backup heating), feedback to inputs <b>3 &amp; 4</b>. Tops up the buffer on very cold days or as emergency heat. <b>Controller:</b> Advanced → [Electric Heater 1 Power]=3000 W (enable backup heating).</div>
+  </div>
+
+  <div class="grid g2" style="margin-top:22px">
+    <div class="svgcard">
+      <svg viewBox="0 0 500 210" font-family="inherit">
+        <defs><marker id="h3" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#9aa3ad"/></marker></defs>
+        <rect x="16" y="30" width="160" height="150" rx="10" fill="#15202c" stroke="#33b1ff"/><text x="96" y="54" fill="#33b1ff" font-size="12.5" font-weight="800" text-anchor="middle">BOARD</text>
+        <rect x="118" y="74" width="58" height="26" rx="5" fill="#21303f" stroke="#f0883e"/><text x="147" y="92" fill="#fff" font-size="11" text-anchor="middle">Out 5</text>
+        <rect x="118" y="118" width="58" height="26" rx="5" fill="#21303f" stroke="#2f6fed"/><text x="147" y="136" fill="#fff" font-size="11" text-anchor="middle">N</text>
+        <rect x="324" y="40" width="160" height="130" rx="10" fill="#15241a" stroke="#2ea043"/><text x="404" y="64" fill="#2ea043" font-size="12" font-weight="800" text-anchor="middle">DHW 3-WAY VALVE</text><text x="404" y="81" fill="#8b97a7" font-size="9.5" text-anchor="middle">built into Hydro Box (term 2)</text>
+        <rect x="300" y="96" width="56" height="24" rx="5" fill="#1d2b22" stroke="#9aa3ad"/><text x="328" y="113" fill="#fff" font-size="10" text-anchor="middle">L open</text>
+        <rect x="300" y="132" width="56" height="24" rx="5" fill="#1d2b22" stroke="#2f6fed"/><text x="328" y="149" fill="#fff" font-size="10" text-anchor="middle">N</text>
+        <polyline points="176,87 240,87 240,108 300,108" fill="none" stroke="#7b4b2a" stroke-width="2.4" marker-end="url(#h3)"/><text x="186" y="80" fill="#c79a78" font-size="10">0.75–1.0 mm²</text>
+        <polyline points="176,131 260,131 260,144 300,144" fill="none" stroke="#2f6fed" stroke-width="2.2" marker-end="url(#h3)"/>
+      </svg>
+      <div class="svgcap"><b>DHW 3-way diverter valve.</b> Board <b>Out 5</b> ↔ Hydro Box terminal <b>2</b>. Small motor — wire direct, no contactor. <b>It already lives inside the Hydro Box</b>; you only land the control wire. <b>Controller:</b> [Hot Water Function]=On.</div>
+    </div>
+    <div class="svgcard">
+      <svg viewBox="0 0 500 210" font-family="inherit">
+        <defs><marker id="h4" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#9aa3ad"/></marker></defs>
+        <rect x="16" y="30" width="160" height="150" rx="10" fill="#15202c" stroke="#33b1ff"/><text x="96" y="54" fill="#33b1ff" font-size="12.5" font-weight="800" text-anchor="middle">BOARD</text>
+        <rect x="118" y="74" width="58" height="26" rx="5" fill="#21303f" stroke="#f0883e"/><text x="147" y="92" fill="#fff" font-size="11" text-anchor="middle">Out A</text>
+        <rect x="118" y="118" width="58" height="26" rx="5" fill="#21303f" stroke="#2f6fed"/><text x="147" y="136" fill="#fff" font-size="11" text-anchor="middle">N</text>
+        <rect x="324" y="40" width="160" height="130" rx="10" fill="#15241a" stroke="#2ea043"/><text x="404" y="64" fill="#2ea043" font-size="12" font-weight="800" text-anchor="middle">CIRCULATION PUMP</text><text x="404" y="81" fill="#8b97a7" font-size="9.5" text-anchor="middle">Hydro Box term 3</text>
+        <rect x="300" y="106" width="56" height="24" rx="5" fill="#1d2b22" stroke="#9aa3ad"/><text x="328" y="123" fill="#fff" font-size="10" text-anchor="middle">L·N·PE</text>
+        <polyline points="176,87 240,87 240,118 300,118" fill="none" stroke="#7b4b2a" stroke-width="2.6" marker-end="url(#h4)"/><text x="186" y="80" fill="#c79a78" font-size="10">1.5 mm²</text>
+        <polyline points="176,131 300,131 300,124" fill="none" stroke="#2f6fed" stroke-width="2.4" marker-end="url(#h4)"/>
+      </svg>
+      <div class="svgcap"><b>System circulation pump.</b> Board <b>Out A</b> → Hydro Box terminal <b>3</b>. Small modern circulator (&lt;400 W) → direct. <b>Add a contactor if the pump exceeds 400 W.</b> <b>Controller:</b> [Pump Power] = actual max W.</div>
+    </div>
+  </div>
+
+  <div class="note ok" style="margin-top:18px"><b>Room thermostat — you usually don't need one.</b> The <b>wired controller is already a thermostat</b>: mount it indoors and it senses room temperature for space heating (§7/§10). Only wire a separate stat to <b>(1) L1 · (2) H · (3) C</b> if a specific room needs its own additional thermostat. If you do fit one, the unit then controls <b>water temperature</b> only. If you fit none, leave <b>(1)–(2) linked</b>.</div>
+</section>
+
+<!-- 5 WATER & PRESSURE LOOPS -->
+<section id="loops">
+  <h2><span class="num">5</span> Water circuit, pressure &amp; pipe installation</h2>
+  <p class="sub">The full hydraulics: pressures, the pipe-by-pipe diagram with sizes, every port and what it connects to, materials, fittings, heights &amp; lengths, insulation, water quality and glycol — for the system <b>with</b> the Hydro Box and <b>without</b> it. Two separate worlds: the <b>sealed heating loop</b> (low pressure, expansion vessel + safety valve) and the <b>potable DHW</b> (mains pressure, own safety).</p>
+  <div class="card" style="padding:10px">
+    <svg viewBox="0 0 1000 430" font-family="inherit">
+      <defs><marker id="w1" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#9aa3ad"/></marker></defs>
+      <rect x="30" y="170" width="150" height="100" rx="10" fill="#15202c" stroke="#33b1ff"/><text x="105" y="208" fill="#33b1ff" font-size="13" font-weight="800" text-anchor="middle">HEAT PUMP</text><text x="105" y="228" fill="#8b97a7" font-size="10.5" text-anchor="middle">water out / in</text><text x="105" y="246" fill="#8b97a7" font-size="10.5" text-anchor="middle">≤ 3 bar</text>
+      <rect x="250" y="120" width="170" height="200" rx="10" fill="#13211a" stroke="#2ea043"/><text x="335" y="144" fill="#2ea043" font-size="12.5" font-weight="800" text-anchor="middle">HYDRO BOX</text>
+      <text x="335" y="166" fill="#8b97a7" font-size="10" text-anchor="middle">pump · 3-way valve</text>
+      <text x="335" y="188" fill="#e6edf3" font-size="10.5" text-anchor="middle">⬤ 10 L expansion vessel</text>
+      <text x="335" y="208" fill="#e6edf3" font-size="10.5" text-anchor="middle">⚠ 3 bar safety valve</text>
+      <text x="335" y="228" fill="#e6edf3" font-size="10.5" text-anchor="middle">⌚ pressure gauge 1–2 bar</text>
+      <text x="335" y="252" fill="#8b97a7" font-size="10" text-anchor="middle">rated 0.3 MPa (3 bar)</text>
+      <rect x="500" y="40" width="160" height="90" rx="10" fill="#1f1414" stroke="#f85149"/><text x="580" y="64" fill="#ff9a93" font-size="12" font-weight="800" text-anchor="middle">500 L DHW</text><text x="580" y="84" fill="#8b97a7" font-size="10" text-anchor="middle">coil (heating side)</text><text x="580" y="102" fill="#8b97a7" font-size="10" text-anchor="middle">+ potable store</text><text x="580" y="120" fill="#ffd0cb" font-size="10" text-anchor="middle">rated 0.7 MPa (7 bar)</text>
+      <rect x="500" y="300" width="160" height="90" rx="10" fill="#15202c" stroke="#2ea043"/><text x="580" y="324" fill="#7ee08a" font-size="12" font-weight="800" text-anchor="middle">200 L BUFFER</text><text x="580" y="344" fill="#8b97a7" font-size="10" text-anchor="middle">heating store</text><text x="580" y="364" fill="#8b97a7" font-size="10" text-anchor="middle">rated 6 bar (runs ≤3)</text>
+      <rect x="760" y="300" width="210" height="90" rx="10" fill="#1c2735" stroke="#26313f"/><text x="865" y="324" fill="#e6edf3" font-size="12" font-weight="700" text-anchor="middle">HEATING ZONES</text><text x="865" y="344" fill="#8b97a7" font-size="10" text-anchor="middle">floor / rad / FCU</text><text x="865" y="364" fill="#8b97a7" font-size="10" text-anchor="middle">FCU max 16 bar</text>
+      <!-- mains water to DHW -->
+      <rect x="760" y="40" width="210" height="90" rx="10" fill="#101a24" stroke="#2f6fed"/><text x="865" y="62" fill="#7ba2f5" font-size="12" font-weight="700" text-anchor="middle">COLD MAINS → DHW</text><text x="865" y="82" fill="#8b97a7" font-size="9.5" text-anchor="middle">PRV if mains &gt; 5 bar</text><text x="865" y="100" fill="#8b97a7" font-size="9.5" text-anchor="middle">T&amp;P valve 0.75 MPa</text><text x="865" y="118" fill="#8b97a7" font-size="9.5" text-anchor="middle">potable expansion vessel</text>
+      <!-- pipes (orthogonal) -->
+      <polyline points="180,210 250,210" fill="none" stroke="#f85149" stroke-width="3" marker-end="url(#w1)"/>
+      <polyline points="420,180 460,180 460,90 500,90" fill="none" stroke="#f85149" stroke-width="2.6" marker-end="url(#w1)"/><text x="430" y="120" fill="#ff9a93" font-size="9.5">DHW</text>
+      <polyline points="420,260 460,260 460,345 500,345" fill="none" stroke="#2ea043" stroke-width="2.6" marker-end="url(#w1)"/><text x="430" y="285" fill="#7ee08a" font-size="9.5">heat</text>
+      <polyline points="660,345 760,345" fill="none" stroke="#9aa3ad" stroke-width="2.6" marker-end="url(#w1)"/>
+      <polyline points="760,85 660,85" fill="none" stroke="#2f6fed" stroke-width="2.4" marker-end="url(#w1)"/>
+      <text x="240" y="350" fill="#566173" font-size="10">— heating water (sealed)   — potable water (mains)</text>
+    </svg>
+  </div>
+  <table class="ptable">
+    <thead><tr><th>Loop</th><th>Normal pressure</th><th>Max / rated</th><th>Safety &amp; notes</th></tr></thead>
+    <tbody>
+      <tr><td><b>Heat-pump / heating loop</b> (sealed)</td><td><span class="barbox" style="background:#2ea043">1–2 bar</span></td><td><span class="barbox" style="background:#f0883e">3 bar</span></td><td>3-bar relief valve + 10 L expansion vessel (in Hydro Box). Hydro Box rated 0.3 MPa. Set expansion vessel pre-charge ≈ cold fill pressure.</td></tr>
+      <tr><td><b>200 L buffer tank</b></td><td>follows heating loop</td><td><span class="barbox" style="background:#f0883e">6 bar</span> rated (test 10)</td><td>Part of the sealed loop, so practically limited to the 3-bar heating side.</td></tr>
+      <tr><td><b>500 L DHW tank</b> (potable)</td><td>cold-mains pressure</td><td><span class="barbox" style="background:#f0883e">7 bar</span> (0.7 MPa)</td><td>T&amp;P safety valve 0.75 MPa / 99 °C. Fit a <b>pressure-reducing valve</b> if mains &gt; 5 bar + a potable expansion vessel.</td></tr>
+      <tr><td><b>Fan-coil units</b> (if used)</td><td>—</td><td><span class="barbox" style="background:#2ea043">16 bar</span></td><td>Well above system pressure — not the limiting factor. Min 0.15 MPa.</td></tr>
+    </tbody>
+  </table>
+  <div class="note warn"><b>Keep the two worlds apart:</b> a leaking 3-way valve would mix potable DHW and heating water — that's why a <b>motorised ball</b> 3-way valve is specified (see §6). The heating loop must stay sealed at low pressure; the DHW store sits at mains pressure with its own T&amp;P safety.</div>
+
+  <!-- ============ HYDRAULIC INSTALL ============ -->
+  <div id="hydraulic" style="height:1px"></div>
+  <h3 style="margin:30px 0 6px;font-size:19px">🔧 Pipe-by-pipe install — diagram, ports &amp; sizes</h3>
+  <p class="sub" style="margin-bottom:14px">Pick whether you use the Hydro Box. The diagram shows every pipe with its size; <b>click a port (circle or row)</b> to see exactly what it connects to, the pipe size, OK materials, the fittings/valves/sensors it needs and its insulation.</p>
+  <div class="tabs">
+    <button id="wbtnWith" class="active" onclick="wsetmode('with')">🟢 With Hydro Box (recommended)</button>
+    <button id="wbtnNo" onclick="wsetmode('without')">🔵 Without Hydro Box (build your own)</button>
+  </div>
+
+  <!-- Fig 3 reference + readable redraw (only in WITH mode) -->
+  <div id="fig3block">
+    <h3 style="margin:6px 0 6px;font-size:17px">Full connection diagram (manufacturer Fig. 3)</h3>
+    <div class="card" style="background:#fff;padding:8px;margin-bottom:14px"><img class="zoom" src="assets/fig3_connection.jpg" alt="Manufacturer Fig 3 connection diagram" style="width:100%;border-radius:6px"></div>
+    <div class="card">
+        <h4>What's in it (top → bottom)</h4>
+        <ul style="font-size:13px;color:#cfd8e3;padding-left:18px;line-height:1.6">
+          <li><b>Heat Pump</b> (outdoor) — shut-off valves, pressure gauge, air-purge on the flow.</li>
+          <li><b>Hydro Box</b> (dashed) — circulation pump, motorised 3-way valve, 3 kW heater, auto air-vent, a valve on each port.</li>
+          <li><b>Buffer tank</b> + its own expansion vessel; fill/make-up line (check valve · Y-filter · ball valve).</li>
+          <li><b>DHW tank</b> with internal coil + expansion vessel + cold-feed safety (check valve · filter · ball valve · PRV).</li>
+          <li><b>Floor heating</b> via a <b>mixing station</b> (mixing valve + 2nd pump + manifold/collector).</li>
+          <li><b>Radiator</b> and <b>Fan-coil</b> circuits, each on shut-off valves.</li>
+        </ul>
+        <p class="meta" style="margin-top:8px">This is the manufacturer's own diagram — the authoritative layout. The labeled redraw below adds <b>flow-direction arrows</b> 🟥 hot supply · 🟦 return.</p>
+    </div>
+    <div class="svgcard" style="margin-top:14px">
+      <svg viewBox="0 0 1000 700" font-family="inherit">
+        <defs>
+          <marker id="fr" markerWidth="9" markerHeight="9" refX="6" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#f85149"/></marker>
+          <marker id="fb" markerWidth="9" markerHeight="9" refX="6" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#2f6fed"/></marker>
+          <marker id="fg" markerWidth="8" markerHeight="8" refX="5" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#9aa3ad"/></marker>
+        </defs>
+        <!-- HEAT PUMP -->
+        <rect x="28" y="48" width="150" height="86" rx="9" fill="#15202c" stroke="#33b1ff"/><text x="103" y="80" fill="#33b1ff" font-size="12" font-weight="800" text-anchor="middle">HEAT PUMP</text><text x="103" y="98" fill="#8b97a7" font-size="9" text-anchor="middle">outdoor · built-in pump</text><text x="103" y="114" fill="#8b97a7" font-size="9" text-anchor="middle">shut-off · gauge · air-purge</text>
+        <!-- HYDRO BOX -->
+        <rect x="240" y="40" width="430" height="180" rx="9" fill="none" stroke="#2ea043" stroke-dasharray="6 4" stroke-width="1.5"/><text x="455" y="60" fill="#2ea043" font-size="12" font-weight="800" text-anchor="middle">HYDRO BOX (optional)</text>
+        <text x="300" y="92" fill="#9fb4a6" font-size="11" text-anchor="middle">⊚ pump</text>
+        <text x="300" y="150" fill="#9fb4a6" font-size="11" text-anchor="middle">▭ 3 kW heater</text>
+        <text x="455" y="120" fill="#f0883e" font-size="11" font-weight="700" text-anchor="middle">⊳ 3-way valve</text>
+        <text x="600" y="92" fill="#9fb4a6" font-size="11" text-anchor="middle">◓ air-vent</text>
+        <text x="600" y="150" fill="#9fb4a6" font-size="11" text-anchor="middle">⚠ safety · ⌚ gauge</text>
+        <!-- BUFFER -->
+        <rect x="60" y="320" width="115" height="150" rx="8" fill="#152a20" stroke="#2ea043"/><text x="117" y="392" fill="#7ee08a" font-size="12" font-weight="800" text-anchor="middle">BUFFER</text><text x="117" y="408" fill="#7ee08a" font-size="12" font-weight="800" text-anchor="middle">tank</text><text x="117" y="430" fill="#8b97a7" font-size="8.5" text-anchor="middle">+ expansion</text>
+        <!-- DHW -->
+        <rect x="400" y="300" width="160" height="170" rx="8" fill="#241414" stroke="#f85149"/><text x="480" y="372" fill="#ff9a93" font-size="12" font-weight="800" text-anchor="middle">DHW tank</text><text x="480" y="392" fill="#8b97a7" font-size="9" text-anchor="middle">coil + expansion</text><text x="480" y="452" fill="#8b97a7" font-size="8.5" text-anchor="middle">cold feed: check·filter·ball·PRV</text>
+        <!-- emitters -->
+        <rect x="55" y="560" width="190" height="110" rx="8" fill="#101a24" stroke="#33b1ff"/><text x="150" y="586" fill="#33b1ff" font-size="11" font-weight="800" text-anchor="middle">FLOOR HEATING</text><text x="150" y="604" fill="#8b97a7" font-size="9" text-anchor="middle">mixing valve + 2nd pump</text><text x="150" y="620" fill="#8b97a7" font-size="9" text-anchor="middle">→ manifold → loops</text>
+        <rect x="430" y="560" width="130" height="110" rx="8" fill="#1c2735" stroke="#26313f"/><text x="495" y="600" fill="#e6edf3" font-size="11" font-weight="700" text-anchor="middle">RADIATOR</text><text x="495" y="618" fill="#8b97a7" font-size="9" text-anchor="middle">shut-off valves</text>
+        <rect x="610" y="560" width="130" height="110" rx="8" fill="#1c2735" stroke="#26313f"/><text x="675" y="600" fill="#e6edf3" font-size="11" font-weight="700" text-anchor="middle">FAN-COIL</text><text x="675" y="618" fill="#8b97a7" font-size="9" text-anchor="middle">shut-off + air-vent</text>
+        <!-- PIPES with flow arrows -->
+        <!-- HP supply (hot) -> hydrobox -->
+        <polyline points="178,72 240,72" fill="none" stroke="#f85149" stroke-width="3" marker-end="url(#fr)"/><text x="195" y="64" fill="#ff9a93" font-size="9">supply</text>
+        <!-- hydrobox return -> HP -->
+        <polyline points="240,108 178,108" fill="none" stroke="#2f6fed" stroke-width="3" marker-end="url(#fb)"/><text x="190" y="124" fill="#7ba2f5" font-size="9">return</text>
+        <!-- hydrobox -> DHW coil (hot) via 3-way -->
+        <polyline points="455,135 455,250 480,250 480,300" fill="none" stroke="#f85149" stroke-width="2.4" marker-end="url(#fr)"/><text x="462" y="270" fill="#ff9a93" font-size="9">DHW</text>
+        <!-- DHW coil return (blue) -->
+        <polyline points="520,300 520,250 540,250 540,220" fill="none" stroke="#2f6fed" stroke-width="2.2" marker-end="url(#fb)"/>
+        <!-- hydrobox -> buffer (hot) -->
+        <polyline points="300,220 300,300 220,300 220,320" fill="none" stroke="#f85149" stroke-width="2.4" marker-end="url(#fr)"/><text x="250" y="296" fill="#ff9a93" font-size="9">to buffer</text>
+        <!-- buffer return (blue) to hydrobox -->
+        <polyline points="117,320 117,250 270,250 270,220" fill="none" stroke="#2f6fed" stroke-width="2.2" marker-end="url(#fb)"/>
+        <!-- buffer out -> supply header (hot) -->
+        <polyline points="175,400 320,400 320,520" fill="none" stroke="#f85149" stroke-width="2.6"/>
+        <!-- supply header (red) across emitters -->
+        <polyline points="320,520 700,520" fill="none" stroke="#f85149" stroke-width="2.6"/><text x="500" y="513" fill="#ff9a93" font-size="9">supply header</text>
+        <!-- return header (blue) -->
+        <polyline points="700,540 175,540 175,470" fill="none" stroke="#2f6fed" stroke-width="2.6" marker-end="url(#fb)"/><text x="430" y="554" fill="#7ba2f5" font-size="9">return header → buffer / hydrobox</text>
+        <!-- drops to emitters (supply red down, return blue up) -->
+        <polyline points="150,520 150,560" fill="none" stroke="#f85149" stroke-width="2.4" marker-end="url(#fr)"/>
+        <polyline points="200,560 200,540" fill="none" stroke="#2f6fed" stroke-width="2.2" marker-end="url(#fb)"/>
+        <polyline points="470,520 470,560" fill="none" stroke="#f85149" stroke-width="2.4" marker-end="url(#fr)"/>
+        <polyline points="520,560 520,540" fill="none" stroke="#2f6fed" stroke-width="2.2" marker-end="url(#fb)"/>
+        <polyline points="650,520 650,560" fill="none" stroke="#f85149" stroke-width="2.4" marker-end="url(#fr)"/>
+        <polyline points="700,560 700,540" fill="none" stroke="#2f6fed" stroke-width="2.2" marker-end="url(#fb)"/>
+        <!-- DHW cold feed (potable, grey) -->
+        <polyline points="620,420 560,420" fill="none" stroke="#9aa3ad" stroke-width="2.2" marker-end="url(#fg)"/><text x="624" y="424" fill="#8b97a7" font-size="8.5">cold mains</text>
+        <!-- make-up line to buffer (grey) -->
+        <polyline points="20,440 60,440" fill="none" stroke="#9aa3ad" stroke-width="2" marker-end="url(#fg)"/><text x="16" y="432" fill="#8b97a7" font-size="8.5">make-up</text>
+      </svg>
+      <div class="svgcap">Readable redraw of Fig. 3 with <b>flow arrows</b>: 🟥 hot supply · 🟦 return · ⬜ potable/cold. Floor heating is fed through its own <b>mixing station</b> (mixing valve + 2nd pump); radiators &amp; fan-coils tap the supply/return headers via shut-off valves.</div>
+    </div>
+  </div>
+
+  <!-- WITH hydrobox schematic — matches the real Fig.5 port layout (ports along the bottom) -->
+  <h3 style="margin:22px 0 6px;font-size:17px">Hydro Box ports — click any to see its pipe spec</h3>
+  <div id="schemWith" class="svgcard">
+    <svg viewBox="0 0 1000 520" font-family="inherit">
+      <defs><marker id="p1" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#f85149"/></marker>
+      <marker id="p2" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#2f6fed"/></marker>
+      <marker id="p3" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#9aa3ad"/></marker></defs>
+      <!-- HYDRO BOX as the real wide unit, ports along the bottom -->
+      <rect x="40" y="28" width="920" height="132" rx="10" fill="#13211a" stroke="#2ea043" stroke-width="1.5"/>
+      <text x="500" y="50" fill="#2ea043" font-size="13" font-weight="800" text-anchor="middle">HYDRO BOX (EFJ01-A01) — front view, all ports on the bottom (matches Fig. 5)</text>
+      <text x="150" y="84" fill="#9fb4a6" font-size="10" text-anchor="middle">dirt filter /</text><text x="150" y="98" fill="#9fb4a6" font-size="10" text-anchor="middle">strainer</text>
+      <text x="510" y="80" fill="#9fb4a6" font-size="10" text-anchor="middle">10 L expansion · 3 kW heater · motorised 3-way valve</text>
+      <text x="510" y="96" fill="#9fb4a6" font-size="10" text-anchor="middle">safety valve · pressure gauge · auto air-vent</text>
+      <text x="845" y="84" fill="#9fb4a6" font-size="10" text-anchor="middle">circulation</text><text x="845" y="98" fill="#9fb4a6" font-size="10" text-anchor="middle">pump</text>
+      <text x="120" y="130" fill="#566173" font-size="9">⑩ LV wiring</text><text x="250" y="130" fill="#566173" font-size="9">⑪ HV wiring (cable glands)</text>
+      <!-- bracket lines separating left / mid / right groups (like the real unit) -->
+      <line x1="290" y1="112" x2="290" y2="160" stroke="#1f3a2a" stroke-width="1"/><line x1="600" y1="112" x2="600" y2="160" stroke="#1f3a2a" stroke-width="1"/>
+      <!-- destination components below -->
+      <rect x="48" y="392" width="232" height="100" rx="9" fill="#15202c" stroke="#33b1ff"/><text x="164" y="418" fill="#33b1ff" font-size="12" font-weight="800" text-anchor="middle">OUTDOOR HEAT PUMP</text><text x="164" y="438" fill="#8b97a7" font-size="9.5" text-anchor="middle">③ supply (hot) · ① return · ② system return</text><text x="164" y="456" fill="#8b97a7" font-size="9.5" text-anchor="middle">1″ DN25 · insulate + glycol</text>
+      <rect x="582" y="392" width="118" height="100" rx="9" fill="#15202c" stroke="#2ea043"/><text x="641" y="418" fill="#7ee08a" font-size="12" font-weight="800" text-anchor="middle">200 L</text><text x="641" y="434" fill="#7ee08a" font-size="12" font-weight="800" text-anchor="middle">BUFFER</text><text x="641" y="456" fill="#8b97a7" font-size="9" text-anchor="middle">⑥ in · ⑧ out</text>
+      <rect x="712" y="392" width="104" height="100" rx="9" fill="#1f1414" stroke="#f85149"/><text x="764" y="418" fill="#ff9a93" font-size="12" font-weight="800" text-anchor="middle">500 L</text><text x="764" y="434" fill="#ff9a93" font-size="12" font-weight="800" text-anchor="middle">DHW</text><text x="764" y="456" fill="#8b97a7" font-size="9" text-anchor="middle">⑦ coil</text>
+      <rect x="838" y="392" width="124" height="100" rx="9" fill="#1c2735" stroke="#26313f"/><text x="900" y="418" fill="#e6edf3" font-size="12" font-weight="700" text-anchor="middle">ZONES</text><text x="900" y="436" fill="#8b97a7" font-size="9" text-anchor="middle">⑨ to manifold</text><text x="900" y="452" fill="#8b97a7" font-size="9" text-anchor="middle">rad / floor / FCU</text>
+      <!-- pipes drop from the real bottom ports -->
+      <polyline points="230,392 230,160" fill="none" stroke="#f85149" stroke-width="2.6" marker-end="url(#p1)"/><text x="236" y="250" fill="#ff9a93" font-size="9">③ hot ↑</text>
+      <polyline points="110,160 110,392" fill="none" stroke="#2f6fed" stroke-width="2.6" marker-end="url(#p2)"/><text x="80" y="250" fill="#7ba2f5" font-size="9">① ret</text>
+      <polyline points="170,160 170,392" fill="none" stroke="#2f6fed" stroke-width="2.4" marker-end="url(#p2)"/><text x="148" y="280" fill="#7ba2f5" font-size="9">② sys ret</text>
+      <line x1="400" y1="160" x2="400" y2="210" stroke="#9aa3ad" stroke-width="2.4" marker-end="url(#p3)"/><text x="408" y="200" fill="#8b97a7" font-size="9">drain</text>
+      <polyline points="650,160 650,392" fill="none" stroke="#f85149" stroke-width="2.6" marker-end="url(#p1)"/><text x="612" y="250" fill="#ff9a93" font-size="9">⑥ in</text>
+      <polyline points="715,160 715,392" fill="none" stroke="#f85149" stroke-width="2.6" marker-end="url(#p1)"/><text x="720" y="250" fill="#ff9a93" font-size="9">⑦ DHW</text>
+      <polyline points="668,392 668,360 780,360 780,160" fill="none" stroke="#2f6fed" stroke-width="2.4" marker-end="url(#p2)"/><text x="786" y="250" fill="#7ba2f5" font-size="9">⑧ out ↑</text>
+      <polyline points="845,160 845,392" fill="none" stroke="#2ea043" stroke-width="2.6" marker-end="url(#p3)"/><text x="851" y="250" fill="#7ee08a" font-size="9">⑨</text>
+      <!-- port labels -->
+      <text x="110" y="184" fill="#8b97a7" font-size="8" text-anchor="middle">to HP in</text>
+      <text x="170" y="194" fill="#8b97a7" font-size="8" text-anchor="middle">return</text>
+      <text x="230" y="184" fill="#8b97a7" font-size="8" text-anchor="middle">from HP</text>
+      <text x="400" y="184" fill="#8b97a7" font-size="8" text-anchor="middle">drain</text>
+      <text x="452" y="184" fill="#566173" font-size="8" text-anchor="middle">resv</text>
+      <text x="505" y="184" fill="#566173" font-size="8" text-anchor="middle">resv</text>
+      <text x="650" y="184" fill="#8b97a7" font-size="8" text-anchor="middle">buf in</text>
+      <text x="715" y="194" fill="#8b97a7" font-size="8" text-anchor="middle">DHW</text>
+      <text x="780" y="184" fill="#8b97a7" font-size="8" text-anchor="middle">buf out</text>
+      <text x="845" y="184" fill="#8b97a7" font-size="8" text-anchor="middle">space</text>
+      <!-- clickable port circles in REAL left-to-right order -->
+      <g style="cursor:pointer"><circle cx="110" cy="160" r="12" fill="#f0883e" stroke="#fff" stroke-width="2" onclick="wsel('1')"/><text x="110" y="164" fill="#06121f" font-size="11" font-weight="800" text-anchor="middle" onclick="wsel('1')">1</text></g>
+      <g style="cursor:pointer"><circle cx="170" cy="160" r="12" fill="#f0883e" stroke="#fff" stroke-width="2" onclick="wsel('2')"/><text x="170" y="164" fill="#06121f" font-size="11" font-weight="800" text-anchor="middle" onclick="wsel('2')">2</text></g>
+      <g style="cursor:pointer"><circle cx="230" cy="160" r="12" fill="#f0883e" stroke="#fff" stroke-width="2" onclick="wsel('3')"/><text x="230" y="164" fill="#06121f" font-size="11" font-weight="800" text-anchor="middle" onclick="wsel('3')">3</text></g>
+      <g style="cursor:pointer"><circle cx="400" cy="160" r="12" fill="#566173" stroke="#fff" stroke-width="2" onclick="wsel('4')"/><text x="400" y="164" fill="#fff" font-size="11" font-weight="800" text-anchor="middle" onclick="wsel('4')">4</text></g>
+      <g style="cursor:pointer"><circle cx="452" cy="160" r="12" fill="#3a4654" stroke="#fff" stroke-width="2" onclick="wsel('5')"/><text x="452" y="164" fill="#fff" font-size="11" font-weight="800" text-anchor="middle" onclick="wsel('5')">5</text></g>
+      <circle cx="505" cy="160" r="12" fill="#3a4654" stroke="#fff" stroke-width="2"/><text x="505" y="164" fill="#fff" font-size="11" font-weight="800" text-anchor="middle">5</text>
+      <g style="cursor:pointer"><circle cx="650" cy="160" r="12" fill="#f0883e" stroke="#fff" stroke-width="2" onclick="wsel('6')"/><text x="650" y="164" fill="#06121f" font-size="11" font-weight="800" text-anchor="middle" onclick="wsel('6')">6</text></g>
+      <g style="cursor:pointer"><circle cx="715" cy="160" r="12" fill="#f0883e" stroke="#fff" stroke-width="2" onclick="wsel('7')"/><text x="715" y="164" fill="#06121f" font-size="11" font-weight="800" text-anchor="middle" onclick="wsel('7')">7</text></g>
+      <g style="cursor:pointer"><circle cx="780" cy="160" r="12" fill="#f0883e" stroke="#fff" stroke-width="2" onclick="wsel('8')"/><text x="780" y="164" fill="#06121f" font-size="11" font-weight="800" text-anchor="middle" onclick="wsel('8')">8</text></g>
+      <g style="cursor:pointer"><circle cx="845" cy="160" r="12" fill="#f0883e" stroke="#fff" stroke-width="2" onclick="wsel('9')"/><text x="845" y="164" fill="#06121f" font-size="11" font-weight="800" text-anchor="middle" onclick="wsel('9')">9</text></g>
+    </svg>
+    <div class="svgcap">Ports are drawn in the <b>real left-to-right order of the actual unit</b> (Fig. 5): ①②③ = heat-pump loop · ④ drain + ⑤ reserves · ⑥⑦⑧⑨ = buffer-in / DHW / buffer-out / space-heating. 🟥 hot · 🟦 return. Click any port for its pipe spec.</div>
+  </div>
+
+  <!-- WITHOUT hydrobox schematic -->
+  <div id="schemNo" class="svgcard" style="display:none">
+    <svg viewBox="0 0 1000 470" font-family="inherit">
+      <defs><marker id="q1" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#f85149"/></marker><marker id="q2" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#2f6fed"/></marker></defs>
+      <rect x="20" y="190" width="120" height="130" rx="10" fill="#15202c" stroke="#33b1ff"/><text x="80" y="232" fill="#33b1ff" font-size="12" font-weight="800" text-anchor="middle">HEAT PUMP</text><text x="80" y="252" fill="#8b97a7" font-size="9.5" text-anchor="middle">water OUT / IN</text><text x="80" y="268" fill="#8b97a7" font-size="9.5" text-anchor="middle">1″ only</text>
+      <!-- you-build components on the flow -->
+      <rect x="230" y="60" width="540" height="120" rx="10" fill="#241b10" stroke="#f0883e" stroke-dasharray="5 4"/><text x="500" y="84" fill="#f0883e" font-size="12" font-weight="800" text-anchor="middle">YOU BUILD THIS — flow side (field supplied)</text>
+      <text x="500" y="108" fill="#e6edf3" font-size="10.5" text-anchor="middle">isolating valve → flexible connector → AUTO AIR VENT → pump → 3-WAY VALVE</text>
+      <text x="500" y="128" fill="#e6edf3" font-size="10.5" text-anchor="middle">→ to DHW coil  ·  → buffer  ·  expansion vessel + 3-bar safety valve + gauge</text>
+      <text x="500" y="150" fill="#8b97a7" font-size="10" text-anchor="middle">+ fill/drain valve · drain taps at low points · air vents at high points</text>
+      <rect x="230" y="330" width="540" height="90" rx="10" fill="#101a24" stroke="#2f6fed" stroke-dasharray="5 4"/><text x="500" y="356" fill="#7ba2f5" font-size="12" font-weight="800" text-anchor="middle">return side</text><text x="500" y="380" fill="#e6edf3" font-size="10.5" text-anchor="middle">zones/buffer return → MAGNETIC dirt filter → strainer → isolating valve → heat pump IN</text><text x="500" y="400" fill="#8b97a7" font-size="10" text-anchor="middle">add an auxiliary pump here if pipe pressure-drop is high</text>
+      <rect x="840" y="60" width="140" height="120" rx="9" fill="#1f1414" stroke="#f85149"/><text x="910" y="100" fill="#ff9a93" font-size="11" font-weight="800" text-anchor="middle">DHW + BUFFER</text><text x="910" y="120" fill="#8b97a7" font-size="9" text-anchor="middle">+ all tank fittings</text>
+      <polyline points="140,225 140,120 230,120" fill="none" stroke="#f85149" stroke-width="3" marker-end="url(#q1)"/><text x="150" y="112" fill="#ff9a93" font-size="9.5">1″ hot</text>
+      <polyline points="770,120 840,120" fill="none" stroke="#f85149" stroke-width="2.6" marker-end="url(#q1)"/>
+      <polyline points="840,150 800,150 800,375 770,375" fill="none" stroke="#2f6fed" stroke-width="2.6" marker-end="url(#q2)"/>
+      <polyline points="230,375 140,375 140,290" fill="none" stroke="#2f6fed" stroke-width="3" marker-end="url(#q2)"/><text x="150" y="392" fill="#7ba2f5" font-size="9.5">1″ return</text>
+    </svg>
+    <div class="svgcap">Without the Hydro Box you must build the whole hydraulic kit yourself (orange/blue dashed). Everything the box normally contains becomes a field-supplied part — see the checklist below.</div>
+  </div>
+
+  <!-- port explorer table + detail -->
+  <div class="explorer" style="margin-top:18px">
+    <div>
+      <table class="ttbl"><thead><tr><th style="width:34px">#</th><th>Port / pipe</th><th>Size</th></tr></thead><tbody id="wtbody"></tbody></table>
+    </div>
+    <div>
+      <div class="detail show" id="wdetail" style="margin-top:0">
+        <div class="dhead" id="wdhead">Click a port to see its pipe spec.</div>
+        <div class="corr" style="grid-template-columns:110px 1fr"><div class="dnode term" id="wterm" style="display:none"></div><div class="dnode dest" id="wdest"></div></div>
+        <div class="swrow" id="wfit" style="border-left-color:var(--acc)"></div>
+        <div class="swrow" id="wins" style="border-left-color:var(--ok)"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- pipe sizing -->
+  <h3 style="margin:26px 0 6px;font-size:17px">Pipe sizing (12 kW ≈ 2 m³/h)</h3>
+  <table class="ptable">
+    <thead><tr><th>Section</th><th>Flow</th><th>Min pipe</th><th>Equivalent</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td><b>Heat pump ↔ Hydro Box / buffer (primary)</b></td><td>≈ 2.0 m³/h</td><td><b>1″ / DN25</b></td><td>28 mm Cu · 32 mm PEX/PP-R/multilayer</td><td>Match the unit's 1″ ports &amp; Wilo 25/9 pump — never go smaller or you choke the heat pump.</td></tr>
+      <tr><td>Hydro Box ↔ DHW coil</td><td>≈ 2.0 m³/h</td><td><b>1″ / DN25</b></td><td>28 mm Cu / 32 mm plastic</td><td>Full flow during DHW priority.</td></tr>
+      <tr><td>Buffer → heating manifold</td><td>per zone</td><td>DN20–25</td><td>22–28 mm</td><td>Size to the connected zone load.</td></tr>
+      <tr><td>Underfloor loops (from manifold)</td><td>per loop</td><td>16–20 mm PEX</td><td>—</td><td>Standard UFH loop pipe; ≤ ~100 m per loop.</td></tr>
+    </tbody>
+  </table>
+  <div class="note">Aim for water velocity <b>0.6–1.2 m/s</b> (quiet, low pressure-drop). The internal pump (Wilo Para 25/9) gives ≈ <b>9 m</b> max head — plenty for a normal house, but long runs/many fittings eat into it (see heights &amp; lengths).</div>
+
+  <!-- pump purpose -->
+  <h3 style="margin:26px 0 6px;font-size:17px">💧 The pumps — there are two (Hydro Box is optional)</h3>
+  <p class="sub" style="margin-bottom:10px">There's a pump <b>built into the outdoor heat pump</b> (Wilo Para 25/9) and — if you fit the Hydro Box — a <b>second pump inside it</b>. They do different jobs. This decides how you connect the floor or radiators.</p>
+  <div class="grid g2">
+    <div class="card" style="border-color:rgba(51,177,255,.4)"><h4 style="color:var(--acc)">Pump 1 — in the heat pump (primary)</h4>
+      <p class="meta">The Wilo <b>inside the outdoor unit</b> circulates the <b>primary loop</b> (heat pump ↔ buffer). It runs whenever the heat pump runs and the unit needs <b>constant free flow</b> for heat transfer and defrost/freeze protection.</p>
+      <div class="note dng" style="margin-top:10px"><b>No flow is the heat pump's worst enemy.</b> Starve it → low-flow fault, plate exchanger freezing, pump damage. There must <b>always</b> be an open path on this primary side.</div>
+    </div>
+    <div class="card" style="border-color:rgba(46,160,67,.4)"><h4 style="color:var(--ok)">Pump 2 — in the Hydro Box (secondary)</h4>
+      <p class="meta">The pump <b>inside the Hydro Box</b> drives the <b>distribution / secondary side</b> — pushing water out to the buffer, DHW coil and the heating zones. <b>Without the Hydro Box</b>, the heat pump's own pump does it all (and you may need a field-supplied auxiliary pump for long runs).</p>
+      <p class="meta" style="margin-top:8px">Keep the primary side's open path with a <b>buffer / low-loss header (best)</b>, an <b>automatic bypass valve</b>, or at least one <b>always-open</b> loop.</p>
+    </div>
+  </div>
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card"><h4>🏠 Underfloor manifold — not on the bare pump</h4>
+      <p class="meta">Underfloor needs a <b>lower water temperature</b> (≈30–40 °C, via a <b>mixing valve</b>) and its own balanced flow — and a manifold whose actuators can close all loops would deadhead a pump feeding it directly.</p>
+      <p class="meta" style="margin-top:8px"><b>Do this:</b> feed the floor manifold from the <b>buffer</b> through a <b>mixing station</b> (mixing valve + its own small zone pump). Both heat-pump and Hydro Box pumps then stay on a free-flowing primary.</p>
+    </div>
+    <div class="card"><h4>♨ Radiators — yes, if always open</h4>
+      <p class="meta">A radiator circuit that's <b>always open</b> (lockshield-balanced, or at least one rad with no closing TRV, or an automatic bypass) <b>can</b> be driven by the Hydro Box pump directly — radiators run near the heat-pump flow temperature, so no mixing is needed.</p>
+      <p class="meta" style="margin-top:8px">If every radiator can close (smart TRVs everywhere), add an <b>automatic bypass valve</b> or a buffer so neither pump deadheads.</p>
+    </div>
+  </div>
+  <div class="note ok"><b>Short answer:</b> the <b>primary side</b> (the Hydro Box pump's circuit) must stay free-flowing — no closing thermostats in its only path. Put the <b>temperature regulation (mixing)</b> and the <b>room thermostats / zone valves</b> on the <b>secondary side, after a buffer</b>, each with their own pump. For a single radiator circuit that never fully closes, the built-in pump alone is fine.</div>
+
+  <!-- materials -->
+  <h3 style="margin:26px 0 6px;font-size:17px">Pipe materials</h3>
+  <div class="grid g2">
+    <div class="card" style="border-color:rgba(46,160,67,.4)"><h4 style="color:var(--ok)">✔ OK to use</h4>
+      <ul style="font-size:13.5px;color:#cfd8e3;padding-left:18px;line-height:1.7">
+        <li><b>Copper</b> (correct fittings, deburr, no over-heat on brass).</li>
+        <li><b>PEX / PE-RT</b> with an <b>oxygen barrier</b> (essential — no O₂ ingress).</li>
+        <li><b>Multilayer PEX-AL-PEX</b> — ideal: rigid, O₂-tight.</li>
+        <li><b>PP-R</b> (polypropylene), <b>stainless steel</b>.</li>
+        <li>Brass / DZR brass / bronze fittings &amp; valves.</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:rgba(248,81,73,.4)"><h4 style="color:#ff9a93">✘ Do NOT use</h4>
+      <ul style="font-size:13.5px;color:#cfd8e3;padding-left:18px;line-height:1.7">
+        <li><b>Galvanized / zinc-coated steel</b> — corrodes against the copper inside the unit; precipitates with glycol.</li>
+        <li>Plain mild steel without treatment.</li>
+        <li><b>Non-barrier</b> plastic pipe (lets oxygen in → sludge/corrosion).</li>
+        <li>Dissimilar bare metals touching (galvanic corrosion — isolate with dielectric unions).</li>
+        <li>Automotive glycol.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- components checklist -->
+  <h3 style="margin:26px 0 6px;font-size:17px">Required fittings &amp; safety components</h3>
+  <p class="meta" style="margin:0 0 10px">🟢 = already inside the Hydro Box · 🔧 = you add it (always, or when no Hydro Box).</p>
+  <div class="grid g2">
+    <div class="card"><h4>Heating loop (sealed)</h4>
+      <ul style="font-size:13px;color:#cfd8e3;padding-left:18px;line-height:1.65">
+        <li>🔧 <b>Isolating ball valves</b> at HP water in &amp; out (service) — 🟢 on every Hydro Box port.</li>
+        <li>🔧 <b>Flexible anti-vibration connectors</b> at the heat pump.</li>
+        <li>🟢🔧 <b>Automatic air vent</b> at every high point (HP has an internal auto-purge — don't over-tighten it).</li>
+        <li>🔧 <b>Drain taps</b> at every low point.</li>
+        <li>🟢🔧 <b>3-bar pressure-relief valve</b> + pipe to a drain (away from electrics).</li>
+        <li>🟢🔧 <b>Expansion vessel</b> — HP has 5 L @1 bar, Hydro Box adds 10 L; add more for big/tall systems.</li>
+        <li>🟢🔧 <b>Pressure gauge</b> + <b>fill/drain valve</b> (with backflow preventer per local rules).</li>
+        <li>🟢🔧 <b>Magnetic / cyclone dirt filter</b> on the return to the HP — strongly recommended (standard strainer won't catch fine metal).</li>
+        <li>🔧 <b>Auxiliary pump</b> only if pipe pressure-drop is too high.</li>
+      </ul>
+    </div>
+    <div class="card"><h4>DHW (potable) side</h4>
+      <ul style="font-size:13px;color:#cfd8e3;padding-left:18px;line-height:1.65">
+        <li>🔧 <b>T&amp;P safety valve</b> 0.75 MPa / 99 °C on the DHW tank → drain.</li>
+        <li>🔧 <b>Pressure-reducing valve</b> on the cold feed if mains &gt; 5 bar.</li>
+        <li>🔧 <b>Potable expansion vessel</b> on the cold feed (absorbs heat-up expansion).</li>
+        <li>🔧 <b>Non-return valve</b> + isolating valve + drain on the cold feed.</li>
+        <li>🔧 <b>DHW tank sensor</b> — push the unit's black sensor into the tank's <b>sensor pocket</b> (TWout2).</li>
+        <li>🔧 <b>Buffer sensors</b> (TACt1/TACt2) into the buffer pockets if used.</li>
+        <li>🔧 Optional <b>tempering/blending valve</b> to limit tap temperature (anti-scald) when storing hot for Legionella.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- heights and lengths -->
+  <h3 style="margin:26px 0 6px;font-size:17px">Heights, lengths &amp; the outdoor run</h3>
+  <div class="grid g2">
+    <div class="card"><h4>How high / how far?</h4>
+      <ul style="font-size:13.5px;color:#cfd8e3;padding-left:18px;line-height:1.7">
+        <li><b>Building height</b> is <u>not</u> limited by the pump — it's a <b>sealed loop</b>, so the static head cancels out. It's limited by your <b>fill pressure</b> (≈1.5 bar ≈ 15 m of height) and the <b>3-bar</b> ceiling. Tall house → fill a little higher (stay &lt; 3 bar) and size the expansion vessel for the water volume.</li>
+        <li><b>Pipe length</b> is a <b>head budget</b>: pipe friction + filter + buffer + DHW coil + valves must stay under the ~9 m the pump gives at your flow. In 1″/DN25 this is generous for a normal house; if runs are long or fittings many, <b>upsize to DN32</b> or add an <b>auxiliary pump</b> (the manual requires one if pressure-drop is too high).</li>
+        <li><b>Minimum water volume:</b> the 200 L buffer easily covers the heat pump's need for stable running and defrost energy — no concern at 12 kW.</li>
+      </ul>
+    </div>
+    <div class="card"><h4>Outdoor pipe between unit &amp; house</h4>
+      <ul style="font-size:13.5px;color:#cfd8e3;padding-left:18px;line-height:1.7">
+        <li>Keep it <b>as short as practical</b>; every metre outdoors is heat loss + freeze risk.</li>
+        <li><b>Insulate fully</b> with closed-cell, UV-resistant, weatherproof lagging.</li>
+        <li>The outdoor water <b>must be frost-protected</b> — glycol (see below) and/or the unit's built-in antifreeze function with power kept on.</li>
+        <li>Fall the pipes so they can drain; protect against UV, rodents and mechanical damage.</li>
+        <li>In cooling, <b>condensate</b> can drip from the pipes — route/insulate so it can't damage anything.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- insulation + glycol -->
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card"><h4>🧥 Insulation</h4>
+      <ul style="font-size:13.5px;color:#cfd8e3;padding-left:18px;line-height:1.7">
+        <li>Insulate the <b>entire</b> circuit — flow <i>and</i> return.</li>
+        <li>Use <b>closed-cell, vapour-tight</b> lagging (e.g. EPDM/elastomeric) so it can't sweat in cooling mode.</li>
+        <li><b>≥ 20 mm</b> thickness where ambient &gt; 30 °C and humidity &gt; 80 % RH (anti-condensation).</li>
+        <li>Outdoor &amp; DHW pipes: thicker + weatherproof; insulate valves/fittings too.</li>
+      </ul>
+    </div>
+    <div class="card"><h4>❄ Frost protection (glycol) &amp; water quality</h4>
+      <table class="ptable" style="margin:0 0 8px"><thead><tr><th>Min outdoor</th><th>−5 °C</th><th>−10 °C</th><th>−15 °C</th><th>−20 °C</th></tr></thead>
+        <tbody><tr><td><b>Glycol</b></td><td>10 %</td><td>15 %</td><td>20 %</td><td>25 %</td></tr></tbody></table>
+      <ul style="font-size:13px;color:#cfd8e3;padding-left:18px;line-height:1.6">
+        <li>With a <b>DHW tank, use propylene glycol</b> (inhibited) — not ethylene (toxic). Never automotive glycol; never galvanized pipe with glycol.</li>
+        <li>Water per <b>EN 98/83 EC</b>; flush existing systems; fit the magnetic filter.</li>
+        <li>Fill to <b>1–2 bar</b>; keep <b>&gt; 0.3 bar</b> at all times.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- scenarios -->
+  <h3 style="margin:26px 0 6px;font-size:17px">Which parts you actually need</h3>
+  <div class="grid g2">
+    <div class="card" style="border-color:rgba(46,160,67,.45)"><h4 style="color:var(--ok)">🟢 With Hydro Box</h4>
+      <p class="meta">The box already contains the pump, expansion vessel, 3-way valve, dirt filter, safety valve, gauge, auto air-vent and a ball valve on every port. <b>You add, outside the box:</b></p>
+      <ul style="font-size:13px;color:#cfd8e3;padding-left:18px;line-height:1.6">
+        <li>Insulated (glycol) pipes HP ↔ box, and box ↔ buffer / DHW / zones.</li>
+        <li>Magnetic filter on the return (recommended), drain taps, high-point air vents.</li>
+        <li>All <b>DHW potable-side</b> safety (T&amp;P, PRV, expansion, non-return).</li>
+        <li>Tank sensors into pockets; zone shut-off valves.</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:rgba(51,177,255,.45)"><h4 style="color:var(--acc)">🔵 Without Hydro Box</h4>
+      <p class="meta">The heat pump has only water IN / OUT. <b>You must field-supply the whole kit:</b></p>
+      <ul style="font-size:13px;color:#cfd8e3;padding-left:18px;line-height:1.6">
+        <li>System <b>circulation pump</b> (+ auxiliary pump if needed).</li>
+        <li><b>Motorised ball 3-way valve</b> (DN25, 230 V, &lt; 90 s) for DHW diversion.</li>
+        <li><b>Expansion vessel</b>, <b>3-bar safety valve</b>, gauge, fill/drain, auto air-vents.</li>
+        <li><b>Magnetic dirt filter</b> + strainer on the return; isolating valves; flexible connectors.</li>
+        <li>Everything in the DHW potable list, plus all tank sensors.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 6 VALVE -->
+<section id="valve">
+  <h2><span class="num">6</span> How the 3-way valve &amp; DHW priority work</h2>
+  <p class="sub">One diverter at the heat-pump outlet (<b>built into the Hydro Box</b>) decides whether the heat goes to the <b>DHW tank coil</b> or to the <b>buffer / heating</b>.</p>
+  <div class="grid g2">
+    <div class="svgcard">
+      <svg viewBox="0 0 500 270" font-family="inherit">
+        <text x="250" y="24" fill="#33b1ff" font-size="13" font-weight="800" text-anchor="middle">DHW MODE (valve powered)</text>
+        <rect x="20" y="110" width="90" height="56" rx="8" fill="#15202c" stroke="#33b1ff"/><text x="65" y="134" fill="#e6edf3" font-size="11" text-anchor="middle">HEAT</text><text x="65" y="150" fill="#e6edf3" font-size="11" text-anchor="middle">PUMP</text>
+        <circle cx="210" cy="138" r="26" fill="#241b10" stroke="#f0883e" stroke-width="2"/><text x="210" y="142" fill="#f0883e" font-size="11" text-anchor="middle" font-weight="700">3-way</text>
+        <rect x="340" y="40" width="140" height="56" rx="8" fill="#15241a" stroke="#f85149"/><text x="410" y="64" fill="#ff9a93" font-size="11" text-anchor="middle">500 L DHW</text><text x="410" y="80" fill="#ff9a93" font-size="11" text-anchor="middle">tank coil</text>
+        <rect x="340" y="190" width="140" height="56" rx="8" fill="#1c2735" stroke="#26313f"/><text x="410" y="214" fill="#566173" font-size="11" text-anchor="middle">buffer /</text><text x="410" y="230" fill="#566173" font-size="11" text-anchor="middle">heating (off)</text>
+        <polyline points="110,138 184,138" fill="none" stroke="#f85149" stroke-width="3"/>
+        <polyline points="236,128 290,128 290,68 340,68" fill="none" stroke="#f85149" stroke-width="3"/>
+        <polyline points="236,148 290,148 290,218 340,218" fill="none" stroke="#33404f" stroke-width="3" stroke-dasharray="5 5"/>
+      </svg>
+      <div class="svgcap">DHW below set point → valve driven to the <b>DHW position</b>; all heat to the tank. <b>DHW has priority.</b></div>
+    </div>
+    <div class="svgcard">
+      <svg viewBox="0 0 500 270" font-family="inherit">
+        <text x="250" y="24" fill="#2ea043" font-size="13" font-weight="800" text-anchor="middle">HEATING MODE (valve at rest)</text>
+        <rect x="20" y="110" width="90" height="56" rx="8" fill="#15202c" stroke="#33b1ff"/><text x="65" y="134" fill="#e6edf3" font-size="11" text-anchor="middle">HEAT</text><text x="65" y="150" fill="#e6edf3" font-size="11" text-anchor="middle">PUMP</text>
+        <circle cx="210" cy="138" r="26" fill="#241b10" stroke="#f0883e" stroke-width="2"/><text x="210" y="142" fill="#f0883e" font-size="11" text-anchor="middle" font-weight="700">3-way</text>
+        <rect x="340" y="40" width="140" height="56" rx="8" fill="#1c2735" stroke="#26313f"/><text x="410" y="64" fill="#566173" font-size="11" text-anchor="middle">500 L DHW</text><text x="410" y="80" fill="#566173" font-size="11" text-anchor="middle">tank (off)</text>
+        <rect x="340" y="190" width="140" height="56" rx="8" fill="#15241a" stroke="#2ea043"/><text x="410" y="214" fill="#7ee08a" font-size="11" text-anchor="middle">200 L buffer</text><text x="410" y="230" fill="#7ee08a" font-size="11" text-anchor="middle">→ floor/rad</text>
+        <polyline points="110,138 184,138" fill="none" stroke="#2ea043" stroke-width="3"/>
+        <polyline points="236,128 290,128 290,68 340,68" fill="none" stroke="#33404f" stroke-width="3" stroke-dasharray="5 5"/>
+        <polyline points="236,148 290,148 290,218 340,218" fill="none" stroke="#2ea043" stroke-width="3"/>
+      </svg>
+      <div class="svgcap">Tank satisfied → valve returns to <b>heating</b>; flow to the buffer, then your zones.</div>
+    </div>
+  </div>
+  <div class="note ok"><b>DHW priority sequence:</b> if hot water and heating both call, the unit <b>heats the DHW tank first</b>, then flips the valve back to heating. Radiators/floor pause a few minutes during a DHW cycle — normal, not a fault.</div>
+  <div class="note warn"><b>The 3-way valve is already inside the Hydro Box</b> — you only land the control wire (board Out 5 → terminal 2). <b>If you do not use the Hydro Box</b>, the installer must supply a 3-way valve: a <b>motorised ball type, DN25, 230 V, &lt; 90 s travel</b>, for full separation between DHW and heating water.</div>
+  <div class="note"><b>Two valves, two jobs:</b> the <b>DHW diverter</b> (Out 5 / term 2) chooses tank-vs-heating. A separate <b>mixing valve</b> (Out 6, field supplied) is only needed to blend down hot buffer water for low-temperature underfloor loops while radiators/FCU run hotter — see Zones (§7).</div>
+</section>
+
+<!-- 7 ZONES -->
+<section id="zones">
+  <h2><span class="num">7</span> Zones explained</h2>
+  <p class="sub">A "zone" is one group of emitters sharing a target. Up to two heating zones (A &amp; B) + hot water. Each can be controlled by <b>water temperature</b> or by <b>room temperature</b> (the controller/stat as the room sensor).</p>
+  <div class="card" style="padding:10px">
+    <svg viewBox="0 0 1000 330" font-family="inherit">
+      <defs><marker id="z1" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#9aa3ad"/></marker></defs>
+      <rect x="20" y="120" width="150" height="90" rx="10" fill="#15202c" stroke="#33b1ff"/><text x="95" y="158" fill="#33b1ff" font-size="13" font-weight="800" text-anchor="middle">HEAT PUMP</text><text x="95" y="178" fill="#8b97a7" font-size="11" text-anchor="middle">+ 200 L buffer</text>
+      <rect x="360" y="30" width="280" height="120" rx="10" fill="#15241a" stroke="#2ea043"/><text x="500" y="56" fill="#2ea043" font-size="14" font-weight="800" text-anchor="middle">ZONE A — high temp</text><text x="500" y="80" fill="#e6edf3" font-size="12" text-anchor="middle">Radiators / fan-coils</text><text x="500" y="100" fill="#8b97a7" font-size="11" text-anchor="middle">e.g. 45 °C · direct from buffer</text><text x="500" y="122" fill="#8b97a7" font-size="11" text-anchor="middle">also does cooling (FCU)</text>
+      <rect x="360" y="180" width="280" height="120" rx="10" fill="#15202c" stroke="#33b1ff"/><text x="500" y="206" fill="#33b1ff" font-size="14" font-weight="800" text-anchor="middle">ZONE B — low temp</text><text x="500" y="230" fill="#e6edf3" font-size="12" text-anchor="middle">Underfloor heating</text><text x="500" y="250" fill="#8b97a7" font-size="11" text-anchor="middle">e.g. 32 °C · via mixing valve+pump</text><text x="500" y="272" fill="#8b97a7" font-size="11" text-anchor="middle">heating only</text>
+      <rect x="760" y="40" width="220" height="100" rx="10" fill="#1c2735" stroke="#26313f"/><text x="870" y="84" fill="#e6edf3" font-size="12" text-anchor="middle">rooms with radiators</text><text x="870" y="106" fill="#566173" font-size="10.5" text-anchor="middle">installer supplied</text>
+      <rect x="760" y="190" width="220" height="100" rx="10" fill="#1c2735" stroke="#26313f"/><text x="870" y="234" fill="#e6edf3" font-size="12" text-anchor="middle">underfloor rooms</text><text x="870" y="256" fill="#566173" font-size="10.5" text-anchor="middle">installer supplied</text>
+      <polyline points="170,150 265,150 265,90 358,90" fill="none" stroke="#2ea043" stroke-width="2.4" marker-end="url(#z1)"/>
+      <polyline points="170,180 265,180 265,240 358,240" fill="none" stroke="#33b1ff" stroke-width="2.4" marker-end="url(#z1)"/>
+      <polyline points="640,90 758,90" fill="none" stroke="#9aa3ad" stroke-width="2" marker-end="url(#z1)"/>
+      <polyline points="640,240 758,240" fill="none" stroke="#9aa3ad" stroke-width="2" marker-end="url(#z1)"/>
+    </svg>
+  </div>
+  <div class="grid g3" style="margin-top:16px">
+    <div class="card"><h4>Single zone (most common)</h4><p class="meta">One emitter type — e.g. underfloor everywhere. Only Zone A. Simplest wiring; no mixing valve.</p></div>
+    <div class="card"><h4>Two zones</h4><p class="meta">Zone A hot (rad/FCU) + Zone B cooler (underfloor). Needs a <b>mixing valve + pump</b> on Zone B (Out 6/7, field supplied) to drop the water temperature.</p></div>
+    <div class="card"><h4>Water-temp vs room-temp</h4><p class="meta"><b>Water temp:</b> unit holds a flow temperature. <b>Room temp:</b> the wired controller measures the room and modulates to hold it. Set via [Room Temperature Control Scheme].</p></div>
+  </div>
+  <div class="note"><b>Controller "home screens" (pick the one that matches your house):</b>
+    <div class="pillrow">
+      <div class="pill"><b>1</b> single zone · water temp + DHW</div>
+      <div class="pill"><b>2</b> single zone · <b>room temp</b> + DHW</div>
+      <div class="pill"><b>3</b> dual zone · water (A) + room (B) + DHW</div>
+      <div class="pill"><b>4</b> dual zone · water (A) + water (B) + DHW</div>
+    </div>
+  </div>
+  <div class="note warn"><b>Underfloor caution:</b> keep a floor zone's target temperature low — never set it to radiator temperatures, or you risk the screed/floor finish.</div>
+</section>
+
+<!-- 8 SCENARIOS -->
+<section id="scenario">
+  <h2><span class="num">8</span> Scenario builder — find yours, simplest first</h2>
+  <p class="sub">Most installs are simpler than the manual makes them look. Find the level that matches the job — each shows the <b>minimum pipes and cables</b>, then the controller steps. Start at Level 1 and add only what you need.</p>
+  <div class="card" style="margin-bottom:18px"><h4>The complexity ladder — pick your level</h4>
+    <div class="pillrow">
+      <div class="pill">● <b>L1</b> heat pump + DHW tank</div>
+      <div class="pill">●● <b>L2</b> + underfloor (1 zone)</div>
+      <div class="pill">●●● <b>L3</b> + buffer + 2 zones</div>
+      <div class="pill">●●●● <b>L4</b> + backup heaters</div>
+      <div class="pill">➕ add-ons: solar · PV · Smart Grid · extra sensors</div>
+    </div>
+    <div class="note ok" style="margin-top:12px"><b>Level 1 really is this small:</b> &nbsp;🚰 <b>2 pipes</b> (heat-pump flow &amp; return to the tank) &nbsp;·&nbsp; 🔌 <b>3 cables</b> — mains power, the <b>controller cable</b> (already pre-wired, 10 m, just run it indoors) and the <b>DHW tank sensor</b> (push it into the tank pocket) &nbsp;·&nbsp; 🎛 set <b>Hot Water = On</b>. That's the whole job — don't overcomplicate it.</div>
+  </div>
+
+  <!-- Scenario 1 -->
+  <h3 style="margin:16px 0 6px;font-size:17px">● Level 1 · Heat pump + DHW tank only (the simplest)</h3>
+  <div class="grid g2">
+    <div class="svgcard">
+      <svg viewBox="0 0 500 260" font-family="inherit">
+        <defs><marker id="sc1" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#9aa3ad"/></marker></defs>
+        <rect x="20" y="100" width="110" height="70" rx="9" fill="#15202c" stroke="#33b1ff"/><text x="75" y="130" fill="#33b1ff" font-size="12" font-weight="800" text-anchor="middle">HEAT PUMP</text><text x="75" y="148" fill="#8b97a7" font-size="10" text-anchor="middle">12 kW</text>
+        <circle cx="230" cy="135" r="24" fill="#241b10" stroke="#f0883e" stroke-width="2"/><text x="230" y="139" fill="#f0883e" font-size="10" text-anchor="middle" font-weight="700">3-way</text>
+        <rect x="330" y="60" width="150" height="80" rx="9" fill="#15241a" stroke="#f85149"/><text x="405" y="92" fill="#ff9a93" font-size="12" font-weight="800" text-anchor="middle">500 L DHW</text><text x="405" y="112" fill="#8b97a7" font-size="10" text-anchor="middle">coil + 3 kW (Out C)</text>
+        <rect x="330" y="170" width="150" height="60" rx="9" fill="#1c2735" stroke="#26313f"/><text x="405" y="200" fill="#566173" font-size="11" text-anchor="middle">no heating</text><text x="405" y="216" fill="#566173" font-size="10" text-anchor="middle">circuit</text>
+        <polyline points="130,135 206,135" fill="none" stroke="#f85149" stroke-width="3" marker-end="url(#sc1)"/>
+        <polyline points="254,125 290,125 290,100 330,100" fill="none" stroke="#f85149" stroke-width="2.6" marker-end="url(#sc1)"/>
+      </svg>
+      <div class="svgcap">Just hot water. The 3-way valve always sits to DHW; no buffer/zone pump needed. Buffer heater unused.</div>
+    </div>
+    <div class="card"><h4>🎛 Controller setup sequence</h4>
+      <ol class="steps green">
+        <li>[Air Conditioning Type] = <b>—</b> (heating disabled / DHW-only).</li>
+        <li>[Hot Water Function] = <b>On</b>.</li>
+        <li>[Water Tank Heating] = <b>On</b>, [Water Tank Heating Power] = <b>3000 W</b>.</li>
+        <li>Set <b>DHW temperature</b> + hysteresis; enable weekly <b>sterilization</b> 60–70 °C.</li>
+        <li>[Number of modules] = <b>1</b>.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Scenario 2 -->
+  <h3 style="margin:22px 0 6px;font-size:17px">●● Level 2 · + Underfloor heating, controller = room thermostat</h3>
+  <div class="grid g2">
+    <div class="svgcard">
+      <svg viewBox="0 0 500 280" font-family="inherit">
+        <defs><marker id="sc2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#9aa3ad"/></marker><marker id="sc2b" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#33b1ff"/></marker></defs>
+        <rect x="16" y="110" width="100" height="64" rx="9" fill="#15202c" stroke="#33b1ff"/><text x="66" y="138" fill="#33b1ff" font-size="11" font-weight="800" text-anchor="middle">HEAT PUMP</text>
+        <circle cx="190" cy="142" r="22" fill="#241b10" stroke="#f0883e" stroke-width="2"/><text x="190" y="146" fill="#f0883e" font-size="9.5" text-anchor="middle" font-weight="700">3-way</text>
+        <rect x="280" y="40" width="130" height="64" rx="9" fill="#15241a" stroke="#f85149"/><text x="345" y="68" fill="#ff9a93" font-size="11" font-weight="800" text-anchor="middle">500 L DHW</text><text x="345" y="86" fill="#8b97a7" font-size="9" text-anchor="middle">3 kW · Out C</text>
+        <rect x="280" y="170" width="130" height="60" rx="9" fill="#15202c" stroke="#2ea043"/><text x="345" y="196" fill="#7ee08a" font-size="11" font-weight="800" text-anchor="middle">200 L buffer</text><text x="345" y="214" fill="#8b97a7" font-size="9" text-anchor="middle">3 kW · Out B</text>
+        <rect x="430" y="170" width="60" height="60" rx="9" fill="#101a24" stroke="#33b1ff"/><text x="460" y="196" fill="#33b1ff" font-size="9" font-weight="700" text-anchor="middle">FLOOR</text><text x="460" y="212" fill="#8b97a7" font-size="8" text-anchor="middle">Zone A</text>
+        <polyline points="116,142 168,142" fill="none" stroke="#f0883e" stroke-width="3" marker-end="url(#sc2)"/>
+        <polyline points="212,132 246,132 246,72 280,72" fill="none" stroke="#f85149" stroke-width="2.4" marker-end="url(#sc2)"/>
+        <polyline points="212,152 246,152 246,200 280,200" fill="none" stroke="#2ea043" stroke-width="2.4" marker-end="url(#sc2)"/>
+        <polyline points="410,200 430,200" fill="none" stroke="#9aa3ad" stroke-width="2.4" marker-end="url(#sc2)"/>
+        <rect x="40" y="226" width="150" height="40" rx="8" fill="#15241a" stroke="#2ea043"/><text x="115" y="250" fill="#2ea043" font-size="10" font-weight="700" text-anchor="middle">WIRED CONTROLLER</text>
+        <polyline points="115,226 115,205 60,205 60,174" fill="none" stroke="#33b1ff" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#sc2b)"/>
+        <text x="250" y="262" fill="#33b1ff" font-size="9.5">room temp → RS485 (6)(7) → heat pump</text>
+      </svg>
+      <div class="svgcap">The wired controller on the wall is the room sensor (no separate stat). DHW priority; buffer feeds the floor. Backup heaters via Out B/C contactors.</div>
+    </div>
+    <div class="card"><h4>🎛 Controller setup sequence</h4>
+      <ol class="steps green">
+        <li>[Air Conditioning Type] = <b>Single Heating</b>.</li>
+        <li>[Wire Controller Control] = <b>Single Zone Temperature</b>; mount controller indoors (home screen 2).</li>
+        <li>[Room Temperature Control Scheme] = set so the controller uses <b>room temperature</b>.</li>
+        <li>[Hot Water Function] = <b>On</b>; [Water Tank Heating] = <b>On</b> (3000 W).</li>
+        <li>[Electric Heater 1 Power] = <b>3000 W</b> (buffer backup).</li>
+        <li>Leave thermostat terminals (1)–(2) <b>linked</b>; set a low underfloor flow-temp limit.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Scenario 3 -->
+  <h3 style="margin:22px 0 6px;font-size:17px">●●● Level 3 · + Buffer + 2 zones: radiators (A) + underfloor (B)</h3>
+  <div class="grid g2">
+    <div class="svgcard">
+      <svg viewBox="0 0 500 300" font-family="inherit">
+        <defs><marker id="sc3" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#9aa3ad"/></marker></defs>
+        <rect x="16" y="120" width="96" height="64" rx="9" fill="#15202c" stroke="#33b1ff"/><text x="64" y="148" fill="#33b1ff" font-size="11" font-weight="800" text-anchor="middle">HEAT PUMP</text>
+        <circle cx="180" cy="152" r="22" fill="#241b10" stroke="#f0883e" stroke-width="2"/><text x="180" y="156" fill="#f0883e" font-size="9.5" text-anchor="middle" font-weight="700">3-way</text>
+        <rect x="250" y="40" width="120" height="56" rx="9" fill="#15241a" stroke="#f85149"/><text x="310" y="64" fill="#ff9a93" font-size="11" font-weight="800" text-anchor="middle">500 L DHW</text><text x="310" y="82" fill="#8b97a7" font-size="9" text-anchor="middle">3 kW · Out C</text>
+        <rect x="250" y="180" width="120" height="56" rx="9" fill="#15202c" stroke="#2ea043"/><text x="310" y="204" fill="#7ee08a" font-size="11" font-weight="800" text-anchor="middle">200 L buffer</text><text x="310" y="222" fill="#8b97a7" font-size="9" text-anchor="middle">3 kW · Out B</text>
+        <rect x="408" y="120" width="84" height="50" rx="8" fill="#15241a" stroke="#2ea043"/><text x="450" y="140" fill="#2ea043" font-size="10" font-weight="700" text-anchor="middle">ZONE A</text><text x="450" y="156" fill="#8b97a7" font-size="8.5" text-anchor="middle">radiators 45°</text>
+        <rect x="408" y="200" width="84" height="60" rx="8" fill="#101a24" stroke="#33b1ff"/><text x="450" y="222" fill="#33b1ff" font-size="10" font-weight="700" text-anchor="middle">ZONE B</text><text x="450" y="237" fill="#8b97a7" font-size="8" text-anchor="middle">floor 32°</text><text x="450" y="250" fill="#f0883e" font-size="8" text-anchor="middle">mix valve Out 6</text>
+        <polyline points="112,152 158,152" fill="none" stroke="#f0883e" stroke-width="3" marker-end="url(#sc3)"/>
+        <polyline points="202,142 226,142 226,68 250,68" fill="none" stroke="#f85149" stroke-width="2.4" marker-end="url(#sc3)"/>
+        <polyline points="202,162 226,162 226,208 250,208" fill="none" stroke="#2ea043" stroke-width="2.4" marker-end="url(#sc3)"/>
+        <polyline points="370,200 390,200 390,145 408,145" fill="none" stroke="#2ea043" stroke-width="2.2" marker-end="url(#sc3)"/>
+        <polyline points="370,210 390,210 390,230 408,230" fill="none" stroke="#33b1ff" stroke-width="2.2" marker-end="url(#sc3)"/>
+      </svg>
+      <div class="svgcap">Two heating zones: radiators direct from the buffer (hot), underfloor via a mixing valve+pump (cool). DHW + both backup heaters as before.</div>
+    </div>
+    <div class="card"><h4>🎛 Controller setup sequence</h4>
+      <ol class="steps green">
+        <li>[Air Conditioning Type] = <b>Single Heating</b> (or Heating+Cooling if FCU).</li>
+        <li>[Wire Controller Control] = <b>Dual Zone</b> (home screen 3 or 4).</li>
+        <li>Zone A = water temp (≈45 °C); Zone B = water temp (≈32 °C) or room temp.</li>
+        <li>Enable the Zone B <b>mixing valve</b> on Out 6 (+ Zone B pump on Out 7 if used).</li>
+        <li>[Hot Water Function]=On, [Water Tank Heating]=On (3000 W); [Electric Heater 1 Power]=3000 W.</li>
+        <li>Set the underfloor (Zone B) max flow-temp limit low.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Level 4 -->
+  <h3 style="margin:24px 0 6px;font-size:17px">●●●● Level 4 · + Backup heaters (cold climate / emergency)</h3>
+  <div class="card">
+    <p class="meta">Add the two 3 kW tank elements so the system never runs short on the coldest days or during fast DHW recovery. Full wiring diagrams are in <b>§4</b>.</p>
+    <div class="grid g2" style="margin-top:8px">
+      <div><b>🔌 Cables</b><ul style="font-size:13px;color:#cfd8e3;padding-left:18px;line-height:1.6"><li>Buffer 3 kW → <b>contactor ← Out B</b>; thermal feedback → <b>In 3 &amp; 4</b>.</li><li>DHW 3 kW → <b>contactor ← Out C</b>; feedback → <b>In 1 &amp; 2</b>.</li><li>Each contactor fed from its <b>own 16 A + 30 mA RCD</b> supply.</li></ul></div>
+      <div><b>🎛 Controller</b><ul style="font-size:13px;color:#cfd8e3;padding-left:18px;line-height:1.6"><li>[Electric Heater 1 Power] = 3000 W.</li><li>[Water Tank Heating] = On, Power = 3000 W.</li><li>Set the bivalent (changeover) outdoor temp if offered.</li></ul></div>
+    </div>
+  </div>
+
+  <!-- advanced add-ons -->
+  <h3 style="margin:26px 0 6px;font-size:17px">➕ Advanced add-ons — each lands on one heat-pump terminal</h3>
+  <p class="sub" style="margin-bottom:10px">You don't redesign anything — each extra feature just plugs into a specific terminal or relay. Here's exactly which one, the cable, and the setting.</p>
+  <div class="grid g2">
+    <div class="card"><h4>☀ Solar water heating</h4>
+      <p class="meta">🚰 Solar collector → the DHW tank's <b>solar coil</b>.</p>
+      <ul style="font-size:13px;color:#cfd8e3;padding-left:18px;line-height:1.6">
+        <li>🔌 Solar pump → relay <b>Out D</b> (230 V).</li>
+        <li>🔌 Solar enable signal → inputs <b>(4)(5)</b> (dry contact).</li>
+        <li>🔌 Collector sensor → the <b>TSL</b> sensor input (NTC, 2-wire).</li>
+        <li>🎛 Enable the <b>Solar function</b>; solar takes priority over the heat pump for DHW when the sun is up.</li>
+      </ul>
+    </div>
+    <div class="card"><h4>🔆 PV self-consumption (Huawei only)</h4>
+      <p class="meta">No power terminal — it's a <b>communication</b> link.</p>
+      <ul style="font-size:13px;color:#cfd8e3;padding-left:18px;line-height:1.6">
+        <li>🔌 <b>EEBUS module</b> on the 2nd RS485 bus <b>(8)(9) = A2/B2</b>.</li>
+        <li>Pairs with <b>Huawei SmartAssistant / FusionSolar</b>.</li>
+        <li>🎛 [EEBUS Function] = Active, [OHPCF Configuration] = Config 4.</li>
+        <li>Uses surplus solar to over-heat the tank/buffer (free storage). <b>Conflicts with Smart Grid</b> — use one.</li>
+      </ul>
+    </div>
+    <div class="card"><h4>⚡ Smart Grid (SG / EVU)</h4>
+      <p class="meta">Utility load-control (e.g. Germany §14a).</p>
+      <ul style="font-size:13px;color:#cfd8e3;padding-left:18px;line-height:1.6">
+        <li>🔌 <b>SG → (12)</b>, <b>EVU → (13)</b> — dry-contact signals from the meter / ripple-control receiver.</li>
+        <li>The two on/off combinations give eco / normal / boost.</li>
+        <li>🎛 [Smart Grid Function] = Use, [Configuration] = 6.</li>
+      </ul>
+    </div>
+    <div class="card"><h4>🌡️ Floor &amp; extra temperature sensors</h4>
+      <p class="meta">Sensors go to <b>low-voltage inputs</b>, never relays.</p>
+      <ul style="font-size:13px;color:#cfd8e3;padding-left:18px;line-height:1.6">
+        <li>🔌 An NTC sensor (floor / buffer / zone) → its <b>sensor connector</b> (2-wire, polarity-free).</li>
+        <li>🔌 Floor <b>over-temp safety stat</b> → wired in series with the floor-zone pump/valve (cuts flow if the screed gets too hot).</li>
+        <li>The unit already reads floor-loop temp on <b>TWout3</b> — usually no extra floor sensor is needed.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="note"><b>About the relays you keep hearing about:</b> the board's 230 V <b>relay outputs</b> — <b>A</b> pump · <b>B</b> aux heater · <b>C</b> tank heater · <b>D</b> solar pump · <b>5/6/7</b> the 3-way/mixing valves — are how the heat pump <b>switches external kit</b>. Anything over <b>400 W</b> (the 3 kW heaters, big pumps) must go through a <b>contactor</b> (§4). <b>Sensors and dry-contact signals</b> go to the low-voltage inputs (§3), <b>never</b> a relay output. That one rule keeps you out of trouble.</div>
+</section>
+
+<!-- 9 SCHEDULE -->
+<section id="schedule">
+  <h2><span class="num">9</span> Master wiring schedule</h2>
+  <p class="sub">The whole job in one table — including where each terminal connects and the controller setting to change. Filter (e.g. "heater", "valve", "smart"), or <b>Print</b> a paper copy.</p>
+  <div class="toolbar">
+    <input id="search" placeholder="🔍  Filter terminals, wires, destinations, controller settings…">
+    <button class="btn" onclick="window.print()">🖨 Print</button>
+    <button class="btn" id="clrBtn">Clear</button>
+  </div>
+  <div class="mtblwrap"><table class="master">
+    <thead><tr><th style="width:58px">Block</th><th style="width:50px">Term.</th><th>Function</th><th>Connects to</th><th style="width:118px">Wire</th><th style="width:130px">Colour</th><th>Controller setting</th></tr></thead>
+    <tbody id="masterBody"></tbody>
+  </table></div>
+</section>
+
+<!-- 10 CONTROLLER -->
+<section id="controller">
+  <h2><span class="num">10</span> Controller — full operating manual</h2>
+  <p class="sub">The wired "line" controller runs everything and has a built-in WiFi module for the phone app (Huilian Smart). Below: the buttons &amp; menu map, daily use, how to <b>pick your scenario</b>, set <b>temperatures &amp; limits</b>, weather curves, DHW/sterilization, schedules, and the installer (advanced) parameters.</p>
+
+  <div class="note ok" style="margin-top:0"><b>The controller cable is already done for you.</b> A <b>10 m cable comes pre-wired into the heat pump</b> — you just run the controller end indoors and clip the controller to the wall. <b>Mount it inside, in a representative living space</b>: it then doubles as the room thermostat for space heating (no separate stat needed). Keep it ~1.5 m up, away from draughts, direct sun and heat sources.</div>
+
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card" style="padding:12px">
+      <img class="zoom" src="assets/app_main.jpg" style="width:100%;border-radius:10px;border:1px solid var(--line)">
+      <p class="meta" style="margin-top:8px">App / controller home screen: a card per zone (set temp, mode) + a DHW card. Icons show compressor on, defrost, electric heat, antifreeze, eco/silent modes.</p>
+    </div>
+    <div class="card">
+      <h4>📶 Connect WiFi — controller</h4>
+      <ol class="steps"><li>Main screen → <b>Menu</b> → <b>WiFi settings</b>.</li><li>Shows <b>status</b> + <b>MAC</b>. "Connecting to the cloud" = already paired.</li><li>To (re)pair, tap <b>Reset WiFi</b> → status "distributing in Smart mode".</li></ol>
+      <h4 style="margin-top:14px">📱 Connect WiFi — phone</h4>
+      <ol class="steps"><li>Phone on <b>2.4 GHz</b> WiFi, strong signal.</li><li>Install <b>Huilian Smart</b>, register / log in.</li><li><b>Add device</b> → heat pump → enter WiFi name + password → pair.</li><li>Controller shows <b>"Connecting to the cloud"</b> = done.</li></ol>
+    </div>
+  </div>
+
+  <!-- buttons + menu map -->
+  <div class="grid g2" style="margin-top:18px">
+    <div class="card"><h4>The 6 buttons</h4>
+      <table class="ptable" style="margin-top:2px"><tbody>
+        <tr><td>🔍 <b>[query]</b></td><td>Open the query menu — faults, live status, software version</td></tr>
+        <tr><td>🔁 <b>[mode]</b></td><td>Set the mode — Auto / Cool / Heat</td></tr>
+        <tr><td>⚙️ <b>[settings]</b></td><td>Open the Set menu (everything below)</td></tr>
+        <tr><td>⏻ <b>[on/off]</b></td><td>Switch a zone / DHW on or off</td></tr>
+        <tr><td>↩ <b>[Return]</b></td><td>Back one screen</td></tr>
+        <tr><td>🏠 <b>[Home Page]</b></td><td>Jump to the main interface</td></tr>
+      </tbody></table>
+    </div>
+    <div class="card"><h4>Menu map (Set menu → …)</h4>
+      <div style="font-size:12.5px;color:#cfd8e3;line-height:1.55;columns:2;column-gap:18px">
+        <b>Display</b> · language, brightness, screen lock, timeout<br>
+        <b>Time &amp; Date</b><br>
+        <b>Timer</b> · daily/weekly · sterilization · silent · DHW pump<br>
+        <b>Wi-Fi</b><br>
+        <b>User Parameters</b> · mode · heat/cool/DHW set · room set · curves<br>
+        <b>Manual Defrost</b><br>
+        <b>History Errors</b><br>
+        <b>Force Tank Heater</b><br>
+        <b>Force DHW Mode</b><br>
+        <b>Holiday</b> · away / home<br>
+        <b>Advanced Para.</b> 🔒 (password <b style="color:#cdb2ff">123456</b>) · system &amp; engineering params, tests, reset
+      </div>
+      <p class="meta" style="margin-top:8px">Path shorthand used below: <b>Menu → …</b> means press <b>[settings]</b> then follow the items.</p>
+    </div>
+  </div>
+
+  <!-- daily operation -->
+  <h3 style="margin:24px 0 6px;font-size:17px">A · Daily operation</h3>
+  <div class="grid g3">
+    <div class="card"><h4>Turn a zone / DHW on-off</h4><ol class="steps"><li>On the main screen tap the <b>area</b> (heating zone or hot-water card).</li><li>Tap <b>[on/off]</b> and confirm. The zone icon shows on/off.</li><li>DHW won't turn on unless <b>Hot Water Function = On</b> (advanced).</li></ol></div>
+    <div class="card"><h4>Set the mode</h4><ol class="steps"><li>Tap <b>[mode]</b>.</li><li>Pick <b>Heating</b>, <b>Cooling</b> or <b>Auto</b>.</li><li>Cooling only works on Zone A (FCU/rad), never on an underfloor-only zone.</li></ol></div>
+    <div class="card"><h4>Change a temperature</h4><ol class="steps"><li>Tap the <b>temperature number</b> in that area.</li><li><b>Slide</b> up/down to the value.</li><li>Tap to <b>save</b>. It also updates in the app.</li></ol></div>
+  </div>
+
+  <!-- scenario selection -->
+  <h3 style="margin:24px 0 6px;font-size:17px">B · Pick your scenario (control scheme)</h3>
+  <p class="sub" style="margin-bottom:10px">Your "scenario" = how many heating zones and whether each is controlled by <b>water temperature</b> or <b>room temperature</b>. It decides which of the four <b>home screens</b> you get. Set it once, in advanced parameters.</p>
+  <div class="grid g2">
+    <div class="card"><h4>The four home screens</h4>
+      <div class="pillrow">
+        <div class="pill"><b>1</b> single zone · water temp + DHW</div>
+        <div class="pill"><b>2</b> single zone · <b>room temp</b> + DHW</div>
+        <div class="pill"><b>3</b> dual zone · water (A) + room (B) + DHW</div>
+        <div class="pill"><b>4</b> dual zone · water (A) + water (B) + DHW</div>
+      </div>
+      <p class="meta" style="margin-top:10px">Screen <b>2</b> = the wired controller acts as the room thermostat (mount it indoors). Heating can run both zones; cooling runs Zone A only.</p>
+    </div>
+    <div class="card"><h4>How to set it</h4>
+      <ol class="steps"><li><b>Menu → Advanced Para.</b> → enter password <b style="color:#fff">123456</b>.</li><li><b>Parameter Settings → System Parameters:</b><br>• <b>AC_TYPE</b> = Single Heating <i>or</i> Heating + Cooling.<br>• <b>WIRE_SW_TYPE</b> (zone control) = single / double / three zone.</li><li><b>Extended → Room Temperature Control Scheme</b> = the scheme that makes the controller use <b>room</b> temperature (for screen 2/3).</li><li><b>[Logout]</b> to save and leave advanced mode.</li></ol>
+    </div>
+  </div>
+
+  <!-- temperatures & limits -->
+  <h3 style="margin:24px 0 6px;font-size:17px">C · Temperatures &amp; limits</h3>
+  <p class="sub" style="margin-bottom:8px">Day-to-day setpoints live in <b>Menu → User Parameters</b>. The hard min/max limits are set once in <b>Advanced → User Parameters</b> so users can't go too high/low (important for protecting underfloor screed).</p>
+  <table class="ptable">
+    <thead><tr><th>Setting</th><th>Where</th><th>Typical range</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><b>Heat Temp Set</b> (flow)</td><td>User Parameters</td><td>≈ 25–60 °C</td><td>Target heating <b>water</b> temperature. Keep low for underfloor (≈30–40 °C), higher for radiators.</td></tr>
+      <tr><td><b>Heat Room Temp Set</b></td><td>User Parameters</td><td>≈ 16–30 °C</td><td>Target <b>room</b> temperature (screens 2/3 — controller/room sensor).</td></tr>
+      <tr><td><b>Cool Temp Set</b> / Cool Room</td><td>User Parameters</td><td>water ≈ 7–25 °C</td><td>Cooling flow / room target (Zone A only).</td></tr>
+      <tr><td><b>Hot Water Temp Set</b></td><td>User Parameters</td><td>≈ 40–60 °C</td><td>DHW tank target. Higher = more hot water but lower COP.</td></tr>
+      <tr><td>Zone B variants (b / B1 / B2)</td><td>User Parameters</td><td>per zone</td><td>Separate setpoints for the 2nd (low-temp) zone.</td></tr>
+      <tr><td><b>Min / Max limits</b></td><td>Advanced → User Params</td><td>set by installer</td><td>Caps the user's adjustable range. Unit hardware allows 30–75 °C flow; heating inlet 10–55 °C, cooling inlet 12–30 °C.</td></tr>
+    </tbody>
+  </table>
+  <div class="note warn"><b>Underfloor:</b> set the Zone with floor heating to a <b>low max flow temperature</b> (≈40 °C) in the advanced limits, so nobody can set it to radiator temperatures and damage the screed.</div>
+
+  <!-- weather curve -->
+  <h3 style="margin:24px 0 6px;font-size:17px">D · Weather compensation (auto-lower the water temp)</h3>
+  <div class="grid g2">
+    <div class="card"><h4>What it does</h4><p class="meta">Instead of a fixed flow temperature, the unit lowers the target water temperature as it gets <b>warmer outside</b> — big comfort + efficiency gain. Choose a curve per zone (A/B, heating &amp; cooling separately): <b>8 low-temperature curves</b> (underfloor) + <b>8 high-temperature curves</b> (radiators) + one custom.</p></div>
+    <div class="card"><h4>How to enable</h4><ol class="steps"><li><b>Menu → User Parameters → Zone A heating curve</b> (and Zone B if used).</li><li>Pick a <b>low-temp curve</b> for underfloor or a <b>high-temp curve</b> for radiators (or Disable for fixed temp).</li><li>Steeper curve = warmer water in cold weather. Start mild and fine-tune over a season.</li></ol></div>
+  </div>
+
+  <!-- DHW & sterilization -->
+  <h3 style="margin:24px 0 6px;font-size:17px">E · Hot water &amp; Legionella sterilization</h3>
+  <div class="grid g2">
+    <div class="card"><h4>Hot water</h4><ul style="font-size:13px;color:#cfd8e3;padding-left:18px;line-height:1.7"><li>Enable once: <b>Advanced → Hot Water Function = On</b>, <b>Water Tank Heating = On</b>, <b>Water Tank Heating Power = 3000 W</b>.</li><li>User sets the target in <b>User Parameters → Hot Water Temp Set</b>.</li><li><b>Force DHW Mode</b> / <b>Force Tank Heater</b> in the menu for a one-off fast boost.</li><li>DHW has priority over heating (heating pauses briefly during a DHW cycle).</li></ul></div>
+    <div class="card"><h4>Sterilization (anti-Legionella)</h4><ul style="font-size:13px;color:#cfd8e3;padding-left:18px;line-height:1.7"><li><b>Menu → Timer → Sterilization Timer</b>: set day/time (typically weekly).</li><li><b>Temperature 60–70 °C</b>, max cycle <b>90–300 min</b>, high-temp hold <b>5–60 min</b>.</li><li>Uses the DHW tank's 3 kW heater to reach the kill temperature.</li><li>Fit a <b>blending/tempering valve</b> at the taps if you store this hot (anti-scald).</li></ul></div>
+  </div>
+
+  <!-- schedules & modes -->
+  <h3 style="margin:24px 0 6px;font-size:17px">F · Schedules, comfort &amp; energy</h3>
+  <div class="grid g3">
+    <div class="card"><h4>Timers</h4><p class="meta"><b>Menu → Timer</b>: <b>Daily</b> or <b>Weekly</b> on/off schedule; <b>DHW pump</b> recirculation timer; <b>Silent timer</b> (night-time quiet windows).</p></div>
+    <div class="card"><h4>Comfort modes</h4><p class="meta"><b>Power mode</b>: Standard / Strong / Energy-saving / Auto. <b>Silent mode</b> (lower fan/compressor noise). <b>Holiday</b> → Away (frost-protect only) or Home (reduced).</p></div>
+    <div class="card"><h4>Energy &amp; info</h4><p class="meta"><b>[query]</b> → Status / Version / Faults. <b>Energy metering</b>: consumption, capacity &amp; COP over 24 h · 30 d · 12 m · 10 y. <b>Screen lock</b> stops accidental changes.</p></div>
+  </div>
+
+  <!-- service & advanced -->
+  <h3 style="margin:24px 0 6px;font-size:17px">G · Service &amp; installer (advanced) parameters 🔒</h3>
+  <p class="sub" style="margin-bottom:8px">Password-protected — <b>Menu → Advanced Para.</b>, password <b style="color:var(--acc)">123456</b>. Always <b>[Logout]</b> when finished so settings are saved and locked.</p>
+  <table class="ptable">
+    <thead><tr><th>Group</th><th>Key items</th><th>For this system</th></tr></thead>
+    <tbody>
+      <tr><td><b>System Parameters</b></td><td>AC_TYPE · WIRE_SW_TYPE · REFRIGERANT · RV_SET · PANEL_CTRL</td><td>AC_TYPE = Single Heating; zone control per your scenario; refrigerant = R290 (factory).</td></tr>
+      <tr><td><b>User-limit params</b></td><td>HEAT/COOL/HOT_WATER_TEMP_SET min&amp;max · ROOM_TEMP_SET</td><td>Cap the adjustable ranges; low max for underfloor.</td></tr>
+      <tr><td><b>Heating power</b></td><td>Water Tank Heating Power · Electric Heater 1/2 Power · Number of modules</td><td>3000 W each tank heater; modules = 1 (no cascade).</td></tr>
+      <tr><td><b>Engineering</b></td><td>PUMPF_CTRL · PUMP SV RPM/FLOW · PUMPF_MODEL · PUMPret_RUN_t · FLOOR_PREHEAT_TEMP</td><td>Pump control/speed/flow, return-pump run time, floor pre-heat temp.</td></tr>
+      <tr><td><b>Tests &amp; tools</b></td><td>Manual Test · Pump/Cool/Heat/Hotwater/Ability Test · Recycle refrig. · Reset · Modify Password</td><td>Commissioning &amp; service only.</td></tr>
+      <tr><td><b>Floor screed</b></td><td>Floor Preheat · Floor Dryup Timer</td><td>Gradual screed dry-out program (dual/three-zone, standby).</td></tr>
+    </tbody>
+  </table>
+  <div class="note"><b>DIP switches</b> on the board are factory-set (phase, refrigerant, fan type, hot-water enable) — only touch them if you replace the board, and match the old settings.</div>
+
+  <!-- glossary -->
+  <h3 style="margin:24px 0 6px;font-size:17px">H · What every code means (glossary)</h3>
+  <p class="sub" style="margin-bottom:8px">The status and parameter screens use short codes. Here's the plain meaning of each — type in the box to filter.</p>
+  <div class="toolbar"><input id="glsearch" placeholder="🔍  Filter codes (e.g. TW2, RV, pump, valve, heater)…"></div>
+  <div class="mtblwrap"><table class="master">
+    <thead><tr><th style="width:120px">Code</th><th style="width:230px">Name</th><th>What it is</th></tr></thead>
+    <tbody id="glbody"></tbody>
+  </table></div>
+  <div class="note"><b>Quick read of the ones you asked about:</b> <b>RV</b> = the 4-way (reversing) valve that flips the unit between <b>heating and cooling</b>. <b>TW1/TW2/TW3</b> = water temperatures the unit measures (plate-exchanger out / DHW tank / floor loop). <b>IBH</b> = space-heating backup heater; <b>TBH</b> = DHW tank heater.</div>
+  <div class="note"><b>Smart Grid (Germany §14a EnWG):</b> wire the SG + EVU switch signals from the utility / ripple-control receiver to terminals <b>(12) SG</b> and <b>(13) EVU</b>. The two on/off combinations give command 1 (eco) / 2 (normal) / 3 (boost). Then set [Smart Grid Function]=Use, [Smart Grid Configuration]=Configuration 6.</div>
+  <div class="note warn"><b>PV / EMS — Huawei only (currently):</b> photovoltaic self-consumption is done through the <b>EEBUS module + Huawei SmartAssistant / FusionSolar</b>, not the SG terminals. Needs the EEBUS module and minimum firmware; set [EEBUS Function]=Active, [OHPCF Configuration]=Configuration 4. Note SG and EEBUS-OHPCF conflict — use one or the other.</div>
+</section>
+
+<!-- 11 REF -->
+<section id="contactor-ref">
+  <h2><span class="num">11</span> Manufacturer reference drawings</h2>
+  <p class="sub">The original Tongyi drawings behind §4 — keep for cross-checking contactor wiring and the overall scheme.</p>
+  <div class="grid g2">
+    <div class="card" style="padding:10px"><img class="zoom" src="assets/hl087a_relay_detail.jpg" style="width:100%;border-radius:10px;border:1px solid var(--line)"><p class="meta" style="margin-top:8px;padding:0 6px 6px">Relay-output → contactor detail (coil A1/A2, contacts KM).</p></div>
+    <div class="card" style="padding:10px"><img class="zoom" src="assets/hl087a_system.jpg" style="width:100%;border-radius:10px;border:1px solid var(--line)"><p class="meta" style="margin-top:8px;padding:0 6px 6px">Full scenario schematic (buffer + coupling tank, two zones) — your install is a subset.</p></div>
+  </div>
+</section>
+
+<!-- 12 REFERENCE -->
+<section id="reference">
+  <h2><span class="num">12</span> EU wire colour &amp; size quick reference</h2>
+  <p class="sub">Colours per IEC 60446 / HD 308 S2. Sizes are minimums for this system — always check against the actual connected load and local rules.</p>
+  <h3 style="margin:6px 0 0;font-size:15px">Conductor colours</h3>
+  <div class="ref-colors">
+    <div class="colorCard"><div class="swatch" style="background:var(--w-brown)"></div><b>Brown</b><br><span class="muted">Line / phase L1 (R) · single-phase L</span></div>
+    <div class="colorCard"><div class="swatch" style="background:var(--w-black)"></div><b>Black</b><br><span class="muted">Phase L2 (S)</span></div>
+    <div class="colorCard"><div class="swatch" style="background:var(--w-grey)"></div><b>Grey</b><br><span class="muted">Phase L3 (T)</span></div>
+    <div class="colorCard"><div class="swatch" style="background:var(--w-blue)"></div><b>Blue</b><br><span class="muted">Neutral N</span></div>
+    <div class="colorCard"><div class="swatch" style="background:linear-gradient(90deg,var(--w-gy) 60%,#1a7a1a)"></div><b>Green / Yellow</b><br><span class="muted">Protective earth PE ⏚ — never anything else</span></div>
+    <div class="colorCard"><div class="swatch" style="background:var(--w-white)"></div><b>White / orange</b><br><span class="muted">Low-voltage signal &amp; sensors (no fixed code) — keep apart from mains</span></div>
+  </div>
+  <h3 style="margin:22px 0 0;font-size:15px">Wire size by job</h3>
+  <div class="ref-colors" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr))">
+    <div class="colorCard"><b>4 mm²</b><br><span class="muted">Heat pump 3-phase mains</span></div>
+    <div class="colorCard"><b>2.5 mm²</b><br><span class="muted">Hydro Box supply · each 3 kW heater circuit</span></div>
+    <div class="colorCard"><b>1.5 mm²</b><br><span class="muted">Circulation pump power</span></div>
+    <div class="colorCard"><b>1.0 mm²</b><br><span class="muted">Contactor coil · 3-way valve · relay-output control</span></div>
+    <div class="colorCard"><b>0.75 mm²</b><br><span class="muted">Room thermostat · heater thermal feedback</span></div>
+    <div class="colorCard"><b>0.5 mm²</b><br><span class="muted">Temperature sensors · SG/EVU (white/orange)</span></div>
+    <div class="colorCard"><b>0.5 mm² shielded twisted pair</b><br><span class="muted">RS485 controller bus (6)(7) / (8)(9)</span></div>
+  </div>
+</section>
+
+<footer id="notes">
+  <div class="grid g2">
+    <div><h3>Assumptions &amp; things to confirm on site</h3>
+      <ul style="padding-left:18px;line-height:1.7">
+        <li>12 kW = <b>3-phase TAHMV12S R</b> (confirmed by plate photo + spec sheet).</li>
+        <li>Both tanks: <b>3 kW element, no relay</b> → each its own contactor + dedicated 16 A circuit.</li>
+        <li>Inter-unit mapping (Out B/C/A/5 → contactors / Hydro Box terms) is the typical scheme — <b>confirm against the diagram inside your unit</b>.</li>
+        <li>Controller cable: <b>10 m, pre-wired in the heat pump</b>, install indoors as the room thermostat.</li>
+        <li>3-way valve shown for 2-wire/spring-return; if 3-wire SPDT add the "closed" core.</li>
+      </ul>
+    </div>
+    <div><h3>Built from these source files</h3>
+      <ul class="src" style="padding-left:18px;line-height:1.7">
+        <li><i>Service Manual (R290) V2.pdf</i> — electric wiring, cable/breaker tables, sensors, application cases, controller params, Smart Grid, EEBUS</li>
+        <li><i>多联供内机板 HL087A …接线示意.pdf</i> — control-board terminal &amp; contactor detail</li>
+        <li><i>同益牌 Hydro Box User manual.pdf</i> — EFJ01-A01 data &amp; connections</li>
+        <li><i>Buffer / Water tank manuals + Accessories.pdf</i> — pressures</li>
+        <li><i>Huilian Smart APP Manual · THMV spec sheet · Slike/ photos</i></li>
+      </ul>
+      <p style="margin-top:14px;color:var(--mut)">Helper document — not a substitute for the manufacturer's manual or a qualified electrician. Verify every value against your unit and local regulations before wiring.</p>
+    </div>
+  </div>
+</footer>
+</div>
+
+<div id="lightbox"><span class="x">✕</span><img id="lbimg" src=""></div>
+
+<script>
+const C={brown:'var(--w-brown)',black:'var(--w-black)',grey:'var(--w-grey)',blue:'var(--w-blue)',gy:'linear-gradient(90deg,#c9d11f 60%,#1a7a1a)',sig:'var(--w-white)',orange:'#f0883e',white:'var(--w-white)'};
+const wireStroke={brown:'#7b4b2a',black:'#444',grey:'#9aa3ad',blue:'#2f6fed',gy:'#c9d11f',sig:'#b07cff',orange:'#f0883e',white:'#cccccc'};
+const BLOCKS=[
+ {id:'mains',name:'① HP 3-phase mains',img:'assets/mains_3ph.jpg',cap:'Heat-pump main power input. Label: "Power supply 380V-415V~".',rows:[
+   {n:'R',x:19,y:57,fn:'Mains phase L1',kind:'supply',wire:'4 mm²',col:'brown',cname:'Brown',dest:'Fuse board — 3-pole 10 A MCB',sw:'—'},
+   {n:'S',x:33,y:57,fn:'Mains phase L2',kind:'supply',wire:'4 mm²',col:'black',cname:'Black',dest:'Fuse board',sw:'—'},
+   {n:'T',x:48,y:57,fn:'Mains phase L3',kind:'supply',wire:'4 mm²',col:'grey',cname:'Grey',dest:'Fuse board',sw:'—'},
+   {n:'N',x:61,y:57,fn:'Neutral',kind:'supply',wire:'4 mm²',col:'blue',cname:'Blue',dest:'Fuse board neutral bar',sw:'—'},
+   {n:'⏚',x:78,y:57,fn:'Protective earth PE',kind:'supply',wire:'4 mm²',col:'gy',cname:'Green/Yellow',dest:'Main earth bar (connect first)',sw:'—'},
+ ]},
+ {id:'control',name:'② HP control board',img:'assets/control_legend.jpg',cap:'Printed legend inside HP box. Right group = signal inputs (1)-(13); left = outputs 1-7, A-E.',rows:[
+   {n:'(1)',fn:'Thermostat L1 (common)',kind:'sig',wire:'0.75 mm²',col:'sig',cname:'any (white)',dest:'OPTIONAL extra room stat — controller already is one. No stat? link (1)-(2)',sw:'[Thermostat control]; [Room Temp Control Scheme]'},
+   {n:'(2)',fn:'Thermostat — Heat demand H',kind:'sig',wire:'0.75 mm²',col:'sig',cname:'any (white)',dest:'Room stat "heat" contact (optional)',sw:'[Thermostat control]'},
+   {n:'(3)',fn:'Thermostat — Cool demand C',kind:'sig',wire:'0.75 mm²',col:'sig',cname:'any (white)',dest:'Room stat "cool" contact (optional)',sw:'[Thermostat control]'},
+   {n:'(4)',fn:'Solar signal input',kind:'sig',wire:'0.5 mm²',col:'sig',cname:'any (white)',dest:'Solar/thermal controller signal',sw:'[Solar function] = On'},
+   {n:'(5)',fn:'Solar signal input',kind:'sig',wire:'0.5 mm²',col:'sig',cname:'any (white)',dest:'Solar/thermal controller signal',sw:'[Solar function] = On'},
+   {n:'(6)',fn:'RS485 A1 — controller bus',kind:'sig',wire:'0.5 mm² shielded TP',col:'sig',cname:'twisted pair',dest:'Wired controller (10 m cable, pre-wired in heat pump)',sw:'auto-detected'},
+   {n:'(7)',fn:'RS485 B1 — controller bus',kind:'sig',wire:'0.5 mm² shielded TP',col:'sig',cname:'twisted pair',dest:'Wired controller (pre-wired 10 m cable)',sw:'auto-detected'},
+   {n:'(8)',fn:'RS485 A2 — 2nd bus',kind:'sig',wire:'0.5 mm² shielded TP',col:'sig',cname:'twisted pair',dest:'Cascade / EEBUS / Modbus module (optional)',sw:'[Number of modules]; [EEBUS Function]'},
+   {n:'(9)',fn:'RS485 B2 — 2nd bus',kind:'sig',wire:'0.5 mm² shielded TP',col:'sig',cname:'twisted pair',dest:'Cascade / EEBUS / Modbus module (optional)',sw:'[Number of modules]; [EEBUS Function]'},
+   {n:'(10)',fn:'Linked / interlock switch',kind:'sig',wire:'0.75 mm²',col:'sig',cname:'any (white)',dest:'External enable/interlock dry contact (optional)',sw:'[Linked switch] enable'},
+   {n:'(11)',fn:'Linked / interlock switch',kind:'sig',wire:'0.75 mm²',col:'sig',cname:'any (white)',dest:'External enable/interlock dry contact (optional)',sw:'[Linked switch] enable'},
+   {n:'(12)',fn:'SG — Smart-Grid signal',kind:'sig',wire:'0.5 mm²',col:'sig',cname:'any (white)',dest:'Smart-Grid signal from utility meter / ripple-control receiver',sw:'[Smart Grid Function]=Use, [Smart Grid Configuration]=Config 6'},
+   {n:'(13)',fn:'EVU — utility signal',kind:'sig',wire:'0.5 mm²',col:'sig',cname:'any (white)',dest:'Utility EVU switch signal (ripple-control)',sw:'[Smart Grid Function]=Use, [Config 6]'},
+   {n:'1',fn:'DHW heater — thermal feedback',kind:'sig',wire:'0.75 mm²',col:'sig',cname:'any (white)',dest:'500 L DHW heater thermal cut-out',sw:'[Water Tank Heating]=On'},
+   {n:'2',fn:'DHW heater — thermal feedback',kind:'sig',wire:'0.75 mm²',col:'sig',cname:'any (white)',dest:'500 L DHW heater thermal cut-out',sw:'[Water Tank Heating]=On'},
+   {n:'3',fn:'Buffer/aux heater — feedback',kind:'sig',wire:'0.75 mm²',col:'sig',cname:'any (white)',dest:'200 L buffer heater thermal cut-out',sw:'[Electric Heater 1 Power]'},
+   {n:'4',fn:'Buffer/aux heater — feedback',kind:'sig',wire:'0.75 mm²',col:'sig',cname:'any (white)',dest:'200 L buffer heater thermal cut-out',sw:'[Electric Heater 1 Power]'},
+   {n:'5',fn:'Solenoid 3-way valve 1 (DHW)',kind:'out',wire:'0.75-1.0 mm²',col:'orange',cname:'L (brown)',dest:'DHW 3-way valve (built into Hydro Box → term 2)',sw:'[Hot Water Function]=On'},
+   {n:'6',fn:'Solenoid 3-way valve 2 (mixing)',kind:'out',wire:'0.75-1.0 mm²',col:'orange',cname:'L (brown)',dest:'Zone B mixing valve (if 2 zones)',sw:'[Wire Controller Control]=Dual Zone'},
+   {n:'7',fn:'Solenoid 3-way valve 3',kind:'out',wire:'0.75-1.0 mm²',col:'orange',cname:'L (brown)',dest:'Extra valve / Zone B pump (if fitted)',sw:'dual-zone settings'},
+   {n:'A',fn:'External circulation pump',kind:'pwr',wire:'1.5 mm²',col:'orange',cname:'L (brown)',dest:'System pump → Hydro Box term 3 (contactor if >400 W)',sw:'[Pump Power] = actual W'},
+   {n:'B',fn:'Aux / backup electric heating',kind:'pwr',wire:'1.0 mm² coil',col:'orange',cname:'L (brown)',dest:'Contactor coil → 200 L buffer 3 kW heater',sw:'[Electric Heater 1 Power]=3000 W'},
+   {n:'C',fn:'Water-tank (DHW) electric heating',kind:'pwr',wire:'1.0 mm² coil',col:'orange',cname:'L (brown)',dest:'Contactor coil → 500 L DHW 3 kW heater',sw:'[Hot Water]=On,[Water Tank Heating]=On,3000 W'},
+   {n:'D',fn:'Solar water pump',kind:'pwr',wire:'1.0 mm²',col:'orange',cname:'L (brown)',dest:'Solar circuit pump (if fitted)',sw:'[Solar function]=On'},
+   {n:'E',fn:'Zero line (N) — common for A–D',kind:'pwr',wire:'1.5 mm²',col:'blue',cname:'Blue',dest:'Neutral for the 230 V outputs',sw:'—'},
+ ]},
+ {id:'hydro',name:'③ Hydro Box',img:'assets/hydrobox_terminals.jpg',cap:'Hydro Box block. Label: "Power supply 220V-240V~ / E-heating / 3-way valve / PUMP".',rows:[
+   {n:'L',x:13,y:44,fn:'Power supply — Live',kind:'supply',wire:'2.5 mm²',col:'brown',cname:'Brown',dest:'1-phase 16 A MCB + 30 mA RCD',sw:'—'},
+   {n:'N',x:31,y:44,fn:'Power supply — Neutral',kind:'supply',wire:'2.5 mm²',col:'blue',cname:'Blue',dest:'Neutral bar',sw:'—'},
+   {n:'1',x:49,y:44,fn:'E-heating (backup heater)',kind:'pwr',wire:'2.5 mm² load',col:'orange',cname:'L (brown)',dest:'From board Out B via contactor (switches buffer 3 kW)',sw:'[Electric Heater 1 Power]'},
+   {n:'2',x:62,y:44,fn:'3-way valve (DHW diverter)',kind:'out',wire:'0.75-1.0 mm²',col:'orange',cname:'L (brown)',dest:'From board Out 5 (valve is built in)',sw:'[Hot Water Function]=On'},
+   {n:'3',x:79,y:44,fn:'PUMP (circulation pump)',kind:'pwr',wire:'1.5 mm²',col:'orange',cname:'L (brown)',dest:'From board Out A',sw:'[Pump Power]'},
+   {n:'⏚',x:90,y:50,fn:'Protective earth PE',kind:'supply',wire:'2.5 mm²',col:'gy',cname:'Green/Yellow',dest:'Earth bar (row of ⏚ studs)',sw:'—'},
+ ]},
+];
+const kindPill={supply:'<span class="ok-pill">SUPPLY</span>',sig:'<span class="sig-pill">SIGNAL</span>',out:'<span class="danger-pill">230V</span>',pwr:'<span class="danger-pill">230V</span>'};
+function swatch(col){return '<span class="wireSwatch"><i style="background:'+(C[col]||col)+'"></i></span>';}
+function tagColor(k){return k==='sig'?'var(--w-signal)':k==='supply'?'#2ea043':'#f0883e';}
+const tabsEl=document.getElementById('tabs');let active=0,selSet=[];
+const RETMAP={'(1)':'is the common for (2)/(3)','(2)':'(1) L1 — common','(3)':'(1) L1 — common','(4)':'(5)','(5)':'(4)','(6)':'(7) B1','(7)':'(6) A1','(8)':'(9) B2','(9)':'(8) A2','(10)':'(11)','(11)':'(10)','(12)':'signal common','(13)':'signal common','1':'(2) — feedback pair','2':'(1) — feedback pair','3':'(4) — feedback pair','4':'(3) — feedback pair','5':'N (E zero line)','6':'N (E zero line)','7':'N (E zero line)','A':'N (E zero line)','B':'N (E zero line)','C':'N (E zero line)','D':'N (E zero line)','E':'is the common neutral','L':'—','N':'is the common neutral','1h':'N','2h':'N','3h':'N'};
+function retFor(blkid,r){if(blkid==='hydro'){if(r.n==='1'||r.n==='2'||r.n==='3')return'N (Hydro Box neutral)';if(r.n==='N')return'is the common neutral';return'—';}return RETMAP[r.n]||'—';}
+BLOCKS.forEach((b,i)=>{const btn=document.createElement('button');btn.textContent=b.name;btn.onclick=()=>{active=i;selSet=[];render();renderDetail();};tabsEl.appendChild(btn);});
+function render(){
+  [...tabsEl.children].forEach((b,i)=>b.classList.toggle('active',i===active));
+  const blk=BLOCKS[active];
+  document.getElementById('photo').src=blk.img;document.getElementById('photoCap').textContent=blk.cap;
+  const hots=document.getElementById('hots');hots.innerHTML='';
+  blk.rows.forEach((r,idx)=>{if(r.x==null)return;const h=document.createElement('div');h.className='hot';h.textContent=r.n;h.style.left=r.x+'%';h.style.top=r.y+'%';h.dataset.idx=idx;h.onmouseenter=()=>hi(idx,true);h.onmouseleave=()=>hi(idx,false);h.onclick=(e)=>sel(idx,e);hots.appendChild(h);});
+  const tb=document.getElementById('ttbody');tb.innerHTML='';
+  blk.rows.forEach((r,idx)=>{const tr=document.createElement('tr');tr.dataset.idx=idx;
+    tr.innerHTML='<td><span class="tag" style="background:'+tagColor(r.kind)+'">'+r.n+'</span></td>'+
+      '<td><b>'+r.fn+'</b> '+(kindPill[r.kind]||'')+'</td><td>'+swatch(r.col)+' '+r.wire+'</td>';
+    tr.onmouseenter=()=>hi(idx,true);tr.onmouseleave=()=>hi(idx,false);tr.onclick=(e)=>sel(idx,e);tb.appendChild(tr);});
+}
+function hi(idx,on){const h=document.querySelector('.hot[data-idx="'+idx+'"]');const tr=document.querySelector('#ttbody tr[data-idx="'+idx+'"]');if(h)h.classList.toggle('on',on);if(tr)tr.classList.toggle('on',on);if(on&&h){h.classList.remove('pulse');void h.offsetWidth;h.classList.add('pulse');}}
+function shorten(s,n){return s.length>n?s.slice(0,n-1)+'…':s;}
+function retShort(blkid,r){
+  let x=retFor(blkid,r);
+  if(!x||x==='—')return null;
+  if(/is the common/.test(x))return null; // this terminal IS a common — no outgoing return
+  return x.replace(' — common','').replace(' — feedback pair','').replace(' (E zero line)','=N (E)').replace(' (Hydro Box neutral)','=N').replace('(','').replace(')','');
+}
+// ONE combined diagram for all selected terminals, with shared returns
+function buildCombined(rows,blkid){
+  const n=rows.length;
+  const rets=[];rows.forEach(r=>{const x=retShort(blkid,r);if(x&&rets.indexOf(x)<0)rets.push(x);});
+  const tTop=46,tStep=46,gap=26;
+  const cTop=tTop+n*tStep+gap;
+  const H=cTop+Math.max(rets.length,1)*40+18;
+  const W=660;
+  let s='<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto">';
+  s+='<defs><marker id="cbf" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#cfd8e3"/></marker>';
+  s+='<marker id="cbr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#8b97a7"/></marker></defs>';
+  s+='<rect x="8" y="10" width="150" height="'+(H-20)+'" rx="9" fill="#15202c" stroke="#33b1ff"/>';
+  s+='<text x="83" y="30" fill="#33b1ff" font-size="12" font-weight="800" text-anchor="middle">HEAT-PUMP BOARD</text>';
+  s+='<text x="83" y="'+(cTop-10)+'" fill="#8b97a7" font-size="9" text-anchor="middle">— signal · return / common —</text>';
+  // terminals, devices, forward wires
+  rows.forEach((r,i)=>{
+    const y=tTop+i*tStep+18;const st=wireStroke[r.col]||'#9aa3ad';
+    s+='<rect x="114" y="'+(y-13)+'" width="46" height="26" rx="5" fill="#21303f" stroke="'+st+'"/><text x="137" y="'+(y+5)+'" fill="#fff" font-size="12" font-weight="800" text-anchor="middle">'+r.n+'</text>';
+    s+='<rect x="430" y="'+(y-15)+'" width="222" height="30" rx="6" fill="#15241a" stroke="#2ea043"/><text x="541" y="'+(y+4)+'" fill="#cfe8d6" font-size="9.5" text-anchor="middle">'+shorten(r.dest,46)+'</text>';
+    s+='<polyline points="160,'+y+' 430,'+y+'" fill="none" stroke="'+st+'" stroke-width="2.6" marker-end="url(#cbf)"/>';
+    s+='<text x="300" y="'+(y-6)+'" fill="'+st+'" font-size="9" text-anchor="middle">'+r.wire+' →</text>';
+  });
+  // shared common/return tabs on the board
+  rets.forEach((ret,j)=>{
+    const cy=cTop+j*40+10;
+    s+='<rect x="36" y="'+(cy-13)+'" width="122" height="26" rx="6" fill="#241830" stroke="#b07cff"/><text x="97" y="'+(cy+4)+'" fill="#cdb2ff" font-size="11" text-anchor="middle">↩ '+ret+'</text>';
+  });
+  // return wires device -> its shared common (converge where shared)
+  rows.forEach((r,i)=>{
+    const y=tTop+i*tStep+18;const x=retShort(blkid,r);if(!x)return;
+    const j=rets.indexOf(x);const cy=cTop+j*40+10;const vx=410-i*6;
+    s+='<polyline points="430,'+(y+7)+' '+vx+','+(y+7)+' '+vx+','+cy+' 158,'+cy+'" fill="none" stroke="#8b97a7" stroke-width="1.7" stroke-dasharray="5 3" marker-end="url(#cbr)"/>';
+  });
+  s+='</svg>';
+  return s;
+}
+function renderDetail(){
+  const d=document.getElementById('detail');
+  document.querySelectorAll('#ttbody tr').forEach(t=>t.classList.remove('sel'));
+  document.querySelectorAll('.hot').forEach(h=>h.classList.remove('sel'));
+  if(!selSet.length){d.classList.remove('show');return;}
+  const blk=BLOCKS[active];const rows=selSet.map(i=>blk.rows[i]);
+  document.getElementById('dhead').innerHTML=rows.length===1
+    ?'Terminal <b style="color:#fff">'+rows[0].n+'</b> · '+rows[0].fn+' '+(kindPill[rows[0].kind]||'')+' &nbsp;—&nbsp; shown as a full loop (signal + return)'
+    :'<b style="color:#fff">'+rows.length+' terminals — combined diagram.</b> Each signal is drawn with its return; shared commons converge on one tab. (Ctrl/Cmd-click a row/marker to add or remove.)';
+  let html='<div style="overflow-x:auto">'+buildCombined(rows,blk.id)+'</div>';
+  html+='<div style="margin-top:10px">'+rows.map(r=>{const x=retShort(blk.id,r);
+    return '<div class="loopinfo" style="border-top:1px solid var(--line);padding:8px 0"><div class="lt">'+r.n+' · '+r.fn+'</div>'
+      +'<div>→ '+r.dest+'</div>'
+      +(x?'<div class="ret">↩ return / common: <b style="color:#cdb2ff">'+x+'</b></div>':'<div class="ret">this terminal <b>is</b> a shared common/neutral — others return through it</div>')
+      +'<div>wire: '+swatch(r.col)+' '+r.wire+'</div>'
+      +((r.sw&&r.sw!=='—')?'<div class="sw">🎛 controller: '+r.sw+'</div>':'')+'</div>';}).join('')+'</div>';
+  document.getElementById('loopwrap').innerHTML=html;
+  selSet.forEach(i=>{const tr=document.querySelector('#ttbody tr[data-idx="'+i+'"]');if(tr)tr.classList.add('sel');const h=document.querySelector('.hot[data-idx="'+i+'"]');if(h)h.classList.add('sel');});
+  d.classList.add('show');
+}
+function sel(idx,ev){
+  if(ev&&(ev.ctrlKey||ev.metaKey||ev.shiftKey)){if(ev.preventDefault)ev.preventDefault();const p=selSet.indexOf(idx);if(p>=0)selSet.splice(p,1);else selSet.push(idx);}
+  else{selSet=[idx];}
+  renderDetail();
+}
+render();
+const mbody=document.getElementById('masterBody');
+function buildMaster(filter){mbody.innerHTML='';const f=(filter||'').toLowerCase();
+  BLOCKS.forEach(blk=>{const rows=blk.rows.filter(r=>!f||(blk.name+' '+r.n+' '+r.fn+' '+r.dest+' '+r.wire+' '+r.cname+' '+r.sw).toLowerCase().includes(f));
+    if(!rows.length)return;const hr=document.createElement('tr');hr.className='secthead';hr.innerHTML='<td colspan="7">'+blk.name+'</td>';mbody.appendChild(hr);
+    rows.forEach(r=>{const tr=document.createElement('tr');
+      tr.innerHTML='<td class="muted">'+blk.name.split(' ')[0]+'</td><td><span class="tag" style="background:'+tagColor(r.kind)+'">'+r.n+'</span></td>'+
+      '<td><b>'+r.fn+'</b> '+(kindPill[r.kind]||'')+'</td><td>'+r.dest+'</td><td>'+r.wire+'</td><td>'+swatch(r.col)+' '+r.cname+'</td><td class="muted">'+(r.sw==='—'?'—':r.sw)+'</td>';
+      mbody.appendChild(tr);});});
+  if(!mbody.children.length)mbody.innerHTML='<tr><td colspan="7" class="muted" style="padding:18px">No match for "'+filter+'".</td></tr>';}
+buildMaster('');
+const search=document.getElementById('search');search.addEventListener('input',e=>buildMaster(e.target.value));
+document.getElementById('clrBtn').onclick=()=>{search.value='';buildMaster('');};
+/* ===== WATER PORT EXPLORER ===== */
+const WPORTS={with:[
+ {n:'1',name:'① To HP water inlet',dest:'Heat-pump WATER IN — cooled return back to the unit',size:'1″ / DN25',mat:'Cu 28 · PEX-AL 32 · multilayer',fit:'Isolating ball valve (in box) + union + flexible connector at the heat pump',ins:'Insulate fully · GLYCOL on the outdoor section'},
+ {n:'2',name:'② Return water',dest:'System return from the heating zones, routed back to the HP',size:'1″ / DN25',mat:'Cu · PEX · multilayer',fit:'Isolating valve · good place for the MAGNETIC dirt filter',ins:'Insulate'},
+ {n:'3',name:'③ From HP water outlet',dest:'Heat-pump WATER OUT — hot flow into the box',size:'1″ / DN25',mat:'Cu 28 · PEX-AL 32 (O₂ barrier) · multilayer',fit:'Isolating ball valve (in box) + union + flexible anti-vibration connector at the heat pump',ins:'Insulate fully · GLYCOL on the outdoor section'},
+ {n:'4',name:'④ Drain hole',dest:'Drain / waste at the lowest point',size:'—',mat:'—',fit:'Drain cock + hose to a safe drain',ins:'—'},
+ {n:'5',name:'⑤ Reserve',dest:'Spare port(s) — leave capped unless your layout needs them',size:'—',mat:'—',fit:'Blank cap',ins:'—'},
+ {n:'6',name:'⑥ To buffer tank water inlet',dest:'200 L buffer — inlet (charge from heat pump)',size:'1″ / DN25',mat:'Cu · PEX · multilayer',fit:'Isolating valve + union',ins:'Insulate'},
+ {n:'7',name:'⑦ To DHW tank',dest:'500 L DHW tank coil (heating side) — the 3-way valve diverts here in DHW mode',size:'1″ / DN25',mat:'Cu · PEX · multilayer',fit:'Isolating valve · DHW tank sensor (black, TWout2) into the tank pocket',ins:'Insulate'},
+ {n:'8',name:'⑧ From buffer tank water outlet',dest:'200 L buffer — outlet (to the heating side)',size:'1″ / DN25',mat:'Cu · PEX · multilayer',fit:'Isolating valve + union',ins:'Insulate'},
+ {n:'9',name:'⑨ To space heating',dest:'Heating zones — flow to manifold / radiators / fan-coils',size:'DN20–25 (per zone load)',mat:'Cu · PEX · multilayer',fit:'Zone isolating valves + high-point air vent · mixing valve+pump for a low-temp underfloor zone',ins:'Insulate'},
+],without:[
+ {n:'OUT',name:'Heat pump WATER OUT (hot flow)',dest:'Hot flow → your field-built kit: isolating valve → flexible connector → auto air-vent → pump → 3-way valve → DHW coil / buffer / zones (+ expansion vessel, 3-bar safety valve, gauge, fill valve)',size:'1″ / DN25',mat:'Cu 28 · PEX-AL 32 · multilayer',fit:'You supply: pump · motorised ball 3-way valve (DN25, 230 V) · expansion vessel · 3-bar safety valve · gauge · auto air-vents · fill/drain · isolating valves · flexible connectors',ins:'Insulate fully · GLYCOL on the outdoor section'},
+ {n:'IN',name:'Heat pump WATER IN (return)',dest:'Cooled return ← from the zones / buffer, through the dirt filter',size:'1″ / DN25',mat:'Cu 28 · PEX-AL 32 · multilayer',fit:'You supply: MAGNETIC dirt filter + strainer · isolating valve · drain tap · auxiliary pump if pipe pressure-drop is high',ins:'Insulate fully · GLYCOL on the outdoor section'},
+]};
+let wmode='with';
+function wsetmode(m){wmode=m;document.getElementById('wbtnWith').classList.toggle('active',m==='with');document.getElementById('wbtnNo').classList.toggle('active',m==='without');document.getElementById('schemWith').style.display=m==='with'?'':'none';document.getElementById('schemNo').style.display=m==='without'?'':'none';var f3=document.getElementById('fig3block');if(f3)f3.style.display=m==='with'?'':'none';wbuild();document.getElementById('wdhead').textContent='Click a port to see its pipe spec.';document.getElementById('wterm').style.display='none';document.getElementById('wdest').innerHTML='';document.getElementById('wfit').innerHTML='';document.getElementById('wins').innerHTML='';}
+function wbuild(){const tb=document.getElementById('wtbody');tb.innerHTML='';WPORTS[wmode].forEach(p=>{const tr=document.createElement('tr');tr.innerHTML='<td><span class="tag" style="background:#f0883e">'+p.n+'</span></td><td><b>'+p.name+'</b></td><td>'+p.size+'</td>';tr.onclick=()=>wsel(p.n);tb.appendChild(tr);});}
+function wsel(n){const p=WPORTS[wmode].find(x=>x.n===n);if(!p)return;document.getElementById('wdhead').innerHTML='Port <b style="color:#fff">'+p.n+'</b> · '+p.name;const wt=document.getElementById('wterm');wt.style.display='';wt.innerHTML='<b>'+p.n+'</b>'+p.size;document.getElementById('wdest').innerHTML='<b>Connects to</b><br>'+p.dest+'<br><span class="muted">Materials: '+p.mat+'</span>';document.getElementById('wfit').innerHTML='🔧 <b>Fittings / valves:</b> '+p.fit;document.getElementById('wins').innerHTML='🧥 <b>Insulation:</b> '+p.ins;}
+wbuild();
+/* ===== GLOSSARY ===== */
+const GLOSSARY=[
+ ['cat','Temperatures the unit measures (sensors)'],
+ ['TA','Outdoor ambient air temp','Drives weather compensation &amp; defrost timing.'],
+ ['TF','Outdoor coil (fin) temp','Used to decide when to defrost.'],
+ ['TS','Compressor suction temp','Refrigerant protection.'],
+ ['TD','Compressor discharge temp','High-temp protection.'],
+ ['TWin1','Water inlet to plate exchanger','Return water entering the heat exchanger.'],
+ ['TW1 / TWout1','Water outlet of plate exchanger','Hot water leaving the heat exchanger.'],
+ ['TW2 / TWout2','DHW (hot-water tank) temp','The 500 L tank sensor — controls hot water.'],
+ ['TW3 / TWout3','Floor-heating water inlet temp','Low-temperature zone flow.'],
+ ['THWt','Total system outlet temp','The main flow temperature to the house.'],
+ ['TRFgas / TRFliq','Refrigerant gas / liquid temp','Refrigerant-circuit diagnostics.'],
+ ['TSL','Solar collector temp','Solar water-heating control (if fitted).'],
+ ['TACt1 / TACt2','Buffer tank lower / upper temp','The 200 L buffer sensors.'],
+ ['cat','Valves'],
+ ['RV','4-way (reversing) valve','Flips the unit between HEATING and COOLING. This is the "heat/cold" item.'],
+ ['EEVm / EEVs','Main / auxiliary expansion valve','Electronically meters refrigerant flow.'],
+ ['S3V1 / S3V2 / S3V3','Solenoid 3-way valves','DHW diversion / zone / mixing valves.'],
+ ['cat','Electric heaters'],
+ ['IBH1 / IBH2','Internal backup heater 1 / 2','Space-heating electric backup — driven by board Out B.'],
+ ['TBH','Tank backup heater','DHW tank electric element — driven by board Out C.'],
+ ['QZH1','Compressor crankcase heater','Keeps oil warm / anti-liquid.'],
+ ['DPH','Base-pan (chassis) heater','Melts ice in the outdoor drain tray.'],
+ ['cat','Pumps &amp; fan'],
+ ['PUMP / PUMPf','Main variable-speed water pump','The primary pump built into the outdoor heat pump (Wilo 25/9). The Hydro Box adds a 2nd pump.'],
+ ['PUMPo','External circulation pump','Extra system pump — board Out A.'],
+ ['PUMPm','Mixing-zone pump','Pump for a low-temperature (underfloor) zone.'],
+ ['PUMPsl','Solar pump','Solar circuit — board Out D.'],
+ ['PUMPret','DHW recirculation pump','Instant-hot-water return loop.'],
+ ['FANf','Variable-speed (inverter) fan','Outdoor fan.'],
+ ['cat','Switches &amp; inputs'],
+ ['PRSd / PRSs','High / low pressure switch','Refrigerant safety cut-outs.'],
+ ['LDIw','Water flow switch','Stops the unit if there is no water flow.'],
+ ['HDIrth / HDIrtc','External thermostat Heat / Cool demand','Dry-contact demand from a room stat (terminals H / C).'],
+ ['SG / EVU','Smart-grid signals','Utility / ripple-control inputs (terminals 12 / 13).'],
+ ['cat','Modes &amp; key parameters'],
+ ['Ctrl Mode','Heat / Cool / Auto','The day-to-day operating mode.'],
+ ['AC_TYPE','Unit function','Single Heating, or Heating + Cooling.'],
+ ['WIRE_SW_TYPE','Zone control','Single / dual / three zone.'],
+ ['RV_SET','Reversing-valve logic','Whether the valve is energised for heating or for cooling (factory).'],
+ ['PANEL_CTRL','Wired-controller scope','How much the wired controller governs.'],
+];
+function glbuild(f){const tb=document.getElementById('glbody');tb.innerHTML='';f=(f||'').toLowerCase();let shown=0,lastCat=null,catRow=null;
+  GLOSSARY.forEach(g=>{if(g[0]==='cat'){lastCat=g[1];catRow=null;return;}
+    const hay=(g[0]+' '+g[1]+' '+g[2]).toLowerCase();if(f&&!hay.includes(f))return;
+    if(!catRow){const hr=document.createElement('tr');hr.className='secthead';hr.innerHTML='<td colspan="3">'+lastCat+'</td>';tb.appendChild(hr);catRow=hr;}
+    const tr=document.createElement('tr');tr.innerHTML='<td><b style="color:#fff">'+g[0]+'</b></td><td>'+g[1]+'</td><td class="muted">'+g[2]+'</td>';tb.appendChild(tr);shown++;});
+  if(!shown)tb.innerHTML='<tr><td colspan="3" class="muted" style="padding:16px">No code matches "'+f+'".</td></tr>';}
+glbuild('');
+document.getElementById('glsearch').addEventListener('input',e=>glbuild(e.target.value));
+const lb=document.getElementById('lightbox'),lbimg=document.getElementById('lbimg');
+document.addEventListener('click',e=>{if(e.target.classList.contains('zoom')||e.target.id==='photo'){lbimg.src=e.target.src;lb.classList.add('show');}if(e.target===lb||e.target.classList.contains('x'))lb.classList.remove('show');});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('show');});
+document.getElementById('photo').classList.add('zoom');
+</script>
+</body>
+</html>
