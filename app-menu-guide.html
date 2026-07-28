@@ -467,7 +467,7 @@ const GROUPS=[
 38.00#UNIT | ON | Enable module 00 (this unit) in a cascade.
 `},
 {n:'02',name:'System Parameters',aud:'inst',rows:`
-01.AC_TYPE | COOL&HEAT | Unit function: Single Heating, or Heating + Cooling.
+01.AC_TYPE | COOL&HEAT | [Air Conditioning Type] — exactly three options: [0] Heating Only · [1] Heating &amp; Cooling (factory default, = this value) · [2] Cooling Only. There is no DHW-only option; hot water is enabled separately with 17.HOT_WATER.
 02.REFRIGERANT | R290 | Refrigerant type (R290 propane on this model). Factory.
 03.RV_SET | Cool Mode ON | Reversing-valve logic — which mode energises the 4-way valve. Factory.
 05.WIRE_SW_TYPE | TOGGLE | How zones are switched (toggle / single / dual / three-zone). Sets the home layout.
@@ -1209,7 +1209,7 @@ const GLOSSARY=[
  ['EEBUS','Huawei green-power link','Prefers PV/cheap electricity (conflicts with SG).'],
  ['cat','Modes & config'],
  ['CTRL_MODE','Heat / Cool / Auto','The everyday operating mode.'],
- ['AC_TYPE','Unit function','Single Heating, or Heating + Cooling.'],
+ ['AC_TYPE','Unit function [Air Conditioning Type]','Three options only: [0] Heating Only · [1] Heating & Cooling (factory default) · [2] Cooling Only. No DHW-only choice — hot water is switched on separately with [Hot Water Function] / 17.HOT_WATER.'],
  ['WIRE_SW_TYPE / PANEL_CTRL','Zone & controller scope','Single / dual / three zone; picks the home layout.'],
  ['POWER_MODE','Capacity mode','Standard / Strong / Energy-saving / Auto.'],
  ['ECM','Energy metering','Electricity, capacity and efficiency history.'],
