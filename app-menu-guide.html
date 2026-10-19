@@ -1233,5 +1233,23 @@ document.addEventListener('click',e=>{
 });
 document.addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('show');});
 </script>
+<script>
+/* language switch: keep the reading position (both language pages share the same element structure) */
+(function(){
+  const hdr=()=>{const h=document.querySelector('header.top');return h?h.getBoundingClientRect().bottom:0;};
+  const els=()=>document.body.getElementsByTagName('*');
+  document.querySelectorAll('a.lang').forEach(a=>a.addEventListener('click',e=>{
+    const y=hdr()+4,el=document.elementFromPoint(window.innerWidth/2,y);if(!el)return;
+    const i=Array.prototype.indexOf.call(els(),el);if(i<0)return;
+    const r=el.getBoundingClientRect(),f=r.height?((y-r.top)/r.height).toFixed(3):0;
+    e.preventDefault();location.href=a.getAttribute('href')+'?pos='+i+'_'+f;
+  }));
+  const m=/[?&]pos=(\d+)_([\d.]+)/.exec(location.search);if(!m)return;
+  history.replaceState(null,'',location.pathname+location.hash);
+  const go=()=>{const el=els()[+m[1]];if(!el)return;const r=el.getBoundingClientRect();
+    window.scrollTo({top:window.scrollY+r.top+(+m[2])*r.height-hdr()-4,behavior:'instant'});};
+  if(document.readyState==='complete')go();else window.addEventListener('load',go);
+})();
+</script>
 </body>
 </html>
