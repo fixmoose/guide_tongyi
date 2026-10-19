@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Toplotna črpalka Tongyi 12 kW — Vezalni načrt in navodila za krmilnik</title>
+<style>
+:root{
+  --bg:#0d1117;--bg2:#131a24;--card:#171f2b;--card2:#1c2735;--line:#26313f;--txt:#e6edf3;--mut:#8b97a7;
+  --acc:#33b1ff;--acc2:#2ea043;--warn:#f0883e;--danger:#f85149;--ok:#2ea043;--chip:#1f2937;
+  --w-brown:#7b4b2a;--w-black:#222;--w-grey:#9aa3ad;--w-blue:#2f6fed;--w-gy:#c9d11f;--w-signal:#b07cff;--w-white:#e8e8e8;
+  --radius:14px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Segoe UI",Roboto,system-ui,Arial,sans-serif;background:var(--bg);color:var(--txt);line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:var(--acc)}
+h1,h2,h3,h4{line-height:1.2;font-weight:700}
+.wrap{max-width:1180px;margin:0 auto;padding:0 18px}
+header.top{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:14px;padding:10px 18px}
+.brand{font-weight:800;font-size:17px;letter-spacing:.3px;white-space:nowrap}
+.brand small{display:block;font-weight:500;color:var(--mut);font-size:10.5px;letter-spacing:1px}
+nav.tabsnav{margin-left:auto;display:flex;gap:3px;flex-wrap:wrap}
+nav.tabsnav a{font-size:12px;color:var(--mut);text-decoration:none;padding:5px 9px;border-radius:8px;border:1px solid transparent}
+nav.tabsnav a.lang{color:var(--txt);border-color:var(--line);background:var(--card);font-weight:700}
+nav.tabsnav a:hover{color:var(--txt);background:var(--card);border-color:var(--line)}
+.hero{background:radial-gradient(900px 400px at 80% -10%,rgba(51,177,255,.16),transparent),linear-gradient(180deg,#0f1620,#0d1117);border-bottom:1px solid var(--line);padding:34px 0 26px}
+.hero h1{font-size:30px;margin:0 0 6px}
+.hero p.lead{color:var(--mut);max-width:790px;margin:0 0 18px;font-size:15px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.chip{background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:13px;display:flex;gap:8px;align-items:center}
+.chip b{color:var(--acc)}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+section{padding:34px 0;border-bottom:1px solid var(--line);scroll-margin-top:64px}
+section h2{font-size:22px;margin:0 0 4px;display:flex;align-items:center;gap:10px}
+section h2 .num{font-size:13px;color:#0d1117;background:var(--acc);border-radius:8px;padding:3px 9px;font-weight:800}
+.sub{color:var(--mut);margin:0 0 20px;font-size:14px;max-width:880px}
+.safety{background:linear-gradient(90deg,rgba(248,81,73,.14),rgba(240,136,62,.08));border:1px solid rgba(248,81,73,.4);border-radius:var(--radius);padding:16px 18px;margin:22px 0 0;display:flex;gap:14px;align-items:flex-start}
+.safety .ic{font-size:26px;line-height:1}.safety b{color:#ffb3ad}
+.safety ul{margin:8px 0 0;padding-left:18px;color:#f6d4cf;font-size:13.5px}.safety li{margin:3px 0}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:860px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.card h3{margin:0 0 4px;font-size:16px}.card h4{margin:0 0 6px;font-size:14px;color:var(--acc)}
+.card .meta{color:var(--mut);font-size:13px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin-top:12px;font-size:14px}
+.kv dt{color:var(--mut)}.kv dd{margin:0;font-weight:600}
+.big{font-size:19px;font-weight:800;color:var(--acc)}
+.psupply{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.cond{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11px;width:62px}
+.cond .bar{width:20px;height:44px;border-radius:5px;border:1px solid rgba(255,255,255,.15)}
+.cond span{color:var(--mut);text-align:center;line-height:1.2}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
+.tabs button{background:var(--card);border:1px solid var(--line);color:var(--mut);padding:9px 15px;border-radius:10px;cursor:pointer;font-size:14px;font-weight:600;transition:.15s}
+.tabs button:hover{color:var(--txt)}
+.tabs button.active{background:var(--acc);color:#06121f;border-color:var(--acc)}
+.explorer{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);gap:20px;align-items:start}
+@media(max-width:980px){.explorer{grid-template-columns:1fr}}
+.photoWrap{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:#000}
+.photoWrap img{display:block;width:100%}
+.photoCap{font-size:12px;color:var(--mut);padding:8px 12px;background:var(--card2);border-top:1px solid var(--line)}
+.hot{position:absolute;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;border:2.5px solid #fff;background:rgba(51,177,255,.5);color:#fff;font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 0 0 2px rgba(0,0,0,.5),0 2px 8px rgba(0,0,0,.6);transition:.12s}
+.hot:hover,.hot.on{background:var(--warn);transform:translate(-50%,-50%) scale(1.25);z-index:5}
+.hot.sel{background:var(--ok);border-color:#fff;transform:translate(-50%,-50%) scale(1.2);z-index:4}
+.hot.pulse{animation:pulse 1s ease 2}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 2px rgba(0,0,0,.5)}50%{box-shadow:0 0 0 8px rgba(240,136,62,.5)}}
+.ttbl{width:100%;border-collapse:collapse;font-size:13.5px}
+.ttbl th{text-align:left;color:var(--mut);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.5px;padding:8px 8px;border-bottom:1px solid var(--line)}
+.ttbl td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top;cursor:pointer}
+.ttbl tr{transition:.12s}.ttbl tbody tr:hover,.ttbl tr.on{background:var(--card2)}.ttbl tr.on{outline:1px solid var(--acc)}
+.ttbl tr.sel{background:#15242e;outline:2px solid var(--acc)}
+.ttbl tr.sel td:first-child{box-shadow:inset 3px 0 0 var(--acc)}
+.tag{display:inline-block;font-weight:800;border-radius:6px;padding:2px 8px;font-size:12px;color:#06121f;min-width:26px;text-align:center}
+.wireSwatch{display:inline-flex;align-items:center;gap:6px;font-size:12px}
+.wireSwatch i{width:16px;height:10px;border-radius:3px;display:inline-block;border:1px solid rgba(255,255,255,.2)}
+.muted{color:var(--mut)}
+.danger-pill,.ok-pill,.sig-pill{font-size:10.5px;padding:1px 7px;border-radius:999px;font-weight:700}
+.danger-pill{background:rgba(248,81,73,.18);color:#ff9a93;border:1px solid rgba(248,81,73,.4)}
+.ok-pill{background:rgba(46,160,67,.16);color:#7ee08a;border:1px solid rgba(46,160,67,.4)}
+.sig-pill{background:rgba(176,124,255,.16);color:#cdb2ff;border:1px solid rgba(176,124,255,.4)}
+/* correspondence detail */
+.detail{margin-top:14px;border:1px solid var(--acc);border-radius:var(--radius);background:linear-gradient(180deg,#10202e,#141c27);padding:16px;display:none}
+.detail.show{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.detail .dhead{font-size:13px;color:var(--mut);margin-bottom:10px}
+.corr{display:grid;grid-template-columns:120px 1fr 1.3fr;gap:0;align-items:center}
+@media(max-width:560px){.corr{grid-template-columns:1fr}}
+.dnode{border-radius:10px;padding:10px 12px;font-size:13px;text-align:center}
+.dnode.term{background:#21303f;border:1px solid var(--acc)}
+.dnode.term b{font-size:18px;color:#fff;display:block}
+.dnode.dest{background:#15241a;border:1px solid var(--ok);text-align:left}
+.dnode.dest b{color:#7ee08a}
+.dconn{position:relative;height:54px}
+.dconn svg{width:100%;height:100%}
+.swrow{margin-top:14px;background:#0e1a24;border-left:3px solid var(--warn);border-radius:8px;padding:11px 13px;font-size:13px}
+.swrow b{color:#fff}
+.loopcard{display:flex;gap:16px;align-items:center;padding:12px 4px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.loopcard:last-child{border-bottom:none}
+.loopcard .loopsvg{flex:0 0 360px;max-width:100%}
+.loopcard .loopsvg svg{width:100%;height:auto;display:block}
+.loopinfo{flex:1;min-width:230px;font-size:13px;line-height:1.5}
+.loopinfo .lt{font-weight:700;color:#fff;font-size:14px}
+.loopinfo .ret{color:#cdb2ff;font-size:12px}
+.loopinfo .sw{color:#f0b894;font-size:12px;margin-top:4px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.toolbar input{background:var(--card);border:1px solid var(--line);color:var(--txt);padding:10px 14px;border-radius:10px;font-size:14px;min-width:240px;flex:1}
+.toolbar .btn{background:var(--card);border:1px solid var(--line);color:var(--txt);padding:10px 14px;border-radius:10px;cursor:pointer;font-size:13px}
+.toolbar .btn:hover{border-color:var(--acc)}
+.mtblwrap{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+table.master{width:100%;border-collapse:collapse;font-size:13px;background:var(--card)}
+table.master th{background:var(--card2);text-align:left;padding:12px 11px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);border-bottom:2px solid var(--line)}
+table.master td{padding:11px;border-bottom:1px solid var(--line);vertical-align:top}
+table.master tbody tr:hover{background:var(--card2)}
+.secthead td{background:#10202e !important;font-weight:800;color:var(--acc);text-transform:uppercase;letter-spacing:1px;font-size:11.5px}
+.ref-colors{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:12px}
+.colorCard{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:12px;font-size:13px}
+.colorCard .swatch{height:26px;border-radius:6px;margin-bottom:8px;border:1px solid rgba(255,255,255,.2)}
+.note{background:var(--card2);border-left:3px solid var(--acc);padding:12px 14px;border-radius:8px;font-size:13.5px;color:#cfd8e3;margin-top:14px}
+.note.warn{border-left-color:var(--warn)}.note.dng{border-left-color:var(--danger)}.note.ok{border-left-color:var(--ok)}
+.note b{color:#fff}
+.svgcard{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:6px 6px 0}
+.svgcard svg{width:100%;height:auto;display:block}
+.svgcap{font-size:12.5px;color:var(--mut);padding:10px 12px}
+.steps{counter-reset:s;padding:0;margin:12px 0 0;list-style:none}
+.steps li{position:relative;padding:9px 0 9px 40px;border-bottom:1px solid var(--line);font-size:13.5px}
+.steps li:before{counter-increment:s;content:counter(s);position:absolute;left:0;top:7px;width:26px;height:26px;border-radius:50%;background:var(--acc);color:#06121f;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:12px}
+.steps li b{color:#fff}
+.steps.green li:before{background:var(--ok)}
+.pillrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.pill{background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:7px 11px;font-size:12.5px}.pill b{color:var(--acc)}
+.ptable{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:6px}
+.ptable th,.ptable td{padding:10px;border-bottom:1px solid var(--line);text-align:left}
+.ptable th{color:var(--mut);font-size:11.5px;text-transform:uppercase;letter-spacing:.5px}
+.ptable td b{color:#fff}
+.barbox{font-weight:800;color:#06121f;border-radius:6px;padding:2px 9px;display:inline-block}
+footer{padding:30px 0 60px;color:var(--mut);font-size:12.5px}
+footer h3{color:var(--txt);font-size:14px}.src{font-size:12px;color:var(--mut)}
+.legend-inline{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--mut);margin:6px 0 0}
+.legend-inline span{display:flex;gap:6px;align-items:center}
+.zoom{cursor:zoom-in}
+#lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:200;padding:24px}
+#lightbox.show{display:flex}#lightbox img{max-width:96%;max-height:96%;border-radius:8px}
+#lightbox .x{position:absolute;top:18px;right:24px;font-size:30px;color:#fff;cursor:pointer}
+@media print{header.top,nav.tabsnav,.toolbar,#lightbox{display:none!important}body{background:#fff;color:#000}section{border-color:#ccc;page-break-inside:avoid}.card,table.master,.photoWrap,.svgcard,.mtblwrap{border-color:#999}.hero{background:#fff}a{color:#000}.detail{display:block!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="brand">TONGYI <small>TOPLOTNA ČRPALKA · VEZAVA + KRMILNIK</small></div>
+    <nav class="tabsnav">
+      <a href="#overview">Pregled</a><a href="#power">Napajanje</a><a href="#explorer">Sponke</a>
+      <a href="#connections">Povezave</a><a href="#loops">Voda in tlak</a><a href="#valve">Ventil</a>
+      <a href="#zones">Cone</a><a href="#scenario">Scenariji</a><a href="#schedule">Urnik</a>
+      <a href="#controller">Krmilnik</a><a href="#reference">Barve žic</a>
+      <a href="app-menu-guide-sl.html" style="color:var(--acc);border-color:var(--line);background:var(--card)">📱 Meni aplikacije →</a>
+      <a class="lang" href="index.html" title="English">🇬🇧 EN</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero"><div class="wrap">
+  <h1>Toplotna črpalka 12 kW — vezalni načrt in navodila za krmilnik</h1>
+  <p class="lead">Vse sponke na fotografiji resnične naprave — <b>kliknite katerokoli sponko in videli boste, kam točno se poveže in kaj morate nato nastaviti na krmilniku</b>. Vezalne sheme od točke do točke za vsako napravo, vodni in tlačni krogi, delovanje ventilov in con, pripravljeni scenariji za hišo s koraki nastavitve krmilnika ter celotna nastavitev WiFi. Za <b>TAHMV12S&nbsp;R</b> + <b>EFJ01-A01 Hydro Box</b> + hranilnik toplote 200&nbsp;L + bojler TSV 500&nbsp;L.</p>
+  <div class="chips">
+    <div class="chip"><span class="dot" style="background:var(--acc)"></span> <b>TAHMV12S&nbsp;R</b></div>
+    <div class="chip"><span class="dot" style="background:var(--warn)"></span> 3-fazno <b>380–415&nbsp;V</b></div>
+    <div class="chip"><span class="dot" style="background:var(--ok)"></span> Hydro Box <b>EFJ01-A01</b></div>
+    <div class="chip">Hranilnik toplote <b>200&nbsp;L + 3&nbsp;kW</b></div>
+    <div class="chip">Bojler TSV <b>500&nbsp;L + 3&nbsp;kW</b></div>
+  </div>
+</div></div>
+
+<div class="wrap">
+
+<div class="safety">
+  <div class="ic">⚠️</div>
+  <div><b>Najprej preberite — varnost.</b> Razumljiv pripomoček, pripravljen na podlagi servisnega priročnika Tongyi, priročnika za Hydro Box, priročnika za krmilnik/aplikacijo in fotografij resnično vgrajene naprave. <b>Ne</b> nadomešča vezalne sheme, nalepljene v ohišju vaše naprave — ta ima vedno prednost.
+    <ul>
+      <li>Samo pooblaščeni električar · napajanje izklopljeno · v skladu z lokalnimi in EU predpisi (R290 = vnetljivo).</li>
+      <li><b>FID stikalo 30&nbsp;mA</b> + vsepolni ločilnik (≥3&nbsp;mm) na vsakem tokokrogu. Ozemljite vse.</li>
+      <li><b>Na sponke za šibke signale (6)–(13) nikoli ne priključite omrežne napetosti.</b></li>
+      <li>Grelnika v hranilnikih 200&nbsp;L in 500&nbsp;L imata 3&nbsp;kW in <b>nimata releja</b> — vsak potrebuje svoj kontaktor + svoje zaščiteno napajanje (§4).</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 1 OVERVIEW -->
+<section id="overview">
+  <h2><span class="num">1</span> Kako sistem deluje kot celota</h2>
+  <p class="sub">Dve enoti dobita napajanje in komunicirata med seboj. Zunanja toplotna črpalka so možgani; notranji Hydro Box so mišice (črpalka + <b>vgrajeni 3-potni ventil za TSV</b> + raztezna posoda). Grelnika 3&nbsp;kW v hranilnikih vklapljata kontaktorja, ki ju krmilijo možgani.</p>
+  <div class="card" style="padding:10px">
+  <svg viewBox="0 0 1000 440" style="width:100%;height:auto;font-family:inherit">
+    <defs><marker id="arr" markerWidth="9" markerHeight="9" refX="6" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#8b97a7"/></marker>
+    <marker id="arrP" markerWidth="9" markerHeight="9" refX="6" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#f0883e"/></marker></defs>
+    <rect x="20" y="30" width="150" height="60" rx="9" fill="#1c2735" stroke="#26313f"/><text x="95" y="55" fill="#e6edf3" font-size="14" font-weight="700" text-anchor="middle">OMREŽJE</text><text x="95" y="74" fill="#8b97a7" font-size="11" text-anchor="middle">3-f + 1-f</text>
+    <rect x="20" y="150" width="150" height="150" rx="9" fill="#1c2735" stroke="#26313f"/><text x="95" y="173" fill="#e6edf3" font-size="13" font-weight="700" text-anchor="middle">RAZDELILNIK</text>
+    <text x="95" y="196" fill="#33b1ff" font-size="11" text-anchor="middle">3P 10A →TČ</text><text x="95" y="214" fill="#2ea043" font-size="11" text-anchor="middle">1P 16A →Box</text>
+    <text x="95" y="232" fill="#f0883e" font-size="11" text-anchor="middle">1P 16A →grelnik hran.</text><text x="95" y="250" fill="#f0883e" font-size="11" text-anchor="middle">1P 16A →grelnik TSV</text>
+    <text x="95" y="276" fill="#8b97a7" font-size="10.5" text-anchor="middle">vsi + FID 30mA</text>
+    <rect x="340" y="40" width="230" height="150" rx="11" fill="#15202c" stroke="#33b1ff" stroke-width="1.5"/><text x="455" y="68" fill="#33b1ff" font-size="15" font-weight="800" text-anchor="middle">ZUNANJA ENOTA (TČ)</text>
+    <text x="455" y="88" fill="#e6edf3" font-size="12" text-anchor="middle">TAHMV12S R · 12 kW · možgani</text><text x="455" y="112" fill="#8b97a7" font-size="11" text-anchor="middle">Omrežje R·S·T·N·PE</text>
+    <text x="455" y="130" fill="#8b97a7" font-size="11" text-anchor="middle">Signalne + relejne izhodne sponke</text><text x="455" y="148" fill="#8b97a7" font-size="11" text-anchor="middle">Krmili ventil, črpalko, 2 kontaktorja</text>
+    <text x="455" y="170" fill="#8b97a7" font-size="11" text-anchor="middle">Kabel krmilnika (10 m, tovarniški)</text>
+    <rect x="340" y="250" width="230" height="140" rx="11" fill="#15241a" stroke="#2ea043" stroke-width="1.5"/><text x="455" y="278" fill="#2ea043" font-size="15" font-weight="800" text-anchor="middle">NOTRANJI HYDRO BOX</text>
+    <text x="455" y="298" fill="#e6edf3" font-size="12" text-anchor="middle">EFJ01-A01 · 1-fazno</text><text x="455" y="320" fill="#8b97a7" font-size="11" text-anchor="middle">obtočna črpalka · raztezna posoda</text>
+    <text x="455" y="338" fill="#8b97a7" font-size="11" text-anchor="middle">vgrajeni 3-potni ventil TSV</text><text x="455" y="356" fill="#8b97a7" font-size="11" text-anchor="middle">Sponke L N · 1 · 2 · 3</text>
+    <rect x="730" y="26" width="240" height="64" rx="9" fill="#1c2735" stroke="#f0883e"/><text x="850" y="50" fill="#e6edf3" font-size="12.5" font-weight="700" text-anchor="middle">HRANILNIK 200 L + 3 kW</text><text x="850" y="69" fill="#f0883e" font-size="10.5" text-anchor="middle">grelnik prek kontaktorja → ogrevanje</text>
+    <rect x="730" y="110" width="240" height="64" rx="9" fill="#1c2735" stroke="#f0883e"/><text x="850" y="134" fill="#e6edf3" font-size="12.5" font-weight="700" text-anchor="middle">BOJLER TSV 500 L + 3 kW</text><text x="850" y="153" fill="#f0883e" font-size="10.5" text-anchor="middle">grelnik prek kontaktorja → topla voda</text>
+    <rect x="730" y="300" width="240" height="64" rx="9" fill="#1c2735" stroke="#26313f"/><text x="850" y="324" fill="#e6edf3" font-size="12" font-weight="700" text-anchor="middle">TALNO / RAD. / KONVEKTOR</text><text x="850" y="343" fill="#8b97a7" font-size="10.5" text-anchor="middle">ogrevalne cone (dobavi monter)</text>
+    <line x1="95" y1="90" x2="95" y2="150" stroke="#8b97a7" marker-end="url(#arr)"/>
+    <path d="M170 195 H 250 V 110 H 338" fill="none" stroke="#f0883e" stroke-width="2" marker-end="url(#arrP)"/><text x="250" y="100" fill="#f0883e" font-size="10" text-anchor="middle">3-f 4mm²</text>
+    <path d="M170 250 H 290 V 320 H 338" fill="none" stroke="#2ea043" stroke-width="2" marker-end="url(#arrP)"/><text x="285" y="352" fill="#2ea043" font-size="10" text-anchor="middle">1-f 2.5mm²</text>
+    <line x1="455" y1="190" x2="455" y2="250" stroke="#33b1ff" stroke-dasharray="5 4" stroke-width="2" marker-end="url(#arr)"/><text x="560" y="222" fill="#33b1ff" font-size="10" text-anchor="middle">krmilni signali</text>
+    <path d="M570 78 H 650 V 58 H 728" fill="none" stroke="#f0883e" stroke-width="1.6" marker-end="url(#arrP)"/><text x="650" y="44" fill="#f0883e" font-size="9.5" text-anchor="middle">izhod B → kontaktor</text>
+    <path d="M570 120 H 650 V 142 H 728" fill="none" stroke="#f0883e" stroke-width="1.6" marker-end="url(#arrP)"/><text x="650" y="170" fill="#f0883e" font-size="9.5" text-anchor="middle">izhod C → kontaktor</text>
+    <line x1="570" y1="330" x2="728" y2="330" stroke="#8b97a7" stroke-dasharray="3 3" marker-end="url(#arr)"/><text x="650" y="320" fill="#566173" font-size="10" text-anchor="middle">— vodovodne cevi</text>
+  </svg>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card"><h3>① Toplotna črpalka (zunanja enota)</h3><p class="meta">3-fazno napajanje + krmilna plošča. Tu se priključijo vsa tipala, žični krmilnik, signali pametnega omrežja (SG) in relejni izhodi, ki krmilijo grelnike / črpalko / ventil.</p><img class="zoom" src="assets/hp_box_overview.jpg" style="width:100%;border-radius:10px;margin-top:10px;border:1px solid var(--line)"></div>
+    <div class="card"><h3>② Hydro Box (notranja enota)</h3><p class="meta">Obtočna črpalka, raztezna posoda in <b>vgrajeni 3-potni ventil za TSV</b>. Ima svoje 1-fazno napajanje + nekaj krmilnih žic iz toplotne črpalke.</p><img class="zoom" src="assets/hydrobox_inside.jpg" style="width:100%;border-radius:10px;margin-top:10px;border:1px solid var(--line)"></div>
+  </div>
+</section>
+
+<!-- 2 POWER -->
+<section id="power">
+  <h2><span class="num">2</span> Napajanje (4 tokokrogi)</h2>
+  <p class="sub">Toplotna črpalka in Hydro Box imata vsak svoj tokokrog, <b>vsak grelnik 3&nbsp;kW v hranilniku pa potrebuje svoj 1-fazni tokokrog</b> — plošča vklaplja le tuljavo kontaktorja, ne toka grelnika. Vsak tokokrog ima FID stikalo 30&nbsp;mA.</p>
+  <div class="grid g4">
+    <div class="card"><h3>Toplotna črpalka · 3-fazno</h3><span class="meta">TAHMV12S R</span>
+      <dl class="kv"><dt>Napajanje</dt><dd>380–415 V · 3~</dd><dt>Tok</dt><dd>8.5 A</dd><dt>Odklopnik</dt><dd class="big">3P · 10 A · C</dd><dt>Kabel</dt><dd class="big">5×4 mm²</dd><dt>Sponke</dt><dd>R·S·T·N·PE</dd></dl>
+      <div class="psupply"><div class="cond"><div class="bar" style="background:var(--w-brown)"></div><span>R rjava</span></div><div class="cond"><div class="bar" style="background:var(--w-black)"></div><span>S črna</span></div><div class="cond"><div class="bar" style="background:var(--w-grey)"></div><span>T siva</span></div><div class="cond"><div class="bar" style="background:var(--w-blue)"></div><span>N modra</span></div><div class="cond"><div class="bar" style="background:var(--w-gy)"></div><span>PE r/z</span></div></div>
+    </div>
+    <div class="card"><h3>Hydro Box · 1-fazno</h3><span class="meta">EFJ01-A01</span>
+      <dl class="kv"><dt>Napajanje</dt><dd>220–240 V · 1~</dd><dt>Odklopnik</dt><dd class="big">1P · 16 A · C</dd><dt>Kabel</dt><dd class="big">3×2.5 mm²</dd><dt>Sponke</dt><dd>L·N·PE</dd></dl>
+      <div class="psupply"><div class="cond"><div class="bar" style="background:var(--w-brown)"></div><span>L rjava</span></div><div class="cond"><div class="bar" style="background:var(--w-blue)"></div><span>N modra</span></div><div class="cond"><div class="bar" style="background:var(--w-gy)"></div><span>PE r/z</span></div></div>
+    </div>
+    <div class="card"><h3>Grelnik hranilnika 200 L</h3><span class="meta">3 kW · brez releja</span>
+      <dl class="kv"><dt>Moč</dt><dd>3 kW → 13 A</dd><dt>Odklopnik</dt><dd class="big">1P · 16 A · C</dd><dt>Kabel</dt><dd class="big">3×2.5 mm²</dd><dt>Vklaplja</dt><dd>kontaktor ← <b>Out B</b></dd></dl>
+      <p class="note warn" style="margin-top:10px">Rezervno/dodatno ogrevanje sistema. Vezava → §4.</p></div>
+    <div class="card"><h3>Grelnik bojlerja TSV 500 L</h3><span class="meta">3 kW · brez releja</span>
+      <dl class="kv"><dt>Moč</dt><dd>3 kW → 13 A</dd><dt>Odklopnik</dt><dd class="big">1P · 16 A · C</dd><dt>Kabel</dt><dd class="big">3×2.5 mm²</dd><dt>Vklaplja</dt><dd>kontaktor ← <b>Out C</b></dd></dl>
+      <p class="note warn" style="margin-top:10px">Hitro segrevanje TSV + legionela. Vezava → §4.</p></div>
+  </div>
+</section>
+
+<!-- 3 EXPLORER -->
+<section id="explorer">
+  <h2><span class="num">3</span> Pregledovalnik sponk — kliknite sponko in poglejte, kam vodi</h2>
+  <p class="sub">Izberite sponkovnico, nato <b>kliknite oštevilčeno oznako ali vrstico v tabeli</b>. Spodnja plošča nariše povezovalno črto do tistega, kamor se sponka priključi, in prikaže nastavitev krmilnika, ki jo morate nato spremeniti. Premik miške prikaže predogled; klik zaklene podrobnosti. Kliknite katerokoli fotografijo za povečavo.</p>
+  <div class="legend-inline">
+    <span><span class="danger-pill">230&nbsp;V</span> omrežna napetost/moč — kontaktor, če &gt;400&nbsp;W</span>
+    <span><span class="sig-pill">SIGNAL</span> šibki/nizkonapetostni</span>
+    <span><span class="ok-pill">NAPAJANJE</span> dovod napajanja</span>
+  </div>
+  <div class="tabs" id="tabs"></div>
+  <div class="explorer">
+    <div>
+      <div class="photoWrap" id="photoWrap"><img id="photo" src="assets/mains_3ph.jpg" alt="sponkovnica"><div id="hots"></div></div>
+      <div class="photoCap" id="photoCap"></div>
+    </div>
+    <div>
+      <table class="ttbl"><thead><tr><th style="width:34px">#</th><th>Sponka / funkcija</th><th>Žica</th></tr></thead><tbody id="ttbody"></tbody></table>
+    </div>
+  </div>
+  <div class="detail" id="detail">
+    <div class="dhead" id="dhead"></div>
+    <div id="loopwrap"></div>
+  </div>
+  <p class="meta" style="margin-top:6px">💡 Namig: s <b>Ctrl/Cmd-klikom</b> izberite več sponk (ali vrstic) hkrati in si oglejte <b>združeni diagram</b> — vsak signal je narisan s svojim <b>povratnim vodnikom</b>, tako da vidite celotno zanko.</p>
+
+  <!-- low-voltage signaling explainer -->
+  <h3 style="margin:30px 0 6px;font-size:17px">❓ »Kako signal deluje po eni žici?« — ne deluje</h3>
+  <p class="sub" style="margin-bottom:12px">Prav imate: signal vedno potrebuje povratno pot. Na tej plošči je povratna pot bodisi <b>sosednja sponka v paru</b>, <b>skupna zbiralka (common)</b> ali <b>skupni nevtralni vodnik</b>. Funkcija, ki je videti kot »ena sponka«, je torej v resnici zanka. Obstajajo štiri vrste:</p>
+  <div class="grid g4">
+    <div class="card"><h4 style="color:#cdb2ff">① Diferencialno vodilo (A in B)</h4><p class="meta"><b>RS485:</b> (6)+(7) = A1/B1, (8)+(9) = A2/B2. Žici prenašata <b>razliko +/−</b> — to je vaš »A in B / + in −«. Vedno <b>oklopljena parica (twisted pair)</b>.</p></div>
+    <div class="card"><h4 style="color:#cdb2ff">② Brezpotencialni kontakt (signal + skupni)</h4><p class="meta"><b>Termostat, Linked switch, SG, EVU, Solar:</b> <b>brezpotencialno stikalo</b> sklene zanko. Termostat: <b>L1 = skupni</b>; sklenjen <b>L1–H</b> = zahteva po ogrevanju, <b>L1–C</b> = hlajenje. Linked switch (10)–(11): sklenjen = omogočeno. Plošča sama zagotavlja majhno merilno napetost — vi zanko le odpirate/zapirate.</p></div>
+    <div class="card"><h4 style="color:#cdb2ff">③ Temperaturno tipalo NTC (2-žično)</h4><p class="meta"><b>Tipala bojlerja / hranilnika / talnega ogrevanja</b> (TWout2, TACt1/2, TWout3): termistor, katerega upornost se spreminja s temperaturo. <b>2 žici, polariteta ni pomembna.</b> Priključijo se v namenske <b>konektorje za tipala</b>, ne v vijačne sponke.</p></div>
+    <div class="card"><h4 style="color:#f0b894">④ Relejni izhod (faza + skupni N)</h4><p class="meta"><b>A–E in 1–7:</b> sponka preklaplja <b>fazo</b>; povratna pot je skupni <b>nevtralni vodnik E (ničla)</b>. Izhod je torej njegova sponka <b>+</b> skupni N. Zato je za celotno skupino izhodov en sam N.</p></div>
+  </div>
+  <div class="svgcard" style="margin-top:14px">
+    <svg viewBox="0 0 1000 200" font-family="inherit">
+      <defs><marker id="lv" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#b07cff"/></marker></defs>
+      <!-- dry contact loop -->
+      <rect x="20" y="30" width="150" height="140" rx="9" fill="#15202c" stroke="#33b1ff"/><text x="95" y="54" fill="#33b1ff" font-size="12" font-weight="800" text-anchor="middle">PLOŠČA</text>
+      <rect x="40" y="74" width="56" height="24" rx="5" fill="#241830" stroke="#b07cff"/><text x="68" y="91" fill="#fff" font-size="11" text-anchor="middle">L1</text>
+      <rect x="40" y="118" width="56" height="24" rx="5" fill="#241830" stroke="#b07cff"/><text x="68" y="135" fill="#fff" font-size="11" text-anchor="middle">H</text>
+      <text x="240" y="60" fill="#cdb2ff" font-size="12" font-weight="700">Brezpotencialni kontakt (termostat)</text>
+      <polyline points="96,86 330,86" fill="none" stroke="#b07cff" stroke-width="2.4"/>
+      <polyline points="96,130 280,130" fill="none" stroke="#b07cff" stroke-width="2.4"/>
+      <!-- switch -->
+      <circle cx="330" cy="86" r="4" fill="#b07cff"/><circle cx="380" cy="108" r="4" fill="#b07cff"/><line x1="330" y1="86" x2="380" y2="108" stroke="#b07cff" stroke-width="2.4"/><polyline points="380,108 380,130 280,130" fill="none" stroke="#b07cff" stroke-width="2.4"/>
+      <text x="300" y="150" fill="#8b97a7" font-size="10">sklenjena zanka = »zahteva po ogrevanju«</text>
+      <!-- NTC sensor -->
+      <rect x="560" y="30" width="150" height="140" rx="9" fill="#15202c" stroke="#33b1ff"/><text x="635" y="54" fill="#33b1ff" font-size="12" font-weight="800" text-anchor="middle">PLOŠČA</text>
+      <rect x="640" y="96" width="50" height="24" rx="5" fill="#1d2b22" stroke="#9aa3ad"/><text x="665" y="113" fill="#fff" font-size="10" text-anchor="middle">tipalo</text>
+      <text x="770" y="70" fill="#9fb4a6" font-size="12" font-weight="700">Tipalo NTC (2-žično)</text>
+      <polyline points="710,102 860,102" fill="none" stroke="#9aa3ad" stroke-width="2.4"/>
+      <polyline points="710,114 860,114" fill="none" stroke="#9aa3ad" stroke-width="2.4"/>
+      <rect x="860" y="92" width="40" height="32" rx="5" fill="#1d2b22" stroke="#2ea043"/><text x="880" y="112" fill="#7ee08a" font-size="13" text-anchor="middle" font-weight="800">°C</text>
+      <text x="770" y="150" fill="#8b97a7" font-size="10">upornost ↔ temperatura</text>
+    </svg>
+    <div class="svgcap">Levo: brezpotencialni vhod je zanka med signalno sponko in njenim skupnim vodnikom (tu L1). Desno: temperaturno tipalo je 2-žični termistor na svojem konektorju. V obeh primerih — nikoli ena sama žica.</div>
+  </div>
+</section>
+
+<!-- 4 CONNECTIONS -->
+<section id="connections">
+  <h2><span class="num">4</span> Povezave od točke do točke</h2>
+  <p class="sub">Vezava v slogu sheme, s pravokotnimi vodniki, za vsako napravo. Shemi obeh grelnikov 3&nbsp;kW berete od leve proti desni: <b>plošča → kontaktor → hranilnik</b>, pri čemer kontaktor napaja lastno zaščiteno napajanje, termična povratna informacija pa se vrača na ploščo.</p>
+
+  <h3 style="margin:18px 0 6px;font-size:17px">A · Grelnik bojlerja TSV 500 L (3 kW) — prek kontaktorja</h3>
+  <div class="svgcard">
+    <svg viewBox="0 0 1000 390" font-family="inherit">
+      <defs><marker id="h1" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#9aa3ad"/></marker></defs>
+      <!-- boxes -->
+      <rect x="30" y="70" width="180" height="250" rx="10" fill="#15202c" stroke="#33b1ff"/><text x="120" y="94" fill="#33b1ff" font-size="13" font-weight="800" text-anchor="middle">PLOŠČA TČ</text>
+      <rect x="150" y="100" width="80" height="26" rx="5" fill="#21303f" stroke="#f0883e"/><text x="190" y="118" fill="#fff" font-size="11.5" text-anchor="middle">Out C 230V</text>
+      <rect x="150" y="140" width="80" height="26" rx="5" fill="#21303f" stroke="#2f6fed"/><text x="190" y="158" fill="#fff" font-size="11.5" text-anchor="middle">Out E (N)</text>
+      <rect x="150" y="272" width="80" height="26" rx="5" fill="#241830" stroke="#b07cff"/><text x="190" y="290" fill="#fff" font-size="11" text-anchor="middle">In 1 &amp; 2</text>
+      <rect x="430" y="80" width="170" height="150" rx="10" fill="#241b10" stroke="#f0883e"/><text x="515" y="104" fill="#f0883e" font-size="13" font-weight="800" text-anchor="middle">KONTAKTOR (KM)</text><text x="515" y="121" fill="#8b97a7" font-size="10" text-anchor="middle">dobavi monter · tuljava 230V</text>
+      <rect x="405" y="134" width="50" height="24" rx="5" fill="#2b2415" stroke="#f0883e"/><text x="430" y="151" fill="#fff" font-size="11" text-anchor="middle">A1</text>
+      <rect x="405" y="170" width="50" height="24" rx="5" fill="#2b2415" stroke="#2f6fed"/><text x="430" y="187" fill="#fff" font-size="11" text-anchor="middle">A2</text>
+      <rect x="488" y="206" width="54" height="24" rx="5" fill="#2b2415" stroke="#9aa3ad"/><text x="515" y="223" fill="#fff" font-size="10.5" text-anchor="middle">L vh.</text>
+      <rect x="600" y="120" width="44" height="24" rx="5" fill="#2b2415" stroke="#9aa3ad"/><text x="622" y="137" fill="#fff" font-size="10.5" text-anchor="middle">T izh.</text>
+      <rect x="430" y="280" width="170" height="64" rx="10" fill="#1c2735" stroke="#2ea043"/><text x="515" y="304" fill="#2ea043" font-size="12" font-weight="700" text-anchor="middle">LASTNO NAPAJANJE</text><text x="515" y="322" fill="#8b97a7" font-size="10" text-anchor="middle">odklopnik 16 A + FID 30 mA</text>
+      <rect x="475" y="280" width="20" height="12" fill="#2b2415" stroke="#7b4b2a"/><rect x="545" y="280" width="20" height="12" fill="#2b2415" stroke="#2f6fed"/>
+      <rect x="790" y="90" width="180" height="170" rx="10" fill="#15241a" stroke="#2ea043"/><text x="880" y="114" fill="#2ea043" font-size="13" font-weight="800" text-anchor="middle">BOJLER TSV 500 L</text><text x="880" y="131" fill="#8b97a7" font-size="10.5" text-anchor="middle">potopni grelnik 3 kW</text>
+      <rect x="765" y="148" width="58" height="22" rx="5" fill="#1d2b22" stroke="#9aa3ad"/><text x="794" y="163" fill="#fff" font-size="10" text-anchor="middle">Grel. L</text>
+      <rect x="765" y="184" width="58" height="22" rx="5" fill="#1d2b22" stroke="#2f6fed"/><text x="794" y="199" fill="#fff" font-size="10" text-anchor="middle">Grel. N</text>
+      <rect x="765" y="220" width="58" height="22" rx="5" fill="#1d2b22" stroke="#b07cff"/><text x="794" y="235" fill="#fff" font-size="9.5" text-anchor="middle">termostop</text>
+      <!-- right-angle wires -->
+      <polyline points="230,113 405,113 405,134" fill="none" stroke="#7b4b2a" stroke-width="2.4" marker-end="url(#h1)"/><text x="290" y="106" fill="#c79a78" font-size="10.5">1.0 mm² rjava → tuljava A1</text>
+      <polyline points="230,153 380,153 380,182 405,182" fill="none" stroke="#2f6fed" stroke-width="2.4" marker-end="url(#h1)"/><text x="250" y="170" fill="#7ba2f5" font-size="10.5">1.0 mm² modra → tuljava A2</text>
+      <polyline points="485,286 485,250 515,250 515,230" fill="none" stroke="#7b4b2a" stroke-width="2.6" marker-end="url(#h1)"/><text x="525" y="262" fill="#c79a78" font-size="10.5">2.5 mm² L</text>
+      <polyline points="644,132 700,132 700,159 765,159" fill="none" stroke="#7b4b2a" stroke-width="2.6" marker-end="url(#h1)"/><text x="648" y="124" fill="#c79a78" font-size="10.5">2.5 mm² rjava · preklopljena L</text>
+      <polyline points="555,286 555,266 730,266 730,195 765,195" fill="none" stroke="#2f6fed" stroke-width="2.4" marker-end="url(#h1)"/><text x="600" y="260" fill="#7ba2f5" font-size="10.5">2.5 mm² modra · N (+ r/z PE)</text>
+      <polyline points="765,231 700,231 700,366 225,366 225,298" fill="none" stroke="#b07cff" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#h1)"/><text x="330" y="360" fill="#cdb2ff" font-size="10.5">0.75 mm² · termična povratna inf. → plošča In 1 &amp; 2</text>
+    </svg>
+    <div class="svgcap"><b>Kako deluje:</b> plošča na <b>Out C</b> postavi 230 V → vzbudi tuljavo kontaktorja (A1/A2) → glavni kontakt napaja 3 kW grelni element iz njegovega <b>lastnega zaščitenega napajanja</b>. Termostop (termična zaščita) elementa javlja stanje nazaj na vhoda <b>1 in 2</b>. Nevtralni vodnik in ozemljitev gresta neposredno na grelnik. <b>Krmilnik:</b> Advanced → [Hot Water Function]=On, [Water Tank Heating]=On, [Water Tank Heating Power]=3000 W.</div>
+  </div>
+
+  <h3 style="margin:22px 0 6px;font-size:17px">B · Grelnik hranilnika toplote 200 L (3 kW) — prek kontaktorja</h3>
+  <div class="svgcard">
+    <svg viewBox="0 0 1000 390" font-family="inherit">
+      <defs><marker id="h2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#9aa3ad"/></marker></defs>
+      <rect x="30" y="70" width="180" height="250" rx="10" fill="#15202c" stroke="#33b1ff"/><text x="120" y="94" fill="#33b1ff" font-size="13" font-weight="800" text-anchor="middle">PLOŠČA TČ</text>
+      <rect x="150" y="100" width="80" height="26" rx="5" fill="#21303f" stroke="#f0883e"/><text x="190" y="118" fill="#fff" font-size="11.5" text-anchor="middle">Out B 230V</text>
+      <rect x="150" y="140" width="80" height="26" rx="5" fill="#21303f" stroke="#2f6fed"/><text x="190" y="158" fill="#fff" font-size="11.5" text-anchor="middle">Out E (N)</text>
+      <rect x="150" y="272" width="80" height="26" rx="5" fill="#241830" stroke="#b07cff"/><text x="190" y="290" fill="#fff" font-size="11" text-anchor="middle">In 3 &amp; 4</text>
+      <rect x="430" y="80" width="170" height="150" rx="10" fill="#241b10" stroke="#f0883e"/><text x="515" y="104" fill="#f0883e" font-size="13" font-weight="800" text-anchor="middle">KONTAKTOR (KM)</text><text x="515" y="121" fill="#8b97a7" font-size="10" text-anchor="middle">dobavi monter · tuljava 230V</text>
+      <rect x="405" y="134" width="50" height="24" rx="5" fill="#2b2415" stroke="#f0883e"/><text x="430" y="151" fill="#fff" font-size="11" text-anchor="middle">A1</text>
+      <rect x="405" y="170" width="50" height="24" rx="5" fill="#2b2415" stroke="#2f6fed"/><text x="430" y="187" fill="#fff" font-size="11" text-anchor="middle">A2</text>
+      <rect x="488" y="206" width="54" height="24" rx="5" fill="#2b2415" stroke="#9aa3ad"/><text x="515" y="223" fill="#fff" font-size="10.5" text-anchor="middle">L vh.</text>
+      <rect x="600" y="120" width="44" height="24" rx="5" fill="#2b2415" stroke="#9aa3ad"/><text x="622" y="137" fill="#fff" font-size="10.5" text-anchor="middle">T izh.</text>
+      <rect x="430" y="280" width="170" height="64" rx="10" fill="#1c2735" stroke="#2ea043"/><text x="515" y="304" fill="#2ea043" font-size="12" font-weight="700" text-anchor="middle">LASTNO NAPAJANJE</text><text x="515" y="322" fill="#8b97a7" font-size="10" text-anchor="middle">odklopnik 16 A + FID 30 mA</text>
+      <rect x="475" y="280" width="20" height="12" fill="#2b2415" stroke="#7b4b2a"/><rect x="545" y="280" width="20" height="12" fill="#2b2415" stroke="#2f6fed"/>
+      <rect x="790" y="90" width="180" height="170" rx="10" fill="#15241a" stroke="#2ea043"/><text x="880" y="114" fill="#2ea043" font-size="13" font-weight="800" text-anchor="middle">HRANILNIK 200 L</text><text x="880" y="131" fill="#8b97a7" font-size="10.5" text-anchor="middle">potopni grelnik 3 kW</text>
+      <rect x="765" y="148" width="58" height="22" rx="5" fill="#1d2b22" stroke="#9aa3ad"/><text x="794" y="163" fill="#fff" font-size="10" text-anchor="middle">Grel. L</text>
+      <rect x="765" y="184" width="58" height="22" rx="5" fill="#1d2b22" stroke="#2f6fed"/><text x="794" y="199" fill="#fff" font-size="10" text-anchor="middle">Grel. N</text>
+      <rect x="765" y="220" width="58" height="22" rx="5" fill="#1d2b22" stroke="#b07cff"/><text x="794" y="235" fill="#fff" font-size="9.5" text-anchor="middle">termostop</text>
+      <polyline points="230,113 405,113 405,134" fill="none" stroke="#7b4b2a" stroke-width="2.4" marker-end="url(#h2)"/><text x="290" y="106" fill="#c79a78" font-size="10.5">1.0 mm² rjava → tuljava A1</text>
+      <polyline points="230,153 380,153 380,182 405,182" fill="none" stroke="#2f6fed" stroke-width="2.4" marker-end="url(#h2)"/><text x="250" y="170" fill="#7ba2f5" font-size="10.5">1.0 mm² modra → tuljava A2</text>
+      <polyline points="485,286 485,250 515,250 515,230" fill="none" stroke="#7b4b2a" stroke-width="2.6" marker-end="url(#h2)"/><text x="525" y="262" fill="#c79a78" font-size="10.5">2.5 mm² L</text>
+      <polyline points="644,132 700,132 700,159 765,159" fill="none" stroke="#7b4b2a" stroke-width="2.6" marker-end="url(#h2)"/><text x="648" y="124" fill="#c79a78" font-size="10.5">2.5 mm² rjava · preklopljena L</text>
+      <polyline points="555,286 555,266 730,266 730,195 765,195" fill="none" stroke="#2f6fed" stroke-width="2.4" marker-end="url(#h2)"/><text x="600" y="260" fill="#7ba2f5" font-size="10.5">2.5 mm² modra · N (+ r/z PE)</text>
+      <polyline points="765,231 700,231 700,366 225,366 225,298" fill="none" stroke="#b07cff" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#h2)"/><text x="330" y="360" fill="#cdb2ff" font-size="10.5">0.75 mm² · termična povratna inf. → plošča In 3 &amp; 4</text>
+    </svg>
+    <div class="svgcap"><b>Enak princip, druge sponke:</b> krmili ga <b>Out B</b> (dodatno/rezervno ogrevanje), povratna informacija gre na vhoda <b>3 in 4</b>. Dogreva hranilnik ob zelo mrzlih dneh ali kot zasilno ogrevanje. <b>Krmilnik:</b> Advanced → [Electric Heater 1 Power]=3000 W (omogočite rezervno ogrevanje).</div>
+  </div>
+
+  <div class="grid g2" style="margin-top:22px">
+    <div class="svgcard">
+      <svg viewBox="0 0 500 210" font-family="inherit">
+        <defs><marker id="h3" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#9aa3ad"/></marker></defs>
+        <rect x="16" y="30" width="160" height="150" rx="10" fill="#15202c" stroke="#33b1ff"/><text x="96" y="54" fill="#33b1ff" font-size="12.5" font-weight="800" text-anchor="middle">PLOŠČA</text>
+        <rect x="118" y="74" width="58" height="26" rx="5" fill="#21303f" stroke="#f0883e"/><text x="147" y="92" fill="#fff" font-size="11" text-anchor="middle">Out 5</text>
+        <rect x="118" y="118" width="58" height="26" rx="5" fill="#21303f" stroke="#2f6fed"/><text x="147" y="136" fill="#fff" font-size="11" text-anchor="middle">N</text>
+        <rect x="324" y="40" width="160" height="130" rx="10" fill="#15241a" stroke="#2ea043"/><text x="404" y="64" fill="#2ea043" font-size="12" font-weight="800" text-anchor="middle">3-POTNI VENTIL TSV</text><text x="404" y="81" fill="#8b97a7" font-size="9.5" text-anchor="middle">vgrajen v Hydro Box (sponka 2)</text>
+        <rect x="300" y="96" width="56" height="24" rx="5" fill="#1d2b22" stroke="#9aa3ad"/><text x="328" y="113" fill="#fff" font-size="10" text-anchor="middle">L odpri</text>
+        <rect x="300" y="132" width="56" height="24" rx="5" fill="#1d2b22" stroke="#2f6fed"/><text x="328" y="149" fill="#fff" font-size="10" text-anchor="middle">N</text>
+        <polyline points="176,87 240,87 240,108 300,108" fill="none" stroke="#7b4b2a" stroke-width="2.4" marker-end="url(#h3)"/><text x="186" y="80" fill="#c79a78" font-size="10">0.75–1.0 mm²</text>
+        <polyline points="176,131 260,131 260,144 300,144" fill="none" stroke="#2f6fed" stroke-width="2.2" marker-end="url(#h3)"/>
+      </svg>
+      <div class="svgcap"><b>3-potni preklopni ventil TSV.</b> Plošča <b>Out 5</b> ↔ sponka <b>2</b> na Hydro Boxu. Majhen motor — priključite neposredno, brez kontaktorja. <b>Ventil je že vgrajen v Hydro Box</b>; priključite le krmilno žico. <b>Krmilnik:</b> [Hot Water Function]=On.</div>
+    </div>
+    <div class="svgcard">
+      <svg viewBox="0 0 500 210" font-family="inherit">
+        <defs><marker id="h4" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#9aa3ad"/></marker></defs>
+        <rect x="16" y="30" width="160" height="150" rx="10" fill="#15202c" stroke="#33b1ff"/><text x="96" y="54" fill="#33b1ff" font-size="12.5" font-weight="800" text-anchor="middle">PLOŠČA</text>
+        <rect x="118" y="74" width="58" height="26" rx="5" fill="#21303f" stroke="#f0883e"/><text x="147" y="92" fill="#fff" font-size="11" text-anchor="middle">Out A</text>
+        <rect x="118" y="118" width="58" height="26" rx="5" fill="#21303f" stroke="#2f6fed"/><text x="147" y="136" fill="#fff" font-size="11" text-anchor="middle">N</text>
+        <rect x="324" y="40" width="160" height="130" rx="10" fill="#15241a" stroke="#2ea043"/><text x="404" y="64" fill="#2ea043" font-size="12" font-weight="800" text-anchor="middle">OBTOČNA ČRPALKA</text><text x="404" y="81" fill="#8b97a7" font-size="9.5" text-anchor="middle">Hydro Box sponka 3</text>
+        <rect x="300" y="106" width="56" height="24" rx="5" fill="#1d2b22" stroke="#9aa3ad"/><text x="328" y="123" fill="#fff" font-size="10" text-anchor="middle">L·N·PE</text>
+        <polyline points="176,87 240,87 240,118 300,118" fill="none" stroke="#7b4b2a" stroke-width="2.6" marker-end="url(#h4)"/><text x="186" y="80" fill="#c79a78" font-size="10">1.5 mm²</text>
+        <polyline points="176,131 300,131 300,124" fill="none" stroke="#2f6fed" stroke-width="2.4" marker-end="url(#h4)"/>
+      </svg>
+      <div class="svgcap"><b>Sistemska obtočna črpalka.</b> Plošča <b>Out A</b> → sponka <b>3</b> na Hydro Boxu. Majhna sodobna obtočna črpalka (&lt;400 W) → neposredno. <b>Če ima črpalka več kot 400 W, dodajte kontaktor.</b> <b>Krmilnik:</b> [Pump Power] = dejanska največja moč v W.</div>
+    </div>
+  </div>
+
+  <div class="note ok" style="margin-top:18px"><b>Sobni termostat — običajno ga ne potrebujete.</b> <b>Žični krmilnik je že termostat</b>: namestite ga v notranjem prostoru in meri sobno temperaturo za ogrevanje prostorov (§7/§10). Ločen termostat na <b>(1) L1 · (2) H · (3) C</b> priključite le, če določen prostor potrebuje svoj dodatni termostat. Če ga namestite, naprava nato regulira samo <b>temperaturo vode</b>. Če ga ne namestite, pustite <b>(1)–(2) premoščeni</b>.</div>
+</section>
+
+<!-- 5 WATER & PRESSURE LOOPS -->
+<section id="loops">
+  <h2><span class="num">5</span> Vodni krog, tlak &amp; montaža cevi</h2>
+  <p class="sub">Celotna hidravlika: tlaki, shema cev za cevjo z dimenzijami, vsak priključek in kam se priključi, materiali, fitingi, višine &amp; dolžine, izolacija, kakovost vode in glikol — za sistem <b>s</b> Hydro Boxom in <b>brez</b> njega. Dva ločena sveta: <b>zaprt ogrevalni krog</b> (nizek tlak, raztezna posoda + varnostni ventil) in <b>pitna TSV</b> (tlak vodovoda, lastna varnostna oprema).</p>
+  <div class="card" style="padding:10px">
+    <svg viewBox="0 0 1000 430" font-family="inherit">
+      <defs><marker id="w1" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#9aa3ad"/></marker></defs>
+      <rect x="30" y="170" width="150" height="100" rx="10" fill="#15202c" stroke="#33b1ff"/><text x="105" y="208" fill="#33b1ff" font-size="13" font-weight="800" text-anchor="middle">TOPLOTNA ČRPALKA</text><text x="105" y="228" fill="#8b97a7" font-size="10.5" text-anchor="middle">voda izhod / vhod</text><text x="105" y="246" fill="#8b97a7" font-size="10.5" text-anchor="middle">≤ 3 bar</text>
+      <rect x="250" y="120" width="170" height="200" rx="10" fill="#13211a" stroke="#2ea043"/><text x="335" y="144" fill="#2ea043" font-size="12.5" font-weight="800" text-anchor="middle">HYDRO BOX</text>
+      <text x="335" y="166" fill="#8b97a7" font-size="10" text-anchor="middle">črpalka · 3-potni ventil</text>
+      <text x="335" y="188" fill="#e6edf3" font-size="10.5" text-anchor="middle">⬤ 10 L raztezna posoda</text>
+      <text x="335" y="208" fill="#e6edf3" font-size="10.5" text-anchor="middle">⚠ 3 bar varnostni ventil</text>
+      <text x="335" y="228" fill="#e6edf3" font-size="10.5" text-anchor="middle">⌚ manometer 1–2 bar</text>
+      <text x="335" y="252" fill="#8b97a7" font-size="10" text-anchor="middle">nazivno 0.3 MPa (3 bar)</text>
+      <rect x="500" y="40" width="160" height="90" rx="10" fill="#1f1414" stroke="#f85149"/><text x="580" y="64" fill="#ff9a93" font-size="12" font-weight="800" text-anchor="middle">500 L TSV</text><text x="580" y="84" fill="#8b97a7" font-size="10" text-anchor="middle">tuljava (ogrevalna stran)</text><text x="580" y="102" fill="#8b97a7" font-size="10" text-anchor="middle">+ hranilnik pitne vode</text><text x="580" y="120" fill="#ffd0cb" font-size="10" text-anchor="middle">nazivno 0.7 MPa (7 bar)</text>
+      <rect x="500" y="300" width="160" height="90" rx="10" fill="#15202c" stroke="#2ea043"/><text x="580" y="324" fill="#7ee08a" font-size="12" font-weight="800" text-anchor="middle">200 L HRANILNIK</text><text x="580" y="344" fill="#8b97a7" font-size="10" text-anchor="middle">hranilnik toplote</text><text x="580" y="364" fill="#8b97a7" font-size="10" text-anchor="middle">nazivno 6 bar (obratuje ≤3)</text>
+      <rect x="760" y="300" width="210" height="90" rx="10" fill="#1c2735" stroke="#26313f"/><text x="865" y="324" fill="#e6edf3" font-size="12" font-weight="700" text-anchor="middle">OGREVALNE CONE</text><text x="865" y="344" fill="#8b97a7" font-size="10" text-anchor="middle">talno / rad. / konvektorji</text><text x="865" y="364" fill="#8b97a7" font-size="10" text-anchor="middle">konvektorji max 16 bar</text>
+      <!-- mains water to DHW -->
+      <rect x="760" y="40" width="210" height="90" rx="10" fill="#101a24" stroke="#2f6fed"/><text x="865" y="62" fill="#7ba2f5" font-size="12" font-weight="700" text-anchor="middle">HLADNA VODA → TSV</text><text x="865" y="82" fill="#8b97a7" font-size="9.5" text-anchor="middle">reducirni ventil, če vodovod &gt; 5 bar</text><text x="865" y="100" fill="#8b97a7" font-size="9.5" text-anchor="middle">T&amp;P ventil 0.75 MPa</text><text x="865" y="118" fill="#8b97a7" font-size="9.5" text-anchor="middle">raztezna posoda za pitno vodo</text>
+      <!-- pipes (orthogonal) -->
+      <polyline points="180,210 250,210" fill="none" stroke="#f85149" stroke-width="3" marker-end="url(#w1)"/>
+      <polyline points="420,180 460,180 460,90 500,90" fill="none" stroke="#f85149" stroke-width="2.6" marker-end="url(#w1)"/><text x="430" y="120" fill="#ff9a93" font-size="9.5">TSV</text>
+      <polyline points="420,260 460,260 460,345 500,345" fill="none" stroke="#2ea043" stroke-width="2.6" marker-end="url(#w1)"/><text x="430" y="285" fill="#7ee08a" font-size="9.5">ogrev.</text>
+      <polyline points="660,345 760,345" fill="none" stroke="#9aa3ad" stroke-width="2.6" marker-end="url(#w1)"/>
+      <polyline points="760,85 660,85" fill="none" stroke="#2f6fed" stroke-width="2.4" marker-end="url(#w1)"/>
+      <text x="240" y="350" fill="#566173" font-size="10">— ogrevalna voda (zaprt krog)   — pitna voda (vodovod)</text>
+    </svg>
+  </div>
+  <table class="ptable">
+    <thead><tr><th>Krog</th><th>Normalni tlak</th><th>Max / nazivni</th><th>Varnost &amp; opombe</th></tr></thead>
+    <tbody>
+      <tr><td><b>Toplotna črpalka / ogrevalni krog</b> (zaprt)</td><td><span class="barbox" style="background:#2ea043">1–2 bar</span></td><td><span class="barbox" style="background:#f0883e">3 bar</span></td><td>3-barski varnostni ventil + 10 L raztezna posoda (v Hydro Boxu). Hydro Box nazivno 0,3 MPa. Predtlak raztezne posode nastavite ≈ na polnilni tlak v hladnem stanju.</td></tr>
+      <tr><td><b>200 L hranilnik toplote</b></td><td>sledi ogrevalnemu krogu</td><td><span class="barbox" style="background:#f0883e">6 bar</span> nazivno (preizkus 10)</td><td>Del zaprtega kroga, zato je praktično omejen na 3 bar ogrevalne strani.</td></tr>
+      <tr><td><b>500 L hranilnik TSV</b> (pitna voda)</td><td>tlak hladne vode iz vodovoda</td><td><span class="barbox" style="background:#f0883e">7 bar</span> (0.7 MPa)</td><td>T&amp;P varnostni ventil 0,75 MPa / 99 °C. Vgradite <b>reducirni ventil</b>, če je tlak vodovoda &gt; 5 bar, + raztezno posodo za pitno vodo.</td></tr>
+      <tr><td><b>Ventilatorski konvektorji</b> (če so)</td><td>—</td><td><span class="barbox" style="background:#2ea043">16 bar</span></td><td>Precej nad tlakom sistema — niso omejujoči dejavnik. Min 0,15 MPa.</td></tr>
+    </tbody>
+  </table>
+  <div class="note warn"><b>Oba sveta naj ostaneta ločena:</b> netesen 3-potni ventil bi pomešal pitno TSV in ogrevalno vodo — zato je predpisan <b>motorni krogelni</b> 3-potni ventil (glej §6). Ogrevalni krog mora ostati zaprt pri nizkem tlaku; hranilnik TSV je pod tlakom vodovoda z lastno T&amp;P varnostno opremo.</div>
+
+  <!-- ============ HYDRAULIC INSTALL ============ -->
+  <div id="hydraulic" style="height:1px"></div>
+  <h3 style="margin:30px 0 6px;font-size:19px">🔧 Montaža cev za cevjo — shema, priključki &amp; dimenzije</h3>
+  <p class="sub" style="margin-bottom:14px">Izberite, ali uporabljate Hydro Box. Shema prikazuje vsako cev z njeno dimenzijo; <b>kliknite priključek (krog ali vrstico)</b> in videli boste, kam točno se priključi, dimenzijo cevi, primerne materiale, potrebne fitinge/ventile/tipala in izolacijo.</p>
+  <div class="tabs">
+    <button id="wbtnWith" class="active" onclick="wsetmode('with')">🟢 S Hydro Boxom (priporočeno)</button>
+    <button id="wbtnNo" onclick="wsetmode('without')">🔵 Brez Hydro Boxa (lastna izvedba)</button>
+  </div>
+
+  <!-- Fig 3 reference + readable redraw (only in WITH mode) -->
+  <div id="fig3block">
+    <h3 style="margin:6px 0 6px;font-size:17px">Celotna priključna shema (proizvajalčeva sl. 3)</h3>
+    <div class="card" style="background:#fff;padding:8px;margin-bottom:14px"><img class="zoom" src="assets/fig3_connection.jpg" alt="Proizvajalčeva priključna shema, sl. 3" style="width:100%;border-radius:6px"></div>
+    <div class="card">
+        <h4>Kaj vsebuje (od zgoraj → navzdol)</h4>
+        <ul style="font-size:13px;color:#cfd8e3;padding-left:18px;line-height:1.6">
+          <li><b>Toplotna črpalka</b> (zunanja) — zaporni ventili, manometer, odzračevanje na dvižnem vodu.</li>
+          <li><b>Hydro Box</b> (črtkano) — obtočna črpalka, motorni 3-potni ventil, 3 kW grelec, avtomatski odzračevalnik, ventil na vsakem priključku.</li>
+          <li><b>Hranilnik toplote</b> + lastna raztezna posoda; polnilni/dopolnilni vod (protipovratni ventil · Y-filter · krogelni ventil).</li>
+          <li><b>Hranilnik TSV</b> z notranjo tuljavo + raztezna posoda + varnostna oprema na dovodu hladne vode (protipovratni ventil · filter · krogelni ventil · reducirni ventil).</li>
+          <li><b>Talno ogrevanje</b> prek <b>mešalne postaje</b> (mešalni ventil + 2. črpalka + razdelilnik/zbiralnik).</li>
+          <li>Krogi za <b>radiatorje</b> in <b>ventilatorske konvektorje</b>, vsak z zapornimi ventili.</li>
+        </ul>
+        <p class="meta" style="margin-top:8px">To je proizvajalčeva lastna shema — merodajna postavitev. Spodnja označena preris doda <b>puščice smeri pretoka</b> 🟥 vroč dvižni vod · 🟦 povratni vod.</p>
+    </div>
+    <div class="svgcard" style="margin-top:14px">
+      <svg viewBox="0 0 1000 700" font-family="inherit">
+        <defs>
+          <marker id="fr" markerWidth="9" markerHeight="9" refX="6" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#f85149"/></marker>
+          <marker id="fb" markerWidth="9" markerHeight="9" refX="6" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#2f6fed"/></marker>
+          <marker id="fg" markerWidth="8" markerHeight="8" refX="5" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#9aa3ad"/></marker>
+        </defs>
+        <!-- HEAT PUMP -->
+        <rect x="28" y="48" width="150" height="86" rx="9" fill="#15202c" stroke="#33b1ff"/><text x="103" y="80" fill="#33b1ff" font-size="12" font-weight="800" text-anchor="middle">TOPLOTNA ČRPALKA</text><text x="103" y="98" fill="#8b97a7" font-size="9" text-anchor="middle">zunanja · vgrajena črpalka</text><text x="103" y="114" fill="#8b97a7" font-size="9" text-anchor="middle">zaporni v. · manometer · odzrač.</text>
+        <!-- HYDRO BOX -->
+        <rect x="240" y="40" width="430" height="180" rx="9" fill="none" stroke="#2ea043" stroke-dasharray="6 4" stroke-width="1.5"/><text x="455" y="60" fill="#2ea043" font-size="12" font-weight="800" text-anchor="middle">HYDRO BOX (opcijsko)</text>
+        <text x="300" y="92" fill="#9fb4a6" font-size="11" text-anchor="middle">⊚ črpalka</text>
+        <text x="300" y="150" fill="#9fb4a6" font-size="11" text-anchor="middle">▭ 3 kW grelec</text>
+        <text x="455" y="120" fill="#f0883e" font-size="11" font-weight="700" text-anchor="middle">⊳ 3-potni ventil</text>
+        <text x="600" y="92" fill="#9fb4a6" font-size="11" text-anchor="middle">◓ odzračevalnik</text>
+        <text x="600" y="150" fill="#9fb4a6" font-size="11" text-anchor="middle">⚠ varn. v. · ⌚ manom.</text>
+        <!-- BUFFER -->
+        <rect x="60" y="320" width="115" height="150" rx="8" fill="#152a20" stroke="#2ea043"/><text x="117" y="392" fill="#7ee08a" font-size="12" font-weight="800" text-anchor="middle">HRANILNIK</text><text x="117" y="408" fill="#7ee08a" font-size="12" font-weight="800" text-anchor="middle">toplote</text><text x="117" y="430" fill="#8b97a7" font-size="8.5" text-anchor="middle">+ raztezna posoda</text>
+        <!-- DHW -->
+        <rect x="400" y="300" width="160" height="170" rx="8" fill="#241414" stroke="#f85149"/><text x="480" y="372" fill="#ff9a93" font-size="12" font-weight="800" text-anchor="middle">Hranilnik TSV</text><text x="480" y="392" fill="#8b97a7" font-size="9" text-anchor="middle">tuljava + raztezna posoda</text><text x="480" y="452" fill="#8b97a7" font-size="8.5" text-anchor="middle">hladna: protipov.·filter·krogel.·reduc.</text>
+        <!-- emitters -->
+        <rect x="55" y="560" width="190" height="110" rx="8" fill="#101a24" stroke="#33b1ff"/><text x="150" y="586" fill="#33b1ff" font-size="11" font-weight="800" text-anchor="middle">TALNO OGREVANJE</text><text x="150" y="604" fill="#8b97a7" font-size="9" text-anchor="middle">mešalni ventil + 2. črpalka</text><text x="150" y="620" fill="#8b97a7" font-size="9" text-anchor="middle">→ razdelilnik → zanke</text>
+        <rect x="430" y="560" width="130" height="110" rx="8" fill="#1c2735" stroke="#26313f"/><text x="495" y="600" fill="#e6edf3" font-size="11" font-weight="700" text-anchor="middle">RADIATOR</text><text x="495" y="618" fill="#8b97a7" font-size="9" text-anchor="middle">zaporni ventili</text>
+        <rect x="610" y="560" width="130" height="110" rx="8" fill="#1c2735" stroke="#26313f"/><text x="675" y="600" fill="#e6edf3" font-size="11" font-weight="700" text-anchor="middle">KONVEKTOR</text><text x="675" y="618" fill="#8b97a7" font-size="9" text-anchor="middle">zaporni v. + odzrač.</text>
+        <!-- PIPES with flow arrows -->
+        <!-- HP supply (hot) -> hydrobox -->
+        <polyline points="178,72 240,72" fill="none" stroke="#f85149" stroke-width="3" marker-end="url(#fr)"/><text x="195" y="64" fill="#ff9a93" font-size="9">dvižni</text>
+        <!-- hydrobox return -> HP -->
+        <polyline points="240,108 178,108" fill="none" stroke="#2f6fed" stroke-width="3" marker-end="url(#fb)"/><text x="190" y="124" fill="#7ba2f5" font-size="9">povratni</text>
+        <!-- hydrobox -> DHW coil (hot) via 3-way -->
+        <polyline points="455,135 455,250 480,250 480,300" fill="none" stroke="#f85149" stroke-width="2.4" marker-end="url(#fr)"/><text x="462" y="270" fill="#ff9a93" font-size="9">TSV</text>
+        <!-- DHW coil return (blue) -->
+        <polyline points="520,300 520,250 540,250 540,220" fill="none" stroke="#2f6fed" stroke-width="2.2" marker-end="url(#fb)"/>
+        <!-- hydrobox -> buffer (hot) -->
+        <polyline points="300,220 300,300 220,300 220,320" fill="none" stroke="#f85149" stroke-width="2.4" marker-end="url(#fr)"/><text x="250" y="296" fill="#ff9a93" font-size="9">v hranilnik</text>
+        <!-- buffer return (blue) to hydrobox -->
+        <polyline points="117,320 117,250 270,250 270,220" fill="none" stroke="#2f6fed" stroke-width="2.2" marker-end="url(#fb)"/>
+        <!-- buffer out -> supply header (hot) -->
+        <polyline points="175,400 320,400 320,520" fill="none" stroke="#f85149" stroke-width="2.6"/>
+        <!-- supply header (red) across emitters -->
+        <polyline points="320,520 700,520" fill="none" stroke="#f85149" stroke-width="2.6"/><text x="500" y="513" fill="#ff9a93" font-size="9">dvižni zbiralnik</text>
+        <!-- return header (blue) -->
+        <polyline points="700,540 175,540 175,470" fill="none" stroke="#2f6fed" stroke-width="2.6" marker-end="url(#fb)"/><text x="430" y="554" fill="#7ba2f5" font-size="9">povratni zbiralnik → hranilnik / Hydro Box</text>
+        <!-- drops to emitters (supply red down, return blue up) -->
+        <polyline points="150,520 150,560" fill="none" stroke="#f85149" stroke-width="2.4" marker-end="url(#fr)"/>
+        <polyline points="200,560 200,540" fill="none" stroke="#2f6fed" stroke-width="2.2" marker-end="url(#fb)"/>
+        <polyline points="470,520 470,560" fill="none" stroke="#f85149" stroke-width="2.4" marker-end="url(#fr)"/>
+        <polyline points="520,560 520,540" fill="none" stroke="#2f6fed" stroke-width="2.2" marker-end="url(#fb)"/>
+        <polyline points="650,520 650,560" fill="none" stroke="#f85149" stroke-width="2.4" marker-end="url(#fr)"/>
+        <polyline points="700,560 700,540" fill="none" stroke="#2f6fed" stroke-width="2.2" marker-end="url(#fb)"/>
+        <!-- DHW cold feed (potable, grey) -->
+        <polyline points="620,420 560,420" fill="none" stroke="#9aa3ad" stroke-width="2.2" marker-end="url(#fg)"/><text x="624" y="424" fill="#8b97a7" font-size="8.5">hladna voda</text>
+        <!-- make-up line to buffer (grey) -->
+        <polyline points="20,440 60,440" fill="none" stroke="#9aa3ad" stroke-width="2" marker-end="url(#fg)"/><text x="16" y="432" fill="#8b97a7" font-size="8.5">dopolnjevanje</text>
+      </svg>
+      <div class="svgcap">Pregleden preris sl. 3 s <b>puščicami pretoka</b>: 🟥 vroč dvižni vod · 🟦 povratni vod · ⬜ pitna/hladna voda. Talno ogrevanje se napaja prek lastne <b>mešalne postaje</b> (mešalni ventil + 2. črpalka); radiatorji &amp; ventilatorski konvektorji se priključijo na dvižni/povratni zbiralnik prek zapornih ventilov.</div>
+    </div>
+  </div>
+
+  <!-- WITH hydrobox schematic — matches the real Fig.5 port layout (ports along the bottom) -->
+  <h3 style="margin:22px 0 6px;font-size:17px">Priključki Hydro Boxa — kliknite katerega koli za specifikacijo cevi</h3>
+  <div id="schemWith" class="svgcard">
+    <svg viewBox="0 0 1000 520" font-family="inherit">
+      <defs><marker id="p1" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#f85149"/></marker>
+      <marker id="p2" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#2f6fed"/></marker>
+      <marker id="p3" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#9aa3ad"/></marker></defs>
+      <!-- HYDRO BOX as the real wide unit, ports along the bottom -->
+      <rect x="40" y="28" width="920" height="132" rx="10" fill="#13211a" stroke="#2ea043" stroke-width="1.5"/>
+      <text x="500" y="50" fill="#2ea043" font-size="13" font-weight="800" text-anchor="middle">HYDRO BOX (EFJ01-A01) — pogled od spredaj, vsi priključki spodaj (ustreza sl. 5)</text>
+      <text x="150" y="84" fill="#9fb4a6" font-size="10" text-anchor="middle">filter nečistoč /</text><text x="150" y="98" fill="#9fb4a6" font-size="10" text-anchor="middle">lovilec nesnage</text>
+      <text x="510" y="80" fill="#9fb4a6" font-size="10" text-anchor="middle">10 L raztezna posoda · 3 kW grelec · motorni 3-potni ventil</text>
+      <text x="510" y="96" fill="#9fb4a6" font-size="10" text-anchor="middle">varnostni ventil · manometer · avtomatski odzračevalnik</text>
+      <text x="845" y="84" fill="#9fb4a6" font-size="10" text-anchor="middle">obtočna</text><text x="845" y="98" fill="#9fb4a6" font-size="10" text-anchor="middle">črpalka</text>
+      <text x="120" y="130" fill="#566173" font-size="9">⑩ NN ožičenje</text><text x="250" y="130" fill="#566173" font-size="9">⑪ VN ožičenje (kabelske uvodnice)</text>
+      <!-- bracket lines separating left / mid / right groups (like the real unit) -->
+      <line x1="290" y1="112" x2="290" y2="160" stroke="#1f3a2a" stroke-width="1"/><line x1="600" y1="112" x2="600" y2="160" stroke="#1f3a2a" stroke-width="1"/>
+      <!-- destination components below -->
+      <rect x="48" y="392" width="232" height="100" rx="9" fill="#15202c" stroke="#33b1ff"/><text x="164" y="418" fill="#33b1ff" font-size="12" font-weight="800" text-anchor="middle">ZUNANJA TOPLOTNA ČRPALKA</text><text x="164" y="438" fill="#8b97a7" font-size="9.5" text-anchor="middle">③ dvižni (vroč) · ① povratni · ② sist. povratni</text><text x="164" y="456" fill="#8b97a7" font-size="9.5" text-anchor="middle">1″ DN25 · izolacija + glikol</text>
+      <rect x="582" y="392" width="118" height="100" rx="9" fill="#15202c" stroke="#2ea043"/><text x="641" y="418" fill="#7ee08a" font-size="12" font-weight="800" text-anchor="middle">200 L</text><text x="641" y="434" fill="#7ee08a" font-size="12" font-weight="800" text-anchor="middle">HRANILNIK</text><text x="641" y="456" fill="#8b97a7" font-size="9" text-anchor="middle">⑥ vhod · ⑧ izhod</text>
+      <rect x="712" y="392" width="104" height="100" rx="9" fill="#1f1414" stroke="#f85149"/><text x="764" y="418" fill="#ff9a93" font-size="12" font-weight="800" text-anchor="middle">500 L</text><text x="764" y="434" fill="#ff9a93" font-size="12" font-weight="800" text-anchor="middle">TSV</text><text x="764" y="456" fill="#8b97a7" font-size="9" text-anchor="middle">⑦ tuljava</text>
+      <rect x="838" y="392" width="124" height="100" rx="9" fill="#1c2735" stroke="#26313f"/><text x="900" y="418" fill="#e6edf3" font-size="12" font-weight="700" text-anchor="middle">CONE</text><text x="900" y="436" fill="#8b97a7" font-size="9" text-anchor="middle">⑨ na razdelilnik</text><text x="900" y="452" fill="#8b97a7" font-size="9" text-anchor="middle">rad. / talno / konv.</text>
+      <!-- pipes drop from the real bottom ports -->
+      <polyline points="230,392 230,160" fill="none" stroke="#f85149" stroke-width="2.6" marker-end="url(#p1)"/><text x="236" y="250" fill="#ff9a93" font-size="9">③ vroč ↑</text>
+      <polyline points="110,160 110,392" fill="none" stroke="#2f6fed" stroke-width="2.6" marker-end="url(#p2)"/><text x="80" y="250" fill="#7ba2f5" font-size="9">① povr.</text>
+      <polyline points="170,160 170,392" fill="none" stroke="#2f6fed" stroke-width="2.4" marker-end="url(#p2)"/><text x="148" y="280" fill="#7ba2f5" font-size="9">② sist. povr.</text>
+      <line x1="400" y1="160" x2="400" y2="210" stroke="#9aa3ad" stroke-width="2.4" marker-end="url(#p3)"/><text x="408" y="200" fill="#8b97a7" font-size="9">izpust</text>
+      <polyline points="650,160 650,392" fill="none" stroke="#f85149" stroke-width="2.6" marker-end="url(#p1)"/><text x="612" y="250" fill="#ff9a93" font-size="9">⑥ vhod</text>
+      <polyline points="715,160 715,392" fill="none" stroke="#f85149" stroke-width="2.6" marker-end="url(#p1)"/><text x="720" y="250" fill="#ff9a93" font-size="9">⑦ TSV</text>
+      <polyline points="668,392 668,360 780,360 780,160" fill="none" stroke="#2f6fed" stroke-width="2.4" marker-end="url(#p2)"/><text x="786" y="250" fill="#7ba2f5" font-size="9">⑧ izhod ↑</text>
+      <polyline points="845,160 845,392" fill="none" stroke="#2ea043" stroke-width="2.6" marker-end="url(#p3)"/><text x="851" y="250" fill="#7ee08a" font-size="9">⑨</text>
+      <!-- port labels -->
+      <text x="110" y="184" fill="#8b97a7" font-size="8" text-anchor="middle">v TČ vhod</text>
+      <text x="170" y="194" fill="#8b97a7" font-size="8" text-anchor="middle">povratni</text>
+      <text x="230" y="184" fill="#8b97a7" font-size="8" text-anchor="middle">iz TČ</text>
+      <text x="400" y="184" fill="#8b97a7" font-size="8" text-anchor="middle">izpust</text>
+      <text x="452" y="184" fill="#566173" font-size="8" text-anchor="middle">rez.</text>
+      <text x="505" y="184" fill="#566173" font-size="8" text-anchor="middle">rez.</text>
+      <text x="650" y="184" fill="#8b97a7" font-size="8" text-anchor="middle">hran. vhod</text>
+      <text x="715" y="194" fill="#8b97a7" font-size="8" text-anchor="middle">TSV</text>
+      <text x="780" y="184" fill="#8b97a7" font-size="8" text-anchor="middle">hran. izhod</text>
+      <text x="845" y="184" fill="#8b97a7" font-size="8" text-anchor="middle">ogrev.</text>
+      <!-- clickable port circles in REAL left-to-right order -->
+      <g style="cursor:pointer"><circle cx="110" cy="160" r="12" fill="#f0883e" stroke="#fff" stroke-width="2" onclick="wsel('1')"/><text x="110" y="164" fill="#06121f" font-size="11" font-weight="800" text-anchor="middle" onclick="wsel('1')">1</text></g>
+      <g style="cursor:pointer"><circle cx="170" cy="160" r="12" fill="#f0883e" stroke="#fff" stroke-width="2" onclick="wsel('2')"/><text x="170" y="164" fill="#06121f" font-size="11" font-weight="800" text-anchor="middle" onclick="wsel('2')">2</text></g>
+      <g style="cursor:pointer"><circle cx="230" cy="160" r="12" fill="#f0883e" stroke="#fff" stroke-width="2" onclick="wsel('3')"/><text x="230" y="164" fill="#06121f" font-size="11" font-weight="800" text-anchor="middle" onclick="wsel('3')">3</text></g>
+      <g style="cursor:pointer"><circle cx="400" cy="160" r="12" fill="#566173" stroke="#fff" stroke-width="2" onclick="wsel('4')"/><text x="400" y="164" fill="#fff" font-size="11" font-weight="800" text-anchor="middle" onclick="wsel('4')">4</text></g>
+      <g style="cursor:pointer"><circle cx="452" cy="160" r="12" fill="#3a4654" stroke="#fff" stroke-width="2" onclick="wsel('5')"/><text x="452" y="164" fill="#fff" font-size="11" font-weight="800" text-anchor="middle" onclick="wsel('5')">5</text></g>
+      <circle cx="505" cy="160" r="12" fill="#3a4654" stroke="#fff" stroke-width="2"/><text x="505" y="164" fill="#fff" font-size="11" font-weight="800" text-anchor="middle">5</text>
+      <g style="cursor:pointer"><circle cx="650" cy="160" r="12" fill="#f0883e" stroke="#fff" stroke-width="2" onclick="wsel('6')"/><text x="650" y="164" fill="#06121f" font-size="11" font-weight="800" text-anchor="middle" onclick="wsel('6')">6</text></g>
+      <g style="cursor:pointer"><circle cx="715" cy="160" r="12" fill="#f0883e" stroke="#fff" stroke-width="2" onclick="wsel('7')"/><text x="715" y="164" fill="#06121f" font-size="11" font-weight="800" text-anchor="middle" onclick="wsel('7')">7</text></g>
+      <g style="cursor:pointer"><circle cx="780" cy="160" r="12" fill="#f0883e" stroke="#fff" stroke-width="2" onclick="wsel('8')"/><text x="780" y="164" fill="#06121f" font-size="11" font-weight="800" text-anchor="middle" onclick="wsel('8')">8</text></g>
+      <g style="cursor:pointer"><circle cx="845" cy="160" r="12" fill="#f0883e" stroke="#fff" stroke-width="2" onclick="wsel('9')"/><text x="845" y="164" fill="#06121f" font-size="11" font-weight="800" text-anchor="middle" onclick="wsel('9')">9</text></g>
+    </svg>
+    <div class="svgcap">Priključki so narisani v <b>dejanskem vrstnem redu od leve proti desni na napravi</b> (sl. 5): ①②③ = krog toplotne črpalke · ④ izpust + ⑤ rezerva · ⑥⑦⑧⑨ = vhod hranilnika / TSV / izhod hranilnika / ogrevanje prostorov. 🟥 vroč · 🟦 povratni. Kliknite priključek za specifikacijo cevi.</div>
+  </div>
+
+  <!-- WITHOUT hydrobox schematic -->
+  <div id="schemNo" class="svgcard" style="display:none">
+    <svg viewBox="0 0 1000 470" font-family="inherit">
+      <defs><marker id="q1" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#f85149"/></marker><marker id="q2" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#2f6fed"/></marker></defs>
+      <rect x="20" y="190" width="120" height="130" rx="10" fill="#15202c" stroke="#33b1ff"/><text x="80" y="232" fill="#33b1ff" font-size="12" font-weight="800" text-anchor="middle">TOPLOTNA ČRPALKA</text><text x="80" y="252" fill="#8b97a7" font-size="9.5" text-anchor="middle">voda IZHOD / VHOD</text><text x="80" y="268" fill="#8b97a7" font-size="9.5" text-anchor="middle">samo 1″</text>
+      <!-- you-build components on the flow -->
+      <rect x="230" y="60" width="540" height="120" rx="10" fill="#241b10" stroke="#f0883e" stroke-dasharray="5 4"/><text x="500" y="84" fill="#f0883e" font-size="12" font-weight="800" text-anchor="middle">TO IZVEDETE SAMI — dvižna stran (dobava na objektu)</text>
+      <text x="500" y="108" fill="#e6edf3" font-size="10.5" text-anchor="middle">zaporni ventil → fleksibilni priključek → AVTOMATSKI ODZRAČEVALNIK → črpalka → 3-POTNI VENTIL</text>
+      <text x="500" y="128" fill="#e6edf3" font-size="10.5" text-anchor="middle">→ na tuljavo TSV  ·  → hranilnik  ·  raztezna posoda + 3-barski varnostni ventil + manometer</text>
+      <text x="500" y="150" fill="#8b97a7" font-size="10" text-anchor="middle">+ polnilno/izpustni ventil · izpustne pipe na najnižjih točkah · odzračevalniki na najvišjih točkah</text>
+      <rect x="230" y="330" width="540" height="90" rx="10" fill="#101a24" stroke="#2f6fed" stroke-dasharray="5 4"/><text x="500" y="356" fill="#7ba2f5" font-size="12" font-weight="800" text-anchor="middle">povratna stran</text><text x="500" y="380" fill="#e6edf3" font-size="10.5" text-anchor="middle">povratek con/hranilnika → MAGNETNI filter nečistoč → lovilec nesnage → zaporni ventil → VHOD toplotne črpalke</text><text x="500" y="400" fill="#8b97a7" font-size="10" text-anchor="middle">tu dodajte pomožno črpalko, če je tlačni padec v ceveh velik</text>
+      <rect x="840" y="60" width="140" height="120" rx="9" fill="#1f1414" stroke="#f85149"/><text x="910" y="100" fill="#ff9a93" font-size="11" font-weight="800" text-anchor="middle">TSV + HRANILNIK</text><text x="910" y="120" fill="#8b97a7" font-size="9" text-anchor="middle">+ vsi fitingi hranilnikov</text>
+      <polyline points="140,225 140,120 230,120" fill="none" stroke="#f85149" stroke-width="3" marker-end="url(#q1)"/><text x="150" y="112" fill="#ff9a93" font-size="9.5">1″ vroč</text>
+      <polyline points="770,120 840,120" fill="none" stroke="#f85149" stroke-width="2.6" marker-end="url(#q1)"/>
+      <polyline points="840,150 800,150 800,375 770,375" fill="none" stroke="#2f6fed" stroke-width="2.6" marker-end="url(#q2)"/>
+      <polyline points="230,375 140,375 140,290" fill="none" stroke="#2f6fed" stroke-width="3" marker-end="url(#q2)"/><text x="150" y="392" fill="#7ba2f5" font-size="9.5">1″ povratni</text>
+    </svg>
+    <div class="svgcap">Brez Hydro Boxa morate celoten hidravlični komplet izvesti sami (oranžno/modro črtkano). Vse, kar sicer vsebuje Hydro Box, postane del, dobavljen na objektu — glejte kontrolni seznam spodaj.</div>
+  </div>
+
+  <!-- port explorer table + detail -->
+  <div class="explorer" style="margin-top:18px">
+    <div>
+      <table class="ttbl"><thead><tr><th style="width:34px">#</th><th>Priključek / cev</th><th>Dimenzija</th></tr></thead><tbody id="wtbody"></tbody></table>
+    </div>
+    <div>
+      <div class="detail show" id="wdetail" style="margin-top:0">
+        <div class="dhead" id="wdhead">Kliknite priključek za specifikacijo cevi.</div>
+        <div class="corr" style="grid-template-columns:110px 1fr"><div class="dnode term" id="wterm" style="display:none"></div><div class="dnode dest" id="wdest"></div></div>
+        <div class="swrow" id="wfit" style="border-left-color:var(--acc)"></div>
+        <div class="swrow" id="wins" style="border-left-color:var(--ok)"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- pipe sizing -->
+  <h3 style="margin:26px 0 6px;font-size:17px">Dimenzioniranje cevi (12 kW ≈ 2 m³/h)</h3>
+  <table class="ptable">
+    <thead><tr><th>Odsek</th><th>Pretok</th><th>Min. cev</th><th>Ekvivalent</th><th>Zakaj</th></tr></thead>
+    <tbody>
+      <tr><td><b>Toplotna črpalka ↔ Hydro Box / hranilnik (primar)</b></td><td>≈ 2,0 m³/h</td><td><b>1″ / DN25</b></td><td>28 mm Cu · 32 mm PEX/PP-R/večplastna</td><td>Ujemati se mora z 1″ priključki naprave &amp; črpalko Wilo 25/9 — nikoli ne zmanjšajte dimenzije, sicer toplotno črpalko dušite.</td></tr>
+      <tr><td>Hydro Box ↔ tuljava TSV</td><td>≈ 2,0 m³/h</td><td><b>1″ / DN25</b></td><td>28 mm Cu / 32 mm plastika</td><td>Polni pretok med prioriteto TSV.</td></tr>
+      <tr><td>Hranilnik → ogrevalni razdelilnik</td><td>na cono</td><td>DN20–25</td><td>22–28 mm</td><td>Dimenzionirajte glede na obremenitev priključene cone.</td></tr>
+      <tr><td>Zanke talnega ogrevanja (iz razdelilnika)</td><td>na zanko</td><td>16–20 mm PEX</td><td>—</td><td>Standardna cev za talno ogrevanje; ≤ ~100 m na zanko.</td></tr>
+    </tbody>
+  </table>
+  <div class="note">Ciljajte na hitrost vode <b>0,6–1,2 m/s</b> (tiho, majhen tlačni padec). Notranja črpalka (Wilo Para 25/9) zagotavlja ≈ <b>9 m</b> maks. tlačne višine — dovolj za običajno hišo, a dolgi razvodi/veliko fitingov jo hitro porabijo (glej višine &amp; dolžine).</div>
+
+  <!-- pump purpose -->
+  <h3 style="margin:26px 0 6px;font-size:17px">💧 Črpalki — sta dve (Hydro Box je opcijski)</h3>
+  <p class="sub" style="margin-bottom:10px">Ena črpalka je <b>vgrajena v zunanjo toplotno črpalko</b> (Wilo Para 25/9), in — če vgradite Hydro Box — je <b>druga črpalka v njem</b>. Opravljata različni nalogi. To določa, kako priključite talno ogrevanje ali radiatorje.</p>
+  <div class="grid g2">
+    <div class="card" style="border-color:rgba(51,177,255,.4)"><h4 style="color:var(--acc)">Črpalka 1 — v toplotni črpalki (primar)</h4>
+      <p class="meta">Črpalka Wilo <b>v zunanji enoti</b> poganja <b>primarni krog</b> (toplotna črpalka ↔ hranilnik). Deluje vedno, ko deluje toplotna črpalka, naprava pa potrebuje <b>stalen neoviran pretok</b> za prenos toplote ter zaščito pri odmrzovanju/pred zmrzaljo.</p>
+      <div class="note dng" style="margin-top:10px"><b>Brez pretoka — največji sovražnik toplotne črpalke.</b> Če ji zmanjka pretoka → napaka nizkega pretoka, zmrznitev ploščnega izmenjevalnika, poškodba črpalke. Na tej primarni strani mora biti <b>vedno</b> odprta pot.</div>
+    </div>
+    <div class="card" style="border-color:rgba(46,160,67,.4)"><h4 style="color:var(--ok)">Črpalka 2 — v Hydro Boxu (sekundar)</h4>
+      <p class="meta">Črpalka <b>v Hydro Boxu</b> poganja <b>razvodno / sekundarno stran</b> — potiska vodo v hranilnik, tuljavo TSV in ogrevalne cone. <b>Brez Hydro Boxa</b> vse to opravi lastna črpalka toplotne črpalke (pri dolgih razvodih boste morda potrebovali pomožno črpalko, dobavljeno na objektu).</p>
+      <p class="meta" style="margin-top:8px">Odprto pot na primarni strani zagotovite s <b>hranilnikom / hidravlično kretnico (najbolje)</b>, <b>avtomatskim obvodnim ventilom</b> ali vsaj z eno <b>vedno odprto</b> zanko.</p>
+    </div>
+  </div>
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card"><h4>🏠 Razdelilnik talnega ogrevanja — ne neposredno na črpalko</h4>
+      <p class="meta">Talno ogrevanje potrebuje <b>nižjo temperaturo vode</b> (≈30–40 °C, prek <b>mešalnega ventila</b>) in lasten uravnotežen pretok — razdelilnik, katerega pogoni lahko zaprejo vse zanke, pa bi črpalko, ki ga napaja neposredno, pustil delovati proti zaprtemu krogu.</p>
+      <p class="meta" style="margin-top:8px"><b>Naredite tako:</b> razdelilnik talnega ogrevanja napajajte iz <b>hranilnika</b> prek <b>mešalne postaje</b> (mešalni ventil + lastna manjša conska črpalka). Tako črpalka toplotne črpalke in črpalka Hydro Boxa ostaneta na neovirano pretočnem primarju.</p>
+    </div>
+    <div class="card"><h4>♨ Radiatorji — da, če so vedno odprti</h4>
+      <p class="meta">Radiatorski krog, ki je <b>vedno odprt</b> (uravnotežen z zapornimi ventili, ali vsaj en radiator brez zapirajočega termostatskega ventila, ali avtomatski obvod), <b>lahko</b> poganja neposredno črpalka Hydro Boxa — radiatorji delujejo blizu temperature dvižnega voda toplotne črpalke, zato mešanje ni potrebno.</p>
+      <p class="meta" style="margin-top:8px">Če se lahko zaprejo vsi radiatorji (povsod pametni termostatski ventili), dodajte <b>avtomatski obvodni ventil</b> ali hranilnik, da nobena črpalka ne deluje proti zaprtemu krogu.</p>
+    </div>
+  </div>
+  <div class="note ok"><b>Na kratko:</b> <b>primarna stran</b> (krog črpalke Hydro Boxa) mora ostati neovirano pretočna — brez zapirajočih termostatov na njeni edini poti. <b>Regulacijo temperature (mešanje)</b> in <b>sobne termostate / conske ventile</b> postavite na <b>sekundarno stran, za hranilnik</b>, vsako z lastno črpalko. Za en sam radiatorski krog, ki se nikoli povsem ne zapre, zadošča vgrajena črpalka.</div>
+
+  <!-- materials -->
+  <h3 style="margin:26px 0 6px;font-size:17px">Materiali cevi</h3>
+  <div class="grid g2">
+    <div class="card" style="border-color:rgba(46,160,67,.4)"><h4 style="color:var(--ok)">✔ Primerno</h4>
+      <ul style="font-size:13.5px;color:#cfd8e3;padding-left:18px;line-height:1.7">
+        <li><b>Baker</b> (ustrezni fitingi, posnemanje robov, brez pregrevanja medenine).</li>
+        <li><b>PEX / PE-RT</b> z <b>zaporo proti kisiku</b> (nujno — brez vdora O₂).</li>
+        <li><b>Večplastna cev PEX-AL-PEX</b> — idealna: toga, nepropustna za O₂.</li>
+        <li><b>PP-R</b> (polipropilen), <b>nerjavno jeklo</b>.</li>
+        <li>Fitingi &amp; ventili iz medenine / DZR medenine / brona.</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:rgba(248,81,73,.4)"><h4 style="color:#ff9a93">✘ NE uporabljajte</h4>
+      <ul style="font-size:13.5px;color:#cfd8e3;padding-left:18px;line-height:1.7">
+        <li><b>Pocinkano jeklo</b> — korodira v stiku z bakrom v napravi; z glikolom tvori oborine.</li>
+        <li>Navadnega neobdelanega jekla.</li>
+        <li>Plastičnih cevi <b>brez zapore</b> (prepuščajo kisik → mulj/korozija).</li>
+        <li>Neposrednega stika različnih golih kovin (galvanska korozija — ločite z dielektričnimi spojkami).</li>
+        <li>Avtomobilskega glikola.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- components checklist -->
+  <h3 style="margin:26px 0 6px;font-size:17px">Potrebni fitingi &amp; varnostne komponente</h3>
+  <p class="meta" style="margin:0 0 10px">🟢 = že vgrajeno v Hydro Box · 🔧 = dodate sami (vedno ali kadar ni Hydro Boxa).</p>
+  <div class="grid g2">
+    <div class="card"><h4>Ogrevalni krog (zaprt)</h4>
+      <ul style="font-size:13px;color:#cfd8e3;padding-left:18px;line-height:1.65">
+        <li>🔧 <b>Zaporni krogelni ventili</b> na vhodu &amp; izhodu vode TČ (servis) — 🟢 na vsakem priključku Hydro Boxa.</li>
+        <li>🔧 <b>Fleksibilni protivibracijski priključki</b> na toplotni črpalki.</li>
+        <li>🟢🔧 <b>Avtomatski odzračevalnik</b> na vsaki najvišji točki (TČ ima notranje samodejno odzračevanje — ne privijte ga premočno).</li>
+        <li>🔧 <b>Izpustne pipe</b> na vsaki najnižji točki.</li>
+        <li>🟢🔧 <b>3-barski varnostni ventil</b> + cev do odtoka (stran od elektrike).</li>
+        <li>🟢🔧 <b>Raztezna posoda</b> — TČ ima 5 L @1 bar, Hydro Box doda 10 L; za velike/visoke sisteme dodajte več.</li>
+        <li>🟢🔧 <b>Manometer</b> + <b>polnilno/izpustni ventil</b> (z zaščito pred povratnim tokom skladno z lokalnimi predpisi).</li>
+        <li>🟢🔧 <b>Magnetni / ciklonski filter nečistoč</b> na povratku v TČ — močno priporočeno (navaden lovilec nesnage ne ujame drobnih kovinskih delcev).</li>
+        <li>🔧 <b>Pomožna črpalka</b> samo, če je tlačni padec v ceveh prevelik.</li>
+      </ul>
+    </div>
+    <div class="card"><h4>Stran TSV (pitna voda)</h4>
+      <ul style="font-size:13px;color:#cfd8e3;padding-left:18px;line-height:1.65">
+        <li>🔧 <b>T&amp;P varnostni ventil</b> 0,75 MPa / 99 °C na hranilniku TSV → odtok.</li>
+        <li>🔧 <b>Reducirni ventil</b> na dovodu hladne vode, če je tlak vodovoda &gt; 5 bar.</li>
+        <li>🔧 <b>Raztezna posoda za pitno vodo</b> na dovodu hladne vode (prevzame raztezanje pri segrevanju).</li>
+        <li>🔧 <b>Protipovratni ventil</b> + zaporni ventil + izpust na dovodu hladne vode.</li>
+        <li>🔧 <b>Tipalo hranilnika TSV</b> — črno tipalo naprave potisnite v <b>potopno tulko</b> hranilnika (TWout2).</li>
+        <li>🔧 <b>Tipala hranilnika toplote</b> (TACt1/TACt2) v potopne tulke hranilnika, če se uporablja.</li>
+        <li>🔧 Opcijski <b>termostatski mešalni ventil</b> za omejitev temperature na pipi (zaščita pred oparinami), kadar vodo zaradi legionele hranite vročo.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- heights and lengths -->
+  <h3 style="margin:26px 0 6px;font-size:17px">Višine, dolžine &amp; zunanji razvod</h3>
+  <div class="grid g2">
+    <div class="card"><h4>Kako visoko / kako daleč?</h4>
+      <ul style="font-size:13.5px;color:#cfd8e3;padding-left:18px;line-height:1.7">
+        <li><b>Višine stavbe</b> črpalka <u>ne</u> omejuje — gre za <b>zaprt krog</b>, zato se statična višina izniči. Omejujeta jo <b>polnilni tlak</b> (≈1,5 bar ≈ 15 m višine) in zgornja meja <b>3 bar</b>. Visoka hiša → napolnite nekoliko višje (ostanite &lt; 3 bar) in raztezno posodo dimenzionirajte glede na volumen vode.</li>
+        <li><b>Dolžina cevi</b> je <b>proračun tlačne višine</b>: trenje v ceveh + filter + hranilnik + tuljava TSV + ventili morajo ostati pod ~9 m, ki jih črpalka zagotavlja pri vašem pretoku. Pri 1″/DN25 je to za običajno hišo velikodušno; če so razvodi dolgi ali je fitingov veliko, <b>povečajte na DN32</b> ali dodajte <b>pomožno črpalko</b> (navodila jo zahtevajo, če je tlačni padec prevelik).</li>
+        <li><b>Minimalni volumen vode:</b> 200 L hranilnik zlahka pokrije potrebo toplotne črpalke po stabilnem delovanju in energiji za odmrzovanje — pri 12 kW ni skrbi.</li>
+      </ul>
+    </div>
+    <div class="card"><h4>Zunanja cev med napravo &amp; hišo</h4>
+      <ul style="font-size:13.5px;color:#cfd8e3;padding-left:18px;line-height:1.7">
+        <li>Naj bo <b>čim krajša</b>; vsak meter zunaj pomeni toplotne izgube + nevarnost zmrzali.</li>
+        <li><b>V celoti izolirajte</b> z zaprtocelično, UV-obstojno, vremensko odporno izolacijo.</li>
+        <li>Voda zunaj <b>mora biti zaščitena pred zmrzaljo</b> — glikol (glej spodaj) in/ali vgrajena funkcija proti zmrzovanju naprave ob stalnem napajanju.</li>
+        <li>Cevi položite v padcu, da jih je mogoče izprazniti; zaščitite jih pred UV, glodavci in mehanskimi poškodbami.</li>
+        <li>Pri hlajenju lahko s cevi kaplja <b>kondenzat</b> — speljite/izolirajte jih tako, da ničesar ne poškoduje.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- condensate drain (outdoor unit) -->
+  <h3 id="condensate" style="margin:26px 0 6px;font-size:17px">💧 Odtok kondenzata — kam gre voda iz zunanje enote</h3>
+  <p class="sub">Pri ogrevanju se na zunanjem uparjalniku nabira vlaga in ivje; vsako <b>odmrzovanje</b> ga stali, voda pa odteče skozi <b>odtočno odprtino čisto na dnu zunanje enote</b> (dno ohišja). V hladnem, vlažnem vremenu je to lahko več litrov na dan. Ta voda nima nobene zveze z ogrevalnim krogom ali Hydro Boxom.</p>
+  <div class="grid g2">
+    <div class="card"><h4>✅ Speljite jo v zemljo — stran od betona</h4>
+      <ul style="font-size:13.5px;color:#cfd8e3;padding-left:18px;line-height:1.7">
+        <li>Voda naj iz odprtine na dnu odteka v <b>odprto zemljo ali gramozno posteljico</b> ob ali pod enoto, kjer lahko ponikne.</li>
+        <li><b>Ne na beton</b> (plošča, podstavek, terasa, pot): voda se vpije v beton, <b>zmrzne in ga razpoka</b>, nastane pa tudi ledena ploskev.</li>
+        <li>Če enota stoji na betonskem podstavku, pustite <b>pas gramoza / odprtino pod odtokom</b> ali s kratko cevko speljite vodo s podstavka na zemljo.</li>
+        <li>Enoto montirajte <b>dvignjeno</b> (podstavek / nogice / stenski nosilec), da je odprtina prosta in je sneg ne zamaši z ledom.</li>
+      </ul>
+    </div>
+    <div class="card"><h4>🔧 Priložen pribor in zaščita pred zmrzaljo</h4>
+      <ul style="font-size:13.5px;color:#cfd8e3;padding-left:18px;line-height:1.7">
+        <li>V škatli so <b>2 odtočna nastavka, 2 PVC cevki in 3 gumijasti čepi</b> — uporabite jih le, če morate vodo odvesti drugam; odvečne odprtine v dnu zaprite s čepi.</li>
+        <li>Cevka mora imeti <b>ves čas padec</b> in biti <b>kratka</b> — dolga cevka zamrzne. Prosto kapljanje na gramoz/zemljo je najbolj odporno na zmrzal.</li>
+        <li><b>Grelec dna ohišja (DPH)</b> preprečuje led v koritu — enota naj bo pozimi pod napetostjo.</li>
+        <li>Priključek <b>④ "drain hole"</b> na Hydro Boxu je samo za praznjenje vodnega kroga, ne za kondenzat.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- insulation + glycol -->
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card"><h4>🧥 Izolacija</h4>
+      <ul style="font-size:13.5px;color:#cfd8e3;padding-left:18px;line-height:1.7">
+        <li>Izolirajte <b>celoten</b> krog — dvižni <i>in</i> povratni vod.</li>
+        <li>Uporabite <b>zaprtocelično, parno zaporno</b> izolacijo (npr. EPDM/elastomerno), da se v načinu hlajenja ne rosi.</li>
+        <li>Debelina <b>≥ 20 mm</b>, kjer je okolica &gt; 30 °C in vlažnost &gt; 80 % RV (preprečevanje kondenzacije).</li>
+        <li>Zunanje cevi &amp; cevi TSV: debelejša + vremensko odporna izolacija; izolirajte tudi ventile/fitinge.</li>
+      </ul>
+    </div>
+    <div class="card"><h4>❄ Zaščita pred zmrzaljo (glikol) &amp; kakovost vode</h4>
+      <table class="ptable" style="margin:0 0 8px"><thead><tr><th>Min. zunanja</th><th>−5 °C</th><th>−10 °C</th><th>−15 °C</th><th>−20 °C</th></tr></thead>
+        <tbody><tr><td><b>Glikol</b></td><td>10 %</td><td>15 %</td><td>20 %</td><td>25 %</td></tr></tbody></table>
+      <ul style="font-size:13px;color:#cfd8e3;padding-left:18px;line-height:1.6">
+        <li>S <b>hranilnikom TSV uporabite propilenglikol</b> (z inhibitorji) — ne etilenglikola (strupen). Nikoli avtomobilskega glikola; nikoli pocinkanih cevi z glikolom.</li>
+        <li>Voda skladno z <b>EN 98/83 EC</b>; obstoječe sisteme izperite; vgradite magnetni filter.</li>
+        <li>Napolnite na <b>1–2 bar</b>; tlak naj bo ves čas <b>&gt; 0,3 bar</b>.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- scenarios -->
+  <h3 style="margin:26px 0 6px;font-size:17px">Katere dele dejansko potrebujete</h3>
+  <div class="grid g2">
+    <div class="card" style="border-color:rgba(46,160,67,.45)"><h4 style="color:var(--ok)">🟢 S Hydro Boxom</h4>
+      <p class="meta">Hydro Box že vsebuje črpalko, raztezno posodo, 3-potni ventil, filter nečistoč, varnostni ventil, manometer, avtomatski odzračevalnik in krogelni ventil na vsakem priključku. <b>Zunaj enote dodate:</b></p>
+      <ul style="font-size:13px;color:#cfd8e3;padding-left:18px;line-height:1.6">
+        <li>Izolirane cevi (z glikolom) TČ ↔ Hydro Box ter Hydro Box ↔ hranilnik / TSV / cone.</li>
+        <li>Magnetni filter na povratku (priporočeno), izpustne pipe, odzračevalnike na najvišjih točkah.</li>
+        <li>Vso varnostno opremo na <b>strani pitne vode TSV</b> (T&amp;P, reducirni ventil, raztezna posoda, protipovratni ventil).</li>
+        <li>Tipala hranilnikov v potopne tulke; conske zaporne ventile.</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:rgba(51,177,255,.45)"><h4 style="color:var(--acc)">🔵 Brez Hydro Boxa</h4>
+      <p class="meta">Toplotna črpalka ima le VHOD / IZHOD vode. <b>Celoten komplet morate dobaviti sami:</b></p>
+      <ul style="font-size:13px;color:#cfd8e3;padding-left:18px;line-height:1.6">
+        <li>Sistemsko <b>obtočno črpalko</b> (+ pomožno črpalko po potrebi).</li>
+        <li><b>Motorni krogelni 3-potni ventil</b> (DN25, 230 V, &lt; 90 s) za preklop na TSV — <b>samo če je prisoten tudi ogrevalni krog</b>. Sistem samo za toplo vodo preklopnega ventila ne potrebuje.</li>
+        <li><b>Raztezno posodo</b>, <b>3-barski varnostni ventil</b>, manometer, polnjenje/izpust, avtomatske odzračevalnike.</li>
+        <li><b>Magnetni filter nečistoč</b> + lovilec nesnage na povratku; zaporne ventile; fleksibilne priključke.</li>
+        <li>Vse s seznama za pitno vodo TSV ter vsa tipala hranilnikov.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 6 VALVE -->
+<section id="valve">
+  <h2><span class="num">6</span> Kako delujeta 3-potni ventil &amp; prioriteta TSV</h2>
+  <p class="sub">En preklopni ventil na izhodu toplotne črpalke (<b>vgrajen v Hydro Box</b>) odloča, ali gre toplota v <b>tuljavo hranilnika TSV</b> ali v <b>hranilnik toplote / ogrevanje</b>.</p>
+  <div class="note ok" style="margin-bottom:14px"><b>Samo topla voda? Preskočite celotno poglavje.</b> Preklopni ventil izbira <b>med</b> toplo vodo in ogrevanjem prostorov. <b>Brez ogrevalnega kroga</b> — toplotna črpalka neposredno v hranilnik TSV (stopnja 1 v §8) — ni kaj izbirati, zato <b>3-potni ventil sploh ni potreben</b>.</div>
+  <div class="grid g2">
+    <div class="svgcard">
+      <svg viewBox="0 0 500 270" font-family="inherit">
+        <text x="250" y="24" fill="#33b1ff" font-size="13" font-weight="800" text-anchor="middle">NAČIN TSV (ventil pod napetostjo)</text>
+        <rect x="20" y="110" width="90" height="56" rx="8" fill="#15202c" stroke="#33b1ff"/><text x="65" y="134" fill="#e6edf3" font-size="11" text-anchor="middle">TOPLOTNA</text><text x="65" y="150" fill="#e6edf3" font-size="11" text-anchor="middle">ČRPALKA</text>
+        <circle cx="210" cy="138" r="26" fill="#241b10" stroke="#f0883e" stroke-width="2"/><text x="210" y="142" fill="#f0883e" font-size="11" text-anchor="middle" font-weight="700">3-potni</text>
+        <rect x="340" y="40" width="140" height="56" rx="8" fill="#15241a" stroke="#f85149"/><text x="410" y="64" fill="#ff9a93" font-size="11" text-anchor="middle">500 L TSV</text><text x="410" y="80" fill="#ff9a93" font-size="11" text-anchor="middle">tuljava hranilnika</text>
+        <rect x="340" y="190" width="140" height="56" rx="8" fill="#1c2735" stroke="#26313f"/><text x="410" y="214" fill="#566173" font-size="11" text-anchor="middle">hranilnik /</text><text x="410" y="230" fill="#566173" font-size="11" text-anchor="middle">ogrevanje (izkl.)</text>
+        <polyline points="110,138 184,138" fill="none" stroke="#f85149" stroke-width="3"/>
+        <polyline points="236,128 290,128 290,68 340,68" fill="none" stroke="#f85149" stroke-width="3"/>
+        <polyline points="236,148 290,148 290,218 340,218" fill="none" stroke="#33404f" stroke-width="3" stroke-dasharray="5 5"/>
+      </svg>
+      <div class="svgcap">TSV pod nastavljeno vrednostjo → ventil se premakne v <b>položaj TSV</b>; vsa toplota gre v hranilnik. <b>TSV ima prioriteto.</b></div>
+    </div>
+    <div class="svgcard">
+      <svg viewBox="0 0 500 270" font-family="inherit">
+        <text x="250" y="24" fill="#2ea043" font-size="13" font-weight="800" text-anchor="middle">NAČIN OGREVANJA (ventil v mirovanju)</text>
+        <rect x="20" y="110" width="90" height="56" rx="8" fill="#15202c" stroke="#33b1ff"/><text x="65" y="134" fill="#e6edf3" font-size="11" text-anchor="middle">TOPLOTNA</text><text x="65" y="150" fill="#e6edf3" font-size="11" text-anchor="middle">ČRPALKA</text>
+        <circle cx="210" cy="138" r="26" fill="#241b10" stroke="#f0883e" stroke-width="2"/><text x="210" y="142" fill="#f0883e" font-size="11" text-anchor="middle" font-weight="700">3-potni</text>
+        <rect x="340" y="40" width="140" height="56" rx="8" fill="#1c2735" stroke="#26313f"/><text x="410" y="64" fill="#566173" font-size="11" text-anchor="middle">500 L TSV</text><text x="410" y="80" fill="#566173" font-size="11" text-anchor="middle">hranilnik (izkl.)</text>
+        <rect x="340" y="190" width="140" height="56" rx="8" fill="#15241a" stroke="#2ea043"/><text x="410" y="214" fill="#7ee08a" font-size="11" text-anchor="middle">200 L hranilnik</text><text x="410" y="230" fill="#7ee08a" font-size="11" text-anchor="middle">→ talno/rad.</text>
+        <polyline points="110,138 184,138" fill="none" stroke="#2ea043" stroke-width="3"/>
+        <polyline points="236,128 290,128 290,68 340,68" fill="none" stroke="#33404f" stroke-width="3" stroke-dasharray="5 5"/>
+        <polyline points="236,148 290,148 290,218 340,218" fill="none" stroke="#2ea043" stroke-width="3"/>
+      </svg>
+      <div class="svgcap">Hranilnik TSV ogret → ventil se vrne na <b>ogrevanje</b>; pretok v hranilnik toplote, nato v vaše cone.</div>
+    </div>
+  </div>
+  <div class="note ok"><b>Zaporedje prioritete TSV:</b> če hkrati zahtevata topla voda in ogrevanje, naprava <b>najprej ogreje hranilnik TSV</b>, nato ventil preklopi nazaj na ogrevanje. Radiatorji/talno ogrevanje med ciklom TSV za nekaj minut prekinejo — to je normalno, ni napaka.</div>
+  <div class="note warn"><b>3-potni ventil je že vgrajen v Hydro Box</b> — priključite le krmilni vodnik (plošča Out 5 → sponka 2). <b>Če Hydro Boxa ne uporabljate</b>, mora inštalater dobaviti 3-potni ventil: <b>motorni krogelni, DN25, 230 V, čas preklopa &lt; 90 s</b>, za popolno ločitev vode TSV in ogrevalne vode.</div>
+  <div class="note"><b>Dva ventila, dve nalogi:</b> <b>preklopni ventil TSV</b> (Out 5 / sponka 2) izbira med hranilnikom TSV in ogrevanjem. Ločen <b>mešalni ventil</b> (Out 6, dobava na objektu) je potreben le za znižanje temperature vroče vode iz hranilnika za nizkotemperaturne zanke talnega ogrevanja, medtem ko radiatorji/konvektorji delujejo pri višji temperaturi — glej Cone (§7).</div>
+</section>
+
+<!-- 7 ZONES -->
+<section id="zones">
+  <h2><span class="num">7</span> Razlaga con</h2>
+  <p class="sub">"Cona" je skupina grelnih teles s skupno ciljno vrednostjo. Do dve ogrevalni coni (A &amp; B) + topla voda. Vsako je mogoče krmiliti po <b>temperaturi vode</b> ali po <b>sobni temperaturi</b> (krmilnik/termostat kot sobno tipalo).</p>
+  <div class="card" style="padding:10px">
+    <svg viewBox="0 0 1000 330" font-family="inherit">
+      <defs><marker id="z1" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#9aa3ad"/></marker></defs>
+      <rect x="20" y="120" width="150" height="90" rx="10" fill="#15202c" stroke="#33b1ff"/><text x="95" y="158" fill="#33b1ff" font-size="13" font-weight="800" text-anchor="middle">TOPLOTNA ČRPALKA</text><text x="95" y="178" fill="#8b97a7" font-size="11" text-anchor="middle">+ 200 L hranilnik</text>
+      <rect x="360" y="30" width="280" height="120" rx="10" fill="#15241a" stroke="#2ea043"/><text x="500" y="56" fill="#2ea043" font-size="14" font-weight="800" text-anchor="middle">CONA A — visoka temp.</text><text x="500" y="80" fill="#e6edf3" font-size="12" text-anchor="middle">Radiatorji / ventilatorski konvektorji</text><text x="500" y="100" fill="#8b97a7" font-size="11" text-anchor="middle">npr. 45 °C · neposredno iz hranilnika</text><text x="500" y="122" fill="#8b97a7" font-size="11" text-anchor="middle">tudi hlajenje (konvektorji)</text>
+      <rect x="360" y="180" width="280" height="120" rx="10" fill="#15202c" stroke="#33b1ff"/><text x="500" y="206" fill="#33b1ff" font-size="14" font-weight="800" text-anchor="middle">CONA B — nizka temp.</text><text x="500" y="230" fill="#e6edf3" font-size="12" text-anchor="middle">Talno ogrevanje</text><text x="500" y="250" fill="#8b97a7" font-size="11" text-anchor="middle">npr. 32 °C · prek mešalnega ventila+črpalke</text><text x="500" y="272" fill="#8b97a7" font-size="11" text-anchor="middle">samo ogrevanje</text>
+      <rect x="760" y="40" width="220" height="100" rx="10" fill="#1c2735" stroke="#26313f"/><text x="870" y="84" fill="#e6edf3" font-size="12" text-anchor="middle">prostori z radiatorji</text><text x="870" y="106" fill="#566173" font-size="10.5" text-anchor="middle">dobavi inštalater</text>
+      <rect x="760" y="190" width="220" height="100" rx="10" fill="#1c2735" stroke="#26313f"/><text x="870" y="234" fill="#e6edf3" font-size="12" text-anchor="middle">prostori s talnim ogrev.</text><text x="870" y="256" fill="#566173" font-size="10.5" text-anchor="middle">dobavi inštalater</text>
+      <polyline points="170,150 265,150 265,90 358,90" fill="none" stroke="#2ea043" stroke-width="2.4" marker-end="url(#z1)"/>
+      <polyline points="170,180 265,180 265,240 358,240" fill="none" stroke="#33b1ff" stroke-width="2.4" marker-end="url(#z1)"/>
+      <polyline points="640,90 758,90" fill="none" stroke="#9aa3ad" stroke-width="2" marker-end="url(#z1)"/>
+      <polyline points="640,240 758,240" fill="none" stroke="#9aa3ad" stroke-width="2" marker-end="url(#z1)"/>
+    </svg>
+  </div>
+  <div class="grid g3" style="margin-top:16px">
+    <div class="card"><h4>Ena cona (najpogosteje)</h4><p class="meta">Ena vrsta grelnih teles — npr. povsod talno ogrevanje. Samo cona A. Najpreprostejše ožičenje; brez mešalnega ventila.</p></div>
+    <div class="card"><h4>Dve coni</h4><p class="meta">Cona A vroča (rad./konvektorji) + cona B hladnejša (talno). Na coni B potrebujete <b>mešalni ventil + črpalko</b> (Out 6/7, dobava na objektu) za znižanje temperature vode.</p></div>
+    <div class="card"><h4>Temperatura vode ali sobna temperatura</h4><p class="meta"><b>Temperatura vode:</b> naprava vzdržuje temperaturo dvižnega voda. <b>Sobna temperatura:</b> žični krmilnik meri temperaturo prostora in modulira, da jo vzdržuje. Nastavite v [Room Temperature Control Scheme] (shema krmiljenja sobne temperature).</p></div>
+  </div>
+  <div class="note"><b>"Domači zasloni" krmilnika (izberite tistega, ki ustreza vaši hiši):</b>
+    <div class="pillrow">
+      <div class="pill"><b>1</b> ena cona · temp. vode + TSV</div>
+      <div class="pill"><b>2</b> ena cona · <b>sobna temp.</b> + TSV</div>
+      <div class="pill"><b>3</b> dve coni · voda (A) + prostor (B) + TSV</div>
+      <div class="pill"><b>4</b> dve coni · voda (A) + voda (B) + TSV</div>
+    </div>
+  </div>
+  <div class="note warn"><b>Previdno pri talnem ogrevanju:</b> ciljno temperaturo talne cone imejte nizko — nikoli je ne nastavite na radiatorske temperature, sicer tvegate poškodbe estriha/talne obloge.</div>
+</section>
+
+<!-- 8 SCENARIOS -->
+<section id="scenario">
+  <h2><span class="num">8</span> Izbira scenarija — poiščite svojega, od najenostavnejšega naprej</h2>
+  <p class="sub">Večina vgradenj je enostavnejša, kot se zdi iz navodil. Poiščite raven, ki ustreza vašemu projektu — vsaka prikazuje <b>minimalne cevi in kable</b>, nato pa korake na krmilniku. Začnite pri ravni 1 in dodajte le tisto, kar potrebujete.</p>
+  <div class="card" style="margin-bottom:18px"><h4>Lestvica zahtevnosti — izberite svojo raven</h4>
+    <div class="pillrow">
+      <div class="pill">● <b>L1</b> toplotna črpalka + bojler TSV</div>
+      <div class="pill">●● <b>L2</b> + talno ogrevanje (1 cona)</div>
+      <div class="pill">●●● <b>L3</b> + hranilnik toplote + 2 coni</div>
+      <div class="pill">●●●● <b>L4</b> + rezervni grelniki</div>
+      <div class="pill">➕ dodatki: solarni sistem · FE · Smart Grid · dodatna tipala</div>
+    </div>
+    <div class="note ok" style="margin-top:12px"><b>Raven 1 je res tako preprosta:</b> &nbsp;🚰 <b>2 cevi</b> (dvižni in povratni vod toplotne črpalke do bojlerja) &nbsp;·&nbsp; 🔌 <b>3 kabli</b> — omrežno napajanje, <b>kabel krmilnika</b> (že tovarniško priključen, 10 m, le napeljite ga v notranjost) in <b>tipalo bojlerja TSV</b> (potisnite ga v potopno tulko bojlerja) &nbsp;·&nbsp; 🎛 nastavite <b>Hot Water = On</b>. To je vse — ne zapletajte po nepotrebnem.</div>
+  </div>
+
+  <!-- Scenario 1 -->
+  <h3 style="margin:16px 0 6px;font-size:17px">● Raven 1 · Samo toplotna črpalka + bojler TSV (najenostavnejše)</h3>
+  <div class="grid g2">
+    <div class="svgcard">
+      <svg viewBox="0 0 500 260" font-family="inherit">
+        <defs><marker id="sc1" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#f85149"/></marker><marker id="sc1b" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#33b1ff"/></marker></defs>
+        <rect x="20" y="100" width="110" height="70" rx="9" fill="#15202c" stroke="#33b1ff"/><text x="75" y="130" fill="#33b1ff" font-size="12" font-weight="800" text-anchor="middle">TOPL. ČRPALKA</text><text x="75" y="148" fill="#8b97a7" font-size="10" text-anchor="middle">12 kW</text>
+        <rect x="330" y="60" width="150" height="80" rx="9" fill="#15241a" stroke="#f85149"/><text x="405" y="92" fill="#ff9a93" font-size="12" font-weight="800" text-anchor="middle">500 L TSV</text><text x="405" y="112" fill="#8b97a7" font-size="10" text-anchor="middle">izmenjevalnik + 3 kW (Out C)</text>
+        <rect x="330" y="170" width="150" height="60" rx="9" fill="#1c2735" stroke="#26313f"/><text x="405" y="200" fill="#566173" font-size="11" text-anchor="middle">brez ogrevalnega</text><text x="405" y="216" fill="#566173" font-size="10" text-anchor="middle">kroga</text>
+        <!-- straight into the tank coil - no diverter valve in a DHW-only system -->
+        <polyline points="130,118 230,118 230,84 328,84" fill="none" stroke="#f85149" stroke-width="3" marker-end="url(#sc1)"/>
+        <polyline points="328,116 230,116 230,152 132,152" fill="none" stroke="#33b1ff" stroke-width="2.6" marker-end="url(#sc1b)"/>
+        <text x="248" y="74" fill="#ff9a93" font-size="9.5" text-anchor="middle">dvižni → izmenjevalnik</text>
+        <text x="266" y="168" fill="#7cc4f0" font-size="9.5" text-anchor="middle">povratni</text>
+        <text x="230" y="242" fill="#f0883e" font-size="11" text-anchor="middle" font-weight="700">3-potni ventil ni potreben</text>
+      </svg>
+      <div class="svgcap">Samo topla voda — in <b>brez 3-potnega ventila</b>. Ker je v sistemu le bojler TSV, ni ničesar za preklapljanje, zato dvižni in povratni vod toplotne črpalke vodita <b>neposredno na izmenjevalnik bojlerja</b> (2 cevi). Brez preklopnega ventila, brez hranilnika toplote, brez obtočne črpalke cone; izhod za ventil <b>Out 5</b> in grelnik hranilnika ostaneta neuporabljena.</div>
+    </div>
+    <div class="card"><h4>🎛 Zaporedje nastavitev krmilnika</h4>
+      <ol class="steps green">
+        <li>[Air Conditioning Type] (vrsta klimatizacije) — <b>pustite tovarniško</b>. Tovarniška nastavitev je <b>[1] Heating &amp; Cooling</b> in je za vgradnjo samo za toplo vodo <b>ni</b> treba spreminjati.</li>
+        <li>[Hot Water Function] = <b>On</b>. <i>To</i> naredi sistem za TSV — ne vrsta klimatizacije.</li>
+        <li>[Water Tank Heating] = <b>On</b>, [Water Tank Heating Power] = <b>3000 W</b>.</li>
+        <li>Nastavite <b>temperaturo TSV</b> + histerezo; vklopite tedensko <b>sterilizacijo</b> 60–70 °C.</li>
+        <li>[Number of modules] = <b>1</b>.</li>
+      </ol>
+      <div class="note" style="margin-top:10px"><b>Vrste klimatizacije »samo TSV« ni.</b> [Air Conditioning Type] ponuja natanko tri možnosti — <b>[0]</b> Heating Only · <b>[1]</b> Heating &amp; Cooling <i>(tovarniška nastavitev)</i> · <b>[2]</b> Cooling Only. Sistem samo za toplo vodo določa to, kar <b>cevno in električno priključite</b> (brez ogrevalnega kroga), skupaj z [Hot Water Function] = On, zato ta parameter pustite na tovarniški vrednosti.</div>
+    </div>
+  </div>
+
+  <!-- Scenario 2 -->
+  <h3 style="margin:22px 0 6px;font-size:17px">●● Raven 2 · + Talno ogrevanje, krmilnik = sobni termostat</h3>
+  <div class="grid g2">
+    <div class="svgcard">
+      <svg viewBox="0 0 500 280" font-family="inherit">
+        <defs><marker id="sc2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#9aa3ad"/></marker><marker id="sc2b" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#33b1ff"/></marker></defs>
+        <rect x="16" y="110" width="100" height="64" rx="9" fill="#15202c" stroke="#33b1ff"/><text x="66" y="138" fill="#33b1ff" font-size="11" font-weight="800" text-anchor="middle">TOPL. ČRPALKA</text>
+        <circle cx="190" cy="142" r="22" fill="#241b10" stroke="#f0883e" stroke-width="2"/><text x="190" y="146" fill="#f0883e" font-size="9.5" text-anchor="middle" font-weight="700">3-potni</text>
+        <rect x="280" y="40" width="130" height="64" rx="9" fill="#15241a" stroke="#f85149"/><text x="345" y="68" fill="#ff9a93" font-size="11" font-weight="800" text-anchor="middle">500 L TSV</text><text x="345" y="86" fill="#8b97a7" font-size="9" text-anchor="middle">3 kW · Out C</text>
+        <rect x="280" y="170" width="130" height="60" rx="9" fill="#15202c" stroke="#2ea043"/><text x="345" y="196" fill="#7ee08a" font-size="11" font-weight="800" text-anchor="middle">200 L hranilnik</text><text x="345" y="214" fill="#8b97a7" font-size="9" text-anchor="middle">3 kW · Out B</text>
+        <rect x="430" y="170" width="60" height="60" rx="9" fill="#101a24" stroke="#33b1ff"/><text x="460" y="196" fill="#33b1ff" font-size="9" font-weight="700" text-anchor="middle">TALNO</text><text x="460" y="212" fill="#8b97a7" font-size="8" text-anchor="middle">Cona A</text>
+        <polyline points="116,142 168,142" fill="none" stroke="#f0883e" stroke-width="3" marker-end="url(#sc2)"/>
+        <polyline points="212,132 246,132 246,72 280,72" fill="none" stroke="#f85149" stroke-width="2.4" marker-end="url(#sc2)"/>
+        <polyline points="212,152 246,152 246,200 280,200" fill="none" stroke="#2ea043" stroke-width="2.4" marker-end="url(#sc2)"/>
+        <polyline points="410,200 430,200" fill="none" stroke="#9aa3ad" stroke-width="2.4" marker-end="url(#sc2)"/>
+        <rect x="40" y="226" width="150" height="40" rx="8" fill="#15241a" stroke="#2ea043"/><text x="115" y="250" fill="#2ea043" font-size="10" font-weight="700" text-anchor="middle">ŽIČNI KRMILNIK</text>
+        <polyline points="115,226 115,205 60,205 60,174" fill="none" stroke="#33b1ff" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#sc2b)"/>
+        <text x="250" y="262" fill="#33b1ff" font-size="9.5">sobna temp. → RS485 (6)(7) → toplotna črpalka</text>
+      </svg>
+      <div class="svgcap">Žični krmilnik na steni je sobno tipalo (ločen termostat ni potreben). Prednost TSV; hranilnik toplote napaja talno ogrevanje. Rezervni grelniki prek kontaktorjev na Out B/C.</div>
+    </div>
+    <div class="card"><h4>🎛 Zaporedje nastavitev krmilnika</h4>
+      <ol class="steps green">
+        <li>[Air Conditioning Type] = <b>[0] Heating Only</b> (v navodilih imenovano tudi »Single Heating«) — ali pustite tovarniško nastavitev <b>[1] Heating &amp; Cooling</b>, če bo kasneje morda dodano hlajenje.</li>
+        <li>[Wire Controller Control] = <b>Single Zone Temperature</b>; krmilnik namestite v notranjosti (začetni zaslon 2).</li>
+        <li>[Room Temperature Control Scheme] = nastavite tako, da krmilnik uporablja <b>sobno temperaturo</b>.</li>
+        <li>[Hot Water Function] = <b>On</b>; [Water Tank Heating] = <b>On</b> (3000 W).</li>
+        <li>[Electric Heater 1 Power] = <b>3000 W</b> (rezervni grelnik hranilnika).</li>
+        <li>Sponki za termostat (1)–(2) pustite <b>premoščeni</b>; nastavite nizko omejitev temperature dvižnega voda za talno ogrevanje.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Scenario 3 -->
+  <h3 style="margin:22px 0 6px;font-size:17px">●●● Raven 3 · + Hranilnik toplote + 2 coni: radiatorji (A) + talno ogrevanje (B)</h3>
+  <div class="grid g2">
+    <div class="svgcard">
+      <svg viewBox="0 0 500 300" font-family="inherit">
+        <defs><marker id="sc3" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#9aa3ad"/></marker></defs>
+        <rect x="16" y="120" width="96" height="64" rx="9" fill="#15202c" stroke="#33b1ff"/><text x="64" y="148" fill="#33b1ff" font-size="11" font-weight="800" text-anchor="middle">TOPL. ČRPALKA</text>
+        <circle cx="180" cy="152" r="22" fill="#241b10" stroke="#f0883e" stroke-width="2"/><text x="180" y="156" fill="#f0883e" font-size="9.5" text-anchor="middle" font-weight="700">3-potni</text>
+        <rect x="250" y="40" width="120" height="56" rx="9" fill="#15241a" stroke="#f85149"/><text x="310" y="64" fill="#ff9a93" font-size="11" font-weight="800" text-anchor="middle">500 L TSV</text><text x="310" y="82" fill="#8b97a7" font-size="9" text-anchor="middle">3 kW · Out C</text>
+        <rect x="250" y="180" width="120" height="56" rx="9" fill="#15202c" stroke="#2ea043"/><text x="310" y="204" fill="#7ee08a" font-size="11" font-weight="800" text-anchor="middle">200 L hranilnik</text><text x="310" y="222" fill="#8b97a7" font-size="9" text-anchor="middle">3 kW · Out B</text>
+        <rect x="408" y="120" width="84" height="50" rx="8" fill="#15241a" stroke="#2ea043"/><text x="450" y="140" fill="#2ea043" font-size="10" font-weight="700" text-anchor="middle">CONA A</text><text x="450" y="156" fill="#8b97a7" font-size="8.5" text-anchor="middle">radiatorji 45°</text>
+        <rect x="408" y="200" width="84" height="60" rx="8" fill="#101a24" stroke="#33b1ff"/><text x="450" y="222" fill="#33b1ff" font-size="10" font-weight="700" text-anchor="middle">CONA B</text><text x="450" y="237" fill="#8b97a7" font-size="8" text-anchor="middle">talno 32°</text><text x="450" y="250" fill="#f0883e" font-size="8" text-anchor="middle">mešalni v. Out 6</text>
+        <polyline points="112,152 158,152" fill="none" stroke="#f0883e" stroke-width="3" marker-end="url(#sc3)"/>
+        <polyline points="202,142 226,142 226,68 250,68" fill="none" stroke="#f85149" stroke-width="2.4" marker-end="url(#sc3)"/>
+        <polyline points="202,162 226,162 226,208 250,208" fill="none" stroke="#2ea043" stroke-width="2.4" marker-end="url(#sc3)"/>
+        <polyline points="370,200 390,200 390,145 408,145" fill="none" stroke="#2ea043" stroke-width="2.2" marker-end="url(#sc3)"/>
+        <polyline points="370,210 390,210 390,230 408,230" fill="none" stroke="#33b1ff" stroke-width="2.2" marker-end="url(#sc3)"/>
+      </svg>
+      <div class="svgcap">Dve ogrevalni coni: radiatorji neposredno iz hranilnika toplote (višja temperatura), talno ogrevanje prek mešalnega ventila + črpalke (nižja temperatura). TSV in oba rezervna grelnika kot prej.</div>
+    </div>
+    <div class="card"><h4>🎛 Zaporedje nastavitev krmilnika</h4>
+      <ol class="steps green">
+        <li>[Air Conditioning Type] = <b>[0] Heating Only</b> ali ohranite tovarniško nastavitev <b>[1] Heating &amp; Cooling</b>, če bodo ventilatorski konvektorji tudi hladili.</li>
+        <li>[Wire Controller Control] = <b>Dual Zone</b> (začetni zaslon 3 ali 4).</li>
+        <li>Cona A = temperatura vode (≈45 °C); cona B = temperatura vode (≈32 °C) ali sobna temperatura.</li>
+        <li>Vklopite <b>mešalni ventil</b> cone B na Out 6 (+ črpalko cone B na Out 7, če je uporabljena).</li>
+        <li>[Hot Water Function]=On, [Water Tank Heating]=On (3000 W); [Electric Heater 1 Power]=3000 W.</li>
+        <li>Nastavite nizko omejitev najvišje temperature dvižnega voda za talno ogrevanje (cona B).</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Level 4 -->
+  <h3 style="margin:24px 0 6px;font-size:17px">●●●● Raven 4 · + Rezervni grelniki (hladno podnebje / zasilno delovanje)</h3>
+  <div class="card">
+    <p class="meta">Dodajte dva grelnika po 3 kW v hranilnikih, da sistemu nikoli ne zmanjka moči ob najhladnejših dneh ali pri hitrem ponovnem segrevanju TSV. Celotne vezalne sheme so v <b>§4</b>.</p>
+    <div class="grid g2" style="margin-top:8px">
+      <div><b>🔌 Kabli</b><ul style="font-size:13px;color:#cfd8e3;padding-left:18px;line-height:1.6"><li>Hranilnik toplote 3 kW → <b>kontaktor ← Out B</b>; povratna informacija termične zaščite → <b>In 3 &amp; 4</b>.</li><li>TSV 3 kW → <b>kontaktor ← Out C</b>; povratna informacija → <b>In 1 &amp; 2</b>.</li><li>Vsak kontaktor napajan iz <b>lastnega tokokroga 16 A + FID stikalo 30 mA</b>.</li></ul></div>
+      <div><b>🎛 Krmilnik</b><ul style="font-size:13px;color:#cfd8e3;padding-left:18px;line-height:1.6"><li>[Electric Heater 1 Power] = 3000 W.</li><li>[Water Tank Heating] = On, moč = 3000 W.</li><li>Če je na voljo, nastavite bivalentno (preklopno) zunanjo temperaturo.</li></ul></div>
+    </div>
+  </div>
+
+  <!-- advanced add-ons -->
+  <h3 style="margin:26px 0 6px;font-size:17px">➕ Napredni dodatki — vsak se priključi na eno sponko toplotne črpalke</h3>
+  <p class="sub" style="margin-bottom:10px">Ničesar vam ni treba načrtovati na novo — vsaka dodatna funkcija se le priključi na določeno sponko ali rele. Tu je natančno navedeno, katero, kakšen kabel in katera nastavitev.</p>
+  <div class="grid g2">
+    <div class="card"><h4>☀ Solarno ogrevanje vode</h4>
+      <p class="meta">🚰 Sončni kolektor → <b>solarni izmenjevalnik</b> bojlerja TSV.</p>
+      <ul style="font-size:13px;color:#cfd8e3;padding-left:18px;line-height:1.6">
+        <li>🔌 Solarna črpalka → rele <b>Out D</b> (230 V).</li>
+        <li>🔌 Signal za vklop solarnega sistema → vhoda <b>(4)(5)</b> (brezpotencialni kontakt).</li>
+        <li>🔌 Tipalo kolektorja → vhod za tipalo <b>TSL</b> (NTC, 2-žilno).</li>
+        <li>🎛 Vklopite <b>Solar function</b>; ko sije sonce, ima solarni sistem pri TSV prednost pred toplotno črpalko.</li>
+      </ul>
+    </div>
+    <div class="card"><h4>🔆 Lastna raba FE (samo Huawei)</h4>
+      <p class="meta">Brez močnostne sponke — gre za <b>komunikacijsko</b> povezavo.</p>
+      <ul style="font-size:13px;color:#cfd8e3;padding-left:18px;line-height:1.6">
+        <li>🔌 <b>Modul EEBUS</b> na 2. vodilu RS485 <b>(8)(9) = A2/B2</b>.</li>
+        <li>Povezuje se s <b>Huawei SmartAssistant / FusionSolar</b>.</li>
+        <li>🎛 [EEBUS Function] = Active, [OHPCF Configuration] = Config 4.</li>
+        <li>Presežek sončne energije porabi za dodatno segrevanje bojlerja/hranilnika (brezplačno shranjevanje). <b>Ni združljivo s Smart Grid</b> — uporabite eno ali drugo.</li>
+      </ul>
+    </div>
+    <div class="card"><h4>⚡ Smart Grid (SG / EVU)</h4>
+      <p class="meta">Upravljanje odjema s strani distributerja (npr. Nemčija §14a).</p>
+      <ul style="font-size:13px;color:#cfd8e3;padding-left:18px;line-height:1.6">
+        <li>🔌 <b>SG → (12)</b>, <b>EVU → (13)</b> — brezpotencialni signali iz števca / sprejemnika MTK.</li>
+        <li>Kombinacije vklopa/izklopa obeh signalov dajo način eco / normal / boost.</li>
+        <li>🎛 [Smart Grid Function] = Use, [Configuration] = 6.</li>
+      </ul>
+    </div>
+    <div class="card"><h4>🌡️ Talno in dodatna temperaturna tipala</h4>
+      <p class="meta">Tipala se priključijo na <b>nizkonapetostne vhode</b>, nikoli na releje.</p>
+      <ul style="font-size:13px;color:#cfd8e3;padding-left:18px;line-height:1.6">
+        <li>🔌 Tipalo NTC (talno / hranilnik / cona) → njegov <b>priključek za tipalo</b> (2-žilno, polariteta ni pomembna).</li>
+        <li>🔌 Talni <b>varnostni termostat za previsoko temperaturo</b> → vezan zaporedno s črpalko/ventilom talne cone (prekine pretok, če se estrih preveč segreje).</li>
+        <li>Naprava že meri temperaturo talnega kroga na <b>TWout3</b> — dodatno talno tipalo običajno ni potrebno.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="note"><b>O relejih, o katerih toliko slišite:</b> 230 V <b>relejni izhodi</b> na plošči — <b>A</b> črpalka · <b>B</b> dodatni grelnik · <b>C</b> grelnik bojlerja · <b>D</b> solarna črpalka · <b>5/6/7</b> 3-potni/mešalni ventili — so način, kako toplotna črpalka <b>preklaplja zunanje naprave</b>. Vse nad <b>400 W</b> (grelniki 3 kW, večje črpalke) mora biti priključeno prek <b>kontaktorja</b> (§4). <b>Tipala in brezpotencialni signali</b> gredo na nizkonapetostne vhode (§3), <b>nikoli</b> na relejni izhod. To eno pravilo vas obvaruje pred težavami.</div>
+</section>
+
+<!-- 9 SCHEDULE -->
+<section id="schedule">
+  <h2><span class="num">9</span> Glavna vezalna tabela</h2>
+  <p class="sub">Celoten projekt v eni tabeli — vključno s tem, kam se priključi posamezna sponka, in nastavitvijo krmilnika, ki jo je treba spremeniti. Filtrirajte (npr. »grelnik«, »ventil«, »smart«) ali <b>natisnite</b> papirno kopijo.</p>
+  <div class="toolbar">
+    <input id="search" placeholder="🔍  Filtriraj sponke, vodnike, priključke, nastavitve krmilnika…">
+    <button class="btn" onclick="window.print()">🖨 Natisni</button>
+    <button class="btn" id="clrBtn">Počisti</button>
+  </div>
+  <div class="mtblwrap"><table class="master">
+    <thead><tr><th style="width:58px">Blok</th><th style="width:50px">Sponka</th><th>Funkcija</th><th>Priključeno na</th><th style="width:118px">Vodnik</th><th style="width:130px">Barva</th><th>Nastavitev krmilnika</th></tr></thead>
+    <tbody id="masterBody"></tbody>
+  </table></div>
+</section>
+
+<!-- 10 CONTROLLER -->
+<section id="controller">
+  <h2><span class="num">10</span> Krmilnik — celotna navodila za uporabo</h2>
+  <p class="sub">Žični krmilnik upravlja vse in ima vgrajen WiFi modul za mobilno aplikacijo (Huilian Smart). V nadaljevanju: tipke in zemljevid menijev, vsakodnevna uporaba, kako <b>izbrati svoj scenarij</b>, nastaviti <b>temperature in omejitve</b>, vremensko vodene krivulje, TSV/sterilizacijo, časovne programe in servisne (napredne) parametre.</p>
+
+  <div class="note ok" style="margin-top:0"><b>Kabel krmilnika je že pripravljen.</b> <b>10 m kabla je tovarniško priključenega v toplotno črpalko</b> — le napeljite konec s krmilnikom v notranjost in krmilnik pritrdite na steno. <b>Namestite ga v notranjosti, v reprezentativnem bivalnem prostoru</b>: tako hkrati deluje kot sobni termostat za ogrevanje prostorov (ločen termostat ni potreben). Namestite ga na višini ~1,5 m, stran od prepiha, neposrednega sonca in virov toplote.</div>
+
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card" style="padding:12px">
+      <img class="zoom" src="assets/app_main.jpg" style="width:100%;border-radius:10px;border:1px solid var(--line)">
+      <p class="meta" style="margin-top:8px">Začetni zaslon aplikacije / krmilnika: kartica za vsako cono (nastavljena temperatura, način) + kartica TSV. Ikone prikazujejo delovanje kompresorja, odmrzovanje, električni grelnik, zaščito pred zmrzaljo ter načina eco/tiho.</p>
+    </div>
+    <div class="card">
+      <h4>📶 Povezava WiFi — krmilnik</h4>
+      <ol class="steps"><li>Glavni zaslon → <b>Menu</b> → <b>WiFi settings</b>.</li><li>Prikaže <b>stanje</b> + <b>MAC</b>. »Connecting to the cloud« = že povezano.</li><li>Za (ponovno) povezovanje tapnite <b>Reset WiFi</b> → stanje »distributing in Smart mode«.</li></ol>
+      <h4 style="margin-top:14px">📱 Povezava WiFi — telefon</h4>
+      <ol class="steps"><li>Telefon na WiFi <b>2,4 GHz</b>, z močnim signalom.</li><li>Namestite <b>Huilian Smart</b>, se registrirajte / prijavite.</li><li><b>Add device</b> → toplotna črpalka → vnesite ime WiFi omrežja + geslo → povežite.</li><li>Krmilnik prikaže <b>»Connecting to the cloud«</b> = končano.</li></ol>
+    </div>
+  </div>
+
+  <!-- buttons + menu map -->
+  <div class="grid g2" style="margin-top:18px">
+    <div class="card"><h4>6 tipk</h4>
+      <table class="ptable" style="margin-top:2px"><tbody>
+        <tr><td>🔍 <b>[query]</b></td><td>Odpre meni poizvedb — napake, trenutno stanje, različica programske opreme</td></tr>
+        <tr><td>🔁 <b>[mode]</b></td><td>Nastavitev načina — Auto / Cool / Heat</td></tr>
+        <tr><td>⚙️ <b>[settings]</b></td><td>Odpre meni Set (vse spodaj)</td></tr>
+        <tr><td>⏻ <b>[on/off]</b></td><td>Vklop ali izklop cone / TSV</td></tr>
+        <tr><td>↩ <b>[Return]</b></td><td>En zaslon nazaj</td></tr>
+        <tr><td>🏠 <b>[Home Page]</b></td><td>Skok na glavni vmesnik</td></tr>
+      </tbody></table>
+    </div>
+    <div class="card"><h4>Zemljevid menijev (meni Set → …)</h4>
+      <div style="font-size:12.5px;color:#cfd8e3;line-height:1.55;columns:2;column-gap:18px">
+        <b>Display</b> · jezik, svetlost, zaklep zaslona, časovna omejitev<br>
+        <b>Time &amp; Date</b><br>
+        <b>Timer</b> · dnevni/tedenski · sterilizacija · tihi način · črpalka TSV<br>
+        <b>Wi-Fi</b><br>
+        <b>User Parameters</b> · način · nastavitev ogrevanja/hlajenja/TSV · sobna nastavitev · krivulje<br>
+        <b>Manual Defrost</b><br>
+        <b>History Errors</b><br>
+        <b>Force Tank Heater</b><br>
+        <b>Force DHW Mode</b><br>
+        <b>Holiday</b> · odsotnost / doma<br>
+        <b>Advanced Para.</b> 🔒 (geslo <b style="color:#cdb2ff">123456</b>) · sistemski in inženirski parametri, testi, ponastavitev
+      </div>
+      <p class="meta" style="margin-top:8px">Skrajšani zapis poti v nadaljevanju: <b>Menu → …</b> pomeni, da pritisnete <b>[settings]</b> in nato sledite postavkam.</p>
+    </div>
+  </div>
+
+  <!-- daily operation -->
+  <h3 style="margin:24px 0 6px;font-size:17px">A · Vsakodnevna uporaba</h3>
+  <div class="grid g3">
+    <div class="card"><h4>Vklop/izklop cone / TSV</h4><ol class="steps"><li>Na glavnem zaslonu tapnite <b>območje</b> (ogrevalno cono ali kartico tople vode).</li><li>Tapnite <b>[on/off]</b> in potrdite. Ikona cone prikazuje vklop/izklop.</li><li>TSV se ne vklopi, če ni nastavljeno <b>Hot Water Function = On</b> (napredno).</li></ol></div>
+    <div class="card"><h4>Nastavitev načina</h4><ol class="steps"><li>Tapnite <b>[mode]</b>.</li><li>Izberite <b>Heating</b>, <b>Cooling</b> ali <b>Auto</b>.</li><li>Hlajenje deluje le v coni A (ventilatorski konvektorji/radiatorji), nikoli v coni samo s talnim ogrevanjem.</li></ol></div>
+    <div class="card"><h4>Sprememba temperature</h4><ol class="steps"><li>Tapnite <b>številko temperature</b> v tem območju.</li><li><b>Podrsajte</b> gor/dol do želene vrednosti.</li><li>Tapnite za <b>shranjevanje</b>. Vrednost se posodobi tudi v aplikaciji.</li></ol></div>
+  </div>
+
+  <!-- scenario selection -->
+  <h3 style="margin:24px 0 6px;font-size:17px">B · Izbira scenarija (način krmiljenja)</h3>
+  <p class="sub" style="margin-bottom:10px">Vaš »scenarij« = koliko ogrevalnih con imate in ali se vsaka krmili po <b>temperaturi vode</b> ali po <b>sobni temperaturi</b>. Od tega je odvisno, katerega od štirih <b>začetnih zaslonov</b> dobite. Nastavite ga enkrat, v naprednih parametrih.</p>
+  <div class="grid g2">
+    <div class="card"><h4>Štirje začetni zasloni</h4>
+      <div class="pillrow">
+        <div class="pill"><b>1</b> ena cona · temp. vode + TSV</div>
+        <div class="pill"><b>2</b> ena cona · <b>sobna temp.</b> + TSV</div>
+        <div class="pill"><b>3</b> dve coni · voda (A) + prostor (B) + TSV</div>
+        <div class="pill"><b>4</b> dve coni · voda (A) + voda (B) + TSV</div>
+      </div>
+      <p class="meta" style="margin-top:10px">Zaslon <b>2</b> = žični krmilnik deluje kot sobni termostat (namestite ga v notranjosti). Ogrevanje lahko deluje v obeh conah; hlajenje samo v coni A.</p>
+    </div>
+    <div class="card"><h4>Kako ga nastaviti</h4>
+      <ol class="steps"><li><b>Menu → Advanced Para.</b> → vnesite geslo <b style="color:#fff">123456</b>.</li><li><b>Parameter Settings → System Parameters:</b><br>• <b>AC_TYPE</b> [Air Conditioning Type] = <b>[0]</b> Heating Only · <b>[1]</b> Heating &amp; Cooling <i>(tovarniška nastavitev)</i> · <b>[2]</b> Cooling Only. To so edine tri možnosti — nastavitve samo za TSV ni.<br>• <b>WIRE_SW_TYPE</b> (krmiljenje con) = ena / dve / tri cone.</li><li><b>Extended → Room Temperature Control Scheme</b> = način, pri katerem krmilnik uporablja <b>sobno</b> temperaturo (za zaslon 2/3).</li><li><b>[Logout]</b> za shranjevanje in izhod iz naprednega načina.</li></ol>
+    </div>
+  </div>
+
+  <!-- temperatures & limits -->
+  <h3 style="margin:24px 0 6px;font-size:17px">C · Temperature in omejitve</h3>
+  <p class="sub" style="margin-bottom:8px">Vsakodnevne nastavljene vrednosti so v <b>Menu → User Parameters</b>. Trde min./maks. omejitve se nastavijo enkrat v <b>Advanced → User Parameters</b>, da uporabniki ne morejo nastaviti previsoko/prenizko (pomembno za zaščito estriha pri talnem ogrevanju).</p>
+  <table class="ptable">
+    <thead><tr><th>Nastavitev</th><th>Kje</th><th>Običajno območje</th><th>Kaj naredi</th></tr></thead>
+    <tbody>
+      <tr><td><b>Heat Temp Set</b> (dvižni vod)</td><td>User Parameters</td><td>≈ 25–60 °C</td><td>Ciljna temperatura ogrevalne <b>vode</b>. Za talno ogrevanje naj bo nizka (≈30–40 °C), za radiatorje višja.</td></tr>
+      <tr><td><b>Heat Room Temp Set</b></td><td>User Parameters</td><td>≈ 16–30 °C</td><td>Ciljna <b>sobna</b> temperatura (zasloni 2/3 — krmilnik/sobno tipalo).</td></tr>
+      <tr><td><b>Cool Temp Set</b> / Cool Room</td><td>User Parameters</td><td>voda ≈ 7–25 °C</td><td>Ciljna temperatura dvižnega voda / prostora pri hlajenju (samo cona A).</td></tr>
+      <tr><td><b>Hot Water Temp Set</b></td><td>User Parameters</td><td>≈ 40–60 °C</td><td>Ciljna temperatura bojlerja TSV. Višja = več tople vode, a nižji COP.</td></tr>
+      <tr><td>Različice za cono B (b / B1 / B2)</td><td>User Parameters</td><td>za vsako cono</td><td>Ločene nastavljene vrednosti za 2. (nizkotemperaturno) cono.</td></tr>
+      <tr><td><b>Min./maks. omejitve</b></td><td>Advanced → User Params</td><td>nastavi monter</td><td>Omeji uporabnikovo nastavljivo območje. Strojna oprema naprave dopušča 30–75 °C na dvižnem vodu; vstopna voda pri ogrevanju 10–55 °C, pri hlajenju 12–30 °C.</td></tr>
+    </tbody>
+  </table>
+  <div class="note warn"><b>Talno ogrevanje:</b> cono s talnim ogrevanjem v naprednih omejitvah nastavite na <b>nizko najvišjo temperaturo dvižnega voda</b> (≈40 °C), da je nihče ne more nastaviti na radiatorske temperature in poškodovati estriha.</div>
+
+  <!-- weather curve -->
+  <h3 style="margin:24px 0 6px;font-size:17px">D · Vremensko vodena regulacija (samodejno nižanje temperature vode)</h3>
+  <div class="grid g2">
+    <div class="card"><h4>Kaj naredi</h4><p class="meta">Namesto stalne temperature dvižnega voda naprava znižuje ciljno temperaturo vode, ko je <b>zunaj topleje</b> — velik prihranek in več udobja. Izberite krivuljo za vsako cono (A/B, ločeno za ogrevanje in hlajenje): <b>8 nizkotemperaturnih krivulj</b> (talno ogrevanje) + <b>8 visokotemperaturnih krivulj</b> (radiatorji) + ena poljubna.</p></div>
+    <div class="card"><h4>Kako vklopiti</h4><ol class="steps"><li><b>Menu → User Parameters → Zone A heating curve</b> (in Zone B, če jo uporabljate).</li><li>Izberite <b>nizkotemperaturno krivuljo</b> za talno ogrevanje ali <b>visokotemperaturno krivuljo</b> za radiatorje (ali Disable za stalno temperaturo).</li><li>Strmejša krivulja = toplejša voda v mrazu. Začnite z blago krivuljo in jo med sezono fino nastavite.</li></ol></div>
+  </div>
+
+  <!-- DHW & sterilization -->
+  <h3 style="margin:24px 0 6px;font-size:17px">E · Topla voda in sterilizacija proti legioneli</h3>
+  <div class="grid g2">
+    <div class="card"><h4>Topla voda</h4><ul style="font-size:13px;color:#cfd8e3;padding-left:18px;line-height:1.7"><li>Enkratni vklop: <b>Advanced → Hot Water Function = On</b>, <b>Water Tank Heating = On</b>, <b>Water Tank Heating Power = 3000 W</b>.</li><li>Uporabnik nastavi ciljno vrednost v <b>User Parameters → Hot Water Temp Set</b>.</li><li><b>Force DHW Mode</b> / <b>Force Tank Heater</b> v meniju za enkratno hitro dogrevanje.</li><li>TSV ima prednost pred ogrevanjem (ogrevanje se med ciklom TSV za kratek čas prekine).</li></ul></div>
+    <div class="card"><h4>Sterilizacija (proti legioneli)</h4><ul style="font-size:13px;color:#cfd8e3;padding-left:18px;line-height:1.7"><li><b>Menu → Timer → Sterilization Timer</b>: nastavite dan/uro (običajno tedensko).</li><li><b>Temperatura 60–70 °C</b>, najdaljši cikel <b>90–300 min</b>, zadrževanje visoke temperature <b>5–60 min</b>.</li><li>Za dosego temperature uničenja bakterij uporabi grelnik 3 kW v bojlerju TSV.</li><li>Če vodo hranite tako vročo, pri pipah vgradite <b>termostatski mešalni ventil</b> (zaščita pred oparinami).</li></ul></div>
+  </div>
+
+  <!-- schedules & modes -->
+  <h3 style="margin:24px 0 6px;font-size:17px">F · Časovni programi, udobje in energija</h3>
+  <div class="grid g3">
+    <div class="card"><h4>Časovniki</h4><p class="meta"><b>Menu → Timer</b>: <b>dnevni</b> ali <b>tedenski</b> program vklopa/izklopa; časovnik recirkulacije <b>črpalke TSV</b>; <b>Silent timer</b> (nočna tiha obdobja).</p></div>
+    <div class="card"><h4>Načini udobja</h4><p class="meta"><b>Power mode</b>: Standard / Strong / Energy-saving / Auto. <b>Silent mode</b> (manj hrupa ventilatorja/kompresorja). <b>Holiday</b> → Away (samo zaščita pred zmrzaljo) ali Home (znižano).</p></div>
+    <div class="card"><h4>Energija in informacije</h4><p class="meta"><b>[query]</b> → Status / Version / Faults. <b>Merjenje energije</b>: poraba, moč in COP za 24 h · 30 d · 12 mes. · 10 let. <b>Zaklep zaslona</b> prepreči nenamerne spremembe.</p></div>
+  </div>
+
+  <!-- service & advanced -->
+  <h3 style="margin:24px 0 6px;font-size:17px">G · Servisni in monterski (napredni) parametri 🔒</h3>
+  <p class="sub" style="margin-bottom:8px">Zaščiteno z geslom — <b>Menu → Advanced Para.</b>, geslo <b style="color:var(--acc)">123456</b>. Ko končate, vedno izberite <b>[Logout]</b>, da se nastavitve shranijo in zaklenejo.</p>
+  <table class="ptable">
+    <thead><tr><th>Skupina</th><th>Ključne postavke</th><th>Za ta sistem</th></tr></thead>
+    <tbody>
+      <tr><td><b>System Parameters</b></td><td>AC_TYPE · WIRE_SW_TYPE · REFRIGERANT · RV_SET · PANEL_CTRL</td><td>AC_TYPE = [1] Heating &amp; Cooling iz tovarne ([0] Heating Only / [2] Cooling Only sta edini alternativi — možnosti samo za TSV ni); krmiljenje con glede na vaš scenarij; hladivo = R290 (tovarniško).</td></tr>
+      <tr><td><b>Parametri uporabniških omejitev</b></td><td>HEAT/COOL/HOT_WATER_TEMP_SET min&amp;max · ROOM_TEMP_SET</td><td>Omejijo nastavljiva območja; nizek maksimum za talno ogrevanje.</td></tr>
+      <tr><td><b>Moč grelnikov</b></td><td>Water Tank Heating Power · Electric Heater 1/2 Power · Number of modules</td><td>3000 W za vsak grelnik v hranilniku; moduli = 1 (brez kaskade).</td></tr>
+      <tr><td><b>Inženirski</b></td><td>PUMPF_CTRL · PUMP SV RPM/FLOW · PUMPF_MODEL · PUMPret_RUN_t · FLOOR_PREHEAT_TEMP</td><td>Krmiljenje/hitrost/pretok črpalke, čas delovanja povratne črpalke, temperatura predgretja tal.</td></tr>
+      <tr><td><b>Testi in orodja</b></td><td>Manual Test · Pump/Cool/Heat/Hotwater/Ability Test · Recycle refrig. · Reset · Modify Password</td><td>Samo za zagon in servis.</td></tr>
+      <tr><td><b>Estrih</b></td><td>Floor Preheat · Floor Dryup Timer</td><td>Program postopnega sušenja estriha (dve/tri cone, stanje pripravljenosti).</td></tr>
+    </tbody>
+  </table>
+  <div class="note"><b>Stikala DIP</b> na plošči so tovarniško nastavljena (faze, hladivo, vrsta ventilatorja, omogočanje tople vode) — spreminjajte jih le, če zamenjate ploščo, in nastavite enako kot na stari.</div>
+
+  <!-- glossary -->
+  <h3 style="margin:24px 0 6px;font-size:17px">H · Pomen posameznih kod (slovar)</h3>
+  <p class="sub" style="margin-bottom:8px">Zasloni stanja in parametrov uporabljajo kratke kode. Tu je preprosta razlaga vsake — za filtriranje vpišite v polje.</p>
+  <div class="toolbar"><input id="glsearch" placeholder="🔍  Filtriraj kode (npr. TW2, RV, črpalka, ventil, grelnik)…"></div>
+  <div class="mtblwrap"><table class="master">
+    <thead><tr><th style="width:120px">Koda</th><th style="width:230px">Ime</th><th>Kaj je to</th></tr></thead>
+    <tbody id="glbody"></tbody>
+  </table></div>
+  <div class="note"><b>Na hitro o tistih, po katerih ste spraševali:</b> <b>RV</b> = 4-potni (preklopni) ventil, ki preklaplja napravo med <b>ogrevanjem in hlajenjem</b>. <b>TW1/TW2/TW3</b> = temperature vode, ki jih naprava meri (izstop iz ploščnega izmenjevalnika / bojler TSV / talni krog). <b>IBH</b> = rezervni grelnik za ogrevanje prostorov; <b>TBH</b> = grelnik bojlerja TSV.</div>
+  <div class="note"><b>Smart Grid (Nemčija §14a EnWG):</b> preklopna signala SG + EVU iz distributerjevega sprejemnika / sprejemnika MTK povežite na sponki <b>(12) SG</b> in <b>(13) EVU</b>. Kombinacije vklopa/izklopa obeh signalov dajo ukaz 1 (eco) / 2 (normal) / 3 (boost). Nato nastavite [Smart Grid Function]=Use, [Smart Grid Configuration]=Configuration 6.</div>
+  <div class="note warn"><b>FE / EMS — trenutno samo Huawei:</b> lastna raba fotovoltaične energije poteka prek <b>modula EEBUS + Huawei SmartAssistant / FusionSolar</b>, ne prek sponk SG. Potrebna sta modul EEBUS in minimalna različica vdelane programske opreme; nastavite [EEBUS Function]=Active, [OHPCF Configuration]=Configuration 4. SG in EEBUS-OHPCF nista združljiva — uporabite eno ali drugo.</div>
+</section>
+
+<!-- 11 REF -->
+<section id="contactor-ref">
+  <h2><span class="num">11</span> Referenčne risbe proizvajalca</h2>
+  <p class="sub">Izvirne risbe Tongyi, na katerih temelji §4 — ohranite jih za preverjanje vezave kontaktorjev in celotne sheme.</p>
+  <div class="grid g2">
+    <div class="card" style="padding:10px"><img class="zoom" src="assets/hl087a_relay_detail.jpg" style="width:100%;border-radius:10px;border:1px solid var(--line)"><p class="meta" style="margin-top:8px;padding:0 6px 6px">Detajl relejni izhod → kontaktor (tuljava A1/A2, kontakti KM).</p></div>
+    <div class="card" style="padding:10px"><img class="zoom" src="assets/hl087a_system.jpg" style="width:100%;border-radius:10px;border:1px solid var(--line)"><p class="meta" style="margin-top:8px;padding:0 6px 6px">Celotna shema scenarija (hranilnik toplote + ločilni hranilnik, dve coni) — vaša vgradnja je njen podnabor.</p></div>
+  </div>
+</section>
+
+<!-- 12 REFERENCE -->
+<section id="reference">
+  <h2><span class="num">12</span> Hitri pregled barv in presekov vodnikov (EU)</h2>
+  <p class="sub">Barve po IEC 60446 / HD 308 S2. Preseki so minimalni za ta sistem — vedno jih preverite glede na dejansko priključeno obremenitev in lokalne predpise.</p>
+  <h3 style="margin:6px 0 0;font-size:15px">Barve vodnikov</h3>
+  <div class="ref-colors">
+    <div class="colorCard"><div class="swatch" style="background:var(--w-brown)"></div><b>Rjava</b><br><span class="muted">Faza L1 (R) · enofazno L</span></div>
+    <div class="colorCard"><div class="swatch" style="background:var(--w-black)"></div><b>Črna</b><br><span class="muted">Faza L2 (S)</span></div>
+    <div class="colorCard"><div class="swatch" style="background:var(--w-grey)"></div><b>Siva</b><br><span class="muted">Faza L3 (T)</span></div>
+    <div class="colorCard"><div class="swatch" style="background:var(--w-blue)"></div><b>Modra</b><br><span class="muted">Nevtralni vodnik N</span></div>
+    <div class="colorCard"><div class="swatch" style="background:linear-gradient(90deg,var(--w-gy) 60%,#1a7a1a)"></div><b>Zeleno-rumena</b><br><span class="muted">Zaščitni vodnik PE ⏚ — nikoli za nič drugega</span></div>
+    <div class="colorCard"><div class="swatch" style="background:var(--w-white)"></div><b>Bela / oranžna</b><br><span class="muted">Nizkonapetostni signali in tipala (brez predpisane barve) — ločeno od omrežnih vodnikov</span></div>
+  </div>
+  <h3 style="margin:22px 0 0;font-size:15px">Presek vodnika glede na namen</h3>
+  <div class="ref-colors" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr))">
+    <div class="colorCard"><b>4 mm²</b><br><span class="muted">Trifazno omrežno napajanje toplotne črpalke</span></div>
+    <div class="colorCard"><b>2,5 mm²</b><br><span class="muted">Napajanje Hydro Box · vsak tokokrog grelnika 3 kW</span></div>
+    <div class="colorCard"><b>1,5 mm²</b><br><span class="muted">Napajanje obtočne črpalke</span></div>
+    <div class="colorCard"><b>1,0 mm²</b><br><span class="muted">Tuljava kontaktorja · 3-potni ventil · krmiljenje z relejnega izhoda</span></div>
+    <div class="colorCard"><b>0,75 mm²</b><br><span class="muted">Sobni termostat · povratna informacija termične zaščite grelnika</span></div>
+    <div class="colorCard"><b>0,5 mm²</b><br><span class="muted">Temperaturna tipala · SG/EVU (bela/oranžna)</span></div>
+    <div class="colorCard"><b>0,5 mm² oklopljena parica</b><br><span class="muted">Vodilo krmilnika RS485 (6)(7) / (8)(9)</span></div>
+  </div>
+</section>
+
+<footer id="notes">
+  <div class="grid g2">
+    <div><h3>Predpostavke in stvari za preverjanje na objektu</h3>
+      <ul style="padding-left:18px;line-height:1.7">
+        <li>12 kW = <b>trifazna TAHMV12S R</b> (potrjeno s fotografijo napisne tablice + tehničnim listom).</li>
+        <li>Oba hranilnika: <b>grelnik 3 kW, brez releja</b> → vsak svoj kontaktor + namenski tokokrog 16 A.</li>
+        <li>Povezave med enotami (Out B/C/A/5 → kontaktorji / sponke Hydro Box) so tipična shema — <b>preverite jih glede na shemo v vaši napravi</b>.</li>
+        <li>Kabel krmilnika: <b>10 m, tovarniško priključen v toplotno črpalko</b>, namestite ga v notranjosti kot sobni termostat.</li>
+        <li>3-potni ventil je prikazan kot 2-žilni/z vzmetnim povratom; pri 3-žilnem SPDT dodajte žilo za »zaprto«.</li>
+        <li><b>Potrdil Tongyi (julij 2026):</b> sistem samo za toplo vodo <b>ne potrebuje 3-potnega ventila</b>, <b>[Air Conditioning Type]</b> pa ostane na tovarniški nastavitvi <b>[1] Heating &amp; Cooling</b> — edine možnosti so [0] Heating Only · [1] Heating &amp; Cooling · [2] Cooling Only (možnosti samo za TSV ni).</li>
+      </ul>
+    </div>
+    <div><h3>Izdelano na podlagi teh izvornih datotek</h3>
+      <ul class="src" style="padding-left:18px;line-height:1.7">
+        <li><i>Service Manual (R290) V2.pdf</i> — električna vezava, tabele kablov/varovalk, tipala, primeri uporabe, parametri krmilnika, Smart Grid, EEBUS</li>
+        <li><i>多联供内机板 HL087A …接线示意.pdf</i> — sponke krmilne plošče in detajl kontaktorja</li>
+        <li><i>同益牌 Hydro Box User manual.pdf</i> — podatki in priključki EFJ01-A01</li>
+        <li><i>Buffer / Water tank manuals + Accessories.pdf</i> — tlaki</li>
+        <li><i>Huilian Smart APP Manual · THMV spec sheet · Slike/ photos</i></li>
+      </ul>
+      <p style="margin-top:14px;color:var(--mut)">Pomožni dokument — ne nadomešča navodil proizvajalca ali usposobljenega elektroinštalaterja. Pred vezavo vsako vrednost preverite glede na svojo napravo in lokalne predpise.</p>
+    </div>
+  </div>
+</footer>
+</div>
+
+<div id="lightbox"><span class="x">✕</span><img id="lbimg" src=""></div>
+
+<script>
+const C={brown:'var(--w-brown)',black:'var(--w-black)',grey:'var(--w-grey)',blue:'var(--w-blue)',gy:'linear-gradient(90deg,#c9d11f 60%,#1a7a1a)',sig:'var(--w-white)',orange:'#f0883e',white:'var(--w-white)'};
+const wireStroke={brown:'#7b4b2a',black:'#444',grey:'#9aa3ad',blue:'#2f6fed',gy:'#c9d11f',sig:'#b07cff',orange:'#f0883e',white:'#cccccc'};
+const BLOCKS=[
+ {id:'mains',name:'① 3-fazno napajanje TČ',img:'assets/mains_3ph.jpg',cap:'Glavni napajalni priključek toplotne črpalke. Oznaka: "Power supply 380V-415V~".',rows:[
+   {n:'R',x:19,y:57,fn:'Omrežna faza L1',kind:'supply',wire:'4 mm²',col:'brown',cname:'Rjava',dest:'Razdelilnik — 3-polni inštalacijski odklopnik (MCB) 10 A',sw:'—'},
+   {n:'S',x:33,y:57,fn:'Omrežna faza L2',kind:'supply',wire:'4 mm²',col:'black',cname:'Črna',dest:'Razdelilnik',sw:'—'},
+   {n:'T',x:48,y:57,fn:'Omrežna faza L3',kind:'supply',wire:'4 mm²',col:'grey',cname:'Siva',dest:'Razdelilnik',sw:'—'},
+   {n:'N',x:61,y:57,fn:'Nevtralni vodnik',kind:'supply',wire:'4 mm²',col:'blue',cname:'Modra',dest:'Nevtralna zbiralka v razdelilniku',sw:'—'},
+   {n:'⏚',x:78,y:57,fn:'Zaščitna ozemljitev PE',kind:'supply',wire:'4 mm²',col:'gy',cname:'Rumeno-zelena',dest:'Glavna ozemljitvena zbiralka (priključite najprej)',sw:'—'},
+ ]},
+ {id:'control',name:'② Krmilna plošča TČ',img:'assets/control_legend.jpg',cap:'Natisnjena legenda v ohišju TČ. Desna skupina = signalni vhodi (1)-(13); leva = izhodi 1-7, A-E.',rows:[
+   {n:'(1)',fn:'Termostat L1 (skupni)',kind:'sig',wire:'0.75 mm²',col:'sig',cname:'poljubna (bela)',dest:'NEOBVEZEN dodatni sobni termostat — krmilnik že deluje kot termostat. Brez termostata? Premostite (1)-(2)',sw:'[Thermostat control]; [Room Temp Control Scheme]'},
+   {n:'(2)',fn:'Termostat — zahteva za ogrevanje H',kind:'sig',wire:'0.75 mm²',col:'sig',cname:'poljubna (bela)',dest:'Kontakt "ogrevanje" sobnega termostata (neobvezno)',sw:'[Thermostat control]'},
+   {n:'(3)',fn:'Termostat — zahteva za hlajenje C',kind:'sig',wire:'0.75 mm²',col:'sig',cname:'poljubna (bela)',dest:'Kontakt "hlajenje" sobnega termostata (neobvezno)',sw:'[Thermostat control]'},
+   {n:'(4)',fn:'Solarni signalni vhod',kind:'sig',wire:'0.5 mm²',col:'sig',cname:'poljubna (bela)',dest:'Signal solarnega/termičnega regulatorja',sw:'[Solar function] = On'},
+   {n:'(5)',fn:'Solarni signalni vhod',kind:'sig',wire:'0.5 mm²',col:'sig',cname:'poljubna (bela)',dest:'Signal solarnega/termičnega regulatorja',sw:'[Solar function] = On'},
+   {n:'(6)',fn:'RS485 A1 — vodilo krmilnika',kind:'sig',wire:'0.5 mm² oklopljena parica',col:'sig',cname:'parica',dest:'Žični krmilnik (10 m kabel, tovarniško priključen v toplotni črpalki)',sw:'samodejno zaznano'},
+   {n:'(7)',fn:'RS485 B1 — vodilo krmilnika',kind:'sig',wire:'0.5 mm² oklopljena parica',col:'sig',cname:'parica',dest:'Žični krmilnik (tovarniško priključen 10 m kabel)',sw:'samodejno zaznano'},
+   {n:'(8)',fn:'RS485 A2 — 2. vodilo',kind:'sig',wire:'0.5 mm² oklopljena parica',col:'sig',cname:'parica',dest:'Kaskadni / EEBUS / Modbus modul (neobvezno)',sw:'[Number of modules]; [EEBUS Function]'},
+   {n:'(9)',fn:'RS485 B2 — 2. vodilo',kind:'sig',wire:'0.5 mm² oklopljena parica',col:'sig',cname:'parica',dest:'Kaskadni / EEBUS / Modbus modul (neobvezno)',sw:'[Number of modules]; [EEBUS Function]'},
+   {n:'(10)',fn:'Povezano / blokirno stikalo',kind:'sig',wire:'0.75 mm²',col:'sig',cname:'poljubna (bela)',dest:'Zunanji brezpotencialni kontakt za omogočanje/blokado (neobvezno)',sw:'[Linked switch] omogočeno'},
+   {n:'(11)',fn:'Povezano / blokirno stikalo',kind:'sig',wire:'0.75 mm²',col:'sig',cname:'poljubna (bela)',dest:'Zunanji brezpotencialni kontakt za omogočanje/blokado (neobvezno)',sw:'[Linked switch] omogočeno'},
+   {n:'(12)',fn:'SG — signal Smart-Grid',kind:'sig',wire:'0.5 mm²',col:'sig',cname:'poljubna (bela)',dest:'Signal Smart-Grid iz števca distributerja / sprejemnika MTK',sw:'[Smart Grid Function]=Use, [Smart Grid Configuration]=Config 6'},
+   {n:'(13)',fn:'EVU — signal distributerja',kind:'sig',wire:'0.5 mm²',col:'sig',cname:'poljubna (bela)',dest:'Preklopni signal distributerja EVU (MTK)',sw:'[Smart Grid Function]=Use, [Config 6]'},
+   {n:'1',fn:'Grelnik TSV — termična povratna zanka',kind:'sig',wire:'0.75 mm²',col:'sig',cname:'poljubna (bela)',dest:'Termična varovalka grelnika v 500 L hranilniku TSV',sw:'[Water Tank Heating]=On'},
+   {n:'2',fn:'Grelnik TSV — termična povratna zanka',kind:'sig',wire:'0.75 mm²',col:'sig',cname:'poljubna (bela)',dest:'Termična varovalka grelnika v 500 L hranilniku TSV',sw:'[Water Tank Heating]=On'},
+   {n:'3',fn:'Grelnik hranilnika/dodatni grelnik — povratna zanka',kind:'sig',wire:'0.75 mm²',col:'sig',cname:'poljubna (bela)',dest:'Termična varovalka grelnika v 200 L hranilniku toplote',sw:'[Electric Heater 1 Power]'},
+   {n:'4',fn:'Grelnik hranilnika/dodatni grelnik — povratna zanka',kind:'sig',wire:'0.75 mm²',col:'sig',cname:'poljubna (bela)',dest:'Termična varovalka grelnika v 200 L hranilniku toplote',sw:'[Electric Heater 1 Power]'},
+   {n:'5',fn:'Elektromagnetni 3-potni ventil 1 (TSV)',kind:'out',wire:'0.75-1.0 mm²',col:'brown',cname:'Rjava (L)',dest:'3-potni ventil TSV (vgrajen v Hydro Box → sponka 2) — ni v uporabi, če ni ogrevalnega kroga (samo TSV)',sw:'[Hot Water Function]=On'},
+   {n:'6',fn:'Elektromagnetni 3-potni ventil 2 (mešalni)',kind:'out',wire:'0.75-1.0 mm²',col:'brown',cname:'Rjava (L)',dest:'Mešalni ventil cone B (pri 2 conah)',sw:'[Wire Controller Control]=Dual Zone'},
+   {n:'7',fn:'Elektromagnetni 3-potni ventil 3',kind:'out',wire:'0.75-1.0 mm²',col:'brown',cname:'Rjava (L)',dest:'Dodatni ventil / črpalka cone B (če je vgrajena)',sw:'nastavitve dveh con'},
+   {n:'A',fn:'Zunanja obtočna črpalka',kind:'pwr',wire:'1.5 mm²',col:'brown',cname:'Rjava (L)',dest:'Sistemska črpalka → Hydro Box sponka 3 (kontaktor, če >400 W)',sw:'[Pump Power] = dejanska moč v W'},
+   {n:'B',fn:'Dodatno / rezervno električno ogrevanje',kind:'pwr',wire:'1.0 mm² tuljava',col:'brown',cname:'Rjava (L)',dest:'Tuljava kontaktorja → 3 kW grelnik v 200 L hranilniku toplote',sw:'[Electric Heater 1 Power]=3000 W'},
+   {n:'C',fn:'Električno ogrevanje hranilnika (TSV)',kind:'pwr',wire:'1.0 mm² tuljava',col:'brown',cname:'Rjava (L)',dest:'Tuljava kontaktorja → 3 kW grelnik v 500 L hranilniku TSV',sw:'[Hot Water]=On,[Water Tank Heating]=On,3000 W'},
+   {n:'D',fn:'Solarna črpalka',kind:'pwr',wire:'1.0 mm²',col:'brown',cname:'Rjava (L)',dest:'Črpalka solarnega kroga (če je vgrajena)',sw:'[Solar function]=On'},
+   {n:'E',fn:'Ničelni vodnik (N) — skupni za A–D',kind:'pwr',wire:'1.5 mm²',col:'blue',cname:'Modra',dest:'Nevtralni vodnik za 230 V izhode',sw:'—'},
+ ]},
+ {id:'hydro',name:'③ Hydro Box',img:'assets/hydrobox_terminals.jpg',cap:'Sponke Hydro Box. Oznaka: "Power supply 220V-240V~ / E-heating / 3-way valve / PUMP".',rows:[
+   {n:'L',x:13,y:44,fn:'Napajanje — faza',kind:'supply',wire:'2.5 mm²',col:'brown',cname:'Rjava',dest:'1-polni inštalacijski odklopnik (MCB) 16 A + FID stikalo (RCD) 30 mA',sw:'—'},
+   {n:'N',x:31,y:44,fn:'Napajanje — nevtralni vodnik',kind:'supply',wire:'2.5 mm²',col:'blue',cname:'Modra',dest:'Nevtralna zbiralka',sw:'—'},
+   {n:'1',x:49,y:44,fn:'E-ogrevanje (rezervni grelnik)',kind:'pwr',wire:'2.5 mm² breme',col:'brown',cname:'Rjava (L)',dest:'Z izhoda B plošče prek kontaktorja (vklaplja 3 kW grelnik hranilnika toplote)',sw:'[Electric Heater 1 Power]'},
+   {n:'2',x:62,y:44,fn:'3-potni ventil (preklop na TSV)',kind:'out',wire:'0.75-1.0 mm²',col:'brown',cname:'Rjava (L)',dest:'Z izhoda 5 plošče (ventil je vgrajen) — ni v uporabi v sistemu samo za TSV',sw:'[Hot Water Function]=On'},
+   {n:'3',x:79,y:44,fn:'PUMP (obtočna črpalka)',kind:'pwr',wire:'1.5 mm²',col:'brown',cname:'Rjava (L)',dest:'Z izhoda A plošče',sw:'[Pump Power]'},
+   {n:'⏚',x:90,y:50,fn:'Zaščitna ozemljitev PE',kind:'supply',wire:'2.5 mm²',col:'gy',cname:'Rumeno-zelena',dest:'Ozemljitvena zbiralka (vrsta sornikov ⏚)',sw:'—'},
+ ]},
+];
+const kindPill={supply:'<span class="ok-pill">NAPAJANJE</span>',sig:'<span class="sig-pill">SIGNAL</span>',out:'<span class="danger-pill">230V</span>',pwr:'<span class="danger-pill">230V</span>'};
+function swatch(col){return '<span class="wireSwatch"><i style="background:'+(C[col]||col)+'"></i></span>';}
+function tagColor(k){return k==='sig'?'var(--w-signal)':k==='supply'?'#2ea043':'#f0883e';}
+const tabsEl=document.getElementById('tabs');let active=0,selSet=[];
+const RETMAP={'(1)':'je skupni za (2)/(3)','(2)':'(1) L1 — skupni','(3)':'(1) L1 — skupni','(4)':'(5)','(5)':'(4)','(6)':'(7) B1','(7)':'(6) A1','(8)':'(9) B2','(9)':'(8) A2','(10)':'(11)','(11)':'(10)','(12)':'skupni signalni','(13)':'skupni signalni','1':'(2) — povratni par','2':'(1) — povratni par','3':'(4) — povratni par','4':'(3) — povratni par','5':'N (E ničelni vodnik)','6':'N (E ničelni vodnik)','7':'N (E ničelni vodnik)','A':'N (E ničelni vodnik)','B':'N (E ničelni vodnik)','C':'N (E ničelni vodnik)','D':'N (E ničelni vodnik)','E':'je skupni nevtralni vodnik','L':'—','N':'je skupni nevtralni vodnik','1h':'N','2h':'N','3h':'N'};
+function retFor(blkid,r){if(blkid==='hydro'){if(r.n==='1'||r.n==='2'||r.n==='3')return'N (nevtralni vodnik Hydro Box)';if(r.n==='N')return'je skupni nevtralni vodnik';return'—';}return RETMAP[r.n]||'—';}
+BLOCKS.forEach((b,i)=>{const btn=document.createElement('button');btn.textContent=b.name;btn.onclick=()=>{active=i;selSet=[];render();renderDetail();};tabsEl.appendChild(btn);});
+function render(){
+  [...tabsEl.children].forEach((b,i)=>b.classList.toggle('active',i===active));
+  const blk=BLOCKS[active];
+  document.getElementById('photo').src=blk.img;document.getElementById('photoCap').textContent=blk.cap;
+  const hots=document.getElementById('hots');hots.innerHTML='';
+  blk.rows.forEach((r,idx)=>{if(r.x==null)return;const h=document.createElement('div');h.className='hot';h.textContent=r.n;h.style.left=r.x+'%';h.style.top=r.y+'%';h.dataset.idx=idx;h.onmouseenter=()=>hi(idx,true);h.onmouseleave=()=>hi(idx,false);h.onclick=(e)=>sel(idx,e);hots.appendChild(h);});
+  const tb=document.getElementById('ttbody');tb.innerHTML='';
+  blk.rows.forEach((r,idx)=>{const tr=document.createElement('tr');tr.dataset.idx=idx;
+    tr.innerHTML='<td><span class="tag" style="background:'+tagColor(r.kind)+'">'+r.n+'</span></td>'+
+      '<td><b>'+r.fn+'</b> '+(kindPill[r.kind]||'')+'</td><td>'+swatch(r.col)+' '+r.wire+'</td>';
+    tr.onmouseenter=()=>hi(idx,true);tr.onmouseleave=()=>hi(idx,false);tr.onclick=(e)=>sel(idx,e);tb.appendChild(tr);});
+}
+function hi(idx,on){const h=document.querySelector('.hot[data-idx="'+idx+'"]');const tr=document.querySelector('#ttbody tr[data-idx="'+idx+'"]');if(h)h.classList.toggle('on',on);if(tr)tr.classList.toggle('on',on);if(on&&h){h.classList.remove('pulse');void h.offsetWidth;h.classList.add('pulse');}}
+function shorten(s,n){return s.length>n?s.slice(0,n-1)+'…':s;}
+function retShort(blkid,r){
+  let x=retFor(blkid,r);
+  if(!x||x==='—')return null;
+  if(/je skupni/.test(x))return null; // this terminal IS a common — no outgoing return
+  return x.replace(' — skupni','').replace(' — povratni par','').replace(' (E ničelni vodnik)','=N (E)').replace(' (nevtralni vodnik Hydro Box)','=N').replace('(','').replace(')','');
+}
+// ONE combined diagram for all selected terminals, with shared returns
+function buildCombined(rows,blkid){
+  const n=rows.length;
+  const rets=[];rows.forEach(r=>{const x=retShort(blkid,r);if(x&&rets.indexOf(x)<0)rets.push(x);});
+  const tTop=46,tStep=46,gap=26;
+  const cTop=tTop+n*tStep+gap;
+  const H=cTop+Math.max(rets.length,1)*40+18;
+  const W=660;
+  let s='<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto">';
+  s+='<defs><marker id="cbf" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#cfd8e3"/></marker>';
+  s+='<marker id="cbr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#8b97a7"/></marker></defs>';
+  s+='<rect x="8" y="10" width="150" height="'+(H-20)+'" rx="9" fill="#15202c" stroke="#33b1ff"/>';
+  s+='<text x="83" y="30" fill="#33b1ff" font-size="12" font-weight="800" text-anchor="middle">PLOŠČA TČ</text>';
+  s+='<text x="83" y="'+(cTop-10)+'" fill="#8b97a7" font-size="9" text-anchor="middle">— signal · povratek / skupni —</text>';
+  // terminals, devices, forward wires
+  rows.forEach((r,i)=>{
+    const y=tTop+i*tStep+18;const st=wireStroke[r.col]||'#9aa3ad';
+    s+='<rect x="114" y="'+(y-13)+'" width="46" height="26" rx="5" fill="#21303f" stroke="'+st+'"/><text x="137" y="'+(y+5)+'" fill="#fff" font-size="12" font-weight="800" text-anchor="middle">'+r.n+'</text>';
+    s+='<rect x="430" y="'+(y-15)+'" width="222" height="30" rx="6" fill="#15241a" stroke="#2ea043"/><text x="541" y="'+(y+4)+'" fill="#cfe8d6" font-size="9.5" text-anchor="middle">'+shorten(r.dest,46)+'</text>';
+    s+='<polyline points="160,'+y+' 430,'+y+'" fill="none" stroke="'+st+'" stroke-width="2.6" marker-end="url(#cbf)"/>';
+    s+='<text x="300" y="'+(y-6)+'" fill="'+st+'" font-size="9" text-anchor="middle">'+r.wire+' →</text>';
+  });
+  // shared common/return tabs on the board
+  rets.forEach((ret,j)=>{
+    const cy=cTop+j*40+10;
+    s+='<rect x="36" y="'+(cy-13)+'" width="122" height="26" rx="6" fill="#241830" stroke="#b07cff"/><text x="97" y="'+(cy+4)+'" fill="#cdb2ff" font-size="11" text-anchor="middle">↩ '+ret+'</text>';
+  });
+  // return wires device -> its shared common (converge where shared)
+  rows.forEach((r,i)=>{
+    const y=tTop+i*tStep+18;const x=retShort(blkid,r);if(!x)return;
+    const j=rets.indexOf(x);const cy=cTop+j*40+10;const vx=410-i*6;
+    s+='<polyline points="430,'+(y+7)+' '+vx+','+(y+7)+' '+vx+','+cy+' 158,'+cy+'" fill="none" stroke="#8b97a7" stroke-width="1.7" stroke-dasharray="5 3" marker-end="url(#cbr)"/>';
+  });
+  s+='</svg>';
+  return s;
+}
+function renderDetail(){
+  const d=document.getElementById('detail');
+  document.querySelectorAll('#ttbody tr').forEach(t=>t.classList.remove('sel'));
+  document.querySelectorAll('.hot').forEach(h=>h.classList.remove('sel'));
+  if(!selSet.length){d.classList.remove('show');return;}
+  const blk=BLOCKS[active];const rows=selSet.map(i=>blk.rows[i]);
+  document.getElementById('dhead').innerHTML=rows.length===1
+    ?'Sponka <b style="color:#fff">'+rows[0].n+'</b> · '+rows[0].fn+' '+(kindPill[rows[0].kind]||'')+' &nbsp;—&nbsp; prikazana kot celotna zanka (signal + povratek)'
+    :'<b style="color:#fff">'+rows.length+' sponk — skupni diagram.</b> Vsak signal je narisan s svojim povratkom; skupni vodniki se stekajo v eno sponko. (Ctrl/Cmd-klik na vrstico/oznako za dodajanje ali odstranitev.)';
+  let html='<div style="overflow-x:auto">'+buildCombined(rows,blk.id)+'</div>';
+  html+='<div style="margin-top:10px">'+rows.map(r=>{const x=retShort(blk.id,r);
+    return '<div class="loopinfo" style="border-top:1px solid var(--line);padding:8px 0"><div class="lt">'+r.n+' · '+r.fn+'</div>'
+      +'<div>→ '+r.dest+'</div>'
+      +(x?'<div class="ret">↩ povratek / skupni: <b style="color:#cdb2ff">'+x+'</b></div>':'<div class="ret">ta sponka <b>je</b> skupni / nevtralni vodnik — drugi se vračajo prek nje</div>')
+      +'<div>vodnik: '+swatch(r.col)+' '+r.wire+'</div>'
+      +((r.sw&&r.sw!=='—')?'<div class="sw">🎛 krmilnik: '+r.sw+'</div>':'')+'</div>';}).join('')+'</div>';
+  document.getElementById('loopwrap').innerHTML=html;
+  selSet.forEach(i=>{const tr=document.querySelector('#ttbody tr[data-idx="'+i+'"]');if(tr)tr.classList.add('sel');const h=document.querySelector('.hot[data-idx="'+i+'"]');if(h)h.classList.add('sel');});
+  d.classList.add('show');
+}
+function sel(idx,ev){
+  if(ev&&(ev.ctrlKey||ev.metaKey||ev.shiftKey)){if(ev.preventDefault)ev.preventDefault();const p=selSet.indexOf(idx);if(p>=0)selSet.splice(p,1);else selSet.push(idx);}
+  else{selSet=[idx];}
+  renderDetail();
+}
+render();
+const mbody=document.getElementById('masterBody');
+function buildMaster(filter){mbody.innerHTML='';const f=(filter||'').toLowerCase();
+  BLOCKS.forEach(blk=>{const rows=blk.rows.filter(r=>!f||(blk.name+' '+r.n+' '+r.fn+' '+r.dest+' '+r.wire+' '+r.cname+' '+r.sw).toLowerCase().includes(f));
+    if(!rows.length)return;const hr=document.createElement('tr');hr.className='secthead';hr.innerHTML='<td colspan="7">'+blk.name+'</td>';mbody.appendChild(hr);
+    rows.forEach(r=>{const tr=document.createElement('tr');
+      tr.innerHTML='<td class="muted">'+blk.name.split(' ')[0]+'</td><td><span class="tag" style="background:'+tagColor(r.kind)+'">'+r.n+'</span></td>'+
+      '<td><b>'+r.fn+'</b> '+(kindPill[r.kind]||'')+'</td><td>'+r.dest+'</td><td>'+r.wire+'</td><td>'+swatch(r.col)+' '+r.cname+'</td><td class="muted">'+(r.sw==='—'?'—':r.sw)+'</td>';
+      mbody.appendChild(tr);});});
+  if(!mbody.children.length)mbody.innerHTML='<tr><td colspan="7" class="muted" style="padding:18px">Ni zadetkov za "'+filter+'".</td></tr>';}
+buildMaster('');
+const search=document.getElementById('search');search.addEventListener('input',e=>buildMaster(e.target.value));
+document.getElementById('clrBtn').onclick=()=>{search.value='';buildMaster('');};
+/* ===== WATER PORT EXPLORER ===== */
+const WPORTS={with:[
+ {n:'1',name:'① Na vstop vode v TČ',dest:'VSTOP VODE v toplotno črpalko — ohlajen povratek nazaj v enoto',size:'1″ / DN25',mat:'Cu 28 · PEX-AL 32 · večplastna cev',fit:'Krogelni zaporni ventil (v ohišju) + holender + fleksibilna cev pri toplotni črpalki',ins:'Popolnoma izolirajte · GLIKOL v zunanjem delu'},
+ {n:'2',name:'② Povratna voda',dest:'Sistemski povratek iz ogrevalnih con, speljan nazaj v TČ',size:'1″ / DN25',mat:'Cu · PEX · večplastna cev',fit:'Zaporni ventil · primerno mesto za MAGNETNI filter nečistoč',ins:'Izolirajte'},
+ {n:'3',name:'③ Z izstopa vode iz TČ',dest:'IZSTOP VODE iz toplotne črpalke — vroč dvižni vod v ohišje',size:'1″ / DN25',mat:'Cu 28 · PEX-AL 32 (zapora O₂) · večplastna cev',fit:'Krogelni zaporni ventil (v ohišju) + holender + fleksibilna protivibracijska cev pri toplotni črpalki',ins:'Popolnoma izolirajte · GLIKOL v zunanjem delu'},
+ {n:'4',name:'④ Odtočna odprtina',dest:'Izpust / odtok na najnižji točki',size:'—',mat:'—',fit:'Izpustna pipa + cev do varnega odtoka',ins:'—'},
+ {n:'5',name:'⑤ Rezerva',dest:'Rezervni priključki — pustite zaprte s čepom, razen če jih vaša postavitev potrebuje',size:'—',mat:'—',fit:'Slepi čep',ins:'—'},
+ {n:'6',name:'⑥ Na vstop vode v hranilnik toplote',dest:'200 L hranilnik toplote — vstop (polnjenje iz toplotne črpalke)',size:'1″ / DN25',mat:'Cu · PEX · večplastna cev',fit:'Zaporni ventil + holender',ins:'Izolirajte'},
+ {n:'7',name:'⑦ Na hranilnik TSV',dest:'Izmenjevalnik (spirala) 500 L hranilnika TSV (ogrevalna stran) — 3-potni ventil v načinu TSV preusmeri sem',size:'1″ / DN25',mat:'Cu · PEX · večplastna cev',fit:'Zaporni ventil · tipalo hranilnika TSV (črno, TWout2) v potopno tulko hranilnika',ins:'Izolirajte'},
+ {n:'8',name:'⑧ Z izstopa vode iz hranilnika toplote',dest:'200 L hranilnik toplote — izstop (na ogrevalno stran)',size:'1″ / DN25',mat:'Cu · PEX · večplastna cev',fit:'Zaporni ventil + holender',ins:'Izolirajte'},
+ {n:'9',name:'⑨ Na ogrevanje prostorov',dest:'Ogrevalne cone — dvižni vod na razdelilnik / radiatorje / ventilatorske konvektorje',size:'DN20–25 (glede na obremenitev cone)',mat:'Cu · PEX · večplastna cev',fit:'Zaporni ventili con + odzračevalnik na najvišji točki · mešalni ventil + črpalka za nizkotemperaturno cono talnega ogrevanja',ins:'Izolirajte'},
+],without:[
+ {n:'OUT',name:'IZSTOP VODE iz toplotne črpalke (vroč dvižni vod)',dest:'Dvižni vod → vaš sklop, sestavljen na mestu: zaporni ventil → fleksibilna cev → avtomatski odzračevalnik → črpalka → 3-potni ventil → izmenjevalnik TSV / hranilnik toplote / cone (+ raztezna posoda, varnostni ventil 3 bar, manometer, polnilni ventil)',size:'1″ / DN25',mat:'Cu 28 · PEX-AL 32 · večplastna cev',fit:'Dobavite sami: črpalko · motorni krogelni 3-potni ventil (DN25, 230 V) · raztezno posodo · varnostni ventil 3 bar · manometer · avtomatske odzračevalnike · polnilno/izpustno pipo · zaporne ventile · fleksibilne cevi',ins:'Popolnoma izolirajte · GLIKOL v zunanjem delu'},
+ {n:'IN',name:'VSTOP VODE v toplotno črpalko (povratek)',dest:'Ohlajen povratek ← iz con / hranilnika toplote, skozi filter nečistoč',size:'1″ / DN25',mat:'Cu 28 · PEX-AL 32 · večplastna cev',fit:'Dobavite sami: MAGNETNI filter nečistoč + lovilnik nečistoč · zaporni ventil · izpustno pipo · dodatno črpalko, če je padec tlaka v ceveh velik',ins:'Popolnoma izolirajte · GLIKOL v zunanjem delu'},
+]};
+let wmode='with';
+function wsetmode(m){wmode=m;document.getElementById('wbtnWith').classList.toggle('active',m==='with');document.getElementById('wbtnNo').classList.toggle('active',m==='without');document.getElementById('schemWith').style.display=m==='with'?'':'none';document.getElementById('schemNo').style.display=m==='without'?'':'none';var f3=document.getElementById('fig3block');if(f3)f3.style.display=m==='with'?'':'none';wbuild();document.getElementById('wdhead').textContent='Kliknite priključek za prikaz specifikacije cevi.';document.getElementById('wterm').style.display='none';document.getElementById('wdest').innerHTML='';document.getElementById('wfit').innerHTML='';document.getElementById('wins').innerHTML='';}
+function wbuild(){const tb=document.getElementById('wtbody');tb.innerHTML='';WPORTS[wmode].forEach(p=>{const tr=document.createElement('tr');tr.innerHTML='<td><span class="tag" style="background:#f0883e">'+p.n+'</span></td><td><b>'+p.name+'</b></td><td>'+p.size+'</td>';tr.onclick=()=>wsel(p.n);tb.appendChild(tr);});}
+function wsel(n){const p=WPORTS[wmode].find(x=>x.n===n);if(!p)return;document.getElementById('wdhead').innerHTML='Priključek <b style="color:#fff">'+p.n+'</b> · '+p.name;const wt=document.getElementById('wterm');wt.style.display='';wt.innerHTML='<b>'+p.n+'</b>'+p.size;document.getElementById('wdest').innerHTML='<b>Poveže se na</b><br>'+p.dest+'<br><span class="muted">Materiali: '+p.mat+'</span>';document.getElementById('wfit').innerHTML='🔧 <b>Fitingi / ventili:</b> '+p.fit;document.getElementById('wins').innerHTML='🧥 <b>Izolacija:</b> '+p.ins;}
+wbuild();
+/* ===== GLOSSARY ===== */
+const GLOSSARY=[
+ ['cat','Temperature, ki jih enota meri (tipala)'],
+ ['TA','Zunanja temperatura zraka','Določa vremensko vodeno regulacijo in časovni potek odmrzovanja.'],
+ ['TF','Temperatura zunanjega uparjalnika (lamel)','Uporablja se za odločitev, kdaj odmrzovati.'],
+ ['TS','Temperatura sesanja kompresorja','Zaščita hladilnega sredstva.'],
+ ['TD','Temperatura iztiska kompresorja','Zaščita pred previsoko temperaturo.'],
+ ['TWin1','Vstop vode v ploščni izmenjevalnik','Povratna voda, ki vstopa v toplotni izmenjevalnik.'],
+ ['TW1 / TWout1','Izstop vode iz ploščnega izmenjevalnika','Topla voda, ki izstopa iz toplotnega izmenjevalnika.'],
+ ['TW2 / TWout2','Temperatura TSV (hranilnika tople vode)','Tipalo 500 L hranilnika — krmili pripravo tople vode.'],
+ ['TW3 / TWout3','Temperatura vstopne vode talnega ogrevanja','Dvižni vod nizkotemperaturne cone.'],
+ ['THWt','Skupna izstopna temperatura sistema','Glavna temperatura dvižnega voda v hišo.'],
+ ['TRFgas / TRFliq','Temperatura plinastega / tekočega hladilnega sredstva','Diagnostika hladilnega krogotoka.'],
+ ['TSL','Temperatura solarnega kolektorja','Krmiljenje solarnega ogrevanja vode (če je vgrajeno).'],
+ ['TACt1 / TACt2','Spodnja / zgornja temperatura hranilnika toplote','Tipali 200 L hranilnika toplote.'],
+ ['cat','Ventili'],
+ ['RV','4-potni (preklopni) ventil','Preklaplja enoto med OGREVANJEM in HLAJENJEM. To je element "toplo/hladno".'],
+ ['EEVm / EEVs','Glavni / pomožni ekspanzijski ventil','Elektronsko dozira pretok hladilnega sredstva.'],
+ ['S3V1 / S3V2 / S3V3','Elektromagnetni 3-potni ventili','Preusmeritev na TSV / conski / mešalni ventili.'],
+ ['cat','Električni grelniki'],
+ ['IBH1 / IBH2','Notranji rezervni grelnik 1 / 2','Električni rezervni grelnik za ogrevanje prostorov — krmiljen z izhodom B plošče.'],
+ ['TBH','Rezervni grelnik hranilnika','Električni grelnik hranilnika TSV — krmiljen z izhodom C plošče.'],
+ ['QZH1','Grelnik ohišja kompresorja','Ohranja olje toplo / preprečuje kondenzacijo hladilnega sredstva.'],
+ ['DPH','Grelnik kadi (ohišja)','Tali led v zunanji odtočni kadi.'],
+ ['cat','Črpalke &amp; ventilator'],
+ ['PUMP / PUMPf','Glavna obtočna črpalka s spremenljivo hitrostjo','Primarna črpalka, vgrajena v zunanjo toplotno črpalko (Wilo 25/9). Hydro Box doda 2. črpalko.'],
+ ['PUMPo','Zunanja obtočna črpalka','Dodatna sistemska črpalka — izhod A plošče.'],
+ ['PUMPm','Črpalka mešalne cone','Črpalka za nizkotemperaturno cono (talno ogrevanje).'],
+ ['PUMPsl','Solarna črpalka','Solarni krog — izhod D plošče.'],
+ ['PUMPret','Cirkulacijska črpalka TSV','Povratna zanka za takojšnjo toplo vodo.'],
+ ['FANf','Ventilator s spremenljivo hitrostjo (inverterski)','Zunanji ventilator.'],
+ ['cat','Stikala &amp; vhodi'],
+ ['PRSd / PRSs','Visokotlačno / nizkotlačno stikalo','Varnostni izklopi hladilnega krogotoka.'],
+ ['LDIw','Stikalo pretoka vode','Ustavi enoto, če ni pretoka vode.'],
+ ['HDIrth / HDIrtc','Zunanji termostat — zahteva za ogrevanje / hlajenje','Brezpotencialna zahteva iz sobnega termostata (sponki H / C).'],
+ ['SG / EVU','Signali Smart-Grid','Vhodi distributerja / MTK (sponki 12 / 13).'],
+ ['cat','Načini &amp; ključni parametri'],
+ ['Ctrl Mode','Ogrevanje / hlajenje / samodejno','Vsakodnevni način delovanja.'],
+ ['AC_TYPE','Funkcija enote [Air Conditioning Type]','Samo tri možnosti: [0] Heating Only (samo ogrevanje) · [1] Heating & Cooling (ogrevanje in hlajenje; tovarniška nastavitev) · [2] Cooling Only (samo hlajenje). Možnosti samo za TSV ni — topla voda se vklopi ločeno s [Hot Water Function].'],
+ ['WIRE_SW_TYPE','Krmiljenje con','Ena / dve / tri cone.'],
+ ['RV_SET','Logika preklopnega ventila','Ali je ventil pod napetostjo pri ogrevanju ali pri hlajenju (tovarniško).'],
+ ['PANEL_CTRL','Obseg žičnega krmilnika','Koliko upravlja žični krmilnik.'],
+];
+function glbuild(f){const tb=document.getElementById('glbody');tb.innerHTML='';f=(f||'').toLowerCase();let shown=0,lastCat=null,catRow=null;
+  GLOSSARY.forEach(g=>{if(g[0]==='cat'){lastCat=g[1];catRow=null;return;}
+    const hay=(g[0]+' '+g[1]+' '+g[2]).toLowerCase();if(f&&!hay.includes(f))return;
+    if(!catRow){const hr=document.createElement('tr');hr.className='secthead';hr.innerHTML='<td colspan="3">'+lastCat+'</td>';tb.appendChild(hr);catRow=hr;}
+    const tr=document.createElement('tr');tr.innerHTML='<td><b style="color:#fff">'+g[0]+'</b></td><td>'+g[1]+'</td><td class="muted">'+g[2]+'</td>';tb.appendChild(tr);shown++;});
+  if(!shown)tb.innerHTML='<tr><td colspan="3" class="muted" style="padding:16px">Nobena koda se ne ujema z "'+f+'".</td></tr>';}
+glbuild('');
+document.getElementById('glsearch').addEventListener('input',e=>glbuild(e.target.value));
+const lb=document.getElementById('lightbox'),lbimg=document.getElementById('lbimg');
+document.addEventListener('click',e=>{if(e.target.classList.contains('zoom')||e.target.id==='photo'){lbimg.src=e.target.src;lb.classList.add('show');}if(e.target===lb||e.target.classList.contains('x'))lb.classList.remove('show');});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('show');});
+document.getElementById('photo').classList.add('zoom');
+</script>
+</body>
+</html>

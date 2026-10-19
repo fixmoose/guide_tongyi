@@ -22,6 +22,7 @@ header.top{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.93);backdr
 .brand small{display:block;font-weight:500;color:var(--mut);font-size:10.5px;letter-spacing:1px}
 nav.tabsnav{margin-left:auto;display:flex;gap:3px;flex-wrap:wrap}
 nav.tabsnav a{font-size:12px;color:var(--mut);text-decoration:none;padding:5px 9px;border-radius:8px;border:1px solid transparent}
+nav.tabsnav a.lang{color:var(--txt);border-color:var(--line);background:var(--card);font-weight:700}
 nav.tabsnav a:hover{color:var(--txt);background:var(--card);border-color:var(--line)}
 .hero{background:radial-gradient(900px 400px at 80% -10%,rgba(51,177,255,.16),transparent),linear-gradient(180deg,#0f1620,#0d1117);border-bottom:1px solid var(--line);padding:34px 0 26px}
 .hero h1{font-size:30px;margin:0 0 6px}
@@ -119,6 +120,7 @@ footer h3{color:var(--txt);font-size:14px}
     <a href="#home">Home</a><a href="#query">Query</a><a href="#set">Settings</a>
     <a href="#advanced">Advanced</a><a href="#params">Parameters</a><a href="#status">Status</a>
     <a href="#glossary">Glossary</a><a href="index.html">← Wiring guide</a>
+      <a class="lang" href="app-menu-guide-sl.html" title="Slovenščina">🇸🇮 SL</a>
   </nav>
 </div></header>
 
@@ -291,7 +293,7 @@ footer h3{color:var(--txt);font-size:14px}
       <p>Links the heat pump to a <b>Huawei SmartAssistant / FusionSolar</b> system so it prefers free/cheap PV electricity (the "OHPCF" function). Needs the EEBUS module and specific firmware. Note: it <b>conflicts with Smart Grid</b> — enable only one.</p>
     </div>
   </div>
-  <div class="note ok" style="margin-top:16px"><b>Status</b> gets its own decoded section below (§8) because it lists every live sensor and output the unit reads.</div>
+  <div class="note ok" style="margin-top:16px"><b>Status</b> gets its own decoded section below (§9) because it lists every live sensor and output the unit reads.</div>
 </section>
 
 <!-- ===================== SET MENU ===================== -->

@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Toplotna črpalka Tongyi — vodnik po menijih aplikacije in krmilnika</title>
+<style>
+:root{
+  --bg:#0d1117;--bg2:#131a24;--card:#171f2b;--card2:#1c2735;--line:#26313f;--txt:#e6edf3;--mut:#8b97a7;
+  --acc:#33b1ff;--acc2:#2ea043;--warn:#f0883e;--danger:#f85149;--ok:#2ea043;--chip:#1f2937;--purple:#b07cff;
+  --radius:14px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Segoe UI",Roboto,system-ui,Arial,sans-serif;background:var(--bg);color:var(--txt);line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:var(--acc)}
+h1,h2,h3,h4{line-height:1.2;font-weight:700}
+.wrap{max-width:1180px;margin:0 auto;padding:0 18px}
+header.top{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:14px;padding:10px 18px}
+.brand{font-weight:800;font-size:17px;letter-spacing:.3px;white-space:nowrap}
+.brand small{display:block;font-weight:500;color:var(--mut);font-size:10.5px;letter-spacing:1px}
+nav.tabsnav{margin-left:auto;display:flex;gap:3px;flex-wrap:wrap}
+nav.tabsnav a{font-size:12px;color:var(--mut);text-decoration:none;padding:5px 9px;border-radius:8px;border:1px solid transparent}
+nav.tabsnav a.lang{color:var(--txt);border-color:var(--line);background:var(--card);font-weight:700}
+nav.tabsnav a:hover{color:var(--txt);background:var(--card);border-color:var(--line)}
+.hero{background:radial-gradient(900px 400px at 80% -10%,rgba(51,177,255,.16),transparent),linear-gradient(180deg,#0f1620,#0d1117);border-bottom:1px solid var(--line);padding:34px 0 26px}
+.hero h1{font-size:30px;margin:0 0 6px}
+.hero p.lead{color:var(--mut);max-width:820px;margin:0 0 18px;font-size:15px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.chip{background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:13px;display:flex;gap:8px;align-items:center}
+.chip b{color:var(--acc)}
+section{padding:32px 0;border-bottom:1px solid var(--line);scroll-margin-top:64px}
+section h2{font-size:22px;margin:0 0 4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+section h2 .num{font-size:13px;color:#0d1117;background:var(--acc);border-radius:8px;padding:3px 9px;font-weight:800}
+.sub{color:var(--mut);margin:0 0 20px;font-size:14px;max-width:900px}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:860px){.g2,.g3{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.card h3{margin:0 0 4px;font-size:16px}.card h4{margin:0 0 6px;font-size:14px;color:var(--acc)}
+.card p{margin:6px 0;font-size:13.5px;color:#cfd8e3}
+.card .meta{color:var(--mut);font-size:13px}
+.note{background:var(--card2);border-left:3px solid var(--acc);padding:12px 14px;border-radius:8px;font-size:13.5px;color:#cfd8e3;margin-top:14px}
+.note.warn{border-left-color:var(--warn)}.note.dng{border-left-color:var(--danger)}.note.ok{border-left-color:var(--ok)}
+.note b{color:#fff}
+.safety{background:linear-gradient(90deg,rgba(248,81,73,.14),rgba(240,136,62,.08));border:1px solid rgba(248,81,73,.4);border-radius:var(--radius);padding:16px 18px;margin:8px 0 0;display:flex;gap:14px;align-items:flex-start}
+.safety .ic{font-size:26px;line-height:1}.safety b{color:#ffb3ad}
+.safety ul{margin:8px 0 0;padding-left:18px;color:#f6d4cf;font-size:13.5px}.safety li{margin:3px 0}
+/* buttons row */
+.btnrow{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+.appbtn{display:flex;gap:11px;align-items:center;background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:11px 14px;font-size:13.5px;min-width:180px;flex:1}
+.appbtn .ic{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex:none;background:#0e1a24;border:1px solid var(--line)}
+.appbtn b{color:#fff;display:block}
+.appbtn span{color:var(--mut);font-size:12px}
+/* menu tree */
+.tree{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:920px){.tree{grid-template-columns:1fr}}
+.branch{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.branch>.bh{display:flex;gap:10px;align-items:center;padding:12px 15px;background:var(--card2);border-bottom:1px solid var(--line);font-weight:800}
+.branch>.bh .ic{font-size:18px}
+.branch ul{list-style:none;margin:0;padding:8px 8px 12px}
+.branch li{padding:6px 8px 6px 10px;font-size:13px;border-left:2px solid var(--line);margin:2px 0 2px 6px}
+.branch li b{color:#fff}
+.branch li .d{color:var(--mut);display:block;font-size:12px}
+.branch li.sub{margin-left:22px;border-left-color:#2c3b4d;font-size:12.5px}
+.badge{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.4px;padding:2px 7px;border-radius:999px;text-transform:uppercase;vertical-align:middle}
+.badge.user{background:rgba(46,160,67,.16);color:#7ee08a;border:1px solid rgba(46,160,67,.4)}
+.badge.inst{background:rgba(51,177,255,.16);color:#8ecbff;border:1px solid rgba(51,177,255,.4)}
+.badge.fact{background:rgba(240,136,62,.16);color:#f0b894;border:1px solid rgba(240,136,62,.4)}
+/* screenshot */
+.shot{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#000}
+.shot img{display:block;width:100%;cursor:zoom-in}
+.shot .cap{font-size:12px;color:var(--mut);padding:8px 11px;background:var(--card2);border-top:1px solid var(--line)}
+.shotgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+/* tables */
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+.tbl th{background:var(--card2);text-align:left;padding:10px 11px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);border-bottom:2px solid var(--line);position:sticky;top:0}
+.tbl td{padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl tbody tr:hover{background:var(--card2)}
+.tbl code,code.k{font-family:"Cascadia Code",Consolas,monospace;color:#8ecbff;background:#0e1a24;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:12.5px;white-space:nowrap}
+.val{font-weight:700;color:#fff;white-space:nowrap}
+.tblwrap{border:1px solid var(--line);border-radius:var(--radius);overflow:auto;max-height:none}
+/* param reference */
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 14px}
+.toolbar input{background:var(--card);border:1px solid var(--line);color:var(--txt);padding:10px 14px;border-radius:10px;font-size:14px;min-width:230px;flex:1}
+.gfilter{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.gfilter button{background:var(--card);border:1px solid var(--line);color:var(--mut);padding:6px 11px;border-radius:999px;cursor:pointer;font-size:12px;font-weight:600;transition:.12s}
+.gfilter button:hover{color:var(--txt)}
+.gfilter button.active{background:var(--acc);color:#06121f;border-color:var(--acc)}
+table.pref{width:100%;border-collapse:collapse;font-size:13px;background:var(--card)}
+table.pref th{background:var(--card2);text-align:left;padding:11px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);border-bottom:2px solid var(--line)}
+table.pref td{padding:10px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+table.pref tbody tr:hover{background:var(--card2)}
+.grouphdr td{background:#10202e !important;font-weight:800;color:var(--acc);text-transform:uppercase;letter-spacing:.6px;font-size:12px}
+.grouphdr .gb{font-size:12px;color:#cfd8e3;text-transform:none;letter-spacing:0;font-weight:500}
+.pref code{font-family:"Cascadia Code",Consolas,monospace;color:#8ecbff;font-size:12.5px;white-space:nowrap}
+.pref .pv{font-weight:700;color:#fff;white-space:nowrap}
+.mono{font-family:"Cascadia Code",Consolas,monospace}
+/* glossary */
+.glwrap{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+/* lightbox */
+.lb{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+.lb.show{display:flex}
+.lb img{max-width:96%;max-height:96%;border-radius:8px}
+.lb .x{position:absolute;top:16px;right:22px;color:#fff;font-size:34px;cursor:pointer;font-weight:300}
+footer{padding:28px 0 60px;color:var(--mut);font-size:12.5px}
+footer h3{color:var(--txt);font-size:14px}
+.kbd{font-family:monospace;background:#0e1a24;border:1px solid var(--line);border-radius:5px;padding:1px 7px;color:#fff}
+.legend-inline{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--mut);margin:10px 0 0}
+.legend-inline span{display:flex;gap:6px;align-items:center}
+</style>
+</head>
+<body>
+
+<header class="top"><div class="wrap">
+  <div class="brand">Toplotna črpalka Tongyi<small>VODNIK PO MENIJIH APLIKACIJE IN KRMILNIKA</small></div>
+  <nav class="tabsnav">
+    <a href="#intro">Uvod</a><a href="#buttons">Tipke</a><a href="#map">Zemljevid menijev</a>
+    <a href="#home">Domači zaslon</a><a href="#query">Query</a><a href="#set">Nastavitve</a>
+    <a href="#advanced">Napredno</a><a href="#params">Parametri</a><a href="#status">Stanje</a>
+    <a href="#glossary">Slovar</a><a href="index-sl.html">← Vodnik za vezavo</a>
+      <a class="lang" href="app-menu-guide.html" title="English">🇬🇧 EN</a>
+  </nav>
+</div></header>
+
+<div class="hero"><div class="wrap">
+  <h1>Aplikacija in krmilnik Tongyi — vodnik po menijih</h1>
+  <p class="lead">Razumljiv pregled vseh menijev v aplikaciji <b>Handheld Huilian / Huilian Smart</b>
+  (<span class="mono">com.punp.palmtophuilian</span>) in pripadajočega žičnega krmilnika za
+  toplotno črpalko <b>Tongyi TAHMV12S&nbsp;R</b> 12&nbsp;kW + hidroenoto <b>EFJ01-A01</b>. Imena menijev in struktura so
+  v aplikaciji na telefonu in na stenskem krmilniku enaki — aplikacija je le oddaljena kopija istih zaslonov.
+  Vse vrednosti parametrov, prikazane tukaj, so bile odčitane z zaslonskih slik vaše naprave.</p>
+  <div class="chips">
+    <span class="chip"><b>16</b> skupin parametrov</span>
+    <span class="chip"><b>300+</b> razloženih parametrov</span>
+    <span class="chip">Geslo za napredne nastavitve&nbsp;<b>123456</b></span>
+    <span class="chip"><span class="badge user">Uporabnik</span>&nbsp;<span class="badge inst">Monter</span>&nbsp;<span class="badge fact">Tovarniško</span></span>
+  </div>
+</div></div>
+
+<main class="wrap">
+
+<!-- ===================== INTRO ===================== -->
+<section id="intro">
+  <h2><span class="num">1</span> Kaj je ta aplikacija</h2>
+  <p class="sub">Aplikacija <b>Huilian Smart</b> za telefon se s toplotno črpalko poveže prek Wi-Fi in zaslon za zaslonom
+  zrcali žični krmilnik. Vse spodaj opisano lahko storite na kateri koli od obeh naprav. Meniji imajo tri ravni, ki so
+  v tem vodniku barvno označene glede na to, komu so namenjene.</p>
+  <div class="grid g3">
+    <div class="card"><h4>🟢 Uporabniška raven</h4><p><span class="badge user">Uporabnik</span> Vsakodnevna uporaba: vklop/izklop con, nastavitev
+    temperatur, sanitarna voda, časovniki, počitniški način. Varno za spreminjanje kadar koli. Brez gesla.</p></div>
+    <div class="card"><h4>🔵 Monterska raven</h4><p><span class="badge inst">Monter</span> Za
+    <b>Advanced&nbsp;Para.</b> (napredni parametri, geslo <b>123456</b>): kako je sistem zgrajen — cone, obtočna črpalka, rezervni grelniki,
+    prednost TSV, tipala, pametno omrežje (Smart Grid). Spreminjajte samo ob zagonu.</p></div>
+    <div class="card"><h4>🟠 Tovarniška raven</h4><p><span class="badge fact">Tovarniško</span> Kalibracija kompresorja, ventilatorja, ekspanzijskega ventila,
+    odmrzovanja in zaščit. <b>Ne spreminjajte</b> — napačne vrednosti lahko poškodujejo kompresor ali razveljavijo garancijo.</p></div>
+  </div>
+  <div class="safety"><div class="ic">⚠️</div><div>
+    <b>Preden se lotite naprednih nastavitev</b>
+    <ul>
+      <li><span class="badge fact">Tovarniške</span> skupine (Compressor, Fan, EEV/EEVm/EEVs, Defrost, Protection, Working Frequency, Testing) so kalibracijske konstante. Navedene vrednosti so <b>privzete vrednosti te naprave, zgolj v vednost</b>.</li>
+      <li>Ko zapuščate napredne nastavitve, se pomaknite na dno in pritisnite <b>Logout</b> (odjava), da bo naslednjič spet potrebno geslo.</li>
+      <li>Aplikacija doseže napravo le, kadar sta telefon in krmilnik v istem omrežju Wi-Fi / na istem računu v oblaku.</li>
+    </ul>
+  </div></div>
+</section>
+
+<!-- ===================== BUTTONS ===================== -->
+<section id="buttons">
+  <h2><span class="num">2</span> Šest navigacijskih tipk</h2>
+  <p class="sub">Krmilnik (in spodnja vrstica aplikacije) ima šest stalnih tipk. Ko jih poznate, lahko dosežete vse.</p>
+  <div class="btnrow">
+    <div class="appbtn"><div class="ic">🔍</div><div><b>Query</b><span>Napake · stanje v živo · različica · energija</span></div></div>
+    <div class="appbtn"><div class="ic">❄️/☀️</div><div><b>Mode</b><span>Izbira Auto / Cool / Heat (samodejno / hlajenje / ogrevanje)</span></div></div>
+    <div class="appbtn"><div class="ic">⚙️</div><div><b>Settings</b><span>Vse ostalo (»Set menu«, meni nastavitev)</span></div></div>
+    <div class="appbtn"><div class="ic">⏻</div><div><b>On / Off</b><span>Vklop/izklop izbrane cone ali TSV</span></div></div>
+    <div class="appbtn"><div class="ic">↩︎</div><div><b>Return</b><span>En zaslon nazaj</span></div></div>
+    <div class="appbtn"><div class="ic">🏠</div><div><b>Home</b><span>Skok na glavni zaslon</span></div></div>
+  </div>
+</section>
+
+<!-- ===================== MENU MAP ===================== -->
+<section id="map">
+  <h2><span class="num">3</span> Celoten zemljevid menijev</h2>
+  <p class="sub">Celotno navigacijsko drevo aplikacije / krmilnika. Na zgornje tipke so vezana tri glavna področja:
+  <b>Query</b> (🔍, poizvedba), <b>Mode</b> (način) in <b>Set menu</b> (⚙️, meni nastavitev). V meniju nastavitev je skoraj vse, na koncu pa je
+  <b>Advanced Para.</b>, ki odklene 16 skupin parametrov, opisanih v nadaljevanju.</p>
+  <div class="tree">
+    <div class="branch">
+      <div class="bh"><span class="ic">🔍</span> Meni Query <span class="badge user">Uporabnik</span></div>
+      <ul>
+        <li><b>Current Error</b><span class="d">Trenutno aktivne napake</span></li>
+        <li><b>Status</b><span class="d">Odčitki tipal in izhodov v živo</span></li>
+        <li><b>Version</b><span class="d">Programska oprema plošče / krmilnika</span></li>
+        <li><b>ECM</b><span class="d">Merjenje energije (24h / 30d / 12m / 10y)</span></li>
+        <li><b>EEBUS</b><span class="d">Povezava s Huawei zeleno energijo (izbirno)</span></li>
+      </ul>
+    </div>
+    <div class="branch">
+      <div class="bh"><span class="ic">🌡️</span> Izbira načina <span class="badge user">Uporabnik</span></div>
+      <ul>
+        <li><b>Auto</b><span class="d">Naprava izbere ogrevanje ali hlajenje glede na zunanjo temperaturo</span></li>
+        <li><b>Cool</b><span class="d">Samo hlajenje</span></li>
+        <li><b>Heat</b><span class="d">Samo ogrevanje</span></li>
+      </ul>
+      <div class="bh" style="border-top:1px solid var(--line)"><span class="ic">➕</span> Tudi na domačem zaslonu</div>
+      <ul>
+        <li><b>On/Off</b> cone + <b>drsnik temperature</b></li>
+        <li><b>On/Off</b> sanitarne vode + ciljna temperatura</li>
+      </ul>
+    </div>
+    <div class="branch">
+      <div class="bh"><span class="ic">⚙️</span> Set menu <span class="badge user">Uporabnik</span></div>
+      <ul>
+        <li><b>Display Setting</b><span class="d">Jezik · svetlost · zaklep · časovna zakasnitev zaslona · zvok tipk</span></li>
+        <li><b>Time &amp; Date</b></li>
+        <li><b>Timer</b>
+          <ul style="padding:2px 0 0">
+            <li class="sub">Timer On/Off → Daily / Weekly / Cancel (dnevno / tedensko / preklic)</li>
+            <li class="sub">Sterilization Timer (časovnik sterilizacije)</li>
+            <li class="sub">Silent Timer (Level 1 / 2) (časovnik tihega načina)</li>
+            <li class="sub">DHW Pump (cirkulacijska črpalka TSV)</li>
+          </ul>
+        </li>
+        <li><b>Wi-Fi</b><span class="d">Seznanjanje / ponastavitev Wi-Fi (Smart mode)</span></li>
+        <li><b>User Parameters</b><span class="d">Nastavljene vrednosti (tudi v napredni skupini 01)</span></li>
+        <li><b>Manual Defrost</b></li>
+        <li><b>History Errors</b></li>
+        <li><b>Force Tank Heater / Force DHW / Force I-heat / Force AHS / Floor Dry-up</b></li>
+        <li><b>Holiday Mode</b><span class="d">Away / Home (odsotnost / doma)</span></li>
+        <li><b>Advanced Para.</b> <span class="badge inst">123456</span>
+          <ul style="padding:2px 0 0">
+            <li class="sub"><b>Parameter Settings</b> → 16 skupin ↓</li>
+            <li class="sub">Manual Test · Modify Password · Reset</li>
+            <li class="sub">Ability / Pump / Cool / Heat / Hotwater Test</li>
+            <li class="sub">Recycle Refrig · Floor Preheat · Floor Dryup Timer</li>
+            <li class="sub">Logout</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== HOME ===================== -->
+<section id="home">
+  <h2><span class="num">4</span> Domači zaslon in vsakodnevna uporaba</h2>
+  <p class="sub">Glavni zaslon prikazuje po eno ploščico za vsako aktivno cono in ploščico za sanitarno vodo. Tapnite številko, da z drsnikom
+  nastavite ciljno temperaturo; tapnite ikono za vklop, da preklopite to cono. Katero postavitev vidite, je odvisno od tega, kako je bil sistem
+  nastavljen (parameter <code class="k">35.PANEL_CTRL</code> / <code class="k">WIRE_SW_TYPE</code>).</p>
+  <div class="grid g2">
+    <div class="card"><h4>Štiri možne postavitve domačega zaslona</h4>
+      <p><b>1 · Ena cona (voda) + sanitarna voda</b> — ena cona z regulacijo temperature vode in TSV. Najpreprostejša.</p>
+      <p><b>2 · Ena cona (prostor) + sanitarna voda</b> — krmilnik meri sobno temperaturo in regulira na ciljno sobno temperaturo. Krmilnik mora biti nameščen v notranjosti.</p>
+      <p><b>3 · Dve coni (A voda + B prostor) + sanitarna voda</b> — npr. radiatorji na A, talno ogrevanje s sobno temperaturo na B.</p>
+      <p><b>4 · Dve coni (A voda + B voda) + sanitarna voda</b> — dva kroga z regulacijo temperature vode.</p>
+      <p class="meta">Ogrevanje lahko deluje v obeh conah; hlajenje samo v coni A. Če je priključen zunanji sobni termostat, naprava izvaja le regulacijo temperature vode.</p>
+    </div>
+    <div class="card"><h4>Ikone stanja na domačem zaslonu</h4>
+      <p>🔒 <b>Zaklep zaslona</b> — pred upravljanjem tapnite za odklep (nastavitev v meniju Display).</p>
+      <p>⏱️ <b>Časovnik aktiven</b> — velja dnevni/tedenski urnik.</p>
+      <p>🔇 <b>Tihi način</b> — deluje tihi način (omejena hitrost ventilatorja/kompresorja).</p>
+      <p>🏝️ <b>Počitnice</b> — aktiven počitniški program (odsotnost ali doma).</p>
+      <p>♨️ <b>Sterilizacija</b> — poteka cikel proti legioneli.</p>
+      <div class="note">Za pripravo sanitarne vode mora biti <code class="k">17.HOT_WATER</code> nastavljen na <b>ON</b>, nato tapnite ploščico sanitarne vode na domačem zaslonu.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== QUERY ===================== -->
+<section id="query">
+  <h2><span class="num">5</span> Meni Query 🔍 <span class="badge user">Uporabnik</span></h2>
+  <p class="sub">Diagnostika samo za branje — nič tukaj ne spremeni delovanja naprave.</p>
+  <div class="grid g2">
+    <div class="card"><h4>Current Error &amp; History Errors (trenutne in pretekle napake)</h4>
+      <p><b>Current Error</b> prikazuje napake, ki se pojavljajo zdaj; tapnite eno za podrobnosti. Napake, ki izpolnjujejo pogoj za ponastavitev, lahko tukaj počistite.</p>
+      <p><b>History Errors</b> (v meniju nastavitev) hrani dnevnik preteklih napak s časovnimi žigi — uporabno pri servisnih klicih. Brisanje izbriše celoten dnevnik, zato bodite previdni.</p>
+    </div>
+    <div class="card"><h4>Version (različica)</h4>
+      <p>Prikaže oznaki programske opreme glavne plošče in krmilnika. Servis jih bo zahteval pri diagnostiki. Primeri družin na tej platformi: glavna plošča <span class="mono">X1.HL087A…</span>, krmilnik <span class="mono">X1.HD016A…</span></p>
+    </div>
+    <div class="card"><h4>ECM — merjenje energije</h4>
+      <p>Zgodovina porabljene električne energije in oddane toplote v zadnjih <b>24 h / 30 d / 12 m / 10 y</b>, z izkoristkom. Okrajšave:</p>
+      <div class="tblwrap" style="margin-top:8px"><table class="tbl">
+        <tr><td><code>CQ / HQ / WQ</code></td><td><b>Oddana moč</b> pri hlajenju / ogrevanju / sanitarni vodi</td></tr>
+        <tr><td><code>CP / HP / WP</code></td><td><b>Porabljena</b> električna energija v načinu hlajenja / ogrevanja / sanitarne vode</td></tr>
+        <tr><td><code>EER / COP / W-COP</code></td><td>Grelno/hladilno število za hlajenje / ogrevanje / sanitarno vodo</td></tr>
+      </table></div>
+      <p class="meta" style="margin-top:8px">Enote se prilagajajo obdobju: 0.1 kWh na uro/dan, 1 kWh na mesec, 10 kWh na leto.</p>
+    </div>
+    <div class="card"><h4>EEBUS (izbirno)</h4>
+      <p>Poveže toplotno črpalko s sistemom <b>Huawei SmartAssistant / FusionSolar</b>, da prednostno uporablja brezplačno/poceni električno energijo iz FE (funkcija »OHPCF«). Potrebna sta modul EEBUS in ustrezna programska oprema. Opomba: <b>v konfliktu je s funkcijo Smart Grid</b> — omogočite le eno.</p>
+    </div>
+  </div>
+  <div class="note ok" style="margin-top:16px"><b>Status</b> ima spodaj svoj razloženi razdelek (§9), ker navaja vsa tipala in izhode, ki jih naprava odčitava v živo.</div>
+</section>
+
+<!-- ===================== SET MENU ===================== -->
+<section id="set">
+  <h2><span class="num">6</span> Set menu ⚙️ <span class="badge user">Uporabnik</span></h2>
+  <p class="sub">Vse, kar ni oštevilčen parameter. To so postavke, do katerih pridete neposredno prek ikone zobnika.</p>
+  <div class="grid g3">
+    <div class="card"><h4>Display Setting</h4><p>Jezik, svetlost zaslona, vklop/izklop <b>zaklepa zaslona</b>, časovna zakasnitev zaslona (nastavite <b>0</b> = vedno vklopljen) in zvok ob pritisku tipk.</p></div>
+    <div class="card"><h4>Time &amp; Date</h4><p>Nastavitev ure in koledarja. Časovniki in urniki so odvisni od pravilne nastavitve.</p></div>
+    <div class="card"><h4>Timer → On/Off</h4><p>Urnik <b>Daily</b> (dnevno, do 5 skupin: začetek, konec, način, temperatura) ali <b>Weekly</b> (tedensko); <b>Cancel Timer</b> naenkrat počisti vse časovne vklope/izklope. Neveljavna skupina (enak začetek/konec, prehod čez polnoč ali temperatura izven območja) se ne upošteva.</p></div>
+    <div class="card"><h4>Timer → Sterilization</h4><p>Urnik tedenskega segrevanja proti legioneli (npr. pet 21:00). Temperatura/trajanje sta določena z uporabniškimi parametri 14–16. Ročni vklop/izklop ima prednost pred časovnikom.</p></div>
+    <div class="card"><h4>Timer → Silent</h4><p>Tihi način po urniku, <b>Level 1</b> ali <b>Level 2</b> (L2 omeji hitrost ventilatorja/kompresorja bolj kot L1). Dve časovni skupini.</p></div>
+    <div class="card"><h4>Timer → DHW Pump</h4><p>Urnik <b>cirkulacijske črpalke</b> sanitarne vode, da je topla voda na pipi v nastavljenih oknih takoj na voljo.</p></div>
+    <div class="card"><h4>Wi-Fi</h4><p>Prikaže stanje Wi-Fi, MAC in način seznanjanja. Za (ponovno) seznanjanje: tapnite <b>Reset Wi-Fi</b> → počakajte na »distributing in <b>Smart mode</b>« → dokončajte seznanjanje v aplikaciji. (Ponovno seznanjanje odvzame dostop staremu računu.)</p></div>
+    <div class="card"><h4>User Parameters</h4><p>Bližnjica do vsakodnevnih nastavljenih vrednosti (način, ciljne temperature hlajenja/ogrevanja/prostora/sanitarne vode). Enake vrednosti kot v napredni skupini <b>01</b> spodaj.</p></div>
+    <div class="card"><h4>Manual Defrost</h4><p>Vsili odmrzovanje, <b>če</b> modul deluje in razmere na uparjalniku/vodi to dopuščajo; sicer ostane, kot je.</p></div>
+    <div class="card"><h4>Force Tank Heater (T-heat)</h4><p>Prisilno vklopi električni grelnik v hranilniku TSV za dogrevanje sanitarne vode — tudi med hlajenjem/ogrevanjem hiše.</p></div>
+    <div class="card"><h4>Force I-heat</h4><p>Prisilno vklopi <b>rezervni električni grelnik</b> za ogrevanje prostorov (IBH). Za zasilno ogrevanje ali testiranje.</p></div>
+    <div class="card"><h4>Force Hot Water</h4><p>Prisilno preklopi celoten sistem v pripravo TSV (kompresor in vsi grelniki delujejo za hranilnik).</p></div>
+    <div class="card"><h4>Force AHS</h4><p>Prisilno vklopi <b>zunanji/dodatni vir toplote</b> (npr. kotel) v načinu ogrevanja ali sanitarne vode.</p></div>
+    <div class="card"><h4>Floor Dry-up</h4><p>Program sušenja estriha za novo talno ogrevanje. Na voljo le pri dvo-/tricónski regulaciji in ko je naprava v pripravljenosti.</p></div>
+    <div class="card"><h4>Holiday Mode</h4><p><b>Away</b>: minimalna zaščita pred zmrzaljo med vašo odsotnostjo (nastavite začetek/konec ter kaj od ogrevanja/TSV/sterilizacije ostane aktivno). <b>Home</b>: počitniški urnik, ki za izbrano obdobje preglasi običajne časovnike.</p></div>
+  </div>
+</section>
+
+<!-- ===================== ADVANCED ===================== -->
+<section id="advanced">
+  <h2><span class="num">7</span> Advanced Para. 🔵 <span class="badge inst">geslo 123456</span></h2>
+  <p class="sub">Set menu → <b>Advanced Settings</b> → vnesite <b>123456</b>. S tem odklenete monterski/tovarniški del. Poleg
+  <b>Parameter Settings</b> (16 skupin spodaj) vsebuje servisna orodja:</p>
+  <div class="grid g3">
+    <div class="card"><h4>Parameter Settings</h4><p>16 skupin parametrov — celoten razložen pregled je v §8.</p></div>
+    <div class="card"><h4>Manual Test</h4><p>Ročno krmiljenje posameznih komponent (ventili, obtočna črpalka, grelniki) za preverjanje vezave.</p></div>
+    <div class="card"><h4>Ability / Pump / Cool / Heat / Hotwater Test</h4><p>Vnaprej pripravljeni zagonski testi za vsako funkcijo.</p></div>
+    <div class="card"><h4>Recycle Refrig.</h4><p>Pomoč pri odčrpavanju / zajemu hladiva med servisom.</p></div>
+    <div class="card"><h4>Floor Preheat &amp; Floor Dryup Timer</h4><p>Postopno predgretje in časovno voden program sušenja estriha za talno ogrevanje.</p></div>
+    <div class="card"><h4>Modify Password · Reset · Logout</h4><p>Sprememba monterskega gesla, ponastavitev parametrov in <b>Logout</b> za ponovno zaklepanje menija.</p></div>
+  </div>
+  <div class="note warn"><b>Kako deluje izbira skupine:</b> na vrhu Parameter Settings tapnite <b>Parameters Type → Select…</b>
+  in na kolesu izberite skupino (01–16). Vsaka skupina nato prikaže mrežo oštevilčenih kartic; tapnite kartico, da odprete
+  izbirnik vrednosti (npr. seznam načinov ali številčnico). Shranite s <b>Confirm</b>.</div>
+</section>
+
+<!-- ===================== PARAMETERS ===================== -->
+<section id="params">
+  <h2><span class="num">8</span> Pregled parametrov — vseh 16 skupin</h2>
+  <p class="sub">Vsi parametri, odčitani z zaslonskih slik vaše naprave, z razlago. <b>»Ta namestitev«</b> je vrednost, ki jo ima vaša naprava
+  trenutno nastavljeno. Iščite po kodi ali pomenu ali filtrirajte na eno skupino. Barvne oznake kažejo, komu je posamezna skupina namenjena.</p>
+
+  <div class="shotgrid" style="margin-bottom:18px">
+    <div class="shot"><img src="assets/app/group_selector.jpg" alt="Izbirnik skupin"><div class="cap">Izbirnik skupin — 16 Parameters Types</div></div>
+    <div class="shot"><img src="assets/app/user_params.jpg" alt="Mreža uporabniških parametrov"><div class="cap">Skupina 01 · mreža User Parameters</div></div>
+    <div class="shot"><img src="assets/app/system_params.jpg" alt="Sistemski parametri"><div class="cap">Skupina 02 · System Parameters</div></div>
+    <div class="shot"><img src="assets/app/value_picker.jpg" alt="Izbirnik vrednosti"><div class="cap">Tap na kartico → izbirnik vrednosti (PUMPf_CTRL)</div></div>
+  </div>
+
+  <div class="toolbar">
+    <input id="psearch" type="text" placeholder="Iskanje po kodi ali pomenu — npr. sanitarna voda, sterilizacija, PUMP, TWout…">
+  </div>
+  <div class="gfilter" id="gfilter"></div>
+  <div class="tblwrap">
+    <table class="pref"><thead>
+      <tr><th style="width:230px">Koda</th><th style="width:110px">Ta namestitev</th><th>Pomen</th></tr>
+    </thead><tbody id="pbody"></tbody></table>
+  </div>
+  <div class="legend-inline">
+    <span><span class="badge user">Uporabnik</span> varno za spreminjanje</span>
+    <span><span class="badge inst">Monter</span> samo ob zagonu</span>
+    <span><span class="badge fact">Tovarniško</span> ne spreminjajte</span>
+  </div>
+</section>
+
+<!-- ===================== STATUS ===================== -->
+<section id="status">
+  <h2><span class="num">9</span> Status query (pregled stanja) — razlaga odčitkov v živo</h2>
+  <p class="sub">Query → <b>Status</b> navaja vse temperature, ki jih naprava meri, in vse izhode, ki jih krmili, razdeljeno na
+  <b>System Status</b>, <b>Module Status</b> in <b>Compressor</b>. Puščica na desni strani vrstice pomeni, da je ta izhod
+  trenutno vklopljen. Spodnje vrednosti so primeri odčitkov z vaših zaslonskih slik.</p>
+  <div class="grid g2">
+    <div>
+      <div class="shot" style="max-width:320px;margin:0 auto 16px"><img src="assets/app/status_query.jpg" alt="Pregled stanja"><div class="cap">Status query — stanje sistema in modula</div></div>
+    </div>
+    <div>
+      <div class="tblwrap"><table class="tbl">
+        <thead><tr><th>Oznaka</th><th>Pomen</th><th>Primer</th></tr></thead>
+        <tbody>
+          <tr><td colspan="3" class="grouphdr" style="background:#10202e;color:var(--acc);font-weight:800;padding:8px 11px">SYSTEM STATUS</td></tr>
+          <tr><td><code>TR</code></td><td>Sobna temperatura</td><td class="val">26.9 °C</td></tr>
+          <tr><td><code>TA'</code></td><td>Zunanja temperatura okolice</td><td class="val">39.1 °C</td></tr>
+          <tr><td><code>THWt</code></td><td>Temperatura hranilnika sanitarne vode</td><td class="val">30.6 °C</td></tr>
+          <tr><td><code>TWout2_ac</code></td><td>Temperatura vode za ogrevanje/hlajenje (A/C)</td><td class="val">28.9 °C</td></tr>
+          <tr><td><code>TWin_ac</code></td><td>Temperatura povratne vode A/C</td><td class="val">27.0 °C</td></tr>
+          <tr><td><code>S3V1 / S3V2 / S3V3</code></td><td>Izhodi 3-potnih elektromagnetnih ventilov (TSV / cona / mešanje)</td><td class="val">ON / OFF / ON</td></tr>
+          <tr><td colspan="3" class="grouphdr" style="background:#10202e;color:var(--acc);font-weight:800;padding:8px 11px">MODULE STATUS (00#)</td></tr>
+          <tr><td><code>TWin1 / TWout1</code></td><td>Voda vstop / izstop ploščnega izmenjevalnika</td><td class="val">27.0 / 28.8 °C</td></tr>
+          <tr><td><code>TWout2</code></td><td>Izstop vode iz modula</td><td class="val">28.8 °C</td></tr>
+          <tr><td><code>TA</code></td><td>Temperatura okolice modula</td><td class="val">39.1 °C</td></tr>
+          <tr><td><code>PUMPf.SET / .CUR</code></td><td>Ciljna hitrost črpalke / dejanski pretok</td><td class="val">0 rpm / 0 L/H</td></tr>
+          <tr><td><code>PUMPf.PWM.OUT / .IN</code></td><td>PWM izhod / povratni signal črpalke %</td><td class="val">98 / 100 %</td></tr>
+          <tr><td><code>PUMPf.ERR</code></td><td>Koda napake črpalke (0 = OK)</td><td class="val">5</td></tr>
+          <tr><td colspan="3" class="grouphdr" style="background:#10202e;color:var(--acc);font-weight:800;padding:8px 11px">1# COMPRESSOR</td></tr>
+          <tr><td><code>EEVm.CUR</code></td><td>Odprtost glavnega ekspanzijskega ventila (koraki)</td><td class="val">336</td></tr>
+          <tr><td><code>TF</code></td><td>Temperatura zunanjega uparjalnika (lamel)</td><td class="val">31.6 °C</td></tr>
+          <tr><td><code>TD / TS</code></td><td>Temperatura na tlačni / sesalni strani kompresorja</td><td class="val">31.8 / 32.5 °C</td></tr>
+          <tr><td><code>TES</code></td><td>Temperatura tipala ekonomizerja / uparjalnika</td><td class="val">30.2 °C</td></tr>
+          <tr><td><code>PRSs</code></td><td>Sesalni tlak</td><td class="val">9.8 bar</td></tr>
+          <tr><td><code>SHSV / SHPV.EEVm</code></td><td>Pregretje, sesalna / tlačna stran</td><td class="val">2.0 / 2.3 °C</td></tr>
+          <tr><td><code>TAFD</code></td><td>Tipalo odmrzovanja na tlačni strani (−99.9 = ni vgrajeno)</td><td class="val">−99.9 °C</td></tr>
+          <tr><td><code>COMPf.SET / .CUR</code></td><td>Ciljna / dejanska hitrost kompresorja</td><td class="val">0.0 rps</td></tr>
+          <tr><td><code>INVT.Vout/Iout/Vin/Iin</code></td><td>Izhodna/vhodna napetost in tok inverterja</td><td class="val">0.0</td></tr>
+          <tr><td><code>INVT.T / .INFO</code></td><td>Temperatura inverterskega modula / koda stanja</td><td class="val">39.4 °C / 0</td></tr>
+          <tr><td><code>FAN1.SET / .CUR</code></td><td>Ciljna / dejanska hitrost ventilatorja</td><td class="val">0 rpm</td></tr>
+          <tr><td><code>R290.ERR</code></td><td>Napaka tipala plina R290 (0 = OK)</td><td class="val">0</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== GLOSSARY ===================== -->
+<section id="glossary">
+  <h2><span class="num">10</span> Slovar kod</h2>
+  <p class="sub">Predpone in okrajšave, ki se pojavljajo v vseh menijih. Za skok uporabite iskanje.</p>
+  <div class="toolbar"><input id="glsearch" type="text" placeholder="Iskanje po slovarju — npr. EEV, črpalka, RV, TWout…"></div>
+  <div class="glwrap"><table class="pref"><thead><tr><th style="width:150px">Koda</th><th style="width:230px">Ime</th><th>Pomen</th></tr></thead><tbody id="glbody"></tbody></table></div>
+</section>
+
+</main>
+
+<footer><div class="wrap">
+  <h3>Viri</h3>
+  <p class="src">Struktura menijev in opisi funkcij: <span class="mono">Service Manual (R290) V2</span>, 3. del
+  (User Interface Structure §2.2, Query §3.5–3.9, Settings §3.11). Vrednosti parametrov in stanje v živo: 41 zaslonskih
+  slik aplikacije <span class="mono">com.punp.palmtophuilian</span> (Huilian Smart), posnetih na nameščeni napravi.
+  Razlage tipal/ventilov/grelnikov so skupne z <a href="index-sl.html">vodnikom za vezavo in krmilnik</a>.</p>
+  <p class="src">Pomeni parametrov <span class="badge fact">tovarniških</span> kalibracijskih skupin so inženirske
+  interpretacije imen kod; navedene številke so tovarniške privzete vrednosti te naprave, podane v vednost — niso
+  nasveti za nastavljanje. V dvomu jih ne spreminjajte in se obrnite na servis Initra Energija&nbsp;d.o.o.</p>
+</div></footer>
+
+<div class="lb" id="lightbox"><span class="x">&times;</span><img id="lbimg" alt=""></div>
+
+<script>
+/* ============ PARAMETER DATA ============ */
+/* format per row: "CODE | value | meaning"  (split on ' | ') */
+const GROUPS=[
+{n:'01',name:'Uporabniški parametri',aud:'user',rows:`
+01.CTRL_MODE | Heat | Trenutni način delovanja: Heat (ogrevanje) / Cool (hlajenje) / Auto. Vsakodnevna nastavitev.
+02.COOL_TEMP_SET | 12 °C | Želena temperatura vode (dovoda) pri hlajenju, cona A.
+03.HEAT_TEMP_SET | 33 °C | Želena temperatura vode (dovoda) pri ogrevanju, cona A. Za talno ogrevanje naj bo nizka (30–40).
+04.HOT_WATER_TEMP_SET | 67 °C | Želena temperatura v hranilniku sanitarne vode (TSV).
+05.COOL_ROOM_TEMP_SET | 26 °C | Želena sobna temperatura pri hlajenju (ko naprava regulira prostor, ne vode).
+06.HEAT_ROOM_TEMP_SET | 20 °C | Želena sobna temperatura pri ogrevanju.
+09.HEAT_TEMP_SET_B | 60 °C | Želena temperatura ogrevalne vode, cona B (2. cona, npr. radiatorji).
+10.HEAT_ROOM_TEMP_SET_B | 29 °C | Želena sobna temperatura, cona B (ogrevanje).
+11.POWER_MODE | AUTO | Način moči: Standard / Strong (močno) / Energy-saving (varčno) / Auto.
+13.STERILIZATION | OFF | Vklop časovno vodenega cikla zaščite pred legionelo (TSV na visoki temperaturi).
+14.STERILIZATION_TEMP | 65 °C | Ciljna temperatura dezinfekcije (območje 60–70).
+15.STERILIZATION_CYCLE_MAX | 210 min | Najdaljši dovoljeni čas za dosego temperature dezinfekcije (območje 90–300).
+16.STERILIZATION_HIGH_TEMP_TIME | 15 min | Čas zadrževanja na temperaturi dezinfekcije (območje 5–60).
+26.A_ZONE_COOL_CURVE | OFF | Krivulja vremenskega vodenja za hlajenje cone A (OFF ali krivulja 1–9).
+27.A_ZONE_HEAT_CURVE | OFF | Krivulja vremenskega vodenja za ogrevanje cone A.
+28.B_ZONE_COOL_CURVE | OFF | Krivulja vremenskega vodenja za hlajenje cone B.
+29.B_ZONE_HEAT_CURVE | OFF | Krivulja vremenskega vodenja za ogrevanje cone B.
+30.C#9_TA_C1 | 35 °C | Uporabniška krivulja »Curve 9« za hlajenje — točka zunanje temperature 1.
+31.C#9_TA_C2 | 25 °C | Uporabniška krivulja 9 za hlajenje — točka zunanje temperature 2.
+32.C#9_TWout2_C1 | 10 °C | Krivulja 9, hlajenje — želena temperatura vode pri točki zunanje temperature 1.
+33.C#9_TWout2_C2 | 16 °C | Krivulja 9, hlajenje — želena temperatura vode pri točki zunanje temperature 2.
+34.C#9_TA_H1 | 7 °C | Uporabniška krivulja 9 za ogrevanje — točka zunanje temperature 1.
+35.C#9_TA_H2 | −5 °C | Krivulja 9, ogrevanje — točka zunanje temperature 2.
+36.C#9_TWout2_H1 | 28 °C | Krivulja 9, ogrevanje — želena temperatura vode v točki 1.
+37.C#9_TWout2_H2 | 35 °C | Krivulja 9, ogrevanje — želena temperatura vode v točki 2.
+38.00#UNIT | ON | Vklop modula 00 (te naprave) v kaskadi.
+`},
+{n:'02',name:'Sistemski parametri',aud:'inst',rows:`
+01.AC_TYPE | COOL&HEAT | [Air Conditioning Type] — natanko tri možnosti: [0] Heating Only · [1] Heating &amp; Cooling (tovarniško privzeto, = ta vrednost) · [2] Cooling Only. Možnosti samo za TSV ni; topla sanitarna voda se vklopi ločeno s 17.HOT_WATER.
+02.REFRIGERANT | R290 | Vrsta hladiva (pri tem modelu R290 propan). Tovarniško.
+03.RV_SET | Cool Mode ON | Logika preklopnega ventila — v katerem načinu je 4-potni ventil pod napetostjo. Tovarniško.
+05.WIRE_SW_TYPE | TOGGLE | Način preklapljanja con (toggle / ena / dve / tri cone). Določa postavitev sistema v hiši.
+07.PWR_DOWN_MEM | ON | Pomnjenje stanja vklop/izklop ob izpadu napajanja.
+08.PWR_ON_RUN | OFF | Samodejni zagon delovanja ob vklopu napajanja.
+09.PUMP_RUN_MODE | KEEP.RUN | Način obtočne črpalke: neprekinjeno delovanje ali intervalno delovanje.
+10.TEMP_CTRL_OBJ | TACT.WATER | Katero temperaturo naprava regulira (tu dejanska voda / voda v hranilniku toplote).
+11.CL_TEMP_CORR | 0.0 °C | Kalibracijski odmik tipala temperature pri hlajenju.
+12.HT_TEMP_CORR | 0.0 °C | Kalibracijski odmik tipala temperature pri ogrevanju.
+13.RV_ON_DLY | 20 sec | Zakasnitev vklopa preklopnega ventila. Tovarniško.
+14.RV_OFF_DLY | −60 sec | Zakasnitev izklopa preklopnega ventila. Tovarniško.
+15.LIV_ON_TP_T | 107 °C | Prag temperature tlačnega voda za začetek vbrizga kapljevine. Tovarniško.
+16.LIV_OFF_TP_dT | 10 °C | Diferenca za ustavitev vbrizga kapljevine. Tovarniško.
+17.HOT_WATER | ON | Glavni vklop funkcije tople sanitarne vode. Za pripravo TSV mora biti ON.
+18.HW_dT | 5.0 °C | Histereza ponovnega vklopa TSV — za toliko mora temperatura v hranilniku pasti pod želeno, preden se ponovno segreva.
+19.QZH_ON_TA_T | 5 °C | Grelec ohišja kompresorja se vklopi pod to zunanjo temperaturo. Tovarniško.
+20.QZH_OFF_TA_T | 7 °C | Grelec ohišja kompresorja se izklopi nad to zunanjo temperaturo. Tovarniško.
+21.COOL_MODE | ON | Dovoli delovanje v hlajenju.
+22.HEAT_MODE | ON | Dovoli delovanje v ogrevanju.
+23.PWRD_TIME_MIN | 4 HH | Najkrajše okno predgrevanja ohišja kompresorja v mirovanju pred zagonom (ure). Tovarniško.
+24.PWRD_TIME_MAX | 48 HH | Najdaljše okno predgrevanja ohišja kompresorja v mirovanju (ure). Tovarniško.
+25.PREHT_TIME_MIN | 10 min | Najkrajši čas predgrevanja pred zagonom kompresorja. Tovarniško.
+26.PREHT_TIME_MAX | 60 min | Najdaljši čas predgrevanja. Tovarniško.
+27.HW_PRIORITY | ON | Prednost tople sanitarne vode pred ogrevanjem prostorov.
+28.TBH | OFF | Vklop rezervnega električnega grelca v hranilniku TSV.
+29.PUMPret | OFF | Vklop cirkulacijske (povratne) črpalke TSV.
+30.SOLAR | OFF | Vklop vira toplote iz sončnih kolektorjev.
+31.REMOTE_SW_TYPE | UNION.KEEP | Obnašanje vhoda za daljinski vklop/izklop.
+32.INVT | ON | Inverterski kompresor (spremenljiva hitrost) omogočen. Tovarniško.
+34.RT_CTRL | OFF | Regulacija po sobni temperaturi (namesto po temperaturi vode).
+35.PANEL_CTRL | 1 ZONE.TA | Obseg žičnega krmilnika (tu: 1 cona, sobna temperatura). Izbere scenarij za hišo.
+36.HOTW_PUMP_MODE | OFF | Način cirkulacijske črpalke TSV.
+38.DPH_TYPE | Dfro d.heat | Vrsta grelca kadi za kondenzat / odtoka (tali led po odmrzovanju v kadi).
+39.DPH_ON_TA | 5 °C | Grelec kadi se vklopi pod to zunanjo temperaturo.
+40.SPLASH_TYPE | 0 | Konfiguracija odtoka kadi / zaščite pred pljuskanjem. Tovarniško.
+41.SMART_GRID_CFG | CFG.1# | Konfiguracijski profil pametnega omrežja (za nemški §14a SG-ready uporabite CFG.6).
+42.SMART_GRID | OFF | Vklop funkcije pametnega omrežja (SG/EVU). Ni združljivo z EEBUS.
+44.PUMPf_INTER_OFF_TIME | 10 min | Čas mirovanja črpalke v intervalnem načinu.
+45.MODE_WIRE_CTRL | OFF | Zunanje žično stikalo lahko nastavi način delovanja.
+46.R290_TEMP_DIFF | 0 °C | Nastavitev temperaturne diference tipala puščanja R290. Tovarniško.
+`},
+{n:'03',name:'Nastavitve kompresorja',aud:'fact',rows:`
+01.INVT_CM_ID | 143 | ID modela inverterja / gonilnika kompresorja.
+02.INVT_CM_MAN | OFF | Ročna nastavitev hitrosti kompresorja.
+03.CM_RPS_MAN | 60 rps | Hitrost kompresorja ob vklopljeni ročni nastavitvi.
+04.CM_RSTRT_DLY | 360 sec | Najkrajša zakasnitev ponovnega zagona (zaščita pred kratkimi cikli), 6 min.
+05.CM_RPS_DEC | 5 rps | Korak zniževanja hitrosti.
+06.CM_RPS_MIN | 30 rps | Najnižja hitrost kompresorja.
+07.CM_RPS_MAX | 80 rps | Najvišja hitrost kompresorja.
+08.CL_CM_RPS_RATED | 60 rps | Nazivna hitrost pri hlajenju.
+09.HT_CM_RPS_RATED | 60 rps | Nazivna hitrost pri ogrevanju.
+10.CM_ON_HOLD_t | 200 sec | Čas zadrževanja po zagonu pred povečevanjem hitrosti.
+11.HP_LADD_dPRS | −2.0 bar | Stopnja »lestvice« visokega tlaka za regulacijo hitrosti.
+12.LP_LADD_dPRS | 0.4 bar | Stopnja lestvice nizkega tlaka.
+13.HP_FSUB_dPRS | −1.0 bar | Prag zniževanja frekvence pri visokem tlaku.
+14.LP_FSUB_dPRS | 0.2 bar | Prag zniževanja frekvence pri nizkem tlaku.
+15.L_RPS_HOLD_MAX | 120 min | Najdaljši čas delovanja pri nizki hitrosti.
+16.FORCE_OIL_RET_t | 300 sec | Interval prisilnega vračanja olja.
+17.INVT_CM_ADDR | 1 | Komunikacijski naslov inverterja.
+18.CM_RPS_DFR | 70 rps | Hitrost kompresorja med odmrzovanjem.
+19.CM_RPS_ON | 40 rps | Zagonska hitrost.
+20.CM_ON_INC_RPS | 3 rps | Korak povečevanja hitrosti ob zagonu.
+21.CM_RUN_INC_RPS | 5 rps | Korak povečevanja med delovanjem.
+22.CM_DFR_INC_RPS | 3 rps | Korak povečevanja med odmrzovanjem.
+23.CM_STD_CORR | −3 rps | Standardna korekcija hitrosti.
+24.CM_ON_INC_t | 10 sec | Interval med koraki povečevanja ob zagonu.
+25.FACTOR_Kc | 600 | Konstanta ojačanja regulacijske zanke (PID).
+26.FACTOR_Ti | 50 | Faktor integralnega časa PID.
+27.FACTOR_Td | 10 | Faktor diferencialnega časa PID.
+28.PID_ACT_CYCLE | 30 sec | Cikel delovanja PID.
+29.CM_RPS_ON_2 | 40 rps | Sekundarna zagonska hitrost.
+30.FACTOR_Kp | 1.0 | Proporcionalni faktor PID.
+31.CL_COND_T_MAX | 63 °C | Najvišja temperatura kondenzacije, hlajenje.
+32.HT_COND_T_MAX | 75 °C | Najvišja temperatura kondenzacije, ogrevanje.
+33.CM_ECO_CORR | −8 rps | Korekcija hitrosti v varčnem načinu.
+34.HT_EVAP_T_MIN | −32 °C | Najnižja temperatura uparjanja, ogrevanje.
+35.CM_RATE_HOLD_t | 60 sec | Čas zadrževanja nazivne hitrosti.
+38.FORCE_DEC_TP_T | 105 °C | Temperatura tlačnega voda, ki prisili znižanje hitrosti.
+39.CM_RPS_OIL_RET | 50 rps | Hitrost za vračanje olja.
+40.UQ_CM_RPS_MAX | 50 rps | Najvišja hitrost v ultra tihem načinu (silent L2).
+41.CM_BOOST_CORR | 0 rps | Korekcija za način povečane moči (boost).
+42.Q_CM_RPS_MAX | 70 rps | Najvišja hitrost v tihem načinu (silent L1).
+43.CM_RPS_AVO_RNG | 0 rps | Širina pasu izogibanja resonanci.
+44.CM_RPS_AVO_1 | 20 rps | Preskočena hitrost št. 1 (izogibanje vibracijam/resonanci).
+45.CM_RPS_AVO_2 | 20 rps | Preskočena hitrost št. 2.
+46.CM_RPS_AVO_3 | 20 rps | Preskočena hitrost št. 3.
+47.CM_RPS_AVO_4 | 20 rps | Preskočena hitrost št. 4.
+48.L_TA_CM_RPS_ON_2 | 40 rps | Zagonska hitrost pri nizki zunanji temperaturi.
+`},
+{n:'04',name:'Nastavitve ventilatorja',aud:'fact',rows:`
+01.INVT_FAN_TYPE | PWM Fan | Vrsta ventilatorja (inverterski ventilator s PWM).
+03.CL_FAN_RPM_MAX | 750 rpm | Najvišja hitrost ventilatorja, hlajenje.
+04.CL_FAN_RPM_MIN | 300 rpm | Najnižja hitrost ventilatorja, hlajenje.
+05.FAN_ECO_CORR | 1.00 | Korekcijski faktor ventilatorja v varčnem načinu.
+06.FAN_CTRL_TYPE | FIN LINEAR | Zakon regulacije ventilatorja (linearno ali po temperaturi lamel).
+07.FAN_RPM_MAN | 0 rpm | Ročna hitrost ventilatorja (0 = samodejno).
+08.H_RPM_INVT_T | 80 °C | Temperatura, nad katero ventilator deluje z visoko hitrostjo.
+09.CL_H_RPM_TA | 32 °C | Hlajenje: zunanja temperatura za visoko hitrost ventilatorja.
+10.CL_L_RPM_TA | 20 °C | Hlajenje: zunanja temperatura za nizko hitrost ventilatorja.
+11.HT_H_RPM_TA | 10 °C | Ogrevanje: zunanja temperatura za visoko hitrost ventilatorja.
+12.HT_L_RPM_TA | 20 °C | Ogrevanje: zunanja temperatura za nizko hitrost ventilatorja.
+13.CL_H_RPM_TC_T | 40 °C | Hlajenje: temperatura lamel za visoko hitrost ventilatorja.
+14.CL_L_RPM_TC_T | 25 °C | Hlajenje: temperatura lamel za nizko hitrost ventilatorja.
+15.HT_H_RPM_TE_T | 1 °C | Ogrevanje: temperatura uparjalnika za visoko hitrost ventilatorja.
+16.HT_L_RPM_TE_T | 18 °C | Ogrevanje: temperatura uparjalnika za nizko hitrost ventilatorja.
+17.HT_M_RPM_T | 8 °C | Ogrevanje: prag srednje hitrosti.
+18.FAN_CTRL_CYCLE | 30 sec | Cikel posodabljanja regulacije ventilatorja.
+19.FAN_ACT_PCT | 10 % | Korak prilagajanja ventilatorja.
+20.HT_FAN_RPM_MAX | 600 rpm | Najvišja hitrost ventilatorja, ogrevanje.
+21.HT_FAN_RPM_MIN | 300 rpm | Najnižja hitrost ventilatorja, ogrevanje.
+22.FAN_REVO_PULSE | 12 | Število tahometrskih impulzov na vrtljaj.
+23.FAN_BOOST_CORR | 1.06 | Korekcija ventilatorja v načinu povečane moči (boost).
+25.CL_M_RPM_T | 30 °C | Hlajenje: prag srednje hitrosti.
+26.UQ_FAN_RPM_MAX | 500 rpm | Najvišja hitrost ventilatorja, ultra tihi način (silent L2).
+27.INVT_FAN_NUM | 1 | Število ventilatorjev.
+28.Q_FAN_RPM_MAX | 500 rpm | Najvišja hitrost ventilatorja, tihi način (silent L1).
+29.pwm_init | 30 % | Začetno razmerje PWM.
+30.pwm_coef | 30 % | Koeficient PWM.
+31.pwm_period | 10 sec | Perioda PWM.
+32.pwm_area | 2 | Regulacijsko območje PWM.
+33.FanStdAdj | 1.00 | Standardni faktor prilagoditve ventilatorja.
+37.freqCpstCoef | 40 % | Koeficient frekvenčne kompenzacije.
+38.minCpstCoef | 70 % | Najnižji koeficient kompenzacije.
+39.TP_RPM_CORR_1 | 1.06 | Korekcija ventilatorja po temperaturi tlačnega voda št. 1.
+40.TP_RPM_CORR_2 | 1.00 | Korekcija ventilatorja po temperaturi tlačnega voda št. 2.
+41.TP_RPM_CORR_3 | 0.90 | Korekcija ventilatorja po temperaturi tlačnega voda št. 3.
+42.TP_CORR_SET | ONLY_COOL | Kje velja temperaturna korekcija (samo hlajenje).
+43.CL_FAN_OFF_dT | 0 °C | Diferenca izklopa ventilatorja pri hlajenju.
+44.HT_FAN_OFF_dT | 0 °C | Diferenca izklopa ventilatorja pri ogrevanju.
+45.FAN_OFF_dT | 5 °C | Splošna diferenca izklopa ventilatorja.
+46.CL_FAN_RPM_MID | 0 rpm | Srednja hitrost ventilatorja pri hlajenju (0 = ni v uporabi).
+47.HT_FAN_RPM_MID | 0 rpm | Srednja hitrost ventilatorja pri ogrevanju (0 = ni v uporabi).
+`},
+{n:'05',name:'Nastavitve EEV',aud:'fact',rows:`
+02.M.EEV StepMode | 4P8B | Način koračnega pogona glavnega ekspanzijskega ventila.
+03.M.EEV StepRate | 31PPS | Hitrost korakov glavnega EEV (impulzi/s).
+04.M.EEV max step | 480 step | Število korakov glavnega EEV pri polnem odprtju.
+05.M.EEV forceOD% | 6.8 % | Prisilna stopnja odprtja glavnega EEV.
+06.M.EEV max OD% | 100 % | Največje odprtje glavnega EEV.
+07.M.OH Exh Cpst | 0.0 °C | Glavna kompenzacija pregretja / tlačnega voda.
+08.M.Manual Mode | OFF | Ročno upravljanje glavnega EEV.
+09.M.Manual Steps | 250 step | Ročni položaj glavnega EEV.
+10.M.OH Freq Cpst | 0.0 °C | Frekvenčna kompenzacija glavnega EEV.
+11.S.EEV enable | OFF | Vklop pomožnega (EVI) EEV.
+12.S.EEV StepMode | 4P8B | Koračni način pomožnega EEV.
+13.S.EEV StepRate | 31PPS | Hitrost korakov pomožnega EEV.
+14.S.EEV max step | 480 step | Število korakov pomožnega EEV pri polnem odprtju.
+15.S.EEV forceOD% | 6.0 % | Prisilna stopnja odprtja pomožnega EEV.
+16.S.EEV max OD% | 100 % | Največje odprtje pomožnega EEV.
+17.S.EEV min OD% | 12.0 % | Najmanjše odprtje pomožnega EEV.
+18.S.Manual Mode | OFF | Ročno upravljanje pomožnega EEV.
+19.S.Manual Steps | 250 step | Ročni položaj pomožnega EEV.
+20.lehw.in | 42 °C | Ogrevanje pri nizki zunanji temperaturi: referenca vstopne vode.
+21.lehw.env | −30 °C | Ogrevanje pri nizki zunanji temperaturi: referenca okolice.
+22.lehw.EEV | 350 step | Ogrevanje pri nizki zunanji temperaturi: odprtje EEV.
+23.EEV.refer | 0 step | Referenčni odmik EEV.
+24.refer.coef | 5 | Referenčni koeficient EEV.
+25.CL_SH_TA | 20 °C | Hlajenje: referenca pregretja glede na zunanjo temperaturo.
+26.LO_TA_CL_SH_1 | 4.0 °C | Ciljno pregretje pri hlajenju ob nizki zunanji temperaturi št. 1.
+27.LO_TA_CL_SH_2 | 4.0 °C | Ciljno pregretje pri hlajenju ob nizki zunanji temperaturi št. 2.
+28.LO_TA_CL_SH_3 | 5.0 °C | Ciljno pregretje pri hlajenju ob nizki zunanji temperaturi št. 3.
+29.EEVm_FREQ_INC | 4 rps | Korak povečanja frekvence EEVm.
+30.EEVm_RISE_COEF | 0.0 | Koeficient dviga EEVm.
+31.EEVm_DROP_COEF | 0.0 | Koeficient spusta EEVm.
+32.INIT_STEP_CHG_CL | 38 °C | Točka spremembe začetnega koraka pri hlajenju.
+34.H_GAS_EEV_ORDER | M.EEV_PRIOR | Kateri EEV ima prednost pri vročem plinu (prednost glavnega).
+48.Defrost_eev_delay | 0 sec | Zakasnitev EEV ob vstopu v odmrzovanje.
+`},
+{n:'06',name:'Nastavitve EEVm (glavno pregretje)',aud:'fact',rows:`
+01.idle OD% | 70 % | Odprtje glavnega EEV v mirovanju.
+02.init. holdtime | 180 sec | Začetni čas zadrževanja pred regulacijo pregretja.
+03.Cold Ampli. | 1.0 | Ojačanje regulacije pri hlajenju.
+04.Heat Ampli.1 | 1.0 | Ojačanje pri ogrevanju, območje 1.
+05.Heat Ampli.2 | 1.0 | Ojačanje pri ogrevanju, območje 2.
+06.Heat Ampli.3 | 1.2 | Ojačanje pri ogrevanju, območje 3.
+07.Heat change.1 | 25 °C | Ogrevanje: točka spremembe območja ojačanja 1.
+08.Heat change.2 | 45 °C | Ogrevanje: točka spremembe območja ojačanja 2.
+09.Cold I.Min OD% | 45 % | Hlajenje: začetno najmanjše odprtje.
+10.Cold I.Max OD% | 85 % | Hlajenje: začetno največje odprtje.
+11.Heat I.Min OD% | 40 % | Ogrevanje: začetno najmanjše odprtje.
+12.Heat I.Max OD% | 90 % | Ogrevanje: začetno največje odprtje.
+13.off EVI Ampli | 1.0 | Ojačanje pri izklopljenem EVI.
+14.cool sv1 | 3.0 °C | Ciljno pregretje pri hlajenju 1.
+15.cool sv2 | 3.0 °C | Ciljno pregretje pri hlajenju 2.
+16.cool sv3 | 3.0 °C | Ciljno pregretje pri hlajenju 3.
+17.Cold Chg1 | 25 °C | Hlajenje: točka spremembe pregretja 1.
+18.Cold Chg2 | 15 °C | Hlajenje: točka spremembe pregretja 2.
+19.Heat sv1 | 2.0 °C | Ciljno pregretje pri ogrevanju 1.
+20.Heat sv2 | 2.0 °C | Ciljno pregretje pri ogrevanju 2.
+21.Heat sv3 | 2.0 °C | Ciljno pregretje pri ogrevanju 3.
+22.Heat sv4 | 2.0 °C | Ciljno pregretje pri ogrevanju 4.
+23.Heat sv5 | 2.0 °C | Ciljno pregretje pri ogrevanju 5.
+24.Heat sv6 | 1.0 °C | Ciljno pregretje pri ogrevanju 6.
+25.Heat sv7 | 1.0 °C | Ciljno pregretje pri ogrevanju 7.
+26.Heat sv8 | 1.0 °C | Ciljno pregretje pri ogrevanju 8.
+27.Heat sv9 | 1.0 °C | Ciljno pregretje pri ogrevanju 9.
+28.Force.cl.Evap | 27 °C | Ciljna temperatura uparjalnika pri prisilnem hlajenju.
+29.Defrost OD% | 95 % | Odprtje EEV med odmrzovanjem.
+30.limitRange | 3 % | Mejni pas odprtja.
+31.Proportional | 1250 | Proporcionalni člen PID.
+32.Integral Tm | 200 | Integralni čas PID.
+33.DerivativeTm | 10 | Diferencialni čas PID.
+34.MotionPeriod | 10 sec | Perioda regulacijskega posega.
+36.P coef. | 0.2 | Proporcionalni koeficient.
+37.Heat min OD1 | 20 % | Ogrevanje: najmanjše odprtje, območje 1.
+38.Heat min OD2 | 18 % | Ogrevanje: najmanjše odprtje, območje 2.
+39.Heat min OD3 | 16 % | Ogrevanje: najmanjše odprtje, območje 3.
+40.Heat min OD4 | 14 % | Ogrevanje: najmanjše odprtje, območje 4.
+41.Heat min OD5 | 16 % | Ogrevanje: najmanjše odprtje, območje 5.
+42.Cool min OD1 | 20 % | Hlajenje: najmanjše odprtje, območje 1.
+43.Cool min OD2 | 18 % | Hlajenje: najmanjše odprtje, območje 2.
+44.Cool min OD3 | 16 % | Hlajenje: najmanjše odprtje, območje 3.
+45.Cool min OD4 | 14 % | Hlajenje: najmanjše odprtje, območje 4.
+46.Cool min OD5 | 12 % | Hlajenje: najmanjše odprtje, območje 5.
+47.heatLimitWing | −30 °C | Meja pregretja pri ogrevanju ob nizki zunanji temperaturi.
+48.DefrInitOdCpst | 0 step | Kompenzacija začetnega odprtja pri odmrzovanju.
+`},
+{n:'07',name:'Nastavitve EEVs (EVI / ekonomajzer)',aud:'fact',rows:`
+01.EVI Heat Open | OFF | Odpiranje EVI (ekonomajzerja) pri ogrevanju.
+02.EVI Cold Open | OFF | Odpiranje EVI pri hlajenju.
+03.EVI Open Dly | 30 sec | Zakasnitev odpiranja EVI.
+04.EVI Open Env.Ht | 12 °C | Zunanja temperatura, pod katero se EVI odpre (ogrevanje).
+05.EVI Open Exh | 30 °C | Temperatura tlačnega voda za odpiranje EVI.
+06.EVI Open Env.Cl | 25 °C | Zunanja temperatura, nad katero se EVI odpre (hlajenje).
+08.Cold I.Open OD% | 20 % | Hlajenje: začetno odprtje EVI.
+09.Heat I.Open OD1% | 12 % | Ogrevanje: začetno odprtje EVI, območje 1.
+10.Heat I.Open OD2% | 15 % | Ogrevanje: začetno odprtje EVI, območje 2.
+11.Heat I.Open OD3% | 20 % | Ogrevanje: začetno odprtje EVI, območje 3.
+12.Heat I.Open OD4% | 25 % | Ogrevanje: začetno odprtje EVI, območje 4.
+13.Cold ExhOV open | 15 °C | Hlajenje: točka odpiranja ob pregretju tlačnega voda.
+14.Heat ExhOV open | 15 °C | Ogrevanje: točka odpiranja ob pregretju tlačnega voda.
+16.Proportional | 1000 | Proporcionalni člen PID.
+17.Integral Tm | 300 | Integralni čas PID.
+18.DerivativeTm | 10 | Diferencialni čas PID.
+19.MotionPeriod | 8 sec | Perioda regulacijskega posega.
+21.P coef. | 1.0 | Proporcionalni koeficient.
+23.Line SetD 1 | 75 °C | Nastavitvena točka tlačnega voda 1.
+24.Line SetD 2 | 90 °C | Nastavitvena točka tlačnega voda 2.
+25.Setdegree 1 | 6.0 °C | Ciljno pregretje 1.
+26.Setdegree 2 | 1.0 °C | Ciljno pregretje 2.
+27.Exh SV max | 105 °C | Največja nastavljena vrednost tlačnega voda.
+28.Exh SV Cold | 35 °C | Nastavljena vrednost tlačnega voda pri hlajenju.
+29.ExhSvTempCoef | 0.1 | Temperaturni koeficient nastavitve tlačnega voda.
+30.Exh SV Heat1 | 26.0 °C | Nastavljena vrednost tlačnega voda pri ogrevanju 1.
+31.Exh SV Heat2 | 28.0 °C | Nastavljena vrednost tlačnega voda pri ogrevanju 2.
+32.Exh SV Heat3 | 31.0 °C | Nastavljena vrednost tlačnega voda pri ogrevanju 3.
+33.Exh SV Heat4 | 34.0 °C | Nastavljena vrednost tlačnega voda pri ogrevanju 4.
+34.Exh SV Heat5 | 36.0 °C | Nastavljena vrednost tlačnega voda pri ogrevanju 5.
+35.EVI Open Rps | 45 rps | Hitrost kompresorja za odpiranje EVI.
+36.EVI close Rps | 40 rps | Hitrost kompresorja za zapiranje EVI.
+37.ExhOV open diff | 60 °C | Diferenca odpiranja ob pregretju tlačnega voda.
+38.EVI Exh diff | 60 °C | Diferenca tlačnega voda za EVI.
+39.EVI_For_liquid | OFF | EVI se uporablja za vbrizg kapljevine.
+40.Heat EVI A | 1000 | Ogrevanje: točka tabele EVI A.
+41.Heat EVI B | 1000 | Ogrevanje: točka tabele EVI B.
+42.Heat EVI E | 1000 | Ogrevanje: točka tabele EVI E.
+43.Heat EVI G | 1000 | Ogrevanje: točka tabele EVI G.
+44.Heat EVI C | 1000 | Ogrevanje: točka tabele EVI C.
+45.Heat EVI D | 1000 | Ogrevanje: točka tabele EVI D.
+46.Cool EVI | 1000 | Odprtje EVI pri hlajenju.
+47.ExhSvFreqCoef | 0 % | Frekvenčni koeficient nastavitve tlačnega voda.
+48.Heat I.Open OD5% | 25 % | Ogrevanje: začetno odprtje EVI, območje 5.
+`},
+{n:'08',name:'Nastavitve odmrzovanja',aud:'inst',rows:`
+01.Dfr.interval | 5 min | Najkrajši interval med odmrzovanji.
+02.Dfr.time | 600 sec | Najdaljše trajanje odmrzovanja.
+03.Dfr.time cnt | RUN.TIME | Način štetja intervala odmrzovanja (čas delovanja kompresorja).
+04.Dfr. Env.T | 12 °C | Zunanja temperatura, pod katero je odmrzovanje dovoljeno.
+05.Dfr. coil T | −1 °C | Temperatura lamel za začetek odmrzovanja.
+06.Dfr.coil T | 15 °C | Temperatura lamel za konec odmrzovanja.
+07.Dfr.out T | 10 °C | Temperatura izstopne vode za konec odmrzovanja.
+08.EWD.smartDfr | ON | Pametno odmrzovanje (po potrebi) omogočeno.
+09.Frost d1 | 4 °C | Diferenca zaznavanja ivja 1.
+10.Frost d2 | 6 °C | Diferenca zaznavanja ivja 2.
+11.T. sure time | 5 min | Čas potrditve pred odmrzovanjem.
+12.Dfr.Env.T.1 | 8 °C | Območje zunanje temperature 1 za tabelo intervalov.
+13.Dfr.Env.T.2 | 3 °C | Območje zunanje temperature 2.
+14.Dfr.Env.T.3 | −2 °C | Območje zunanje temperature 3.
+15.Dfr.Env.T.4 | −10 °C | Območje zunanje temperature 4.
+16.Dfr.inte. 1 | 90 min | Interval odmrzovanja v območju zunanje temperature 1.
+17.Dfr.inte. 2 | 60 min | Interval odmrzovanja v območju 2.
+18.Dfr.inte. 3 | 45 min | Interval odmrzovanja v območju 3.
+19.Dfr.inte. 4 | 60 min | Interval odmrzovanja v območju 4.
+20.Dfr.inte. 5 | 120 min | Interval odmrzovanja v območju 5.
+21.Dfr.T.diff 1 | 6 °C | Sprožilna diferenca lamele/okolica, območje 1.
+22.Dfr.T.diff 2 | 6 °C | Sprožilna diferenca, območje 2.
+23.Dfr.T.diff 3 | 6 °C | Sprožilna diferenca, območje 3.
+24.Dfr.T.diff 4 | 6 °C | Sprožilna diferenca, območje 4.
+25.Dfr.T.diff 5 | 6 °C | Sprožilna diferenca, območje 5.
+26.LP.dfr.dect. | OFF | Zaznavanje potrebe po odmrzovanju na podlagi nizkega tlaka.
+27.Dfr.time cnt | 5 min | Sekundarni števec intervala odmrzovanja.
+28.LP.dfr.cycle | 15 min | Cikel odmrzovanja na podlagi nizkega tlaka.
+29.LP.dfr.coilT | −8 °C | Temperatura lamel za odmrzovanje na podlagi nizkega tlaka.
+30.TimingDefrost | 3 HH | Časovno prisilno odmrzovanje vsakih N ur.
+31.Emerg EWD | 30 °C | Sprožilec zasilnega odmrzovanja.
+32.DfrStopCm. V | OFF | Ustavitev kompresorja ob koncu odmrzovanja (ventil).
+33.DfrStopCm.T1 | 30 sec | Čas ustavitve kompresorja 1 ob koncu.
+34.DfrStopV.T1 | 10 sec | Čas ventila 1 ob koncu.
+35.DfrStopCm.T2 | 30 sec | Čas ustavitve kompresorja 2.
+36.DfrStopV.T2 | 10 sec | Čas ventila 2.
+37.DfrStopFreq | 40 rps | Hitrost kompresorja ob koncu odmrzovanja.
+38.DrippingTime | 0 sec | Čas odcejanja po odmrzovanju.
+39.DFR.INTV.MIN | 0 min | Absolutno najkrajši interval odmrzovanja.
+40.DFR.INTV.EMERG | 5 min | Interval zasilnega odmrzovanja.
+41.DfrStopSet | start | Referenca za konec odmrzovanja (start/…).
+43.DFR_exit_eev_delay | 0 sec | Zakasnitev EEV ob koncu odmrzovanja.
+`},
+{n:'09',name:'Zaščita pred zmrzaljo in FCU / regulirana črpalka',aud:'inst',rows:`
+01.Atfr.inte. 1 | 40 min | Interval preverjanja zaščite pred zmrzaljo 1.
+02.Atfr.inte. 2 | 20 min | Interval preverjanja zaščite pred zmrzaljo 2.
+03.Atfr.pump T | 15 °C | Temperatura vode, pri kateri se vklopi črpalka za zaščito pred zmrzaljo.
+04.Atfr.Heat T | 10 °C | Temperatura vode, pri kateri se začne ogrevanje za zaščito pred zmrzaljo.
+05.Atfr.comp.T | 8 °C | Temperatura vode, pri kateri se vklopi kompresor za zaščito pred zmrzaljo.
+06.Atfr.Heat Out.T | 12 °C | Ciljna izstopna temperatura pri ogrevanju za zaščito pred zmrzaljo.
+07.Atfr.Comp Out.T | 15 °C | Ciljna izstopna temperatura pri delovanju kompresorja za zaščito pred zmrzaljo.
+08.Atfr.amb.T | 0 °C | Zunanja temperatura, pod katero se zaščita pred zmrzaljo aktivira.
+09.Atfr.enter.T | 4 °C | Temperatura vode za vstop v zaščito pred zmrzaljo.
+10.Atfr.ambDiff | 1 °C | Histereza zunanje temperature.
+11.Atfr.enable | ON | Glavni vklop zaščite pred zmrzaljo.
+12.PUMPsl_ANTIFREEZE | OFF | Zaščita solarne črpalke pred zmrzaljo.
+13.TIMED_ATFZ_INTV | 40 min | Interval časovne zaščite pred zmrzaljo.
+14.TIMED_ATFZ_MAX | 10 min | Najdaljše delovanje časovne zaščite pred zmrzaljo.
+32.Heat chg Env1 | 28 °C | Ogrevanje: točka zunanje temperature za spremembo pretoka 1 (krivulja FCU/radiatorji).
+33.Heat chg Env2 | 12 °C | Točka 2.
+34.Heat chg Env3 | 3 °C | Točka 3.
+35.Heat chg Env4 | −9 °C | Točka 4.
+36.Heat chg Env5 | −21 °C | Točka 5.
+37.Reach Temp SV RPM | 2000 rpm | Hitrost črpalke po doseženi želeni temperaturi.
+38.Reach Temp SV Flow | 700 L/H | Ciljni pretok po doseženi temperaturi.
+39.Pump SV Switch Delay | 30 sec | Zakasnitev preklopa hitrosti črpalke.
+40.Pumpf temp diff | 5 °C | Temperaturna diferenca za regulacijo regulirane črpalke.
+41.Pumpf speed_up cycle | 40 sec | Cikel povečevanja hitrosti črpalke.
+42.Pumpf speed_up scale | 5 % | Korak povečevanja hitrosti črpalke.
+43.Pumpf speed_down cycle | 60 sec | Cikel zniževanja hitrosti črpalke.
+44.Pumpf speed_down scale | 10 % | Korak zniževanja hitrosti črpalke.
+45.MIN traffic limit | 2100 L/H | Najmanjši dovoljeni pretok.
+46.Pumpf start speed | 0 rpm | Zagonska hitrost črpalke.
+`},
+{n:'10',name:'Zaščitne nastavitve',aud:'fact',rows:`
+01.Error dly | 6 sec | Splošna zakasnitev potrditve napake.
+02.Flow err dly | 15 sec | Zakasnitev napake pretoka.
+03.Auto.reset | 3 min | Čakanje na samodejno ponastavitev.
+04.Auto.re.awed | 60 min | Časovno okno samodejne ponastavitve.
+05.LP.alarm dly | 60 sec | Zakasnitev alarma nizkega tlaka.
+06.LP.dly defro | 90 sec | Zakasnitev nizkega tlaka po odmrzovanju.
+07.Cool LP dly. | 10 sec | Zakasnitev nizkega tlaka pri hlajenju.
+08.Heat LP dly. | 30 sec | Zakasnitev nizkega tlaka pri ogrevanju.
+09.Exit T. diff | 5 °C | Temperaturna diferenca za izhod.
+10.Air cool low | 4 °C | Najnižja zunanja temperatura za hlajenje.
+11.Air heat hihg | 78 °C | Najvišja temperatura vode pri ogrevanju (zapis kot na zaslonu).
+13.OutInDiffErr | 2 °C | Prag napake razlike izstop–vstop.
+14.gasInOutErr | 60 sec | Zakasnitev napake vstopa/izstopa plina.
+15.Comp. cu.low | OFF | Zaščita pred prenizkim tokom kompresorja.
+16.CM_RPS_DEC_PERCENT | 90 % | Odstotek znižanja hitrosti ob zaščiti.
+17.CM_RPS_DEC_PERIOD | 120 sec | Perioda znižanja hitrosti.
+18.OutInDiffHigh | 15 °C | Zgornja meja razlike izstop–vstop.
+19.CoolEvapLow | −11 °C | Spodnja meja temperature uparjalnika pri hlajenju.
+20.Exh Too High | 110 °C | Meja previsoke temperature tlačnega voda.
+21.Out Exh.H Diff | 15 °C | Meja visoke diference tlačnega voda.
+22.CoolGasInLow | 0 °C | Spodnja meja temperature vstopnega plina pri hlajenju.
+23.PwmSpeedTooLow | 100 rpm | Prag prenizke hitrosti PWM črpalke.
+24.PwmSpeedDly | 60 sec | Zakasnitev napake PWM.
+25.CmOffcheckLp | ON | Preverjanje nizkega tlaka pri izklopljenem kompresorju.
+26.HEAT_TWout1_LIMIT_1 | 80 °C | Meja izstopne temperature pri ogrevanju, stopnja 1.
+27.HEAT_TWout1_LIMIT_2 | 80 °C | Meja izstopne temperature pri ogrevanju, stopnja 2.
+28.HEAT_TWout1_LIMIT_3 | 80 °C | Meja izstopne temperature pri ogrevanju, stopnja 3.
+29.HEAT_TWout1_LIMIT_4 | 80 °C | Meja izstopne temperature pri ogrevanju, stopnja 4.
+30.HEAT_TWout1_LIMIT_5 | 80 °C | Meja izstopne temperature pri ogrevanju, stopnja 5.
+31.FLH_OVERHEAT_PROTECT | 35 °C | Zaščita talnega ogrevanja pred pregretjem.
+32.PRSs_OFF_TA | −35 °C | Izklop tipala sesalnega tlaka pri nizki zunanji temperaturi.
+33.Cool LP set | 0.1 bar | Izklop zaradi nizkega tlaka pri hlajenju.
+34.Heat LP set | 0.0 bar | Izklop zaradi nizkega tlaka pri ogrevanju.
+35.Cool HP set | 32.0 bar | Izklop zaradi visokega tlaka pri hlajenju.
+36.Heat HP set | 32.0 bar | Izklop zaradi visokega tlaka pri ogrevanju.
+37.LP reset diff | 0.1 bar | Diferenca ponastavitve nizkega tlaka.
+38.HP reset diff | 2.6 bar | Diferenca ponastavitve visokega tlaka.
+39.Cool LT Env. | 0 °C | Meja nizke zunanje temperature pri hlajenju.
+40.Cool LT DLY | 300 sec | Zakasnitev nizke temperature pri hlajenju.
+41.MAC SET CHECK | ON | Samopreverjanje nastavitev naprave.
+42.COOL_TWout1_LIMIT_COOL | 5 °C | Spodnja meja izstopne temperature pri hlajenju.
+43.UI35_COMMU_DETECT | ON | Nadzor komunikacije s krmilnikom (watchdog).
+44.INVT ERR AUTO RST | PART | Pravilo samodejne ponastavitve napak inverterja.
+46.HP adjust diff | −1.0 bar | Diferenca prilagoditve visokega tlaka.
+47.LP adjust diff | 0.2 bar | Diferenca prilagoditve nizkega tlaka.
+`},
+{n:'11',name:'Vhodi in tipala',aud:'inst',rows:`
+01.DI_LDIlp | NO | Vrsta vhoda tlačnega stikala nizkega tlaka (normalno odprt).
+02.DI_LDIhp | NC | Vrsta vhoda tlačnega stikala visokega tlaka (normalno zaprt).
+04.DI_LDIw | NC | Vrsta vhoda stikala pretoka vode.
+06.TRF_COMP_RPS_CORR | OFF | Korekcija hitrosti kompresorja po temperaturi hladiva.
+07.TRFgas_RPS_CORR_1 | 0 rps | Korekcija hitrosti po temperaturi plina 1.
+08.TRFgas_RPS_CORR_2 | 0 rps | Korekcija hitrosti po temperaturi plina 2.
+09.TRFgas_RPS_CORR_3 | 0 rps | Korekcija hitrosti po temperaturi plina 3.
+10.TRFgas_RPS_CORR_4 | 0 rps | Korekcija hitrosti po temperaturi plina 4.
+11.TRFgas_RPS_CORR_5 | 0 rps | Korekcija hitrosti po temperaturi plina 5.
+12.TRFliq_RPS_CORR_1 | 0 rps | Korekcija hitrosti po temperaturi kapljevine 1.
+13.TRFliq_RPS_CORR_2 | 0 rps | Korekcija hitrosti po temperaturi kapljevine 2.
+14.TRFliq_RPS_CORR_3 | 0 rps | Korekcija hitrosti po temperaturi kapljevine 3.
+15.TRFliq_RPS_CORR_4 | 0 rps | Korekcija hitrosti po temperaturi kapljevine 4.
+16.TRFliq_RPS_CORR_5 | 0 rps | Korekcija hitrosti po temperaturi kapljevine 5.
+17.TRFliq_RPS_CORR_6 | 0 rps | Korekcija hitrosti po temperaturi kapljevine 6.
+18.TRFliq_RPS_CORR_7 | 0 rps | Korekcija hitrosti po temperaturi kapljevine 7.
+20.TFLin_SENSOR | OFF | Je vgrajeno tipalo vstopa talne zanke?
+21.TWout3_SENSOR | OFF | Je vgrajeno tipalo vode talne zanke (TWout3)?
+22.LDIevu_DI_TYPE | NO | Vrsta vhoda EVU za pametno omrežje.
+23.LDIsg_DI_TYPE | NO | Vrsta vhoda SG za pametno omrežje.
+24.T_SENSOR_CFG | REGULAR | Konfiguracija temperaturnih tipal.
+25.CAP_LOW_CPST | 0.00 | Kompenzacija nizke moči.
+26.TSL_SENSOR | OFF | Je vgrajeno tipalo sončnega kolektorja (TSL)?
+29.J5 range min. | 0.0 bar | Spodnja meja merilnega območja tlačnega tipala J5.
+30.J5 range max. | 20.0 bar | Zgornja meja merilnega območja tlačnega tipala J5.
+31.J6 range min. | 0.0 bar | Spodnja meja merilnega območja tlačnega tipala J6.
+32.J6 range max. | 20.0 bar | Zgornja meja merilnega območja tlačnega tipala J6.
+33.TACt1_SENSOR | OFF | Je vgrajeno spodnje tipalo hranilnika toplote (TACt1)?
+34.TACt2_SENSOR | OFF | Je vgrajeno zgornje tipalo hranilnika toplote (TACt2)?
+35.PRS_SENSOR_CFG | ONLY LP | Nabor tlačnih tipal (tu samo nizki tlak).
+36.FAN POWER | 0 | Nazivna moč ventilatorja (W) za merjenje energije.
+37.PUMP POWER | 0 | Moč črpalke (W) za merjenje.
+38.IBH1 POWER | 0 | Moč rezervnega grelca 1 (W).
+39.IBH2 POWER | 0 | Moč rezervnega grelca 2 (W).
+40.IDLE POWER | 0 | Moč v stanju pripravljenosti (W).
+41.OTHER RUN POWER | 0 | Korekcija druge moči med delovanjem (W).
+42.TWout2_SENSOR | OFF | Je vgrajeno tipalo vode TSV/ogrevanja-hlajenja (TWout2)?
+43.CAP_EVI_COEF | 1.10 | Koeficient moči EVI.
+44.CAP_INTE_COEF | 1.00 | Koeficient integracije moči.
+45.CAP_HIGH_CPST | 0.00 | Kompenzacija visoke moči.
+46.R290_SEN_ID | 1 | Komunikacijski ID plinskega tipala R290.
+47.R290_SEN_BA | 32 | Hitrost prenosa/naslov plinskega tipala R290.
+`},
+{n:'12',name:'Testiranje',aud:'fact',rows:`
+01.Debug set. | OFF | Vklop načina za razhroščevanje/testiranje.
+02.Heat CompA | 75 rps | Testna hitrost kompresorja pri ogrevanju, točka A.
+03.Heat Fan A | 860 rpm | Testna hitrost ventilatorja pri ogrevanju, A.
+04.Heat EEV A | 1000 | Testno odprtje EEV pri ogrevanju, A.
+05.Heat CompB | 70 rps | Testna hitrost kompresorja, B.
+06.Heat Fan B | 800 rpm | Testna hitrost ventilatorja, B.
+07.Heat EEV B | 1000 | Testni EEV, B.
+08.Heat CompE | 70 rps | Testna hitrost kompresorja, E.
+09.Heat Fan E | 800 rpm | Testna hitrost ventilatorja, E.
+10.Heat EEV E | 1000 | Testni EEV, E.
+11.Heat CompG | 70 rps | Testna hitrost kompresorja, G.
+12.Heat Fan G | 800 rpm | Testna hitrost ventilatorja, G.
+13.Heat EEV G | 1000 | Testni EEV, G.
+14.Heat CompC | 70 rps | Testna hitrost kompresorja, C.
+15.Heat Fan C | 800 rpm | Testna hitrost ventilatorja, C.
+16.Heat EEV C | 1000 | Testni EEV, C.
+17.Heat CompD | 70 rps | Testna hitrost kompresorja, D.
+18.Heat Fan D | 800 rpm | Testna hitrost ventilatorja, D.
+19.Heat EEV D | 1000 | Testni EEV, D.
+20.Cool Comp | 70 rps | Testna hitrost kompresorja pri hlajenju.
+21.Cool Fan | 800 rpm | Testna hitrost ventilatorja pri hlajenju.
+22.Cool EEV | 1000 | Testno odprtje EEV pri hlajenju.
+23.Heat EWD A | 6 °C | Testna diferenca vode za odmrzovanje, A.
+24.Heat Itvl A | 100 min | Testni interval odmrzovanja, A.
+25.Heat Step A | 400 step | Testni korak EEV, A.
+26.Heat Freq A | 70 rps | Testna frekvenca, A.
+27.Heat Wing A | 5 °C | Testno pregretje, A.
+28.Heat Time A | 300 sec | Testni čas delovanja, A.
+29.Heat EWD B | 6 °C | Testna diferenca odmrzovanja, B.
+30.Heat Itvl B | 100 min | Testni interval, B.
+31.Heat Step B | 400 step | Testni korak EEV, B.
+32.Heat Freq B | 70 rps | Testna frekvenca, B.
+33.Heat Wing B | 5 °C | Testno pregretje, B.
+34.Heat Time B | 300 sec | Testni čas, B.
+35.Heat EWD E | 6 °C | Testna diferenca odmrzovanja, E.
+36.Heat Itvl E | 100 min | Testni interval, E.
+37.Heat Step E | 400 step | Testni korak EEV, E.
+38.Heat Freq E | 70 rps | Testna frekvenca, E.
+39.Heat Wing E | 5 °C | Testno pregretje, E.
+40.Heat Time E | 300 sec | Testni čas, E.
+41.Heat EWD G | 6 °C | Testna diferenca odmrzovanja, G.
+42.Heat Itvl G | 100 min | Testni interval, G.
+43.Heat Step G | 400 step | Testni korak EEV, G.
+44.Heat Freq G | 70 rps | Testna frekvenca, G.
+45.Heat Wing G | 5 °C | Testno pregretje, G.
+46.Heat Time G | 300 sec | Testni čas, G.
+47.INVT_PFC | Auto | Način korekcije faktorja moči inverterja.
+48.PUMPf_MANUAL | 0 | Ročni izhod za test črpalke.
+`},
+{n:'13',name:'Energijsko vodenje (omejitve in rezervno ogrevanje)',aud:'inst',rows:`
+01.NRG_CTRL_CYCLE | 60 sec | Cikel posodabljanja energijskega vodenja.
+02.COOL_LOAD_dT | 4.0 °C | Diferenca povečanja obremenitve pri hlajenju.
+03.COOL_UNLOAD_dT | 2.0 °C | Diferenca zmanjšanja obremenitve pri hlajenju.
+04.HEAT_LOAD_dT | 4.0 °C | Diferenca povečanja obremenitve pri ogrevanju.
+05.HEAT_UNLOAD_dT | 2.0 °C | Diferenca zmanjšanja obremenitve pri ogrevanju.
+06.ROOM_TEMP_dT | 2 °C | Histereza regulacije sobne temperature.
+07.CL_SET_T_MIN | 6 °C | Najnižja dovoljena nastavljena vrednost hlajenja.
+08.CL_SET_T_MAX | 26 °C | Najvišja dovoljena nastavljena vrednost hlajenja.
+09.HT_SET_T_MIN | 28 °C | Najnižja dovoljena nastavljena vrednost ogrevanja.
+10.HT_SET_T_MAX | 75 °C | Najvišja dovoljena nastavljena vrednost ogrevanja.
+11.CL_TA_MIN | −7 °C | Hlajenje: najnižja zunanja temperatura.
+12.CL_TA_MAX | 50 °C | Hlajenje: najvišja zunanja temperatura.
+13.HT_TA_MIN | −26 °C | Ogrevanje: najnižja zunanja temperatura.
+14.HT_TA_MAX | 50 °C | Ogrevanje: najvišja zunanja temperatura.
+15.HW_TA_MIN | −26 °C | TSV: najnižja zunanja temperatura.
+16.HW_TA_MAX | 50 °C | TSV: najvišja zunanja temperatura.
+17.AUTO_CL_TA_MIN | 25 °C | Način Auto: preklop na hlajenje nad to zunanjo temperaturo.
+18.AUTO_HT_TA_MAX | 17 °C | Način Auto: preklop na ogrevanje pod to zunanjo temperaturo.
+19.HOLIDAY_AWAY_ThS | 25 °C | Nastavljena temperatura ogrevanja v načinu odsotnosti (počitnice).
+20.HOLIDAY_AWAY_ThwS | 25 °C | Nastavljena temperatura TSV v načinu odsotnosti (počitnice).
+21.ECO_RUN_TIME | 0 min | Čas delovanja v načinu Eco.
+22.IBH | OFF | Vklop rezervnega električnega grelca za ogrevanje prostorov (IBH).
+23.AHS | OFF | Vklop zunanjega/pomožnega vira toplote.
+24.IBH_ON_HI_dT | 5 °C | Vklop IBH: velik primanjkljaj temperature.
+25.IBH_ON_LO_dT | 2 °C | Vklop IBH: majhen primanjkljaj.
+26.IBH_GEAR | 1 | Število stopenj IBH.
+27.IBH_ON_DLY | 30 min | Zakasnitev pred vklopom IBH.
+28.IBH_ON_TA | −5 °C | Zunanja temperatura, pod katero lahko IBH pomaga.
+29.IBH_ON_dT | 5 °C | Diferenca vklopa IBH.
+30.TBH_ON_DLY | 90 min | Zakasnitev pred vklopom grelca v hranilniku TSV (TBH).
+31.TH open Env. | −30 °C | Zunanja temperatura za vklop grelca v hranilniku.
+32.EXH open dly. | 30 min | Zakasnitev vklopa zunanjega vira toplote.
+33.EXH open diff | 5 °C | Diferenca vklopa zunanjega vira.
+34.EXH close diff | 0 °C | Diferenca izklopa zunanjega vira.
+35.EXH open Env. | 5 °C | Zunanja temperatura za vklop zunanjega vira.
+36.HOT_WATER_ON_MAX | 90 min | Najdaljše neprekinjeno delovanje za TSV.
+37.HOT_WATER_PRIOR_LIMIT | 30 min | Najdaljši čas, ko lahko TSV zadržuje ogrevanje.
+38.obj.Egy.Cpst | cpst sv | Objekt energijske kompenzacije.
+39.ALL_COMP_ON_Dt | 6 °C | Diferenca za vklop vseh kompresorjev (kaskada).
+40.TF_heat_step | 380 step | Korak EEV pri ogrevanju do dosežene temperature.
+41.TF_heat_freq | 40 rps | Frekvenca pri ogrevanju do dosežene temperature.
+42.TF_heat_time | 40 sec | Čas ogrevanja do dosežene temperature.
+43.TF_cool_step | 230 step | Korak EEV pri hlajenju do dosežene temperature.
+44.TF_cool_freq | 60 rps | Frekvenca pri hlajenju do dosežene temperature.
+45.TF_cool_time | 60 sec | Čas hlajenja do dosežene temperature.
+46.TF_IBH_time | 40 sec | Čas rezervnega ogrevanja do dosežene temperature.
+47.TF_heat_fan | 600 rpm | Hitrost ventilatorja pri ogrevanju do dosežene temperature.
+48.TF_cool_fan | 400 rpm | Hitrost ventilatorja pri hlajenju do dosežene temperature.
+`},
+{n:'14',name:'Inženirske nastavitve',aud:'inst',rows:`
+01.PUMPf_CTRL | PWR.ON.ONLY | Način regulacije črpalke. Možnosti: RPM.CTRL / FLOW.CTRL / PWR.ON.ONLY / POWER.CTRL / OUT_IN T_diff CTRL.
+03.PUMP SV RPM | 2600 rpm | Ciljna hitrost črpalke (regulacija po vrtljajih).
+04.PUMPf_MODEL | 1 | Izbira modela črpalke.
+05.PUMP SV Flow | 1400 L/H | Ciljni pretok črpalke (regulacija po pretoku).
+06.PUMPret_RUN_t | 5 min | Čas delovanja cirkulacijske črpalke TSV.
+07.PUMPret_STERILIZATION | OFF | Delovanje cirkulacijske črpalke med dezinfekcijo.
+08.PUMPret_TIMER | OFF | Cirkulacijska črpalka po časovniku.
+09.FLOOR_PREHEAT_TEMP | 25 °C | Ciljna temperatura predgrevanja tal.
+10.FLOOR_PREHEAT_INTERVAL | 30 min | Interval korakov predgrevanja tal.
+11.FLOOR_PREHEAT_MAX | 72 HH | Najdaljše trajanje predgrevanja tal (ure).
+12.FLH_WATER_dT | 5 °C | Diferenca vode pri talnem ogrevanju.
+13.FLH_ROOM_dT | 1 °C | Diferenca prostora pri talnem ogrevanju.
+14.FLH_DRYUP_HEAD | 8 DD | Sušenje estriha: dnevi postopnega dviga.
+15.FLH_DRYUP_MID | 5 DD | Sušenje estriha: dnevi zadrževanja.
+16.FLH_DRYUP_TAIL | 5 DD | Sušenje estriha: dnevi postopnega spusta.
+17.FLH_DRYUP_TEMP | 45 °C | Sušenje estriha: najvišja temperatura.
+18.A_ZONE_CL_TD | FCU | Vrsta končnih enot za hlajenje cone A (ventilatorski konvektor).
+19.A_ZONE_HT_TD | RAD | Vrsta končnih enot za ogrevanje cone A (radiator).
+22.FLOW_SENSER_MODEL | 0 | Model tipala pretoka (zapis kot na zaslonu).
+23.WATER_DIVIDE_FUN | OFF | Funkcija razdelitve vode.
+24.WATER_DIVIDE_CFG | ALL_ODU | Konfiguracija razdelitve vode (vse zunanje enote).
+29.PUMPsl_ON_THWt_TEMP | 70 °C | Vklop solarne črpalke: temperatura hranilnika.
+30.PUMPsl_ON_THWt_dT | 5 °C | Vklop solarne črpalke: diferenca hranilnika.
+31.PUMPsl_ON_WATER_TEMP | 62 °C | Vklop solarne črpalke: temperatura vode.
+32.PUMPsl_ON_WATER_dT | 5 °C | Vklop solarne črpalke: diferenca vode.
+33.REF_RECYCLE | OFF | Pomoč pri zajemu hladiva.
+34.R&R_EEVm | 400 step | Odprtje EEVm pri zajemu hladiva.
+35.R&R_LDIlp_t | 0 sec | Čas nizkega tlaka pri zajemu hladiva.
+36.S3V3_ACT_PERIOD | 360 sec | Perioda delovanja 3-potnega ventila S3V3.
+40.UNIT_MAX | 1 | Število naprav v kaskadi.
+41.HOTW_UNIT_NUM | 1 | Število naprav, dodeljenih TSV.
+42.OUT_ADD_DF_CPST | 5.0 | Kompenzacija dodatnega odmrzovanja zunanje enote.
+43.PUMPo_FUNC | PUMPo_A | Funkcija/izhod zunanje črpalke (PUMPo).
+46.BMS_DATA_FMT | 8,N,1 | Podatkovni format BMS Modbus.
+47.BMS_BAUDRATE | 9600 | Hitrost prenosa BMS Modbus.
+48.BMS_ADDR | 1 | Naslov BMS Modbus.
+`},
+{n:'15',name:'Delovna frekvenca (karta hitrosti kompresorja)',aud:'fact',rows:`
+01.ClUpEnv50In05 | 45 rps | Ciljna hitrost pri postopnem dvigu, hlajenje: zunanja temperatura 50 °C, voda 5 °C.
+02.ClUpEnv43In05 | 64 rps | Hlajenje: zunanja 43, voda 5.
+03.ClUpEnv35In05 | 80 rps | Hlajenje: zunanja 35, voda 5.
+04.ClUpEnv-05In05 | 60 rps | Hlajenje: zunanja −5, voda 5.
+05.ClUpEnv50In15 | 45 rps | Hlajenje: zunanja 50, voda 15.
+06.ClUpEnv43In15 | 64 rps | Hlajenje: zunanja 43, voda 15.
+07.ClUpEnv35In15 | 70 rps | Hlajenje: zunanja 35, voda 15.
+08.ClUpEnv-05In15 | 55 rps | Hlajenje: zunanja −5, voda 15.
+09.ClUpEnv50In23 | 45 rps | Hlajenje: zunanja 50, voda 23.
+10.ClUpEnv43In23 | 64 rps | Hlajenje: zunanja 43, voda 23.
+11.ClUpEnv35In23 | 70 rps | Hlajenje: zunanja 35, voda 23.
+12.ClUpEnv-05In23 | 55 rps | Hlajenje: zunanja −5, voda 23.
+13.ClUpEnv50In35 | 40 rps | Hlajenje: zunanja 50, voda 35.
+14.ClUpEnv43In35 | 52 rps | Hlajenje: zunanja 43, voda 35.
+15.ClUpEnv35In35 | 56 rps | Hlajenje: zunanja 35, voda 35.
+16.ClUpEnv-05In35 | 46 rps | Hlajenje: zunanja −5, voda 35.
+17.ClDnEnv50 | 25 rps | Hitrost pri postopnem spustu, hlajenje, zunanja temperatura 50.
+18.ClDnEnv43 | 25 rps | Spust pri hlajenju pri 43.
+19.ClDnEnv35 | 25 rps | Spust pri hlajenju pri 35.
+20.ClDnEnv-05 | 25 rps | Spust pri hlajenju pri −5.
+21.HtUpEnv43In15 | 64 rps | Postopni dvig pri ogrevanju: zunanja 43, voda 15.
+22.HtUpEnv07In15 | 72 rps | Ogrevanje: zunanja 7, voda 15.
+23.HtUpEnv00In15 | 78 rps | Ogrevanje: zunanja 0, voda 15.
+24.HtUpEnv-07In15 | 80 rps | Ogrevanje: zunanja −7, voda 15.
+25.HtUpEnv-12In15 | 85 rps | Ogrevanje: zunanja −12, voda 15.
+26.HtUpEnv-25In15 | 85 rps | Ogrevanje: zunanja −25, voda 15.
+27.HtUpEnv43In30(50) | 64 rps | Ogrevanje: zunanja 43, voda 30 (območje do 50).
+28.HtUpEnv07In30(50) | 72 rps | Ogrevanje: zunanja 7, voda 30.
+29.HtUpEnv00In30(50) | 78 rps | Ogrevanje: zunanja 0, voda 30.
+30.HtUpEnv-07In30(50) | 80 rps | Ogrevanje: zunanja −7, voda 30.
+31.HtUpEnv-12In30(50) | 85 rps | Ogrevanje: zunanja −12, voda 30.
+32.HtUpEnv-25In30(50) | 86 rps | Ogrevanje: zunanja −25, voda 30.
+33.HtUpEnv43In40(62) | 60 rps | Ogrevanje: zunanja 43, voda 40 (območje do 62).
+34.HtUpEnv07In40(62) | 68 rps | Ogrevanje: zunanja 7, voda 40.
+35.HtUpEnv00In40(62) | 74 rps | Ogrevanje: zunanja 0, voda 40.
+36.HtUpEnv-07In40(62) | 78 rps | Ogrevanje: zunanja −7, voda 40.
+37.HtUpEnv-12In40(62) | 82 rps | Ogrevanje: zunanja −12, voda 40.
+38.HtUpEnv-25In40(62) | 85 rps | Ogrevanje: zunanja −25, voda 40.
+39.HtUpEnv43In55(75) | 54 rps | Ogrevanje: zunanja 43, voda 55 (območje do 75).
+40.HtUpEnv07In55(75) | 58 rps | Ogrevanje: zunanja 7, voda 55.
+41.HtUpEnv00In55(75) | 64 rps | Ogrevanje: zunanja 0, voda 55.
+42.HtUpEnv-07In55(75) | 68 rps | Ogrevanje: zunanja −7, voda 55.
+43.HtUpEnv-12In55(75) | 68 rps | Ogrevanje: zunanja −12, voda 55.
+44.HtUpEnv-25In55(75) | 70 rps | Ogrevanje: zunanja −25, voda 55.
+45.HtDnEnv43 | 25 rps | Hitrost pri postopnem spustu, ogrevanje, zunanja temperatura 43.
+46.HtDnEnv00 | 25 rps | Spust pri ogrevanju pri 0.
+47.HtDnEnv-12 | 40 rps | Spust pri ogrevanju pri −12.
+48.HtDnEnv-25 | 40 rps | Spust pri ogrevanju pri −25.
+`},
+{n:'16',name:'EXT parametri I (napredno)',aud:'inst',rows:`
+01.CM_MODEL_ID | 1 | ID modela kompresorja.
+07.INSUFFICIENT FLOW RATE | 0 L/H | Pretok, ki se šteje za »prenizek«.
+08.Switch_S3V1_Comp_Action | None | Odziv kompresorja ob preklopu S3V1.
+09.AutoAdjustSet | OFF | Samodejno prilagajanje nastavljenih vrednosti.
+10.Heat_tmp_up | 0.1 °C | Ogrevanje: korak samodejnega dviga.
+11.Heat_aj_period | 40 sec | Ogrevanje: perioda samodejne prilagoditve.
+12.Cool_tmp_down | 0.1 °C | Hlajenje: korak samodejnega spusta.
+13.Cool_aj_period | 40 sec | Hlajenje: perioda samodejne prilagoditve.
+14.INIT_FREQ_ADJ | OFF | Prilagoditev začetne frekvence.
+15.FREQ_ARITH | PID | Algoritem regulacije frekvence (PID).
+16.PFC_Close_Freq | 60 rps | Hitrost za izklop korekcije faktorja moči.
+21.FLOW sensor type | 0.5-3.5V | Vrsta signala tipala pretoka.
+22.FLOW sensor range min | 0 L/H | Spodnja meja tipala pretoka.
+23.FLOW sensor range max | 0 L/H | Zgornja meja tipala pretoka.
+27.SMART GRID LOCK TIME MAX | 0 min | Najdaljši čas blokade pametnega omrežja.
+28.SMART GRID TEMP 1 | 5 °C | Temperaturni odmik pametnega omrežja 1.
+29.STOP_SP_DW_USE | OFF | Uporaba funkcije zniževanja hitrosti ob ustavitvi.
+30.STOP_DW_PERIOD | 6 sec | Perioda zniževanja hitrosti ob ustavitvi.
+32.Room heat ev coef | 0.00 | Ekspanzijski koeficient ogrevanja prostora.
+33.Room cool ev coef | 0.00 | Ekspanzijski koeficient hlajenja prostora.
+34.Room temp diff coef | 0.00 | Koeficient razlike sobne temperature.
+35.Room heat ctrl time | 60 sec | Perioda regulacije ogrevanja prostora.
+36.Room cool ctrl time | 60 sec | Perioda regulacije hlajenja prostora.
+37.Room water heat diff | 25 °C | Sobni način: razlika voda/prostor pri ogrevanju.
+38.Room water cool diff | 0 °C | Sobni način: razlika voda/prostor pri hlajenju.
+41.Room temp ctrl scheme | Scheme_3 | Shema regulacije sobne temperature (1–3). Za EEBUS je potrebna shema 3.
+`},
+];
+
+const AUD={user:'Uporabnik',inst:'Monter',fact:'Tovarniško'};
+const AUDNOTE={
+ fact:'Tovarniška kalibracija — vrednosti so privzete nastavitve te naprave, prikazane informativno. Ne spreminjajte.',
+ inst:'Monter / zagon — spreminjajte le pri nastavljanju sistema.',
+ user:'Vsakodnevne uporabniške nastavitve — varno jih je prilagajati.'
+};
+
+/* build flat list */
+const FLAT=[];
+GROUPS.forEach(g=>{
+  g.rows.trim().split('\n').forEach(line=>{
+    if(!line.trim())return;
+    const p=line.split(' | ');
+    if(p.length<3)return;
+    FLAT.push({g:g.n,gname:g.name,aud:g.aud,code:p[0].trim(),val:p.slice(1,-1).join(' | ').trim(),desc:p[p.length-1].trim()});
+  });
+});
+
+let curFilter='all';
+function renderP(q){
+  q=(q||'').toLowerCase();
+  const body=document.getElementById('pbody');body.innerHTML='';
+  let lastG=null,shown=0;
+  FLAT.forEach(r=>{
+    if(curFilter!=='all'&&r.g!==curFilter)return;
+    const hay=(r.code+' '+r.val+' '+r.desc+' '+r.gname).toLowerCase();
+    if(q&&!hay.includes(q))return;
+    if(r.g!==lastG){
+      const g=GROUPS.find(x=>x.n===r.g);
+      const hr=document.createElement('tr');hr.className='grouphdr';
+      hr.innerHTML='<td colspan="3">'+r.g+' · '+g.name+' <span class="badge '+r.aud+'">'+AUD[r.aud]+'</span> <span class="gb">— '+AUDNOTE[r.aud]+'</span></td>';
+      body.appendChild(hr);lastG=r.g;
+    }
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td><code>'+r.code+'</code></td><td class="pv">'+r.val+'</td><td>'+r.desc+'</td>';
+    body.appendChild(tr);shown++;
+  });
+  if(!shown)body.innerHTML='<tr><td colspan="3" class="muted" style="padding:18px;color:var(--mut)">Iskanju ne ustreza noben parameter.</td></tr>';
+}
+/* group filter chips */
+const gf=document.getElementById('gfilter');
+function chip(id,label){const b=document.createElement('button');b.textContent=label;if(id==='all')b.classList.add('active');
+  b.onclick=()=>{curFilter=id;[...gf.children].forEach(c=>c.classList.remove('active'));b.classList.add('active');renderP(document.getElementById('psearch').value);};gf.appendChild(b);}
+chip('all','Vse skupine');
+GROUPS.forEach(g=>chip(g.n,g.n+' '+g.name.replace(/ \(.*\)/,'')));
+document.getElementById('psearch').addEventListener('input',e=>renderP(e.target.value));
+renderP('');
+
+/* ============ GLOSSARY ============ */
+const GLOSSARY=[
+ ['cat','Temperature, ki jih naprava meri (tipala)'],
+ ['TA / TA′','Zunanja temperatura zraka','Vpliva na vremensko vodenje in časovno izbiro odmrzovanja.'],
+ ['TR','Sobna temperatura','Krmilnik jo odčitava pri regulaciji po sobni temperaturi.'],
+ ['TF','Temperatura zunanjega lamelnega izmenjevalnika','Uporablja se za odločitev, kdaj odmrzovati.'],
+ ['TS / TD','Temperatura sesalnega / tlačnega voda','Zaščita kompresorja na strani hladiva.'],
+ ['TES','Tipalo ekonomajzerja / uparjalnika','Temperatura v hladilnem krogu.'],
+ ['TWin1 / TWout1','Vstop / izstop vode ploščnega izmenjevalnika','Povratek / dovod na toplotnem izmenjevalniku.'],
+ ['TWout2','Temperatura vode TSV / ogrevanja-hlajenja','Tipalo hranilnika ali vode za ogrevanje/hlajenje.'],
+ ['TWout3','Temperatura vode talne zanke','Dovod nizkotemperaturne cone (talno ogrevanje).'],
+ ['THWt','Temperatura hranilnika sanitarne vode','Regulira toplo sanitarno vodo.'],
+ ['TRFgas / TRFliq','Temperatura plinastega / kapljevitega hladiva','Diagnostika hladiva.'],
+ ['TSL','Temperatura sončnega kolektorja','Regulacija solarnega ogrevanja vode (če je vgrajeno).'],
+ ['TACt1 / TACt2','Spodnja / zgornja temperatura hranilnika toplote','Tipali 200-litrskega hranilnika toplote.'],
+ ['TAFD','Tipalo tlačnega voda za odmrzovanje','−99.9 °C pomeni, da ni vgrajeno.'],
+ ['cat','Ventili'],
+ ['RV','4-potni (preklopni) ventil','Preklaplja napravo med OGREVANJEM in HLAJENJEM.'],
+ ['EEV / EEVm / EEVs','Glavni / pomožni elektronski ekspanzijski ventil','Dozira pretok hladiva (koraki).'],
+ ['EVI','Vbrizg pare (Enhanced Vapor Injection)','Krog ekonomajzerja za večjo moč v mrazu.'],
+ ['S3V1 / S3V2 / S3V3','Elektromagnetni 3-potni ventili','Preusmeritev na TSV / cona / mešanje.'],
+ ['cat','Električni grelci'],
+ ['IBH','Notranji rezervni grelec','Električno rezervno ogrevanje prostorov (izhod Out B na plošči).'],
+ ['TBH','Rezervni grelec hranilnika','Električni grelec v hranilniku TSV (izhod Out C na plošči).'],
+ ['AHS','Pomožni vir toplote','Zunanji kotel / vir toplote.'],
+ ['QZH','Grelec ohišja kompresorja','Ohranja olje toplo / preprečuje kapljevino v kompresorju.'],
+ ['DPH','Grelec kadi (podstavka)','Tali led v odtočni kadi zunanje enote.'],
+ ['cat','Črpalke in ventilator'],
+ ['PUMPf','Glavna črpalka s spremenljivo hitrostjo','Primarna obtočna črpalka (regulacija PWM/pretok).'],
+ ['PUMPo','Zunanja obtočna črpalka','Dodatna sistemska črpalka (izhod Out A na plošči).'],
+ ['PUMPsl','Solarna črpalka','Solarni krog (izhod Out D na plošči).'],
+ ['PUMPret','Cirkulacijska črpalka TSV','Povratna zanka za takojšnjo toplo vodo.'],
+ ['FAN1 / FANf','Ventilator s spremenljivo hitrostjo (inverterski)','Zunanji ventilator.'],
+ ['cat','Kompresor / inverter'],
+ ['CM / COMP','Kompresor','»rps« = vrtljaji/s = hitrost.'],
+ ['INVT','Inverterski pogon','Pogon kompresorja s spremenljivo hitrostjo (napetost/tok/temperatura).'],
+ ['PRSs / PRSd','Sesalni / tlačni tlak','Tlaki hladiva (bar).'],
+ ['LP / HP','Nizki / visoki tlak','Zaščitni izklopi in regulacijske lestvice.'],
+ ['SH / SHSV / SHPV','Pregretje','Pregretje hladiva, ki se uporablja za regulacijo EEV.'],
+ ['cat','Stikala, vhodi in omrežje'],
+ ['DI / LDI','Digitalni vhod','Vhod za brezpotencialni kontakt (NO = normalno odprt, NC = normalno zaprt).'],
+ ['LDIw','Stikalo pretoka vode','Ustavi napravo, če ni pretoka.'],
+ ['SG / EVU','Signali pametnega omrežja','Vhodi distributerja / mrežnega krmiljenja (sponki 12/13).'],
+ ['EEBUS','Huawei povezava za zeleno energijo','Daje prednost elektriki iz FE / poceni elektriki (ni združljivo s SG).'],
+ ['cat','Načini in konfiguracija'],
+ ['CTRL_MODE','Heat / Cool / Auto','Vsakodnevni način delovanja.'],
+ ['AC_TYPE','Funkcija naprave [Air Conditioning Type]','Samo tri možnosti: [0] Heating Only · [1] Heating & Cooling (tovarniško privzeto) · [2] Cooling Only. Možnosti samo za TSV ni — topla sanitarna voda se vklopi ločeno z [Hot Water Function] / 17.HOT_WATER.'],
+ ['WIRE_SW_TYPE / PANEL_CTRL','Obseg con in krmilnika','Ena / dve / tri cone; izbere postavitev sistema v hiši.'],
+ ['POWER_MODE','Način moči','Standard / Strong / Energy-saving / Auto.'],
+ ['ECM','Merjenje energije','Zgodovina porabe elektrike, moči in učinkovitosti.'],
+];
+function glbuild(f){const tb=document.getElementById('glbody');tb.innerHTML='';f=(f||'').toLowerCase();let shown=0,lastCat=null,catRow=null;
+  GLOSSARY.forEach(g=>{if(g[0]==='cat'){lastCat=g[1];catRow=null;return;}
+    const hay=(g[0]+' '+g[1]+' '+g[2]).toLowerCase();if(f&&!hay.includes(f))return;
+    if(!catRow){const hr=document.createElement('tr');hr.className='grouphdr';hr.innerHTML='<td colspan="3">'+lastCat+'</td>';tb.appendChild(hr);catRow=hr;}
+    const tr=document.createElement('tr');tr.innerHTML='<td><code>'+g[0]+'</code></td><td><b style="color:#fff">'+g[1]+'</b></td><td style="color:var(--mut)">'+g[2]+'</td>';tb.appendChild(tr);shown++;});
+  if(!shown)tb.innerHTML='<tr><td colspan="3" style="padding:16px;color:var(--mut)">Izrazu »'+f+'« ne ustreza nobena oznaka.</td></tr>';}
+glbuild('');
+document.getElementById('glsearch').addEventListener('input',e=>glbuild(e.target.value));
+
+/* ============ lightbox ============ */
+const lb=document.getElementById('lightbox'),lbimg=document.getElementById('lbimg');
+document.addEventListener('click',e=>{
+  if(e.target.tagName==='IMG'&&e.target.closest('.shot')){lbimg.src=e.target.src;lb.classList.add('show');}
+  if(e.target===lb||e.target.classList.contains('x'))lb.classList.remove('show');
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('show');});
+</script>
+</body>
+</html>
